@@ -176,6 +176,104 @@ const goalBlock: Block = {
   ],
 };
 
+const isPartner = (ctx: QuestionContext) => ctx.person?.kind === "partner";
+
+/**
+ * Bloco 11 · Perfil profissional: aprofunda a carreira de você e do cônjuge.
+ * Base para o "norte" dos caminhos de visto (docs/caminhos-visto.md). As opções de conquistas
+ * espelham, em linguagem simples, os tipos de evidência listados pelo USCIS, sem afirmar qualificação.
+ */
+const careerBlock: Block = {
+  id: "career",
+  number: 11,
+  stage: "complete",
+  minutes: 4,
+  items: allOptional([
+    {
+      group: "workers",
+      questions: [
+        { id: "career.nationalities", type: "countries", when: isPartner },
+        {
+          id: "career.education",
+          type: "single",
+          options: ["primary", "secondary", "technical", "bachelor", "postgrad", "master", "doctorate"],
+          optionsFrom: "you.education",
+          when: isPartner,
+        },
+        {
+          id: "career.field",
+          type: "text",
+          when: (ctx) => isPartner(ctx) && HIGHER_EDUCATION.has(String(p(ctx, "career.education"))),
+        },
+        { id: "career.experienceYears", type: "number", min: 0, maxValue: 70, when: isPartner },
+        {
+          id: "career.regulated",
+          type: "single",
+          options: ["yes", "no", "unsure"],
+          optionsFrom: "you.regulated",
+          when: isPartner,
+        },
+        {
+          id: "career.sector",
+          type: "single",
+          options: [
+            "tech",
+            "health",
+            "engineering",
+            "science",
+            "education",
+            "business",
+            "finance",
+            "law",
+            "arts",
+            "sports",
+            "trades",
+            "hospitality",
+            "agriculture",
+            "public",
+            "other",
+          ],
+        },
+        { id: "career.role", type: "text" },
+        { id: "career.level", type: "single", options: ["entry", "mid", "senior", "manager", "executive", "owner"] },
+        { id: "career.multinational", type: "single", options: ["yes", "no", "unsure"] },
+        {
+          id: "career.companyTime",
+          type: "single",
+          options: ["lt1y", "1to3y", "gt3y"],
+          when: (ctx) => p(ctx, "career.multinational") === "yes",
+        },
+        {
+          id: "career.achievements",
+          type: "multi",
+          options: [
+            "awards",
+            "associations",
+            "media",
+            "judge",
+            "contributions",
+            "publications",
+            "exhibitions",
+            "leading_role",
+            "high_salary",
+            "license_cert",
+            "none",
+          ],
+          exclusive: ["none"],
+        },
+        { id: "career.usJobSearch", type: "single", options: ["not_yet", "searching", "interviews", "offer"] },
+        { id: "career.sameField", type: "single", options: ["yes", "maybe", "change", "no_work"] },
+      ],
+    },
+    {
+      id: "career.principal",
+      type: "single",
+      options: ["me", "partner", "both", "unsure"],
+      when: (ctx) => partnerIsGoing(ctx.record),
+    },
+  ]),
+};
+
 const householdBlock: Block = {
   id: "household",
   number: 3,
@@ -512,12 +610,16 @@ const rhythmBlock: Block = {
   ],
 };
 
-/** Todos os blocos, na ordem do documento (0 a 10). */
+/**
+ * Todos os blocos. O Bloco 11 (perfil profissional) vem logo depois do 0, para ser o primeiro
+ * "para completar" depois do porquê: é a base do norte dos caminhos de visto.
+ */
 export const BLOCKS: readonly Block[] = [
   whyBlock,
   youBlock,
   goalBlock,
   householdBlock,
+  careerBlock,
   healthBlock,
   moneyBlock,
   prefBlock,

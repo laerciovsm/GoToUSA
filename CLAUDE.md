@@ -45,6 +45,8 @@ O GoToUSA ajuda a pessoa a **criar a própria jornada** e a evoluir nela, com tu
 - **Foco principal: preparar a pessoa para a mudança**, incluindo idioma, cultura, diferenças regionais, leis, benefícios, finanças e família.
 
 ### Questionário e jornada: diretrizes
+- **O questionário é o norteador de tudo no app** (decisão de 16/11/2026): jornada, **perfil da família**, **caminhos de visto para conhecer**, orçamento e prioridades saem das respostas. Se uma tela precisa de um dado, ele vira pergunta adaptativa. O app dá o **norte**, nunca assessoria ("vale a pena conhecer este caminho", nunca "você se qualifica"). Referência legal de base: a [INA no USCIS](https://www.uscis.gov/laws-and-policy/legislation/immigration-and-nationality-act). Ver [docs/caminhos-visto.md](docs/caminhos-visto.md).
+- **Perfil profissional de você e do cônjuge** (Bloco 11): base dos caminhos por trabalho e por mérito profissional.
 - **Questionário completo e detalhado:** precisa deixar muito claro o que a pessoa quer e prever qualquer situação. Exemplos: filho maior de idade com deficiência que depende da pessoa, pai ou mãe idoso que mora junto e vai na mudança, escolaridade, profissão, saúde, finanças.
 - **Completo, mas sem excesso:** perguntar só o essencial. O questionário é **adaptativo**, ou seja, as perguntas seguintes dependem das respostas anteriores, para ninguém responder o que não se aplica.
 - **Jornada o mais completa e organizada possível:** organizada em fases → etapas → tarefas → subtarefas. Cada tarefa se aplica às pessoas certas da família (titular, cônjuge, filhos, outros dependentes).
@@ -214,7 +216,7 @@ Na raiz do repositório:
 1. ~~Revisar o questionário~~ (aprovado em 16/11/2026, com o orçamento da mudança incluído).
 2. ~~Traduzir o questionário para en-US e es~~ (feito).
 3. **Marco 2:** questionário implementado. O fundador testa no celular e aponta ajustes.
-4. **Marco 3:** motor da jornada (formato do conteúdo, regras de geração, cálculo de prazos). Ver [docs/mvp.md](docs/mvp.md).
+4. **Marco 3:** motor da jornada (formato do conteúdo, regras de geração, cálculo de prazos), incluindo o **perfil da família** e os **caminhos de visto para conhecer**, gerados do questionário. Ver [docs/mvp.md](docs/mvp.md) e [docs/caminhos-visto.md](docs/caminhos-visto.md).
 5. **Anotado para o momento certo:** custos personalizados e custo total aproximado da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
 6. Em paralelo: conteúdo da Fase 0 para o cenário inicial e levantamento das taxas oficiais do orçamento (passaporte no Brasil, vistos, USCIS, impostos e DMV dos estados da lista curta), sempre a partir de fontes oficiais.
 

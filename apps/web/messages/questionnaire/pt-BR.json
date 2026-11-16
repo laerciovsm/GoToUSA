@@ -10,6 +10,7 @@
     "dest": { "title": "Destino", "intro": "Para onde você pensa em ir e o que mais pesa na escolha." },
     "history": { "title": "Histórico com os EUA", "intro": "Visitas, vistos e pessoas que você conhece por lá." },
     "docs": { "title": "Documentos", "intro": "Só sim ou não: nenhum arquivo é enviado." },
+    "career": { "title": "Perfil profissional", "intro": "Carreira de quem vai trabalhar: você e o cônjuge. É a base para indicar os caminhos de visto que vale a pena conhecer." },
     "rhythm": { "title": "Seu ritmo", "intro": "Com que frequência você quer acompanhar a jornada e o que te motiva." }
   },
   "Q": {
@@ -662,6 +663,99 @@
         "label": "Você tem carteira de motorista?",
         "why": "Ajuda a planejar a carteira de motorista no estado de destino.",
         "options": { "yes": "Sim", "no": "Não" }
+      }
+    },
+    "career": {
+      "nationalities": { "label": "Qual é a nacionalidade do seu cônjuge? Se tiver mais de uma, marque todas.", "why": "A nacionalidade de cada adulto pode abrir ou fechar caminhos de visto diferentes. Às vezes, o melhor caminho é pelo cônjuge." },
+      "education": { "label": "Qual é a escolaridade mais alta (concluída) do seu cônjuge?", "why": "A formação de cada adulto ajuda a indicar quais caminhos de visto vale a pena conhecer." },
+      "field": { "label": "Qual é a área de formação do seu cônjuge?", "why": "Ajuda a relacionar a formação com a profissão e com o mercado nos EUA." },
+      "experienceYears": { "label": "Há quantos anos o seu cônjuge trabalha na área dele(a)?", "why": "O tempo de experiência ajuda a indicar caminhos de visto e a planejar a busca de emprego.", "placeholder": "Ex.: 8" },
+      "regulated": { "label": "A profissão do seu cônjuge exige registro ou licença para exercer?", "why": "Profissões com licença costumam exigir validação do diploma e da licença no estado de destino." },
+      "sector": {
+        "label": "Em que área é o trabalho?",
+        "why": "A área ajuda a indicar caminhos de visto e o mercado de trabalho de cada estado.",
+        "options": {
+          "tech": "Tecnologia",
+          "health": "Saúde",
+          "engineering": "Engenharia",
+          "science": "Ciência e pesquisa",
+          "education": "Educação",
+          "business": "Gestão e negócios",
+          "finance": "Finanças e contabilidade",
+          "law": "Direito",
+          "arts": "Artes, cultura e comunicação",
+          "sports": "Esportes",
+          "trades": "Ofícios técnicos (ex.: eletricista, mecânico, construção)",
+          "hospitality": "Hotelaria, alimentação e serviços",
+          "agriculture": "Agricultura",
+          "public": "Serviço público",
+          "other": "Outra"
+        }
+      },
+      "role": { "label": "Qual é o cargo ou a função atual?", "why": "O cargo mostra o tipo de trabalho feito hoje e ajuda a comparar com vagas nos EUA.", "placeholder": "Ex.: Analista de sistemas sênior" },
+      "level": {
+        "label": "Em que nível da carreira está hoje?",
+        "why": "Nível, liderança e responsabilidades contam para alguns caminhos de visto por trabalho.",
+        "options": {
+          "entry": "Começo de carreira",
+          "mid": "Experiente (pleno)",
+          "senior": "Sênior ou especialista",
+          "manager": "Gerente, coordenador(a) ou supervisor(a)",
+          "executive": "Diretor(a) ou executivo(a)",
+          "owner": "Dono(a) de empresa"
+        }
+      },
+      "multinational": {
+        "label": "A empresa onde trabalha tem filial, sede ou empresa ligada nos EUA?",
+        "why": "Algumas empresas transferem funcionários para os EUA. Saber disso ajuda a indicar esse caminho.",
+        "options": { "yes": "Sim", "no": "Não", "unsure": "Não sei" }
+      },
+      "companyTime": {
+        "label": "Há quanto tempo trabalha nessa empresa?",
+        "why": "O tempo de empresa ajuda a ver se o caminho da transferência vale a pena ser estudado.",
+        "options": { "lt1y": "Menos de 1 ano", "1to3y": "De 1 a 3 anos", "gt3y": "Mais de 3 anos" }
+      },
+      "achievements": {
+        "label": "Quais destas conquistas fazem parte da carreira? Marque só o que dá para comprovar.",
+        "why": "Alguns caminhos de visto por mérito profissional pedem provas de conquistas como estas. Marcar não garante nada: só indica o que vale a pena conhecer, sempre com a fonte oficial.",
+        "options": {
+          "awards": "Prêmios ou reconhecimentos na área",
+          "associations": "Participação em associações que só aceitam profissionais de destaque",
+          "media": "Matérias na imprensa ou em publicações da área sobre o trabalho",
+          "judge": "Avaliar o trabalho de outros (banca, júri, revisão de artigos)",
+          "contributions": "Contribuições originais reconhecidas na área (ex.: patentes, métodos, produtos)",
+          "publications": "Artigos, livros ou pesquisas publicados",
+          "exhibitions": "Obras expostas ou apresentações em mostras e festivais",
+          "leading_role": "Papel de liderança em organização reconhecida",
+          "high_salary": "Salário alto em comparação com a área",
+          "license_cert": "Licença ou certificação profissional",
+          "none": "Nenhuma destas"
+        }
+      },
+      "usJobSearch": {
+        "label": "Já procurou trabalho nos EUA?",
+        "why": "Mostra em que ponto está a busca de emprego e quais tarefas vêm primeiro.",
+        "options": {
+          "not_yet": "Ainda não",
+          "searching": "Estou procurando",
+          "interviews": "Já fiz entrevistas",
+          "offer": "Já tenho oferta"
+        }
+      },
+      "sameField": {
+        "label": "Quer continuar na mesma área nos EUA?",
+        "why": "Mudar de área muda os caminhos possíveis e as tarefas de preparação (cursos, certificações).",
+        "options": {
+          "yes": "Sim",
+          "maybe": "Talvez",
+          "change": "Quero mudar de área",
+          "no_work": "Não pretendo trabalhar"
+        }
+      },
+      "principal": {
+        "label": "Quem da família tem o perfil profissional mais forte para liderar o pedido de visto?",
+        "why": "Às vezes o melhor caminho é pelo cônjuge, e a família vai junto. A jornada pode mostrar os dois caminhos.",
+        "options": { "me": "Eu", "partner": "Meu cônjuge", "both": "Os dois", "unsure": "Não sei" }
       }
     },
     "rhythm": {

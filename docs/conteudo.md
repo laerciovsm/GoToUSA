@@ -22,6 +22,7 @@
 - **Conhecimento de memória (inclusive da IA) não é fonte.** Tudo é conferido na fonte oficial antes de entrar no conteúdo.
 - **Fontes oficiais prioritárias:**
   - Imigração: USCIS (uscis.gov), Departamento de Estado (travel.state.gov, incluindo o *Visa Bulletin*), CBP (cbp.gov, para entrada no país e medicamentos)
+  - Lei de imigração: [Immigration and Nationality Act (INA) no USCIS](https://www.uscis.gov/laws-and-policy/legislation/immigration-and-nationality-act), com o texto oficial no U.S. Code, Título 8 (uscode.house.gov). Referência de base para os caminhos de visto ([caminhos-visto.md](caminhos-visto.md))
   - Leis e regras: Federal Register (federalregister.gov), eCFR (ecfr.gov), Congresso (congress.gov)
   - Trabalho: Departamento do Trabalho (dol.gov)
   - Impostos: IRS (irs.gov)

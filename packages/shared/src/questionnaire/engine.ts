@@ -174,6 +174,7 @@ function isGroup(item: Question | PersonGroup): item is PersonGroup {
 export function peopleOf(data: QuestionnaireData, group: PersonGroup["group"]): Person[] {
   if (group === "children") return data.people.filter((p) => p.kind === "child");
   if (group === "dependents") return data.people.filter((p) => p.kind === "dependent");
+  if (group === "workers") return data.people.filter((p) => p.kind === "self" || p.kind === "partner");
   return data.people;
 }
 

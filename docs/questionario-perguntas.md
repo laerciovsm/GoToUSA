@@ -23,7 +23,7 @@
 
 - **Duas etapas, para não cansar:**
   1. **Essencial** (cerca de 10 minutos): blocos 1, 2, 3 e 10. Com isso, a primeira versão da jornada já é gerada. O Bloco 3 já inclui **autonomia e cuidador** de quem tem deficiência ou depende de cuidados, porque isso gera tarefas importantes desde o início.
-  2. **Para completar** (no ritmo da pessoa): blocos 0, 4, 5, 6, 7, 8 e 9. Cada bloco concluído deixa a jornada mais precisa, e o app mostra isso ("Responda o bloco Saúde para incluir as tarefas de medicação e cuidados").
+  2. **Para completar** (no ritmo da pessoa): blocos 0, 11 (perfil profissional), 4, 5, 6, 7, 8 e 9. Cada bloco concluído deixa a jornada mais precisa, e o app mostra isso ("Responda o bloco Saúde para incluir as tarefas de medicação e cuidados").
 - Barra de progresso por bloco e tempo estimado de cada bloco.
 - Salva a cada resposta (no navegador). A pessoa pode sair e voltar.
 - Uma pergunta por tela no celular, com botões grandes.
@@ -219,6 +219,29 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 
 ---
 
+## Bloco 11 · Perfil profissional *(para completar · por pessoa: você e cônjuge)*
+
+> Incluído em 16/11/2026. Aprofunda a carreira de quem pode trabalhar ou liderar o pedido de visto. É a base do **norte dos caminhos de visto** e do **perfil da família** ([caminhos-visto.md](caminhos-visto.md)). Na tela, vem logo depois do Bloco 0, como o primeiro "para completar". Para você, o básico (escolaridade, área, anos de experiência, licença) já está no Bloco 1; para o cônjuge, é perguntado aqui.
+
+| ID | Pergunta | Tipo | Opções / observações |
+|---|---|---|---|
+| `career.nationalities` | Qual é a nacionalidade do seu cônjuge? | países | Só cônjuge. Alguns caminhos dependem da nacionalidade de quem é o titular |
+| `career.education` | Escolaridade mais alta (concluída) do cônjuge | única | Mesmas opções de `you.education`. Só cônjuge |
+| `career.field` | Área de formação do cônjuge | texto | Só cônjuge, com escolaridade ≥ `technical` |
+| `career.experienceYears` | Há quantos anos o cônjuge trabalha na área? | número | Só cônjuge |
+| `career.regulated` | A profissão do cônjuge exige registro ou licença? | única | Mesmas opções de `you.regulated`. Só cônjuge |
+| `career.sector` | Em que área é o trabalho? | por pessoa · única | `tech` Tecnologia · `health` Saúde · `engineering` Engenharia · `science` Ciência e pesquisa · `education` Educação · `business` Gestão e negócios · `finance` Finanças e contabilidade · `law` Direito · `arts` Artes, cultura e comunicação · `sports` Esportes · `trades` Ofícios técnicos · `hospitality` Hotelaria, alimentação e serviços · `agriculture` Agricultura · `public` Serviço público · `other` Outra |
+| `career.role` | Qual é o cargo ou a função atual? | por pessoa · texto | — |
+| `career.level` | Em que nível da carreira está hoje? | por pessoa · única | `entry` Começo de carreira · `mid` Experiente (pleno) · `senior` Sênior ou especialista · `manager` Gerente, coordenador(a) ou supervisor(a) · `executive` Diretor(a) ou executivo(a) · `owner` Dono(a) de empresa |
+| `career.multinational` | A empresa tem filial, sede ou empresa ligada nos EUA? | por pessoa · única | `yes` · `no` · `unsure` |
+| `career.companyTime` | Há quanto tempo trabalha nessa empresa? | por pessoa · única | `lt1y` Menos de 1 ano · `1to3y` De 1 a 3 anos · `gt3y` Mais de 3 anos. Condição: `career.multinational` = `yes` |
+| `career.achievements` | Quais destas conquistas fazem parte da carreira? Marque só o que dá para comprovar. | por pessoa · múltipla | `awards` Prêmios ou reconhecimentos · `associations` Associações que só aceitam profissionais de destaque · `media` Matérias sobre o trabalho · `judge` Avaliar o trabalho de outros · `contributions` Contribuições originais reconhecidas · `publications` Artigos, livros ou pesquisas · `exhibitions` Obras expostas ou apresentações · `leading_role` Liderança em organização reconhecida · `high_salary` Salário alto para a área · `license_cert` Licença ou certificação · `none` Nenhuma. **Espelha os tipos de evidência listados pelo USCIS (EB-1, EB-2), sem afirmar qualificação** |
+| `career.usJobSearch` | Já procurou trabalho nos EUA? | por pessoa · única | `not_yet` Ainda não · `searching` Procurando · `interviews` Já fiz entrevistas · `offer` Já tenho oferta |
+| `career.sameField` | Quer continuar na mesma área nos EUA? | por pessoa · única | `yes` · `maybe` · `change` Quero mudar de área · `no_work` Não pretendo trabalhar |
+| `career.principal` | Quem da família tem o perfil profissional mais forte para liderar o pedido de visto? | única | `me` Eu · `partner` Meu cônjuge · `both` Os dois · `unsure` Não sei. Condição: `household.partner` ∈ {`going`, `undecided`} |
+
+---
+
 ## Regras: o que cada resposta muda na jornada
 
 > Primeiras regras, para validar a lógica. A lista completa será construída junto com o conteúdo da jornada. Toda regra que gera um **alerta legal** mostra a regra geral **com fonte oficial e o aviso padrão** (ver [conteudo.md](conteudo.md)).
@@ -255,6 +278,10 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `money.saved` e `money.monthlySaving` respondidas | Mostra **quanto falta** para a meta e **quando** ela será alcançada, comparando com `goal.departure`; se não der tempo, sugere rever a data ou o orçamento, sem culpa |
 | Orçamento com despesa mensal maior que a renda prevista | Mostra o resultado com clareza e cria tarefas: rever o orçamento, comparar estados e ver outras fontes de renda legais |
 | `money.debtsContinue` = `yes` | Soma a parcela nas despesas mensais (compromissos no país de origem) |
+| Respostas do Bloco 11 (com escolaridade, objetivo e nacionalidades) | Monta os **caminhos de visto para conhecer**, com "por que apareceu", requisitos oficiais e recomendação de advogado (mapeamento em [caminhos-visto.md](caminhos-visto.md#mapeamento-respostas--caminhos-para-conhecer-rascunho)) |
+| `career.achievements` com itens marcados | Cria tarefas de preparação: **juntar provas** de cada conquista (cartas, certificados, publicações), sem prometer resultado |
+| `career.principal` ∈ {`partner`, `both`} | Mostra os caminhos pelos dois adultos |
+| `career.usJobSearch` = `not_yet` e propósito de trabalho | Inclui na Fase 1 as tarefas de currículo no padrão americano e de busca de emprego |
 
 ## Pendências
 - [x] Aprovar a lista de perguntas e opções (aprovada em 16/11/2026, com os ajustes: autonomia na parte essencial, filhos de qualquer idade num só lugar, data de nascimento em vez de idade, perguntas de poupança, cônjuge, orçamento)

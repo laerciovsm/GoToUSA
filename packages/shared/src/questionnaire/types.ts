@@ -100,7 +100,8 @@ export type Question = {
 
 /** Grupo de perguntas repetido para cada pessoa de um conjunto. */
 export type PersonGroup = {
-  group: "children" | "dependents" | "members";
+  /** "workers": você e o cônjuge (perfil profissional dos adultos que podem liderar o visto). */
+  group: "children" | "dependents" | "members" | "workers";
   questions: readonly Question[];
 };
 
@@ -111,7 +112,7 @@ export type BlockStage = "essential" | "complete";
 export type Block = {
   /** ID estável do bloco. */
   id: string;
-  /** Número exibido (0 a 10). */
+  /** Número exibido (0 a 11). */
   number: number;
   stage: BlockStage;
   /** Tempo estimado em minutos. */

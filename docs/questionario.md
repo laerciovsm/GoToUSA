@@ -7,6 +7,8 @@
 
 Entender com clareza **o que a pessoa quer** e a **situação real dela e da família**, para gerar uma jornada completa e personalizada. O questionário precisa prever qualquer situação (por exemplo: filho adulto com deficiência que depende da pessoa, pai idoso que mora junto e vai na mudança) sem perguntar nada desnecessário.
 
+**O questionário é o norteador de tudo no app** (decisão de 16/11/2026): a jornada, o perfil da família, os caminhos de visto para conhecer e o orçamento saem das respostas. O app dá o norte, não assessoria. Ver [caminhos-visto.md](caminhos-visto.md).
+
 ## Regras de funcionamento
 
 - **Adaptativo:** as perguntas seguintes dependem das respostas anteriores. Quem responde "não tenho filhos" não vê nenhuma pergunta sobre filhos.
@@ -131,6 +133,12 @@ Para **cada pessoa** que vai (titular, cônjuge, filhos, outros dependentes):
 - Idioma do app.
 - Quanto tempo por semana consegue dedicar à jornada.
 - **Que pequenas recompensas te motivam?** (a pessoa escolhe as próprias; ver [jornada.md](jornada.md#recompensas))
+
+### 11. Perfil profissional (você e cônjuge)
+- Para o cônjuge: nacionalidade, escolaridade, área, anos de experiência e licença (para você, isso já está no Bloco 1).
+- Para os dois: área de atuação, cargo, nível na carreira, empresa com ligação nos EUA e tempo de empresa, conquistas profissionais que dá para comprovar, busca de emprego nos EUA e se quer continuar na mesma área.
+- Quem da família tem o perfil mais forte para liderar o pedido de visto.
+- **Por que importa:** é a base para indicar os caminhos de visto por trabalho e por mérito profissional que vale a pena conhecer ([caminhos-visto.md](caminhos-visto.md)).
 
 ## Pendências
 - [ ] Redigir o texto final de cada pergunta e opção (en-US, pt-BR, es)

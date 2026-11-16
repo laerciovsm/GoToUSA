@@ -95,6 +95,16 @@ describe("cenário inicial: casal + filho adulto com deficiência", () => {
     expect(stepIds("household", alone)).not.toContain("partner.english");
   });
 
+  it("perfil profissional: pergunta a carreira de você e do cônjuge, e o básico só do cônjuge", () => {
+    const ids = stepIds("career", data);
+    expect(ids).toEqual(expect.arrayContaining(["career.sector@self", "career.sector@partner", "career.principal"]));
+    expect(ids).toContain("career.education@partner");
+    expect(ids).not.toContain("career.education@self");
+    expect(ids.some((id) => id.endsWith("@child"))).toBe(false);
+    const alone = setAnswer(data, "household.partner", "none", undefined, NOW);
+    expect(stepIds("career", alone)).not.toContain("career.principal");
+  });
+
   it("calcula o progresso do bloco", () => {
     const progress = blockProgress(household, data, NOW);
     expect(progress.answered).toBe(4);

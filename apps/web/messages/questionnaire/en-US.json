@@ -10,6 +10,7 @@
     "dest": { "title": "Destination", "intro": "Where you are thinking of going and what matters most in that choice." },
     "history": { "title": "History with the U.S.", "intro": "Visits, visas, and people you know there." },
     "docs": { "title": "Documents", "intro": "Yes or no only: no files are uploaded." },
+    "career": { "title": "Professional profile", "intro": "The careers of those who will work: you and your spouse. It's the basis for pointing to the visa paths worth learning about." },
     "rhythm": { "title": "Your pace", "intro": "How often you want to follow your journey and what motivates you." }
   },
   "Q": {
@@ -662,6 +663,99 @@
         "label": "Do you have a driver's license?",
         "why": "It helps plan getting a driver's license in the destination state.",
         "options": { "yes": "Yes", "no": "No" }
+      }
+    },
+    "career": {
+      "nationalities": { "label": "What is your spouse's nationality? If more than one, select all.", "why": "Each adult's nationality can open or close different visa paths. Sometimes the best path is through the spouse." },
+      "education": { "label": "What is your spouse's highest completed education?", "why": "Each adult's education helps point to the visa paths worth learning about." },
+      "field": { "label": "What is your spouse's field of study?", "why": "It helps connect education with profession and the U.S. job market." },
+      "experienceYears": { "label": "How many years has your spouse worked in their field?", "why": "Years of experience help point to visa paths and plan the job search.", "placeholder": "E.g.: 8" },
+      "regulated": { "label": "Does your spouse's profession require a registration or license to practice?", "why": "Licensed professions usually require validating the degree and license in the destination state." },
+      "sector": {
+        "label": "What area is the work in?",
+        "why": "The area helps point to visa paths and to each state's job market.",
+        "options": {
+          "tech": "Technology",
+          "health": "Healthcare",
+          "engineering": "Engineering",
+          "science": "Science and research",
+          "education": "Education",
+          "business": "Management and business",
+          "finance": "Finance and accounting",
+          "law": "Law",
+          "arts": "Arts, culture and media",
+          "sports": "Sports",
+          "trades": "Skilled trades (e.g., electrician, mechanic, construction)",
+          "hospitality": "Hospitality, food and services",
+          "agriculture": "Agriculture",
+          "public": "Public service",
+          "other": "Other"
+        }
+      },
+      "role": { "label": "What is the current job title or role?", "why": "The title shows the kind of work done today and helps compare with U.S. job openings.", "placeholder": "E.g.: Senior systems analyst" },
+      "level": {
+        "label": "What career level is it today?",
+        "why": "Level, leadership and responsibilities matter for some work-based visa paths.",
+        "options": {
+          "entry": "Early career",
+          "mid": "Experienced (mid-level)",
+          "senior": "Senior or specialist",
+          "manager": "Manager, coordinator or supervisor",
+          "executive": "Director or executive",
+          "owner": "Business owner"
+        }
+      },
+      "multinational": {
+        "label": "Does the company have a branch, headquarters or related company in the U.S.?",
+        "why": "Some companies transfer employees to the U.S. Knowing this helps point to that path.",
+        "options": { "yes": "Yes", "no": "No", "unsure": "I don't know" }
+      },
+      "companyTime": {
+        "label": "How long have you worked at this company?",
+        "why": "Time at the company helps see whether the transfer path is worth studying.",
+        "options": { "lt1y": "Less than 1 year", "1to3y": "1 to 3 years", "gt3y": "More than 3 years" }
+      },
+      "achievements": {
+        "label": "Which of these achievements are part of the career? Select only what can be proven.",
+        "why": "Some visa paths based on professional merit ask for evidence of achievements like these. Selecting guarantees nothing: it only shows what is worth learning about, always with the official source.",
+        "options": {
+          "awards": "Awards or recognition in the field",
+          "associations": "Membership in associations that only accept outstanding professionals",
+          "media": "Press or trade publication articles about the work",
+          "judge": "Judging others' work (panel, jury, peer review)",
+          "contributions": "Recognized original contributions to the field (e.g., patents, methods, products)",
+          "publications": "Published articles, books or research",
+          "exhibitions": "Work displayed at exhibitions, showcases or festivals",
+          "leading_role": "Leading role in a distinguished organization",
+          "high_salary": "High salary compared to the field",
+          "license_cert": "Professional license or certification",
+          "none": "None of these"
+        }
+      },
+      "usJobSearch": {
+        "label": "Have you looked for work in the U.S.?",
+        "why": "Shows where the job search stands and which tasks come first.",
+        "options": {
+          "not_yet": "Not yet",
+          "searching": "I'm searching",
+          "interviews": "I've had interviews",
+          "offer": "I already have an offer"
+        }
+      },
+      "sameField": {
+        "label": "Do you want to stay in the same field in the U.S.?",
+        "why": "Changing fields changes the possible paths and the preparation tasks (courses, certifications).",
+        "options": {
+          "yes": "Yes",
+          "maybe": "Maybe",
+          "change": "I want to change fields",
+          "no_work": "I don't plan to work"
+        }
+      },
+      "principal": {
+        "label": "Who in the family has the strongest professional profile to lead the visa application?",
+        "why": "Sometimes the best path is through the spouse, and the family goes along. The journey can show both paths.",
+        "options": { "me": "Me", "partner": "My spouse", "both": "Both", "unsure": "I don't know" }
       }
     },
     "rhythm": {

@@ -1,4 +1,4 @@
-# Questionário: perguntas e regras (rascunho)
+# Questionário: perguntas e regras (aprovado pelo fundador em 16/11/2026)
 
 > Especificação detalhada do questionário inicial. A visão geral dos blocos está em [questionario.md](questionario.md).
 > Os textos estão em pt-BR. Depois de aprovados, viram arquivos de tradução (en-US, pt-BR, es).
@@ -22,7 +22,7 @@
 ## Experiência do questionário
 
 - **Duas etapas, para não cansar:**
-  1. **Essencial** (cerca de 10 minutos): blocos 1, 2, 3 e 10. Com isso, a primeira versão da jornada já é gerada.
+  1. **Essencial** (cerca de 10 minutos): blocos 1, 2, 3 e 10. Com isso, a primeira versão da jornada já é gerada. O Bloco 3 já inclui **autonomia e cuidador** de quem tem deficiência ou depende de cuidados, porque isso gera tarefas importantes desde o início.
   2. **Para completar** (no ritmo da pessoa): blocos 0, 4, 5, 6, 7, 8 e 9. Cada bloco concluído deixa a jornada mais precisa, e o app mostra isso ("Responda o bloco Saúde para incluir as tarefas de medicação e cuidados").
 - Barra de progresso por bloco e tempo estimado de cada bloco.
 - Salva a cada resposta (no navegador). A pessoa pode sair e voltar.
@@ -81,23 +81,28 @@
 
 | ID | Pergunta | Tipo | Opções / observações |
 |---|---|---|---|
-| `household.partner` | Você tem cônjuge ou companheiro(a)? | única | `none` Não · `going` Sim, e vai junto · `not_going` Sim, mas não vai (ou ainda não sabe) |
-| `household.partnerUnion` | Como é a união de vocês? | única | `civil_marriage` Casamento civil · `stable_union` União estável · `informal` Moramos juntos sem registro · `other` Outro. Condição: `household.partner` = `going` |
-| `household.children` | Quantos filhos vão com você? | número (0+) | — |
-| `child.age` | Idade do(a) filho(a) | por pessoa · número | Para cada filho. Nome ou apelido opcional, só para identificar na jornada |
+| `household.partner` | Você tem cônjuge ou companheiro(a)? | única | `none` Não · `going` Sim, e vai junto · `not_going` Sim, mas não vai · `undecided` Sim, mas ainda não sabemos se vai |
+| `household.partnerUnion` | Como é a união de vocês? | única | `civil_marriage` Casamento civil · `stable_union` União estável · `informal` Moramos juntos sem registro · `other` Outro. Condição: `household.partner` ∈ {`going`, `undecided`} |
+| `partner.english` | Como está o inglês do seu cônjuge? | única (opcional) | Mesmas opções de `you.english`. Condição: `household.partner` ∈ {`going`, `undecided`} |
+| `partner.occupation` | Qual é a profissão ou ocupação do seu cônjuge? | texto (opcional) | Condição: `household.partner` ∈ {`going`, `undecided`} |
+| `household.children` | Quantos filhos vão com você? Conte todos, de qualquer idade, inclusive os adultos. | número (0+) | Filhos adultos entram aqui, não em "outros dependentes" |
+| `child.birth` | Mês e ano de nascimento | por pessoa · mês/ano | Para cada filho. Nome ou apelido opcional, só para identificar na jornada. **Data, e não idade:** a jornada dura anos, e o app calcula a idade em qualquer data do cronograma |
 | `child.school` | Em que etapa da escola está? | por pessoa · única | `not_school` Ainda não estuda · `preschool` Educação infantil · `elementary` Fundamental · `high` Ensino médio · `college` Faculdade · `finished` Já terminou os estudos · `special` Educação especial |
 | `child.specialNeeds` | Tem alguma deficiência ou precisa de cuidados contínuos? | por pessoa · única | `yes` Sim · `no` Não · `skip` Prefiro não responder (o detalhe fica no bloco Saúde) |
+| `health.autonomy` | No dia a dia, essa pessoa… | por pessoa · única | `independent` É independente · `supervision` Precisa de supervisão · `help` Precisa de ajuda em atividades diárias (banho, alimentação, vestir) · `full` Depende totalmente de outra pessoa. Condição: `child.specialNeeds` = `yes`. **Fica na parte essencial** porque gera tarefas importantes (ex.: *guardianship*) já na primeira jornada |
+| `health.caregiver` | Quem é o cuidador principal? | por pessoa · única | Lista das pessoas da família + `external` Cuidador contratado + `other` Outro. Condição: `health.autonomy` ≠ `independent` |
 | `child.english` | Fala inglês? | por pessoa · única | Mesmas opções de `you.english` |
 | `household.otherChildren` | Você tem filhos de outro relacionamento que vão junto? | única | `yes` · `no`. Se sim: `household.custody` (abaixo) |
 | `household.custody` | O outro pai ou mãe concorda com a viagem? | única | `agrees` Sim, concorda · `disagrees` Não concorda · `unknown` Ainda não conversamos · `sole` Tenho a guarda exclusiva/o outro genitor é falecido |
-| `household.dependents` | Além do cônjuge e dos filhos, alguém que depende de você vai junto? (ex.: pai, mãe, avó, filho adulto, irmão) | número (0+) | — |
-| `dependent.relation` | Qual é a relação com você? | por pessoa · única | `parent` Pai/mãe · `grandparent` Avô/avó · `adult_child` Filho(a) adulto(a) · `sibling` Irmão(ã) · `in_law` Sogro(a) · `other` Outro |
-| `dependent.age` | Idade | por pessoa · número | — |
+| `household.dependents` | Além do cônjuge e dos filhos, alguém que depende de você vai junto? (ex.: pai, mãe, avó, irmão) | número (0+) | — |
+| `dependent.relation` | Qual é a relação com você? | por pessoa · única | `parent` Pai/mãe · `grandparent` Avô/avó · `sibling` Irmão(ã) · `in_law` Sogro(a) · `other` Outro. (Filhos, de qualquer idade, ficam em `household.children`) |
+| `dependent.birth` | Mês e ano de nascimento | por pessoa · mês/ano | — |
 | `dependent.dependency` | Como é a dependência? | por pessoa · única | `full` Depende totalmente (cuidados e dinheiro) · `care` Precisa de cuidados, mas tem renda própria · `financial` Só financeira · `partial` Parcial |
+| `health.autonomy` / `health.caregiver` | (as mesmas perguntas dos filhos) | por pessoa | Condição: `dependent.dependency` ∈ {`full`, `care`, `partial`} |
 | `household.pets` | Vai levar animais de estimação? | múltipla | `none` Não · `dog` Cachorro · `cat` Gato · `bird` Ave · `other` Outro. Depois, quantos |
 | `household.leftBehind` | Alguém que depende de você vai ficar no seu país? | única | `yes` Sim · `no` Não. Se sim: quem (texto curto, opcional) |
 
-> **Saúde, autonomia e cuidador** de cada pessoa ficam no Bloco 4.
+> **Autonomia e cuidador** são perguntados aqui para quem tem deficiência ou depende de cuidados. O **restante da saúde** (condições, medicação, terapias) fica no Bloco 4.
 
 ---
 
@@ -112,9 +117,9 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `health.conditions` | Alguma destas situações se aplica? | múltipla | `none` Nenhuma · `autism` Autismo · `intellectual` Deficiência intelectual · `adhd` TDAH · `chronic` Doença crônica (ex.: diabetes, cardiopatia, doença renal) · `mental` Saúde mental (ex.: depressão, ansiedade, bipolaridade) · `mobility` Mobilidade reduzida ou cadeira de rodas · `vision` Deficiência visual · `hearing` Deficiência auditiva · `other` Outra |
 | `health.autismLevel` | Nível de suporte do autismo | única | `1` Nível 1 · `2` Nível 2 · `3` Nível 3 · `unknown` Não sei. Condição: `autism` |
 | `health.intellectualDegree` | Grau da deficiência intelectual | única | `mild` Leve · `moderate` Moderado · `severe` Grave · `profound` Profundo · `unknown` Não sei. Condição: `intellectual` |
-| `health.autonomy` | No dia a dia, essa pessoa… | única | `independent` É independente · `supervision` Precisa de supervisão · `help` Precisa de ajuda em atividades diárias (banho, alimentação, vestir) · `full` Depende totalmente de outra pessoa |
-| `health.caregiver` | Quem é o cuidador principal? | única | Lista das pessoas da família + `external` Cuidador contratado + `other` Outro. Condição: `health.autonomy` ≠ `independent` |
-| `health.medications` | Toma medicação contínua? | lista | Para cada remédio: **nome** (texto) · **dose** (texto, ex.: "3 mg") · **frequência** (texto, ex.: "1 vez ao dia") · **é controlada (receita retida)?** `yes`/`no`/`unsure` |
+| `health.autonomy` | No dia a dia, essa pessoa… | única | Mesmas opções do Bloco 3. **Só aparece para quem ainda não respondeu no Bloco 3** (a resposta é a mesma, com o mesmo ID) |
+| `health.caregiver` | Quem é o cuidador principal? | única | Igual ao Bloco 3. Condição: `health.autonomy` ≠ `independent` e ainda não respondida |
+| `health.medications` | Toma medicação contínua? | lista | Para cada remédio: **nome** (texto) · **dose** (texto, ex.: "3 mg") · **frequência** (texto, ex.: "1 vez ao dia") · **precisa de receita especial no seu país?** `yes`/`no`/`unsure` (termo neutro, que serve para qualquer país) |
 | `health.therapies` | Faz algum tratamento ou terapia regular? | múltipla | `none` · `speech` Fonoaudiologia · `occupational` Terapia ocupacional · `physio` Fisioterapia · `psych` Psicologia/psiquiatria · `aba` Terapia comportamental (ex.: ABA) · `dialysis` Diálise · `other` Outra |
 | `health.equipment` | Usa algum equipamento? (ex.: cadeira de rodas, aparelho auditivo, CPAP) | texto (opcional) | — |
 | `health.specialists` | É acompanhado(a) por quais especialistas? | texto (opcional) | — |
@@ -133,11 +138,22 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `money.earnersUS` | Quem pretende trabalhar nos EUA? | múltipla | `me` Eu · `partner` Cônjuge · `adult_child` Filho(a) adulto(a) · `unsure` Ainda não sei. **Observação:** a autorização de trabalho de cada pessoa depende do tipo de visto. A jornada mostra a regra geral com fonte oficial |
 | `money.partnerAvailability` | O seu cônjuge teria disponibilidade para trabalhar? | única | `yes` Sim · `partial` Parcialmente · `no` Não, é cuidador(a) em tempo integral · `no_other` Não, por outro motivo. Condição: `household.partner` = `going` |
 | `money.otherSources` | Vocês têm ou poderiam ter outras fontes de renda? | múltipla | `remote_home` Trabalho remoto para empresa ou clientes do meu país · `freelance` Serviços como autônomo/freelancer · `online_business` Negócio online · `rent_home` Alugar imóvel no meu país · `investments` Rendimentos de investimentos · `none` Não vejo outras possibilidades agora · `unsure` Gostaria de ideias |
-| `money.bring` | Quanto você pretende levar? (em USD) | número | Mostra a conversão aproximada na moeda do país da pessoa (dado marcado como estimativa) |
+| `money.saved` | Quanto você já tem guardado para a mudança? | número (opcional) | Pode digitar na moeda do seu país; o app converte para USD (cotação marcada como estimativa, com data) |
+| `money.monthlySaving` | Quanto você consegue guardar por mês? | número (opcional) | Mesma regra de moeda. Com `money.saved`, o app calcula quanto falta e em quanto tempo a meta é alcançada (ver [orcamento.md](orcamento.md#3-a-conta-fecha)) |
+| `money.bring` | Quanto você pretende levar? (em USD) | número | Mostra a conversão aproximada na moeda do país da pessoa (dado marcado como estimativa). O app compara com a **meta sugerida** pelo orçamento |
+| `money.expectedIncomeUS` | Se já tem oferta de emprego: qual é o salário anual oferecido? (em USD, antes dos impostos) | número (opcional) | Condição: `goal.has` ∋ `job_offer` ou `goal.purpose` = `transfer`. Sem oferta, o orçamento usa uma faixa da profissão (estimativa, de fonte oficial quando houver, ex.: BLS) |
+| `money.employerBenefits` | O que o empregador oferece além do salário? | múltipla (opcional) | `health` Plano de saúde · `relocation` Ajuda de custo para a mudança · `housing` Moradia · `visa_fees` Paga as taxas do visto · `lawyer` Paga o advogado · `unsure` Ainda não sei. Condição: igual a `money.expectedIncomeUS` |
 | `money.income` | Vai continuar tendo alguma renda depois da mudança? | múltipla | `none` Não · `remote_job` Trabalho remoto · `rent` Aluguel de imóvel · `pension` Aposentadoria/pensão · `business` Lucro de empresa · `other` Outra. Depois: valor mensal aproximado em USD (opcional) |
+| `money.housingPlan` | Como pretende morar nos EUA no começo? | única | `rent` Alugar · `buy_cash` Comprar à vista · `buy_financed` Comprar com financiamento · `family` Morar com família ou amigos · `employer` Moradia oferecida pelo empregador · `unsure` Não sei |
+| `money.carPlan` | E o carro? | única | `none` Não vou ter carro · `buy_cash` Comprar à vista · `buy_financed` Financiar · `lease` *Leasing* (aluguel de longo prazo) · `unsure` Não sei. Depois: quantos carros (número) |
+| `money.scoutingTrips` | Pretende visitar os EUA antes da mudança, para conhecer o destino? | única | `none` Não · `one` Uma vez · `two_plus` Duas vezes ou mais · `unsure` Não sei. Depois: quem vai nessas viagens (lista das pessoas da família) |
+| `money.moveBelongings` | O que pretende levar na mudança? | única | `suitcases` Só malas · `some_boxes` Malas e algumas caixas · `shipment` Mudança despachada (móveis e muitos objetos) · `unsure` Não sei |
 | `money.assets` | O que vai fazer com seus bens (imóvel, carro)? | única | `sell` Vender · `rent` Alugar · `keep` Manter · `mixed` Um pouco de cada · `none` Não tenho bens relevantes |
 | `money.debts` | Tem dívidas ou financiamentos ativos? | única | `yes` · `no` · `skip` Prefiro não responder |
+| `money.debtsContinue` | Elas vão continuar sendo pagas depois da mudança? Quanto por mês, aproximadamente? | única + número (opcional) | `yes` Sim · `no` Vou quitar antes · `unsure` Não sei. Condição: `money.debts` = `yes` |
 | `money.runway` | Por quantos meses o dinheiro precisa durar até você ter renda nos EUA? | única | `lt3` Menos de 3 · `3to6` De 3 a 6 · `6to12` De 6 a 12 · `gt12` Mais de 12 · `unsure` Não sei |
+
+> **Orçamento:** as respostas deste bloco, junto com a família (bloco 3), a saúde (bloco 4) e o destino (bloco 7), alimentam o cálculo de **custos até a mudança**, **custo mensal nos EUA** (incluindo impostos e taxas obrigatórias do estado) e **"a conta fecha?"**. Ver [orcamento.md](orcamento.md).
 
 ---
 
@@ -177,7 +193,7 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `history.visited` | Você já esteve nos EUA? | única | `never` Nunca · `once` Uma vez · `several` Várias vezes |
 | `history.visa` | Você tem ou já teve visto americano? | única | `valid` Tenho um válido · `expired` Já tive, está vencido · `never` Nunca tive |
 | `history.network` | Você conhece alguém que mora nos EUA? | múltipla | `family` Família · `friends` Amigos · `colleagues` Colegas de trabalho · `nobody` Ninguém |
-| `history.complication` | Existe algo no seu histórico que possa complicar? (ex.: visto negado, ter ficado além do prazo permitido, antecedentes criminais) | única | `no` Não · `yes` Sim · `skip` Prefiro não dizer. **Sem pedir detalhes.** Se `yes`, a jornada recomenda advogado na Fase 0 |
+| `history.complication` | Existe algo no histórico de **você ou de alguém da família que vai** que possa complicar? (ex.: visto negado, ter ficado além do prazo permitido, antecedentes criminais) | única | `no` Não · `yes` Sim · `skip` Prefiro não dizer. **Sem pedir detalhes.** Se `yes`, a jornada recomenda advogado na Fase 0 |
 
 ---
 
@@ -209,7 +225,7 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 
 | Se… | Então a jornada… |
 |---|---|
-| `child.age` ≥ 21, ou existe qualquer `household.dependents` | Mostra na **Fase 0** o alerta sobre quem pode ir como dependente do visto, com a regra geral, a fonte oficial e a recomendação de advogado |
+| Algum filho com 21 anos ou mais **hoje ou até a data prevista de ida** (calculado por `child.birth` e `goal.departure`), ou existe qualquer `household.dependents` | Mostra na **Fase 0** o alerta sobre quem pode ir como dependente do visto, com a regra geral, a fonte oficial e a recomendação de advogado |
 | `household.partnerUnion` ∈ {`stable_union`, `informal`} | Mostra alerta sobre o reconhecimento do tipo de união para fins de visto (fonte oficial) |
 | `household.otherChildren` = `yes` e `household.custody` ≠ `sole` | Inclui tarefas de autorização de viagem do outro genitor |
 | `health.autonomy` ∈ {`help`, `full`} para um adulto | Inclui tarefas de *guardianship* (representação legal de adulto nos EUA) e de planejamento de cuidados |
@@ -232,9 +248,16 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `money.earnersUS` inclui `partner` ou `adult_child` | Mostra a regra geral sobre autorização de trabalho de dependentes para o tipo de visto, com fonte oficial e aviso padrão |
 | `money.otherSources` ∋ `unsure` ou `none`, ou renda única | Inclui o tema **"Outras fontes de renda"**: possibilidades legais de renda complementar e de **trabalho temporário** (ver [conteudo.md](conteudo.md#outras-fontes-de-renda-e-trabalho-temporário)) |
 | `goal.purpose` = `unsure` | A Fase 0 começa por "explorar os caminhos possíveis" |
+| `docs.passport` ∈ {`valid_short`, `expired`, `none`} para alguém | Soma a taxa oficial do passaporte (do país de origem) daquela pessoa nos **custos até a mudança** |
+| `money.scoutingTrips` ≠ `none` | Soma as viagens exploratórias (passagens e hospedagem das pessoas escolhidas) nos custos até a mudança e cria a tarefa de planejar a visita |
+| `money.housingPlan` ∈ {`buy_cash`, `buy_financed`} | Inclui no custo mensal o imposto sobre a propriedade do estado/condado e o seguro do imóvel, e cria tarefas de pesquisa sobre compra de imóvel por recém-chegados (fonte oficial) |
+| `money.carPlan` ≠ `none` | Inclui seguro, registro e taxas do veículo (DMV do estado) e a tarefa de tirar a carteira de motorista no estado |
+| `money.saved` e `money.monthlySaving` respondidas | Mostra **quanto falta** para a meta e **quando** ela será alcançada, comparando com `goal.departure`; se não der tempo, sugere rever a data ou o orçamento, sem culpa |
+| Orçamento com despesa mensal maior que a renda prevista | Mostra o resultado com clareza e cria tarefas: rever o orçamento, comparar estados e ver outras fontes de renda legais |
+| `money.debtsContinue` = `yes` | Soma a parcela nas despesas mensais (compromissos no país de origem) |
 
 ## Pendências
-- [ ] Aprovar a lista de perguntas e opções
-- [ ] Aprovar a divisão entre "essencial" e "para completar"
+- [x] Aprovar a lista de perguntas e opções (aprovada em 16/11/2026, com os ajustes: autonomia na parte essencial, filhos de qualquer idade num só lugar, data de nascimento em vez de idade, perguntas de poupança, cônjuge, orçamento)
+- [x] Aprovar a divisão entre "essencial" e "para completar"
 - [ ] Traduzir os textos para en-US e es
 - [ ] Completar a tabela de regras junto com o conteúdo da jornada

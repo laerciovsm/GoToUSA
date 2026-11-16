@@ -52,6 +52,7 @@ O GoToUSA ajuda a pessoa a **criar a própria jornada** e a evoluir nela, com tu
 - Detalhes em [docs/questionario.md](docs/questionario.md) e [docs/jornada.md](docs/jornada.md).
 - Conteúdo, atualização legal, regras de linguagem, perfil dos estados e cruzamento de saúde: [docs/conteudo.md](docs/conteudo.md).
 - Escopo da primeira versão: [docs/mvp.md](docs/mvp.md).
+- Orçamento da mudança (custos até a mudança, custo mensal nos EUA com impostos e taxas do estado, renda × despesas): [docs/orcamento.md](docs/orcamento.md).
 - Identidade visual, paleta e lúdico (trilha da família, mala da prontidão, carimbos): [docs/design.md](docs/design.md).
 - Checklist para quando for comercializar (custos, simulação de custo da IA, empresa, jurídico): [docs/comercializacao.md](docs/comercializacao.md).
 
@@ -196,7 +197,8 @@ Na raiz do repositório:
 - [x] Modelo de negócio (freemium, plano anual) definido
 - [ ] Valor do plano anual e divisão entre grátis e pago
 - [x] Escopo do MVP: sem backend (preparado para ele), cenário inicial definido. Ver [docs/mvp.md](docs/mvp.md)
-- [ ] Questionário inicial (perguntas e regras): rascunho completo em [docs/questionario-perguntas.md](docs/questionario-perguntas.md), **aguardando revisão do fundador** (inclui renda única como fator de risco e outras fontes de renda legais)
+- [x] Questionário inicial (perguntas e regras): **aprovado em 16/11/2026** em [docs/questionario-perguntas.md](docs/questionario-perguntas.md). Falta traduzir para en-US e es
+- [ ] Orçamento da mudança: documentado em [docs/orcamento.md](docs/orcamento.md); faltam as fontes oficiais das taxas e as fontes das estimativas
 - [ ] Modelo da jornada (fases, etapas e regras de geração)
 - [ ] Estratégia de conteúdo (fontes, revisão, idiomas)
 - [ ] Wireframes das telas principais
@@ -205,10 +207,10 @@ Na raiz do repositório:
 
 ## Próximos passos (onde paramos)
 
-1. O fundador revisa `docs/questionario-perguntas.md` (o que falta, sobra ou muda; aprovar a divisão "essencial" × "para completar").
-2. Aplicar os ajustes e traduzir os textos aprovados para en-US e es.
+1. ~~Revisar o questionário~~ (aprovado em 16/11/2026, com o orçamento da mudança incluído).
+2. Traduzir os textos aprovados do questionário para en-US e es.
 3. **Marco 2 do MVP:** implementar o questionário (blocos, ramificação, salvamento no IndexedDB pela camada de armazenamento, edição). Ver a ordem dos marcos em [docs/mvp.md](docs/mvp.md).
-4. Em paralelo: conteúdo da Fase 0 para o cenário inicial, sempre a partir de fontes oficiais.
+4. Em paralelo: conteúdo da Fase 0 para o cenário inicial e levantamento das taxas oficiais do orçamento (passaporte no Brasil, vistos, USCIS, impostos e DMV dos estados da lista curta), sempre a partir de fontes oficiais.
 
 ## Como trabalhamos
 

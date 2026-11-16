@@ -27,7 +27,8 @@
   - Impostos: IRS (irs.gov)
   - Saúde e benefícios: Medicaid.gov, HHS (hhs.gov), Social Security (ssa.gov)
   - Medicamentos: FDA (fda.gov)
-  - Estados: sites oficiais de cada governo estadual (domínios `.gov`)
+  - Estados: sites oficiais de cada governo estadual (domínios `.gov`), incluindo o órgão de receita (impostos estaduais) e o DMV (carteira de motorista, registro e taxas de veículos)
+  - Passaporte e documentos: órgão oficial emissor do **país de origem** de cada pessoa (para os custos do [orçamento](orcamento.md))
   - Dados: Census (census.gov), BLS (bls.gov), NOAA (noaa.gov, para clima)
 - **Quando não existe fonte oficial** (ex.: custo de vida detalhado, preço de aluguel): a informação aparece marcada como **"estimativa, fonte não oficial"**, com a fonte citada.
 - **Conteúdo inicial:** criado durante o desenvolvimento, a partir das fontes oficiais, com as fontes citadas.

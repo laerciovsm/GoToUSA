@@ -57,10 +57,10 @@ Entender com clareza **o que a pessoa quer** e a **situação real dela e da fam
 ### 3. Quem vai com você
 > O bloco mais importante para os casos especiais.
 
-- **Cônjuge ou parceiro(a):** vai junto? O casamento é formal? (união estável nem sempre é reconhecida para visto)
-- **Para cada filho:** idade · série escolar · necessidades especiais ou cuidados contínuos · fala inglês?
+- **Cônjuge ou parceiro(a):** vai junto (sim, não ou ainda não sabe)? Como é a união? Inglês e profissão do cônjuge (opcional).
+- **Para cada filho, de qualquer idade (inclusive adultos):** mês e ano de nascimento (não a idade, porque a jornada dura anos) · série escolar · necessidades especiais ou cuidados contínuos · se sim, **grau de autonomia e cuidador principal** (na parte essencial) · fala inglês?
 - **Filhos de relacionamento anterior:** o outro pai ou mãe precisa autorizar a viagem? Como está a guarda?
-- **Outros dependentes** (filho adulto, pais, avós, irmãos etc.). Para cada um: relação · idade · nível de dependência (total, parcial, financeira) · precisa de cuidador? · mobilidade reduzida? · medicação contínua?
+- **Outros dependentes** (pais, avós, irmãos etc.; filhos ficam no item acima). Para cada um: relação · mês e ano de nascimento · nível de dependência (total, parcial, financeira) · precisa de cuidador? · mobilidade reduzida? · medicação contínua?
 - **Animais de estimação:** espécie e quantidade.
 - **Quem fica:** alguém depende de você e vai ficar no país de origem?
 
@@ -87,10 +87,18 @@ Para **cada pessoa** que vai (titular, cônjuge, filhos, outros dependentes):
 - **Vacinas** em dia? (o visto de imigrante exige vacinas e exame médico)
 
 ### 5. Dinheiro
+> Alimenta o [orçamento da mudança](orcamento.md): custos até a mudança, custo mensal nos EUA (com impostos e taxas do estado) e "a conta fecha?".
+
+- Quem gera renda hoje e quem poderá trabalhar nos EUA (renda única é fator de risco).
+- Quanto já tem guardado e quanto consegue guardar por mês.
 - Quanto pretende levar, em USD.
-- Renda que continua depois da mudança (trabalho remoto, aluguel, aposentadoria).
+- Salário da oferta de emprego e benefícios do empregador (se houver oferta).
+- Renda que continua depois da mudança (trabalho remoto, aluguel, aposentadoria) e outras fontes de renda legais.
+- Moradia nos EUA: alugar, comprar à vista, financiar, morar com família ou moradia do empregador.
+- Carro: nenhum, à vista, financiado ou *leasing*.
+- Visitas aos EUA antes da mudança e o que vai levar na mudança.
 - Patrimônio no país de origem: vender, alugar ou manter?
-- Dívidas e financiamentos ativos.
+- Dívidas e financiamentos ativos, e se continuam sendo pagos.
 - Por quantos meses o dinheiro precisa durar até haver renda nos EUA?
 
 ### 6. Preferências e estilo de vida
@@ -112,7 +120,7 @@ Para **cada pessoa** que vai (titular, cônjuge, filhos, outros dependentes):
 ### 8. Histórico com os EUA
 - Já visitou? Tem ou teve visto?
 - Tem família ou amigos nos EUA? (rede de apoio, possível patrocinador)
-- Existe algo que possa complicar, como visto negado, permanência além do prazo ou antecedentes criminais? **Só sim / não / prefiro não dizer, sem detalhes.** Se for "sim", a jornada recomenda um advogado logo no início.
+- Existe algo, no histórico de qualquer pessoa da família que vai, que possa complicar, como visto negado, permanência além do prazo ou antecedentes criminais? **Só sim / não / prefiro não dizer, sem detalhes.** Se for "sim", a jornada recomenda um advogado logo no início.
 
 ### 9. Documentos que você já tem (só sim/não, sem envio de arquivos)
 - Passaporte válido (e até quando) de cada pessoa que vai.

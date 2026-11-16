@@ -67,6 +67,7 @@ Por ser um dos cenários mais complexos, ele testa bem o motor da jornada. Os de
 | 15 | **Trilha simples e carimbos do passaporte** | Versão visual simples, que pode ser refinada depois |
 | 16 | **Contagem regressiva** até a data de partida | Simples de fazer |
 | 17 | **Carta para o eu do futuro** | Simples de fazer |
+| 18 | **Orçamento da mudança (versão simples)** | Custos até a mudança, custo mensal no(s) estado(s) da lista curta e "a conta fecha?", com taxas oficiais conferidas. Ver [orcamento.md](orcamento.md) |
 
 ### Depois do MVP
 - Contas, transferência da jornada do navegador para a conta e acesso em vários aparelhos

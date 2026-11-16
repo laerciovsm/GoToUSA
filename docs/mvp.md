@@ -112,5 +112,5 @@ Medição: conversas com os validadores ao fim de cada mês (no MVP não há col
 
 ## Pendências
 - [ ] Levantar os propósitos dos demais validadores
-- [ ] Definir quem escreve e revisa o conteúdo
 - [ ] Definir a lista curta de estados para o primeiro perfil detalhado
+- [ ] Definir se a atualização automática do conteúdo entra no MVP ou logo depois

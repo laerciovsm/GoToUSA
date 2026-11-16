@@ -52,6 +52,7 @@ O GoToUSA ajuda a pessoa a **criar a própria jornada** e a evoluir nela, com tu
 - Detalhes em [docs/questionario.md](docs/questionario.md) e [docs/jornada.md](docs/jornada.md).
 - Conteúdo, atualização legal, regras de linguagem, perfil dos estados e cruzamento de saúde: [docs/conteudo.md](docs/conteudo.md).
 - Escopo da primeira versão: [docs/mvp.md](docs/mvp.md).
+- Checklist para quando for comercializar (custos, simulação de custo da IA, empresa, jurídico): [docs/comercializacao.md](docs/comercializacao.md).
 
 ### Funcionalidades decididas
 - **Aviso legal com aceite obrigatório:** antes de começar, a pessoa lê e **aceita** que o app não dá orientação jurídica, apenas apresenta requisitos oficiais e é um auxílio à jornada.
@@ -91,6 +92,9 @@ A ferramenta deve estar preparada para **qualquer idioma** desde o primeiro dia:
 
 ## Princípios
 
+- **Só informação oficial e verificada (premissa inegociável):** nada é inventado. Todo fato do conteúdo tem fonte oficial e data de verificação. Conhecimento de memória, inclusive da IA, não é fonte. Detalhes em [docs/conteudo.md](docs/conteudo.md#premissa-só-informação-oficial-e-verificada).
+- **Atualização automática do conteúdo, sem revisão humana:** detecção de mudanças nas fontes, resumo por IA, verificações automáticas e publicação com aviso padrão e link da fonte na íntegra. O projeto não depende de pessoas revisando nem da assinatura do Claude Code.
+- **O preço de venda precisa pagar os custos de operação (incluindo a IA por uso) e dar margem.**
 - **Legalidade:** orientar apenas caminhos legais. Deixar claro que o conteúdo é informativo, **não é aconselhamento jurídico**, e citar fontes oficiais (USCIS, Departamento de Estado etc.) com data da última revisão.
 - **Global e multilíngue:** pensado para pessoas de qualquer país, com suporte a vários idiomas desde o início.
 - **Privacidade:** coletar o mínimo de dados possível e respeitar a LGPD, o GDPR e a CCPA.

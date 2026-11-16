@@ -14,14 +14,66 @@
 - **Atualização:** corrigir o arquivo, fazer o commit e publicar de novo. Num app web, todos veem a versão nova no próximo acesso.
 - **Depois do MVP:** com backend e contas, será possível avisar cada pessoa afetada por uma mudança. O conteúdo pode continuar em arquivos no Git.
 
-## Atualização do conteúdo legal
+## Premissa: só informação oficial e verificada
 
-> **Regra de ouro:** o app **nunca** reescreve conteúdo legal sozinho, nem com automação nem com IA. Uma leitura automática errada, mostrada como verdade para quem está tomando decisões de vida, é o maior risco do produto.
+> **Nada é inventado.** Todo fato do conteúdo (regras, prazos, taxas, requisitos, benefícios, dados de estados) precisa ter uma **fonte oficial** e uma **data de verificação**. Sem fonte oficial, o fato não entra.
 
-- **Monitoramento automático das fontes oficiais** (USCIS, Federal Register, Departamento de Estado). Quando algo muda, o sistema **avisa quem mantém o conteúdo**. Uma IA pode ajudar a resumir e sugerir a atualização, mas **uma pessoa revisa e aprova**.
-- **Dados estruturados podem ser atualizados automaticamente:** o *Visa Bulletin* (fila mensal do Green Card), taxas oficiais, salário mínimo, impostos estaduais.
-- **Transparência em todo conteúdo legal:** data da última revisão, link da fonte oficial e lembrete para confirmar na fonte.
-- **Depois do MVP:** avisar quem foi afetado: "Uma regra que afeta a sua jornada mudou. Veja o que mudou."
+- **Cada fato registra:** a fonte (link), o órgão responsável e a data em que foi conferido.
+- **Conhecimento de memória (inclusive da IA) não é fonte.** Tudo é conferido na fonte oficial antes de entrar no conteúdo.
+- **Fontes oficiais prioritárias:**
+  - Imigração: USCIS (uscis.gov), Departamento de Estado (travel.state.gov, incluindo o *Visa Bulletin*), CBP (cbp.gov, para entrada no país e medicamentos)
+  - Leis e regras: Federal Register (federalregister.gov), eCFR (ecfr.gov), Congresso (congress.gov)
+  - Trabalho: Departamento do Trabalho (dol.gov)
+  - Impostos: IRS (irs.gov)
+  - Saúde e benefícios: Medicaid.gov, HHS (hhs.gov), Social Security (ssa.gov)
+  - Medicamentos: FDA (fda.gov)
+  - Estados: sites oficiais de cada governo estadual (domínios `.gov`)
+  - Dados: Census (census.gov), BLS (bls.gov), NOAA (noaa.gov, para clima)
+- **Quando não existe fonte oficial** (ex.: custo de vida detalhado, preço de aluguel): a informação aparece marcada como **"estimativa, fonte não oficial"**, com a fonte citada.
+- **Conteúdo inicial:** criado durante o desenvolvimento, a partir das fontes oficiais, com as fontes citadas.
+- **Atualizações:** feitas por um processo **100% automático**, sem revisão humana (ver [Atualização automática do conteúdo](#atualização-automática-do-conteúdo)).
+- **Conteúdo com verificação vencida** aparece sinalizado para a pessoa até ser reconferido.
+
+## Aviso ao final de cada conteúdo oficial
+
+Todo conteúdo baseado em fonte oficial é apresentado como **informação compilada**, seguida de um aviso padrão com o link da fonte na íntegra. Modelo (traduzido para cada idioma):
+
+> ℹ️ **Sobre esta informação**
+> Este conteúdo foi compilado a partir de fontes oficiais, mas erros ao resumir podem acontecer. A fonte oficial na íntegra está em: **[nome do órgão – título da página](link)** (verificado em DD/MM/AAAA).
+> O GoToUSA é um **apoio à sua jornada**, não uma consultoria jurídica. Para informações detalhadas, consulte a fonte oficial acima ou procure um advogado de imigração ou um especialista.
+
+- Quando o conteúdo usa mais de uma fonte, todas são listadas.
+- O aviso é um componente fixo da interface, não texto repetido à mão em cada arquivo, para garantir que nunca falte.
+
+## Atualização automática do conteúdo
+
+> **Decisão:** a atualização do conteúdo é **100% automática e sem revisão humana**. O projeto não depende de pessoas revisando textos ou fontes, nem da assinatura do Claude Code. O risco de um resumo errado ir ao ar é reduzido por **verificações automáticas**, **transparência**, o **aviso padrão** com o link da fonte na íntegra e o botão **"Reportar erro"**.
+
+### O fluxo
+1. **Detecção (sem IA, gratuita):** um script agendado no GitHub Actions confere periodicamente as páginas oficiais de cada conteúdo, comparando uma "impressão digital" (hash) do texto. Sem mudança, nada acontece.
+2. **Busca:** se a página mudou, o script baixa o texto oficial atualizado.
+3. **Resumo por IA (via API, pago por uso):** a IA gera o novo resumo seguindo as [regras de linguagem](#regras-de-linguagem).
+4. **Verificações automáticas:**
+   - **Conferência dos números:** todo número, data, idade ou valor do resumo precisa existir no texto oficial.
+   - **Segunda leitura por IA:** outra chamada compara o resumo com o original e aponta contradições ou omissões importantes.
+5. **Publicação automática:** se passar nas verificações, o resumo é salvo como commit no Git (histórico completo) e publicado com o aviso padrão.
+6. **Se falhar:** mantém a versão anterior e mostra "Esta informação está sendo atualizada. Consulte a fonte oficial: [link]". **Nunca publica algo que não passou nas verificações.**
+
+### Transparência
+- Cada conteúdo mostra **"Resumo gerado automaticamente em DD/MM/AAAA"**, além do [aviso padrão](#aviso-ao-final-de-cada-conteúdo-oficial).
+- Botão **"Reportar erro"** em cada conteúdo. É um alerta para quando algo escapar, não uma etapa de revisão.
+- Toda atualização fica no histórico do Git e pode ser revertida.
+
+### Dados estruturados
+- O *Visa Bulletin* (fila mensal do Green Card), taxas oficiais, salário mínimo e impostos estaduais são dados estruturados e podem ser atualizados automaticamente **sem IA**.
+
+### Depois do MVP
+- Avisar quem foi afetado: "Uma regra que afeta a sua jornada mudou. Veja o que mudou."
+
+### Custo
+- A detecção é gratuita (GitHub Actions). Só o resumo e a segunda leitura por IA têm custo, **pago por uso** e proporcional ao número de mudanças nas fontes.
+- É um **custo de operação** (como a hospedagem). A premissa "tudo gratuito" vale para as ferramentas de desenvolvimento.
+- **Simulação de custo obrigatória antes da comercialização:** ver [comercializacao.md](comercializacao.md#simulação-de-custo-da-ia).
 
 ## Regras de linguagem
 
@@ -68,4 +120,6 @@ Tudo segue as [regras de linguagem](#regras-de-linguagem): informa a regra geral
 - [ ] Definir o formato exato dos arquivos de conteúdo (campos de uma tarefa, de um perfil de estado)
 - [ ] Listar as fontes oficiais a monitorar
 - [ ] Escolher a lista curta de estados para o primeiro perfil detalhado
-- [ ] Definir quem escreve e revisa o conteúdo
+- [ ] Escolher o provedor de IA para os resumos automáticos e confirmar o preço por uso
+- [ ] Definir a frequência de verificação de cada tipo de fonte
+- [ ] Fazer a simulação de custo da IA (ver [comercializacao.md](comercializacao.md#simulação-de-custo-da-ia))

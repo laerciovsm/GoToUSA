@@ -52,6 +52,7 @@ O GoToUSA ajuda a pessoa a **criar a própria jornada** e a evoluir nela, com tu
 - Detalhes em [docs/questionario.md](docs/questionario.md) e [docs/jornada.md](docs/jornada.md).
 - Conteúdo, atualização legal, regras de linguagem, perfil dos estados e cruzamento de saúde: [docs/conteudo.md](docs/conteudo.md).
 - Escopo da primeira versão: [docs/mvp.md](docs/mvp.md).
+- Identidade visual, paleta e lúdico (trilha da família, mala da prontidão, carimbos): [docs/design.md](docs/design.md).
 - Checklist para quando for comercializar (custos, simulação de custo da IA, empresa, jurídico): [docs/comercializacao.md](docs/comercializacao.md).
 
 ### Funcionalidades decididas

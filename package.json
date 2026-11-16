@@ -11,6 +11,7 @@
     "build": "pnpm --filter @gotousa/web build",
     "start": "pnpm --filter @gotousa/web start",
     "lint": "pnpm -r lint",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test"
   }
 }

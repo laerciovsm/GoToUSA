@@ -98,7 +98,7 @@ Medição: conversas com os validadores ao fim de cada mês (no MVP não há col
 ## Ordem de construção (marcos)
 
 1. ✅ **Esqueleto:** monorepo, Next.js, i18n nos 3 idiomas, layout base responsivo, aviso legal e boas-vindas.
-2. **Questionário:** blocos, ramificação, salvamento no IndexedDB, edição.
+2. 🧪 **Questionário:** blocos, ramificação, salvamento no IndexedDB, edição. *Implementado em 16/11/2026, aguardando o teste do fundador no celular.* Regras em `packages/shared/src/questionnaire/`, telas em `apps/web/src/components/questionnaire/`, textos em `apps/web/messages/questionnaire/`.
 3. **Motor da jornada:** formato do conteúdo, regras de geração, cálculo de prazos.
 4. **Conteúdo da Fase 0** (escrito em paralelo aos marcos 2 e 3).
 5. **Telas da jornada:** por fase e por tema, tarefas, prontidão, tela "Hoje".

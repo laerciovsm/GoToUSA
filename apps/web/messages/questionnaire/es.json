@@ -1,0 +1,699 @@
+{
+  "QBlocks": {
+    "why": { "title": "Tu porqué", "intro": "La base de tu camino. En los momentos difíciles, te recordaremos el motivo que te trajo hasta aquí." },
+    "you": { "title": "Sobre ti", "intro": "Quién eres hoy: país, edad, idiomas, estudios y trabajo." },
+    "goal": { "title": "Tu objetivo", "intro": "Por qué, por cuánto tiempo y cuándo quieres ir." },
+    "household": { "title": "Quién va contigo", "intro": "Cónyuge, hijos, otros dependientes y mascotas. Es el bloque más importante para los casos especiales." },
+    "health": { "title": "Salud", "intro": "Condiciones, medicamentos y cuidados de cada persona, para incluir las tareas correctas y estimar costos." },
+    "money": { "title": "Dinero", "intro": "Ingresos de la familia, ahorros, vivienda, auto y compromisos. Alimenta el presupuesto de la mudanza." },
+    "pref": { "title": "Preferencias y estilo de vida", "intro": "Clima, tamaño de ciudad, ritmo de vida. Lo que te gusta pesa tanto como los requisitos." },
+    "dest": { "title": "Destino", "intro": "Adónde piensas ir y qué pesa más en la elección." },
+    "history": { "title": "Historial con EE. UU.", "intro": "Visitas, visas y personas que conoces allá." },
+    "docs": { "title": "Documentos", "intro": "Solo sí o no: no se envía ningún archivo." },
+    "rhythm": { "title": "Tu ritmo", "intro": "Con qué frecuencia quieres seguir tu camino y qué te motiva." }
+  },
+  "Q": {
+    "why": {
+      "reason": {
+        "label": "¿Por qué quieres vivir en Estados Unidos?",
+        "why": "Tu motivo es la base del camino. Vuelve a aparecer en la pantalla de inicio y en los momentos de reflexión.",
+        "options": {
+          "career": "Crecer profesionalmente",
+          "safety": "Más seguridad",
+          "education": "Estudios, míos o de mis hijos",
+          "family": "Estar cerca de la familia",
+          "quality": "Calidad de vida",
+          "income": "Ganar más",
+          "experience": "Vivir una experiencia nueva",
+          "other": "Otro"
+        }
+      },
+      "reasonOther": { "label": "¿Cuál es el otro motivo?", "why": "Para registrar tu motivo con tus propias palabras." },
+      "reasonText": { "label": "Escribe con tus palabras por qué quieres ir.", "why": "Leer tu propio motivo, escrito por ti, ayuda a seguir adelante en los días difíciles.", "placeholder": "Quiero ir porque…" },
+      "expect": { "label": "¿Qué esperas que cambie en tu vida?", "why": "Ayuda a comprobar, a lo largo del camino, si la mudanza sigue teniendo sentido para ti." },
+      "fears": {
+        "label": "¿Qué es lo que más te preocupa de esta mudanza?",
+        "why": "Saber qué te preocupa ayuda a dar atención a esos temas desde temprano.",
+        "options": {
+          "language": "El idioma",
+          "money": "El dinero",
+          "job": "Conseguir trabajo",
+          "family_left": "Dejar a la familia y los amigos",
+          "kids_adapt": "La adaptación de los hijos",
+          "health": "Salud y gastos médicos",
+          "legal": "Hacer algo mal en el proceso",
+          "loneliness": "La soledad",
+          "other": "Otro"
+        }
+      },
+      "fearsOther": { "label": "¿Cuál es la otra preocupación?", "why": "Para registrar tu preocupación con tus propias palabras." },
+      "giveUp": {
+        "label": "¿A qué estás dispuesto(a) a renunciar?",
+        "why": "Toda mudanza implica renuncias. Pensarlas antes ayuda a decidir con conciencia.",
+        "options": {
+          "near_family": "Vivir cerca de la familia",
+          "career_now": "Mi carrera actual",
+          "comfort": "Comodidad y rutina",
+          "language_daily": "Hablar mi idioma a diario",
+          "savings": "Parte de mis ahorros",
+          "none_sure": "Todavía no lo sé"
+        }
+      }
+    },
+    "you": {
+      "nationalities": { "label": "¿Cuál es tu nacionalidad? Si tienes más de una, márcalas todas.", "why": "La nacionalidad cambia los tipos de visa, los acuerdos entre países y algunos programas disponibles." },
+      "residence": { "label": "¿En qué país vives hoy?", "why": "Define el consulado, los documentos locales y las tareas de salida del país." },
+      "birthYear": { "label": "¿En qué año naciste?", "why": "La edad influye en los tipos de visa, los seguros médicos y algunas tareas.", "placeholder": "Ej.: 1985" },
+      "languages": { "label": "¿Qué idiomas hablas?", "why": "Ayuda a pensar en la adaptación y en comunidades que hablan tu idioma." },
+      "english": {
+        "label": "¿Cómo está tu inglés hoy?",
+        "why": "Define el plan de estudio de inglés y si pueden ser necesarios exámenes de idioma.",
+        "options": {
+          "none": "No hablo inglés",
+          "basic": "Entiendo palabras y frases simples",
+          "intermediate": "Me defiendo en el día a día (supermercado, restaurante)",
+          "advanced": "Puedo conversar sobre casi todo",
+          "fluent": "Puedo trabajar y estudiar en inglés"
+        }
+      },
+      "education": {
+        "label": "¿Cuál es tu nivel de estudios más alto (terminado)?",
+        "why": "Los estudios influyen en los tipos de visa y en la validación del título.",
+        "options": {
+          "primary": "Primaria",
+          "secondary": "Secundaria",
+          "technical": "Carrera técnica",
+          "bachelor": "Licenciatura",
+          "postgrad": "Especialización o MBA",
+          "master": "Maestría",
+          "doctorate": "Doctorado"
+        }
+      },
+      "field": { "label": "¿Cuál es tu área de formación?", "why": "Ayuda a encontrar las tareas de validación de título de tu área.", "placeholder": "Ej.: Administración" },
+      "occupation": { "label": "¿Cuál es tu profesión u ocupación actual?", "why": "La profesión influye en los caminos de visa y en el mercado laboral.", "placeholder": "Ej.: Analista de sistemas" },
+      "experienceYears": { "label": "¿Cuántos años llevas trabajando en esa área?", "why": "La experiencia cuenta en algunos tipos de visa de trabajo.", "placeholder": "Ej.: 10" },
+      "regulated": {
+        "label": "¿Tu profesión exige registro o licencia para ejercer? (ej.: medicina, enfermería, derecho, ingeniería, contabilidad)",
+        "why": "Las profesiones reguladas suelen exigir licencia en el estado de destino.",
+        "options": { "yes": "Sí", "no": "No", "unsure": "No lo sé" }
+      },
+      "workStatus": {
+        "label": "¿Cuál es tu situación laboral hoy?",
+        "why": "Influye en los ingresos, el camino de visa y los impuestos.",
+        "options": {
+          "employed": "Empleado(a)",
+          "business_owner": "Tengo una empresa",
+          "self_employed": "Trabajo por cuenta propia",
+          "remote_foreign": "Trabajo remoto para una empresa de otro país",
+          "student": "Estudiante",
+          "retired": "Jubilado(a)",
+          "unemployed": "Sin trabajo en este momento"
+        }
+      }
+    },
+    "goal": {
+      "purpose": {
+        "label": "¿Cuál es el principal motivo de tu mudanza?",
+        "why": "El motivo define los caminos posibles y las primeras tareas.",
+        "options": {
+          "work": "Trabajar",
+          "transfer": "Ser trasladado(a) por la empresa donde trabajo",
+          "study": "Estudiar",
+          "business": "Emprender o invertir",
+          "family": "Reunirme con familia que vive allá",
+          "marriage": "Casarme o vivir con un(a) ciudadano(a) estadounidense",
+          "retire": "Jubilación",
+          "academic": "Investigación o carrera académica",
+          "talent": "Talento extraordinario (artes, deportes, ciencia, negocios)",
+          "exchange": "Intercambio",
+          "lottery": "Lotería de la Green Card",
+          "protection": "Necesito protección (persecución o riesgo en mi país)",
+          "unsure": "Todavía no lo sé"
+        }
+      },
+      "duration": {
+        "label": "¿Por cuánto tiempo quieres quedarte?",
+        "why": "El tiempo de estadía cambia mucho las fases y las tareas.",
+        "options": {
+          "lt6m": "Hasta 6 meses",
+          "6to12m": "De 6 meses a 1 año",
+          "1to3y": "De 1 a 3 años",
+          "3to5y": "De 3 a 5 años",
+          "permanent": "Para siempre",
+          "unsure": "No lo sé"
+        }
+      },
+      "departure": { "label": "¿Cuándo te gustaría ir?", "why": "Es la base del cronograma: el camino se arma hacia atrás a partir de esa fecha." },
+      "has": {
+        "label": "¿Qué tienes hoy?",
+        "why": "Muestra desde dónde empieza tu camino.",
+        "options": {
+          "job_offer": "Oferta de trabajo",
+          "school_admission": "Admisión en una escuela o universidad",
+          "us_relative": "Un familiar que vive en EE. UU.",
+          "company_branch": "Empresa con sucursal en EE. UU.",
+          "capital": "Dinero para invertir",
+          "nothing": "Nada todavía"
+        }
+      },
+      "sponsorship": {
+        "label": "¿Qué tipo de visa va a patrocinar el empleador?",
+        "why": "La visa temporal y la Green Card siguen caminos y plazos distintos. Si no lo sabes, te explicamos la diferencia.",
+        "options": {
+          "temporary": "Visa de trabajo temporal",
+          "greencard": "Green Card (residencia permanente)",
+          "unsure": "No lo sé"
+        }
+      },
+      "familyLink": {
+        "label": "¿Quién es tu familiar en EE. UU.?",
+        "why": "El tipo de parentesco y el estatus del familiar cambian los caminos posibles.",
+        "options": {
+          "spouse_citizen": "Cónyuge ciudadano(a)",
+          "spouse_resident": "Cónyuge con Green Card",
+          "parent_citizen": "Padre o madre ciudadano(a)",
+          "parent_resident": "Padre o madre con Green Card",
+          "child_citizen": "Hijo(a) ciudadano(a)",
+          "sibling_citizen": "Hermano(a) ciudadano(a)",
+          "other": "Otro"
+        }
+      },
+      "studyLevel": {
+        "label": "¿Qué quieres estudiar?",
+        "why": "Cada tipo de curso tiene un camino y tareas propios.",
+        "options": {
+          "language": "Curso de inglés",
+          "undergrad": "Licenciatura",
+          "grad": "Maestría o doctorado",
+          "vocational": "Curso técnico o profesional",
+          "exchange_hs": "Intercambio en la secundaria"
+        }
+      },
+      "investRange": {
+        "label": "¿Cuánto piensas invertir? (en USD)",
+        "why": "El monto de la inversión cambia los caminos posibles para emprender.",
+        "options": {
+          "lt100k": "Hasta 100 mil",
+          "100to500k": "De 100 mil a 500 mil",
+          "500kto1m": "De 500 mil a 1 millón",
+          "gt1m": "Más de 1 millón",
+          "unsure": "No lo sé"
+        }
+      }
+    },
+    "household": {
+      "partner": {
+        "label": "¿Tienes cónyuge o pareja?",
+        "why": "Quién va contigo cambia las tareas, los documentos y el presupuesto.",
+        "options": {
+          "none": "No",
+          "going": "Sí, y va conmigo",
+          "not_going": "Sí, pero no va",
+          "undecided": "Sí, pero aún no sabemos si va"
+        }
+      },
+      "partnerUnion": {
+        "label": "¿Cómo es su unión?",
+        "why": "No todos los tipos de unión se tratan igual en los procesos de visa. Mostramos la regla general con fuente oficial.",
+        "options": {
+          "civil_marriage": "Matrimonio civil",
+          "stable_union": "Unión de hecho registrada",
+          "informal": "Vivimos juntos sin registro",
+          "other": "Otro"
+        }
+      },
+      "children": { "label": "¿Cuántos hijos van contigo? Cuenta a todos, de cualquier edad, incluidos los adultos.", "why": "Cada hijo puede necesitar tareas propias: escuela, documentos, salud.", "hint": "Escribe 0 si no va ningún hijo." },
+      "otherChildren": {
+        "label": "¿Alguno de estos hijos es de otra relación?",
+        "why": "Puede ser necesaria la autorización del otro padre o madre para el viaje.",
+        "options": { "yes": "Sí", "no": "No" }
+      },
+      "custody": {
+        "label": "¿El otro padre o madre está de acuerdo con el viaje?",
+        "why": "Define si se incluyen las tareas de autorización de viaje.",
+        "options": {
+          "agrees": "Sí, está de acuerdo",
+          "disagrees": "No está de acuerdo",
+          "unknown": "Todavía no lo hemos hablado",
+          "sole": "Tengo la custodia exclusiva o el otro progenitor falleció"
+        }
+      },
+      "dependents": { "label": "Además del cónyuge y los hijos, ¿va contigo alguien que dependa de ti? (ej.: padre, madre, abuela, hermano)", "why": "Otros dependientes suelen necesitar un camino propio y planificación de cuidados.", "hint": "Escribe 0 si no va nadie más." },
+      "pets": {
+        "label": "¿Vas a llevar mascotas?",
+        "why": "Los animales tienen reglas de transporte y de entrada al país.",
+        "options": { "none": "No", "dog": "Perro", "cat": "Gato", "bird": "Ave", "other": "Otro" }
+      },
+      "petsCount": { "label": "¿Cuántos animales?", "why": "Ayuda a estimar los costos de transporte." },
+      "leftBehind": {
+        "label": "¿Alguien que depende de ti se quedará en tu país?",
+        "why": "Incluye tareas de planificación para quien se queda: cuidados, poderes notariales, envío de dinero.",
+        "options": { "yes": "Sí", "no": "No" }
+      },
+      "leftBehindWho": { "label": "¿Quién se quedará?", "why": "Solo para identificar a la persona. Puede ser un apodo.", "placeholder": "Ej.: mi madre" }
+    },
+    "partner": {
+      "english": { "label": "¿Cómo está el inglés de tu cónyuge?", "why": "Ayuda a planificar el inglés de la familia y quién puede trabajar en EE. UU." },
+      "occupation": { "label": "¿Cuál es la profesión u ocupación de tu cónyuge?", "why": "Ayuda a pensar en los ingresos de la familia en EE. UU.", "placeholder": "Ej.: Profesora" }
+    },
+    "child": {
+      "nickname": { "label": "¿Cómo quieres llamar a este hijo o hija en la app?", "why": "Solo para identificarlo. Puede ser un apodo o dejarlo en blanco.", "placeholder": "Ej.: Pedro" },
+      "birth": { "label": "Mes y año de nacimiento", "why": "El camino dura años. Con la fecha, la app calcula la edad en cada momento del cronograma, porque algunas reglas dependen de ella." },
+      "school": {
+        "label": "¿En qué etapa escolar está?",
+        "why": "Define las tareas de escuela y de documentos escolares.",
+        "options": {
+          "not_school": "Todavía no estudia",
+          "preschool": "Educación inicial",
+          "elementary": "Primaria",
+          "high": "Secundaria",
+          "college": "Universidad",
+          "finished": "Ya terminó los estudios",
+          "special": "Educación especial"
+        }
+      },
+      "specialNeeds": {
+        "label": "¿Tiene alguna discapacidad o necesita cuidados continuos?",
+        "why": "Incluye las tareas de cuidados, servicios y costos. Los detalles van en el bloque Salud.",
+        "options": { "yes": "Sí", "no": "No", "skip": "Prefiero no responder" }
+      },
+      "english": { "label": "¿Habla inglés?", "why": "Ayuda a planificar la adaptación en la escuela y en el día a día." }
+    },
+    "dependent": {
+      "nickname": { "label": "¿Cómo quieres llamar a esta persona en la app?", "why": "Solo para identificarla. Puede ser un apodo o dejarlo en blanco.", "placeholder": "Ej.: Abuela María" },
+      "relation": {
+        "label": "¿Cuál es su relación contigo?",
+        "why": "El parentesco cambia los caminos posibles para esta persona.",
+        "options": {
+          "parent": "Padre o madre",
+          "grandparent": "Abuelo o abuela",
+          "sibling": "Hermano o hermana",
+          "in_law": "Suegro o suegra",
+          "other": "Otro"
+        }
+      },
+      "birth": { "label": "Mes y año de nacimiento", "why": "Con la fecha, la app calcula la edad en cada momento del cronograma." },
+      "dependency": {
+        "label": "¿Cómo es la dependencia?",
+        "why": "Ayuda a planificar cuidados y presupuesto.",
+        "options": {
+          "full": "Depende totalmente (cuidados y dinero)",
+          "care": "Necesita cuidados, pero tiene ingresos propios",
+          "financial": "Solo económica",
+          "partial": "Parcial"
+        }
+      }
+    },
+    "health": {
+      "conditions": {
+        "label": "¿Se aplica alguna de estas situaciones?",
+        "why": "Para incluir las tareas de salud y estimar costos en EE. UU. Queda solo en este dispositivo.",
+        "options": {
+          "none": "Ninguna",
+          "autism": "Autismo",
+          "intellectual": "Discapacidad intelectual",
+          "adhd": "TDAH",
+          "chronic": "Enfermedad crónica (ej.: diabetes, cardiopatía, enfermedad renal)",
+          "mental": "Salud mental (ej.: depresión, ansiedad, trastorno bipolar)",
+          "mobility": "Movilidad reducida o silla de ruedas",
+          "vision": "Discapacidad visual",
+          "hearing": "Discapacidad auditiva",
+          "other": "Otra"
+        }
+      },
+      "autismLevel": {
+        "label": "Nivel de apoyo del autismo",
+        "why": "Ayuda a dimensionar los servicios y cuidados a investigar en el destino.",
+        "options": { "1": "Nivel 1", "2": "Nivel 2", "3": "Nivel 3", "unknown": "No lo sé" }
+      },
+      "intellectualDegree": {
+        "label": "Grado de la discapacidad intelectual",
+        "why": "Ayuda a dimensionar los servicios y cuidados a investigar en el destino.",
+        "options": { "mild": "Leve", "moderate": "Moderado", "severe": "Grave", "profound": "Profundo", "unknown": "No lo sé" }
+      },
+      "autonomy": {
+        "label": "En el día a día, esta persona…",
+        "why": "Define tareas importantes, como la representación legal de un adulto en EE. UU. y la planificación de cuidados.",
+        "options": {
+          "independent": "Es independiente",
+          "supervision": "Necesita supervisión",
+          "help": "Necesita ayuda en actividades diarias (baño, alimentación, vestirse)",
+          "full": "Depende totalmente de otra persona"
+        }
+      },
+      "caregiver": {
+        "label": "¿Quién es el cuidador principal?",
+        "why": "El cuidado ocupa el tiempo de alguien de la familia, y eso entra en el presupuesto y en la planificación del trabajo.",
+        "options": { "external": "Cuidador contratado", "other": "Otra persona" }
+      },
+      "medications": { "label": "¿Toma medicación continua?", "why": "Los medicamentos continuos generan tareas: reserva inicial, recetas, reglas de entrada y médico en EE. UU.", "hint": "Agrega cada medicamento. Si no toma ninguno, puedes omitir." },
+      "therapies": {
+        "label": "¿Hace algún tratamiento o terapia regular?",
+        "why": "Ayuda a investigar la disponibilidad y el costo en el destino.",
+        "options": {
+          "none": "Ninguno",
+          "speech": "Fonoaudiología o logopedia",
+          "occupational": "Terapia ocupacional",
+          "physio": "Fisioterapia",
+          "psych": "Psicología o psiquiatría",
+          "aba": "Terapia conductual (ej.: ABA)",
+          "dialysis": "Diálisis",
+          "other": "Otro"
+        }
+      },
+      "equipment": { "label": "¿Usa algún equipo? (ej.: silla de ruedas, audífono, CPAP)", "why": "Los equipos pueden tener reglas de transporte y costos en el destino." },
+      "specialists": { "label": "¿Qué especialistas lo acompañan?", "why": "Ayuda a planificar la continuidad del seguimiento en EE. UU." },
+      "pregnancy": {
+        "label": "¿Embarazo actual o planificado para los próximos 2 años?",
+        "why": "Influye en el seguro médico, los costos y el cronograma.",
+        "options": { "current": "Embarazada ahora", "planned": "Planificado", "no": "No" }
+      },
+      "vaccines": {
+        "label": "¿Las vacunas están al día?",
+        "why": "Algunos procesos de visa exigen vacunas y examen médico.",
+        "options": { "yes": "Sí", "no": "No", "unsure": "No lo sé" }
+      }
+    },
+    "money": {
+      "earnersNow": {
+        "label": "¿Quién genera ingresos en tu familia hoy?",
+        "why": "Una familia con una sola fuente de ingresos queda más expuesta si esta se detiene. Lo tenemos en cuenta.",
+        "options": {
+          "me": "Yo",
+          "partner": "Cónyuge",
+          "adult_child": "Hijo(a) adulto(a)",
+          "other_member": "Otra persona de la familia",
+          "passive": "Ingresos que no dependen del trabajo (alquiler, jubilación)"
+        }
+      },
+      "earnersUS": {
+        "label": "¿Quién piensa trabajar en EE. UU.?",
+        "why": "La autorización de trabajo de cada persona depende del tipo de visa. Mostramos la regla general con fuente oficial.",
+        "options": { "me": "Yo", "partner": "Cónyuge", "adult_child": "Hijo(a) adulto(a)", "unsure": "Todavía no lo sé" }
+      },
+      "partnerAvailability": {
+        "label": "¿Tu cónyuge tendría disponibilidad para trabajar?",
+        "why": "Ayuda a calcular los ingresos posibles de la familia y el tiempo dedicado a cuidados.",
+        "options": {
+          "yes": "Sí",
+          "partial": "Parcialmente",
+          "no": "No, es cuidador(a) a tiempo completo",
+          "no_other": "No, por otro motivo"
+        }
+      },
+      "otherSources": {
+        "label": "¿Tienen o podrían tener otras fuentes de ingresos?",
+        "why": "Mostramos solo posibilidades legales de ingresos complementarios.",
+        "options": {
+          "remote_home": "Trabajo remoto para una empresa o clientes de mi país",
+          "freelance": "Servicios como autónomo o freelancer",
+          "online_business": "Negocio en línea",
+          "rent_home": "Alquilar un inmueble en mi país",
+          "investments": "Rendimientos de inversiones",
+          "none": "No veo otras posibilidades ahora",
+          "unsure": "Me gustaría recibir ideas"
+        }
+      },
+      "saved": { "label": "¿Cuánto tienes ahorrado para la mudanza?", "why": "Con este monto, la app calcula cuánto falta para la meta." },
+      "monthlySaving": { "label": "¿Cuánto puedes ahorrar por mes?", "why": "Con este monto, la app calcula en cuánto tiempo llegas a la meta." },
+      "bring": { "label": "¿Cuánto piensas llevar? (en USD)", "why": "La app lo compara con la meta sugerida por el presupuesto de la mudanza." },
+      "expectedIncomeUS": { "label": "¿Cuál es el salario anual ofrecido? (en USD, antes de impuestos)", "why": "Es la base para calcular si los ingresos cubren los gastos en EE. UU." },
+      "employerBenefits": {
+        "label": "¿Qué ofrece el empleador además del salario?",
+        "why": "Los beneficios cambian mucho el presupuesto, sobre todo el seguro médico.",
+        "options": {
+          "health": "Seguro médico",
+          "relocation": "Ayuda para la mudanza",
+          "housing": "Vivienda",
+          "visa_fees": "Paga las tasas de la visa",
+          "lawyer": "Paga el abogado",
+          "unsure": "Todavía no lo sé"
+        }
+      },
+      "income": {
+        "label": "¿Seguirás teniendo algún ingreso después de la mudanza?",
+        "why": "Los ingresos que continúan ayudan al presupuesto, pero hay que confirmar si tu tipo de visa lo permite y qué impuestos se aplican.",
+        "options": {
+          "none": "No",
+          "remote_job": "Trabajo remoto",
+          "rent": "Alquiler de un inmueble",
+          "pension": "Jubilación o pensión",
+          "business": "Ganancias de una empresa",
+          "other": "Otro"
+        }
+      },
+      "incomeMonthly": { "label": "¿Cuánto por mes, aproximadamente? (en USD)", "why": "Entra en el cálculo de ingresos frente a gastos." },
+      "housingPlan": {
+        "label": "¿Cómo piensas vivir en EE. UU. al principio?",
+        "why": "Alquilar o comprar cambia mucho los costos iniciales y mensuales.",
+        "options": {
+          "rent": "Alquilar",
+          "buy_cash": "Comprar al contado",
+          "buy_financed": "Comprar con hipoteca",
+          "family": "Vivir con familia o amigos",
+          "employer": "Vivienda ofrecida por el empleador",
+          "unsure": "No lo sé"
+        }
+      },
+      "carPlan": {
+        "label": "¿Y el auto?",
+        "why": "El auto tiene costos de compra, seguro, registro y tasas del estado.",
+        "options": {
+          "none": "No voy a tener auto",
+          "buy_cash": "Comprar al contado",
+          "buy_financed": "Financiar",
+          "lease": "Leasing (alquiler a largo plazo)",
+          "unsure": "No lo sé"
+        }
+      },
+      "carCount": { "label": "¿Cuántos autos?", "why": "Cada auto entra en el presupuesto." },
+      "scoutingTrips": {
+        "label": "¿Piensas visitar EE. UU. antes de la mudanza para conocer el destino?",
+        "why": "Los viajes antes de la mudanza entran en los costos previos a la mudanza.",
+        "options": { "none": "No", "one": "Una vez", "two_plus": "Dos veces o más", "unsure": "No lo sé" }
+      },
+      "scoutingPeople": { "label": "¿Quién va en esos viajes?", "why": "Ayuda a estimar pasajes y alojamiento." },
+      "moveBelongings": {
+        "label": "¿Qué piensas llevar en la mudanza?",
+        "why": "Ayuda a estimar el costo de la mudanza.",
+        "options": {
+          "suitcases": "Solo maletas",
+          "some_boxes": "Maletas y algunas cajas",
+          "shipment": "Mudanza despachada (muebles y muchos objetos)",
+          "unsure": "No lo sé"
+        }
+      },
+      "assets": {
+        "label": "¿Qué harás con tus bienes (inmueble, auto)?",
+        "why": "Vender, alquilar o mantener genera tareas y cambia el presupuesto.",
+        "options": {
+          "sell": "Vender",
+          "rent": "Alquilar",
+          "keep": "Mantener",
+          "mixed": "Un poco de cada",
+          "none": "No tengo bienes relevantes"
+        }
+      },
+      "debts": {
+        "label": "¿Tienes deudas o préstamos activos?",
+        "why": "Los compromisos que continúan entran en el presupuesto mensual.",
+        "options": { "yes": "Sí", "no": "No", "skip": "Prefiero no responder" }
+      },
+      "debtsContinue": {
+        "label": "¿Se seguirán pagando después de la mudanza?",
+        "why": "Si continúan, la cuota entra en los gastos mensuales.",
+        "options": { "yes": "Sí", "no": "Voy a saldarlas antes", "unsure": "No lo sé" }
+      },
+      "debtsMonthly": { "label": "¿Cuánto por mes, aproximadamente?", "why": "Entra en los gastos mensuales como compromiso en el país de origen." },
+      "runway": {
+        "label": "¿Por cuántos meses debe durar el dinero hasta que tengas ingresos en EE. UU.?",
+        "why": "Ayuda a dimensionar el fondo de emergencia.",
+        "options": {
+          "lt3": "Menos de 3",
+          "3to6": "De 3 a 6",
+          "6to12": "De 6 a 12",
+          "gt12": "Más de 12",
+          "unsure": "No lo sé"
+        }
+      }
+    },
+    "pref": {
+      "climate": {
+        "label": "¿Qué clima prefieres?",
+        "why": "El clima pesa mucho en el bienestar. La comparación de destinos lo tiene en cuenta.",
+        "options": { "cold": "Frío", "mild": "Templado, sin extremos", "hot": "Cálido", "seasons": "Cuatro estaciones bien definidas", "any": "Me da igual" }
+      },
+      "heat": {
+        "label": "¿Cómo llevas el calor fuerte y húmedo?",
+        "why": "Quien no soporta el calor no debería recibir como sugerencia principal un lugar de veranos largos y húmedos.",
+        "options": { "love": "Me encanta", "ok": "Lo tolero", "hate": "No lo soporto" }
+      },
+      "snow": {
+        "label": "¿Y la nieve y el frío intenso?",
+        "why": "Ayuda a señalar conflictos entre el destino y lo que te gusta.",
+        "options": { "love": "Me encanta", "ok": "Lo tolero", "hate": "No lo soporto" }
+      },
+      "placeSize": {
+        "label": "¿Dónde te imaginas viviendo?",
+        "why": "El tamaño de la ciudad cambia el costo de vida, el transporte y la rutina.",
+        "options": {
+          "big_city": "Ciudad grande",
+          "mid_city": "Ciudad mediana",
+          "suburb": "Suburbio",
+          "small_town": "Pueblo o ciudad pequeña",
+          "rural": "Campo",
+          "any": "Me da igual"
+        }
+      },
+      "leisure": {
+        "label": "¿Qué te gusta tener cerca?",
+        "why": "Ayuda a comparar destinos con tu estilo de vida.",
+        "options": {
+          "beach": "Playa",
+          "mountains": "Montañas",
+          "outdoors": "Naturaleza y vida al aire libre",
+          "culture": "Vida cultural",
+          "nightlife": "Vida nocturna",
+          "quiet": "Tranquilidad"
+        }
+      },
+      "car": {
+        "label": "¿Piensas vivir sin auto?",
+        "why": "En muchos lugares de EE. UU. el auto es casi indispensable. Esto cambia la elección del destino.",
+        "options": { "yes": "Sí, quiero transporte público", "no": "No, voy a tener auto", "unsure": "No lo sé" }
+      },
+      "pace": {
+        "label": "¿Qué ritmo de vida va contigo?",
+        "why": "Ayuda a comparar destinos con tu estilo de vida.",
+        "options": { "fast": "Agitado", "balanced": "Equilibrado", "calm": "Tranquilo" }
+      },
+      "community": {
+        "label": "¿Quieres vivir cerca de personas de tu país o que hablen tu idioma?",
+        "why": "Tener una comunidad cerca puede facilitar la adaptación.",
+        "options": { "yes": "Sí, es importante", "some": "Estaría bien, pero no es esencial", "immersion": "Prefiero inmersión total" }
+      },
+      "familyPriorities": {
+        "label": "Para tu familia, ¿qué es prioridad?",
+        "why": "Las prioridades de la familia pesan en la comparación de destinos.",
+        "options": {
+          "schools": "Buenas escuelas",
+          "special_ed": "Educación especial",
+          "safety": "Seguridad",
+          "hospitals": "Hospitales y especialistas cerca",
+          "disability_services": "Servicios para personas con discapacidad",
+          "elder_care": "Cuidados para personas mayores",
+          "none": "Ninguna en especial"
+        }
+      }
+    },
+    "dest": {
+      "known": {
+        "label": "¿Ya sabes adónde quieres ir?",
+        "why": "Si todavía no lo sabes, te ayudamos a comparar estados con tus preferencias.",
+        "options": { "yes": "Sí", "some": "Tengo algunas opciones", "no": "Todavía no" }
+      },
+      "places": { "label": "¿Qué estados?", "why": "El estado define impuestos, costo de vida, clima y servicios." },
+      "cities": { "label": "¿Alguna ciudad en mente?", "why": "Ayuda a que las comparaciones sean más precisas.", "placeholder": "Ej.: Seattle, Boston" },
+      "why": { "label": "¿Por qué ese lugar?", "why": "Ayuda a comparar el destino con lo que es importante para ti." },
+      "criteria": {
+        "label": "¿Qué pesa más en la elección? (elige hasta 3)",
+        "why": "Define lo que la comparación de destinos va a destacar.",
+        "options": {
+          "cost": "Costo de vida",
+          "climate": "Clima",
+          "safety": "Seguridad",
+          "schools": "Escuelas",
+          "community": "Comunidad de mi país o idioma",
+          "jobs": "Empleo en mi área",
+          "taxes": "Impuestos del estado",
+          "transit": "Transporte público",
+          "near_people": "Cerca de familia o amigos",
+          "services": "Servicios de salud y para personas con discapacidad"
+        }
+      }
+    },
+    "history": {
+      "visited": {
+        "label": "¿Ya estuviste en EE. UU.?",
+        "why": "Ayuda a planificar visitas y la adaptación.",
+        "options": { "never": "Nunca", "once": "Una vez", "several": "Varias veces" }
+      },
+      "visa": {
+        "label": "¿Tienes o tuviste visa estadounidense?",
+        "why": "Ayuda a armar las primeras tareas de documentos.",
+        "options": { "valid": "Tengo una vigente", "expired": "Tuve una, está vencida", "never": "Nunca tuve" }
+      },
+      "network": {
+        "label": "¿Conoces a alguien que viva en EE. UU.?",
+        "why": "Una red de apoyo hace la diferencia al llegar.",
+        "options": { "family": "Familia", "friends": "Amigos", "colleagues": "Compañeros de trabajo", "nobody": "Nadie" }
+      },
+      "complication": {
+        "label": "¿Hay algo en tu historial, o en el de alguien de la familia que va, que pueda complicar? (ej.: visa negada, haberse quedado más tiempo del permitido, antecedentes penales)",
+        "why": "No pedimos detalles. Si la respuesta es sí, recomendamos consultar a un abogado de inmigración desde el principio.",
+        "options": { "no": "No", "yes": "Sí", "skip": "Prefiero no decirlo" }
+      }
+    },
+    "docs": {
+      "passport": {
+        "label": "Pasaporte",
+        "why": "Un pasaporte vencido o por vencer se convierte en una tarea de alta prioridad y entra en los costos.",
+        "options": {
+          "valid_long": "Vigente por más de 2 años",
+          "valid_short": "Vence en menos de 2 años",
+          "expired": "Vencido",
+          "none": "No tiene"
+        }
+      },
+      "certificates": {
+        "label": "¿Cuáles de estos documentos ya tienes a mano?",
+        "why": "Los documentos que faltan se convierten en tareas. No se envía ningún archivo.",
+        "options": {
+          "birth": "Actas o partidas de nacimiento",
+          "marriage": "Acta de matrimonio o unión",
+          "diplomas": "Títulos",
+          "transcripts": "Certificados de estudios",
+          "criminal": "Antecedentes penales",
+          "medical_reports": "Informes médicos",
+          "none": "Ninguno todavía"
+        }
+      },
+      "driverLicense": {
+        "label": "¿Tienes licencia de conducir?",
+        "why": "Ayuda a planificar la licencia de conducir en el estado de destino.",
+        "options": { "yes": "Sí", "no": "No" }
+      }
+    },
+    "rhythm": {
+      "cadence": {
+        "label": "¿Con qué frecuencia quieres seguir tu camino?",
+        "why": "El ritmo es tuyo. El camino se adapta a él, sin presiones.",
+        "options": {
+          "daily": "Todos los días, 5 minutos",
+          "3week": "3 veces por semana",
+          "weekly": "Una vez por semana",
+          "biweekly": "Cada 15 días"
+        }
+      },
+      "weeklyTime": {
+        "label": "¿Cuánto tiempo por semana puedes dedicar?",
+        "why": "Define el tamaño de las tareas sugeridas para cada semana.",
+        "options": { "lt1h": "Menos de 1 hora", "1to3h": "De 1 a 3 horas", "3to5h": "De 3 a 5 horas", "gt5h": "Más de 5 horas" }
+      },
+      "rewards": {
+        "label": "¿Qué pequeñas recompensas te motivan?",
+        "why": "Celebrar pequeñas victorias ayuda a continuar. Tú eliges tus recompensas.",
+        "options": {
+          "snack": "Mi merienda favorita",
+          "movie": "Una película o serie",
+          "free_time": "Un rato libre solo para mí",
+          "walk": "Un paseo",
+          "game": "Un juego",
+          "call": "Llamar a alguien querido",
+          "other": "Otra"
+        }
+      },
+      "rewardsOther": { "label": "¿Cuál es tu recompensa?", "why": "Para sugerirte tu recompensa al completar tareas." }
+    }
+  }
+}

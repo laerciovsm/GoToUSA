@@ -259,5 +259,5 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 ## Pendências
 - [x] Aprovar a lista de perguntas e opções (aprovada em 16/11/2026, com os ajustes: autonomia na parte essencial, filhos de qualquer idade num só lugar, data de nascimento em vez de idade, perguntas de poupança, cônjuge, orçamento)
 - [x] Aprovar a divisão entre "essencial" e "para completar"
-- [ ] Traduzir os textos para en-US e es
+- [x] Traduzir os textos para en-US e es (em `apps/web/messages/questionnaire/`; um teste automático confere se nenhum texto falta em nenhum idioma)
 - [ ] Completar a tabela de regras junto com o conteúdo da jornada

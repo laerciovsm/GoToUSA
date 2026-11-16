@@ -7,8 +7,14 @@ export default getRequestConfig(async ({ locale: explicitLocale }) => {
   const candidate = explicitLocale ?? (await rootLocale());
   const locale = hasLocale(routing.locales, candidate) ? candidate : routing.defaultLocale;
 
+  // Textos da interface + textos do questionário (perguntas e opções), num arquivo separado por tamanho.
+  const [ui, questionnaire] = await Promise.all([
+    import(`../../messages/${locale}.json`),
+    import(`../../messages/questionnaire/${locale}.json`),
+  ]);
+
   return {
     locale,
-    messages: (await import(`../../messages/${locale}.json`)).default,
+    messages: { ...ui.default, ...questionnaire.default },
   };
 });

@@ -169,6 +169,7 @@ Na raiz do repositório:
 | `pnpm start` | Roda a versão de produção (depois do build) |
 | `pnpm lint` | Verifica o código (ESLint) |
 | `pnpm typecheck` | Verifica os tipos (TypeScript) |
+| `pnpm test` | Roda os testes automáticos (Vitest): motor do questionário e traduções completas |
 
 ### Convenções do código
 - **Next.js 16** (App Router): o antigo `middleware.ts` agora se chama `proxy.ts`. Antes de escrever código Next.js, consultar os guias em `apps/web/node_modules/next/dist/docs/` (ver `apps/web/AGENTS.md`), porque a versão tem mudanças em relação ao que é comum na internet.
@@ -176,6 +177,9 @@ Na raiz do repositório:
 - **Cores:** usar os tokens da paleta (`bg-surface`, `text-ink`, `bg-primary`, `bg-action`, `text-done` etc.), definidos em `apps/web/src/app/globals.css`. Nunca cores soltas.
 - **Direção do texto:** usar propriedades lógicas (`ms-`, `me-`, `ps-`, `pe-`, `start`, `end`) para funcionar em idiomas da direita para a esquerda.
 - **Regras compartilhadas** (tipos, validações, motor da jornada) ficam em `packages/shared`, nunca presas ao frontend.
+- **Questionário:** perguntas, opções e condições em `packages/shared/src/questionnaire/definition.ts` (IDs estáveis, nunca renomear). Textos em `apps/web/messages/questionnaire/<idioma>.json`, na chave igual ao ID. Ao criar uma pergunta, adicione os textos nos 3 idiomas; o teste `messages.test.ts` falha se faltar algum.
+- **Armazenamento:** as telas usam só os repositórios de `apps/web/src/lib/storage/` (hoje IndexedDB; depois, a API). Todo dado lido passa pela validação Zod de `packages/shared`.
+- **UUID:** usar `uuid()` de `@gotousa/shared`, que funciona também sem HTTPS (teste no celular pela rede local).
 
 ## Ambiente de desenvolvimento
 
@@ -197,20 +201,22 @@ Na raiz do repositório:
 - [x] Modelo de negócio (freemium, plano anual) definido
 - [ ] Valor do plano anual e divisão entre grátis e pago
 - [x] Escopo do MVP: sem backend (preparado para ele), cenário inicial definido. Ver [docs/mvp.md](docs/mvp.md)
-- [x] Questionário inicial (perguntas e regras): **aprovado em 16/11/2026** em [docs/questionario-perguntas.md](docs/questionario-perguntas.md). Falta traduzir para en-US e es
+- [x] Questionário inicial (perguntas e regras): **aprovado em 16/11/2026** em [docs/questionario-perguntas.md](docs/questionario-perguntas.md), traduzido para en-US e es
 - [ ] Orçamento da mudança: documentado em [docs/orcamento.md](docs/orcamento.md); faltam as fontes oficiais das taxas e as fontes das estimativas
 - [ ] Modelo da jornada (fases, etapas e regras de geração)
 - [ ] Estratégia de conteúdo (fontes, revisão, idiomas)
 - [ ] Wireframes das telas principais
 - [x] Preparação do ambiente e esqueleto do projeto (marco 1)
-- [ ] Implementação do MVP (marco 1 concluído; próximo: marco 2, o questionário)
+- [ ] Implementação do MVP (marco 1 concluído; marco 2, o questionário, implementado e aguardando o teste do fundador no celular)
 
 ## Próximos passos (onde paramos)
 
 1. ~~Revisar o questionário~~ (aprovado em 16/11/2026, com o orçamento da mudança incluído).
-2. Traduzir os textos aprovados do questionário para en-US e es.
-3. **Marco 2 do MVP:** implementar o questionário (blocos, ramificação, salvamento no IndexedDB pela camada de armazenamento, edição). Ver a ordem dos marcos em [docs/mvp.md](docs/mvp.md).
-4. Em paralelo: conteúdo da Fase 0 para o cenário inicial e levantamento das taxas oficiais do orçamento (passaporte no Brasil, vistos, USCIS, impostos e DMV dos estados da lista curta), sempre a partir de fontes oficiais.
+2. ~~Traduzir o questionário para en-US e es~~ (feito).
+3. **Marco 2:** questionário implementado. O fundador testa no celular e aponta ajustes.
+4. **Marco 3:** motor da jornada (formato do conteúdo, regras de geração, cálculo de prazos). Ver [docs/mvp.md](docs/mvp.md).
+5. **Anotado para o momento certo:** custos personalizados e custo total aproximado da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
+6. Em paralelo: conteúdo da Fase 0 para o cenário inicial e levantamento das taxas oficiais do orçamento (passaporte no Brasil, vistos, USCIS, impostos e DMV dos estados da lista curta), sempre a partir de fontes oficiais.
 
 ## Como trabalhamos
 

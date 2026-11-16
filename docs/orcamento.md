@@ -23,7 +23,7 @@ O orçamento não decide pela pessoa. Ele mostra os números para ela decidir co
 | **Viagens antes da mudança** | Viagem à entrevista no consulado (passagem, hospedagem) · **visitas exploratórias aos EUA** para conhecer o destino | Estimativa, a partir de `money.scoutingTrips` e do tamanho da família |
 | **A mudança em si** | Passagens só de ida para todos · bagagem extra · envio de pertences · transporte de animais · hospedagem temporária na chegada | Estimativa |
 | **Instalação** | Depósito-caução e primeiro aluguel (ou entrada do imóvel) · móveis básicos · carro (à vista ou entrada) · ligação de serviços (luz, internet, celular) | Estimativa, a partir de `money.housingPlan` e `money.carPlan` |
-| **Assessoria** | Advogado de imigração, quando a jornada recomendar | Estimativa (faixa de valores, fonte não oficial) |
+| **Assessoria** | Consultoria jurídica e de imigração (advogado, assessoria) | **O app não informa valor.** A pessoa faz o orçamento por conta própria e informa no app (ver [Custos personalizados](#custos-personalizados)) |
 
 ### 2. Custo mensal nos EUA (recorrente)
 
@@ -44,6 +44,27 @@ O orçamento não decide pela pessoa. Ele mostra os números para ela decidir co
 - **Reserva de emergência sugerida:** meses de despesa guardados. É maior quando há **renda única** ou dependentes que exigem cuidados (ver as regras em [questionario-perguntas.md](questionario-perguntas.md#regras-o-que-cada-resposta-muda-na-jornada)).
 - **Meta total para juntar** = custos até a mudança + reserva de emergência.
 - **Quanto falta e em quanto tempo:** (meta − `money.saved`) ÷ `money.monthlySaving`. O resultado é comparado com a data de partida (`goal.departure`): "No ritmo atual, você chega à meta em março de 2028. A sua data de ida é dezembro de 2027."
+
+## Custo total aproximado da família
+
+> **Decisão do fundador (16/11/2026):** o app precisa mostrar o **custo aproximado para a família ir para os EUA, incluindo tudo o que for necessário**, num só número fácil de ver, com o detalhamento logo abaixo.
+
+- O total soma os custos até a mudança (parte 1), a reserva de emergência sugerida e os **custos personalizados** da pessoa.
+- Cada parcela mostra o selo de origem (oficial, estimativa ou informado por você).
+- O total é recalculado sempre que uma resposta ou um custo personalizado muda.
+
+## Custos personalizados
+
+> **Anotado para implementar no momento certo** (junto com a tela do orçamento, depois do motor da jornada).
+
+Alguns custos o app **não informa**, porque variam demais ou não têm fonte oficial. O exemplo principal é a **consultoria jurídica e de imigração**: a pessoa faz o orçamento por conta própria (com advogados ou assessorias de sua escolha) e **informa o valor ao app**.
+
+Para isso, o app terá uma **interface para a pessoa inserir os próprios custos**:
+- **Adicionar, editar e remover** custos a qualquer momento.
+- Campos de cada custo: **nome** (ex.: "Consultoria de imigração"), **valor**, **moeda** (convertida para USD com a cotação marcada como estimativa), **tipo** (custo único ou mensal), **grupo** (documentos, visto, viagens, mudança, instalação, assessoria, outros) e uma **observação** (opcional).
+- Sugestões de custos comuns que a pessoa pode precisar orçar, **sem valor preenchido**: consultoria jurídica e de imigração, tradução juramentada, avaliação de diploma, curso de inglês, testes de inglês, entre outros.
+- Os custos personalizados entram no **custo total aproximado** e em **"a conta fecha?"**, com o selo "informado por você".
+- Ficam salvos junto com a jornada (no navegador, no modo gratuito) e entram no arquivo de **baixar e importar**.
 
 ## De onde vêm os valores (premissa de fonte oficial)
 
@@ -94,3 +115,4 @@ Detalhes em [questionario-perguntas.md](questionario-perguntas.md#bloco-5--dinhe
 - [ ] Definir como calcular a reserva de emergência sugerida (quantos meses, conforme o risco)
 - [ ] Definir o formato dos dados de custo no `content/` (valor, moeda, fonte, data de verificação, selo)
 - [ ] Desenhar a tela do orçamento (celular primeiro)
+- [ ] Implementar os custos personalizados (interface para inserir, editar e remover) e o custo total aproximado da família

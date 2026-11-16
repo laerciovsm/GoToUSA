@@ -50,6 +50,8 @@ O GoToUSA ajuda a pessoa a **criar a própria jornada** e a evoluir nela, com tu
 - **Jornada o mais completa e organizada possível:** organizada em fases → etapas → tarefas → subtarefas. Cada tarefa se aplica às pessoas certas da família (titular, cônjuge, filhos, outros dependentes).
 - A pessoa pode **editar as respostas depois**, e a jornada é recalculada.
 - Detalhes em [docs/questionario.md](docs/questionario.md) e [docs/jornada.md](docs/jornada.md).
+- Conteúdo, atualização legal, regras de linguagem, perfil dos estados e cruzamento de saúde: [docs/conteudo.md](docs/conteudo.md).
+- Escopo da primeira versão: [docs/mvp.md](docs/mvp.md).
 
 ### Funcionalidades decididas
 - **Aviso legal com aceite obrigatório:** antes de começar, a pessoa lê e **aceita** que o app não dá orientação jurídica, apenas apresenta requisitos oficiais e é um auxílio à jornada.
@@ -133,8 +135,10 @@ GoToUSA/
 │   ├── web/            ← frontend (Next.js)
 │   └── api/            ← backend (NestJS)
 ├── packages/
-│   └── shared/         ← tipos e validações compartilhados
-├── docker-compose.yml  ← PostgreSQL + Valkey
+│   └── shared/         ← tipos, validações e motor da jornada (compartilhados)
+├── content/            ← conteúdo da jornada (MDX/JSON), versionado no Git
+├── docs/               ← documentação do produto
+├── docker-compose.yml  ← PostgreSQL + Valkey (após o MVP)
 ├── .env.example
 └── CLAUDE.md
 ```
@@ -157,7 +161,7 @@ GoToUSA/
 - [x] Stack tecnológica definida
 - [x] Modelo de negócio (freemium, plano anual) definido
 - [ ] Valor do plano anual e divisão entre grátis e pago
-- [ ] Escopo do MVP (primeira versão)
+- [x] Escopo do MVP: sem backend (preparado para ele), cenário inicial definido. Ver [docs/mvp.md](docs/mvp.md)
 - [ ] Questionário inicial (perguntas e regras)
 - [ ] Modelo da jornada (fases, etapas e regras de geração)
 - [ ] Estratégia de conteúdo (fontes, revisão, idiomas)

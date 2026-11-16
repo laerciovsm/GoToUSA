@@ -51,6 +51,7 @@ Entender com clareza **o que a pessoa quer** e a **situação real dela e da fam
 | Quanto tempo quer ficar | Até 6 meses · 6 meses a 1 ano · 1 a 3 anos · 3 a 5 anos · Definitivo · Não sei |
 | Quando quer ir (data aproximada) | Base do cronograma, montado de trás para frente |
 | O que já tem | Oferta de emprego · Aceite de escola · Parente nos EUA · Empresa com filial nos EUA · Capital para investir · Nada ainda |
+| Se trabalho: tipo de patrocínio do empregador | **Visto de trabalho temporário** (ex.: H-1B, L-1) · **Green Card por emprego** (EB-1, EB-2, EB-3) · **Não sei** (a jornada explica a diferença: "temporário" e "permanente" se referem ao tipo de visto, não ao emprego) |
 
 ### 3. Quem vai com você
 > O bloco mais importante para os casos especiais.
@@ -64,11 +65,25 @@ Entender com clareza **o que a pessoa quer** e a **situação real dela e da fam
 
 > ⚠️ **Alerta para a jornada:** em geral, só o **cônjuge** e os **filhos solteiros menores de 21 anos** podem ir como dependentes do visto do titular. Filhos maiores de idade (mesmo dependentes) e pais ou avós normalmente precisam de um caminho próprio. A jornada deve mostrar esse alerta na Fase 0 e recomendar a confirmação com um advogado de imigração.
 
-### 4. Saúde (simplificado e opcional)
-- Alguém da família tem condição que exige tratamento contínuo?
-- Usa medicação controlada? (alguns remédios são proibidos ou controlados nos EUA)
-- Gravidez atual ou planejada?
-- Vacinas em dia? (o visto de imigrante exige vacinas e exame médico)
+### 4. Saúde (detalhada, por pessoa)
+> O detalhe é necessário para cruzar a situação de cada pessoa com o que existe nos EUA e quanto custa (ver [conteudo.md](conteudo.md#saúde-cruzamento-com-serviços-e-custos)).
+> **Privacidade:** no modo gratuito, tudo fica só no navegador. Com conta, os dados de saúde exigem **consentimento explícito** separado, ficam **criptografados** e a pessoa pode escolher mantê-los apenas no aparelho. Todas as perguntas aceitam "Prefiro não responder".
+
+Para **cada pessoa** que vai (titular, cônjuge, filhos, outros dependentes):
+- **Condições**, por categoria:
+  - Neurodesenvolvimento: autismo (nível de suporte 1, 2 ou 3), deficiência intelectual (grau), TDAH, outras
+  - Doenças crônicas (ex.: diabetes, cardiopatia, doença renal)
+  - Saúde mental
+  - Mobilidade (cadeira de rodas, mobilidade reduzida)
+  - Sentidos (visão, audição)
+  - Outras
+- **Grau de autonomia:** independente · precisa de supervisão · precisa de ajuda em atividades do dia a dia · dependência total. Quem é o cuidador principal?
+- **Medicação contínua:** nome, dose, frequência e se é **controlada**.
+- **Tratamentos e terapias** em andamento (ex.: fonoaudiologia, terapia ocupacional, diálise).
+- **Equipamentos** necessários.
+- **Especialistas** que acompanham.
+- **Gravidez** atual ou planejada.
+- **Vacinas** em dia? (o visto de imigrante exige vacinas e exame médico)
 
 ### 5. Dinheiro
 - Quanto pretende levar, em USD.

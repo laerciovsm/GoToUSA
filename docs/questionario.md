@@ -1,6 +1,7 @@
 # Questionário inicial
 
 > Documento vivo. Define as perguntas do questionário inicial do GoToUSA e o que cada bloco influencia na jornada (ver [jornada.md](jornada.md)).
+> **Especificação detalhada** (IDs, textos, opções, condições e regras): [questionario-perguntas.md](questionario-perguntas.md).
 
 ## Objetivo
 

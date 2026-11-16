@@ -116,6 +116,18 @@ A partir das respostas detalhadas de saúde de cada pessoa ([questionario.md](qu
 
 Tudo segue as [regras de linguagem](#regras-de-linguagem): informa a regra geral e a fonte e indica quando procurar um profissional.
 
+## Outras fontes de renda e trabalho temporário
+
+Ideia do fundador: ajudar a pessoa a encontrar **outras fontes de renda**, inclusive **trabalhos temporários** que permitam trabalhar nos EUA por um período.
+
+- **Regra principal:** trabalhar nos EUA exige **autorização de trabalho** válida. O app **só** apresenta caminhos legais e deixa claro que trabalhar sem autorização pode comprometer o status imigratório e futuros vistos (com fonte oficial).
+- **O que o conteúdo pode cobrir** (cada item com fonte oficial e aviso padrão):
+  - **Categorias legais de trabalho temporário** nos EUA, quem pode se candidatar e como funciona (a levantar nas fontes oficiais; ex.: vistos de trabalho sazonal e programas de intercâmbio com trabalho).
+  - **Autorização de trabalho de dependentes** (cônjuge, filhos) conforme o tipo de visto.
+  - **Renda vinda do país de origem:** trabalho remoto, freelance e aluguel de imóvel, com o alerta de confirmar se o tipo de visto permite e quais as obrigações fiscais nos dois países.
+  - **Renda antes da mudança:** como aumentar a reserva enquanto ainda está no país de origem.
+- **Ligação com o risco:** quando a família tem renda única, esse tema ganha destaque na jornada.
+
 ## Pendências
 - [ ] Definir o formato exato dos arquivos de conteúdo (campos de uma tarefa, de um perfil de estado)
 - [ ] Listar as fontes oficiais a monitorar

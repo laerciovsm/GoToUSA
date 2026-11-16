@@ -96,6 +96,7 @@ A ferramenta deve estar preparada para **qualquer idioma** desde o primeiro dia:
 - **Só informação oficial e verificada (premissa inegociável):** nada é inventado. Todo fato do conteúdo tem fonte oficial e data de verificação. Conhecimento de memória, inclusive da IA, não é fonte. Detalhes em [docs/conteudo.md](docs/conteudo.md#premissa-só-informação-oficial-e-verificada).
 - **Atualização automática do conteúdo, sem revisão humana:** detecção de mudanças nas fontes, resumo por IA, verificações automáticas e publicação com aviso padrão e link da fonte na íntegra. O projeto não depende de pessoas revisando nem da assinatura do Claude Code.
 - **O preço de venda precisa pagar os custos de operação (incluindo a IA por uso) e dar margem.**
+- **Somente dentro da lei americana (premissa inegociável):** toda e qualquer sugestão, tarefa, dica ou conteúdo do app precisa estar **dentro da lei dos EUA**. Nada de trabalho sem autorização ("bico" ilegal), atalhos ou jeitinhos. Quando um tema tem risco legal (ex.: trabalho, permanência, status), o app explica a regra geral com fonte oficial e alerta para as consequências de descumpri-la.
 - **Legalidade:** orientar apenas caminhos legais. Deixar claro que o conteúdo é informativo, **não é aconselhamento jurídico**, e citar fontes oficiais (USCIS, Departamento de Estado etc.) com data da última revisão.
 - **Global e multilíngue:** pensado para pessoas de qualquer país, com suporte a vários idiomas desde o início.
 - **Privacidade:** coletar o mínimo de dados possível e respeitar a LGPD, o GDPR e a CCPA.
@@ -195,9 +196,23 @@ Na raiz do repositório:
 - [x] Modelo de negócio (freemium, plano anual) definido
 - [ ] Valor do plano anual e divisão entre grátis e pago
 - [x] Escopo do MVP: sem backend (preparado para ele), cenário inicial definido. Ver [docs/mvp.md](docs/mvp.md)
-- [ ] Questionário inicial (perguntas e regras)
+- [ ] Questionário inicial (perguntas e regras): rascunho completo em [docs/questionario-perguntas.md](docs/questionario-perguntas.md), **aguardando revisão do fundador** (inclui renda única como fator de risco e outras fontes de renda legais)
 - [ ] Modelo da jornada (fases, etapas e regras de geração)
 - [ ] Estratégia de conteúdo (fontes, revisão, idiomas)
 - [ ] Wireframes das telas principais
 - [x] Preparação do ambiente e esqueleto do projeto (marco 1)
-- [ ] Implementação do MVP
+- [ ] Implementação do MVP (marco 1 concluído; próximo: marco 2, o questionário)
+
+## Próximos passos (onde paramos)
+
+1. O fundador revisa `docs/questionario-perguntas.md` (o que falta, sobra ou muda; aprovar a divisão "essencial" × "para completar").
+2. Aplicar os ajustes e traduzir os textos aprovados para en-US e es.
+3. **Marco 2 do MVP:** implementar o questionário (blocos, ramificação, salvamento no IndexedDB pela camada de armazenamento, edição). Ver a ordem dos marcos em [docs/mvp.md](docs/mvp.md).
+4. Em paralelo: conteúdo da Fase 0 para o cenário inicial, sempre a partir de fontes oficiais.
+
+## Como trabalhamos
+
+- O fundador costuma pedir para **documentar antes de implementar** ("só documente por enquanto"). Respeitar: não escrever código sem pedido.
+- Comunicação em **português do Brasil**, com explicações simples. O fundador está aprendendo Git e desenvolvimento.
+- Ao final de cada etapa aprovada: atualizar a documentação, fazer commit e push (`git` em `C:\Program Files\Git\cmd\git.exe` se não estiver no PATH).
+- Servidor local para testar no celular: `pnpm build` e depois `pnpm --filter @gotousa/web start -H 0.0.0.0 -p 3000`, acessando `http://<IP-do-PC>:3000` no mesmo Wi-Fi.

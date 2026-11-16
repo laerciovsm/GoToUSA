@@ -1,0 +1,16 @@
+{
+  "name": "@gotousa/shared",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tipos, validações e motor da jornada compartilhados entre o frontend e o futuro backend.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

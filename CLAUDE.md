@@ -99,7 +99,14 @@ A ferramenta deve estar preparada para **qualquer idioma** desde o primeiro dia:
 - **Legalidade:** orientar apenas caminhos legais. Deixar claro que o conteúdo é informativo, **não é aconselhamento jurídico**, e citar fontes oficiais (USCIS, Departamento de Estado etc.) com data da última revisão.
 - **Global e multilíngue:** pensado para pessoas de qualquer país, com suporte a vários idiomas desde o início.
 - **Privacidade:** coletar o mínimo de dados possível e respeitar a LGPD, o GDPR e a CCPA.
-- **Acessível e leve:** pensado primeiro para o celular, funcionando bem em conexões lentas e seguindo boas práticas de acessibilidade (WCAG).
+- **Só web, celular primeiro (premissa):** **não** haverá app nativo para Android ou iOS. Quem quiser usa pelo navegador do celular. Todo o desenvolvimento parte da tela do celular e depois se adapta a telas maiores:
+  - layout pensado primeiro para telas a partir de ~360px de largura;
+  - áreas de toque com no mínimo 44×44px e nada que dependa de passar o mouse por cima (*hover*);
+  - leve e rápido em conexões móveis lentas (páginas estáticas, poucas imagens, pouco JavaScript);
+  - respeitar as áreas seguras da tela (entalhe/"notch" e barras do sistema);
+  - testar sempre na largura de celular, além do computador.
+  - Depois do MVP, a aplicação vira **PWA**: a pessoa pode "instalar" o site na tela inicial do celular, com ícone próprio e funcionamento offline, sem passar por loja de aplicativos.
+- **Acessível:** seguindo boas práticas de acessibilidade (WCAG).
 - **Segurança em primeiro lugar** (ver seção Segurança).
 - **Custo zero no desenvolvimento:** todas as ferramentas são gratuitas e têm licenças que permitem uso comercial.
 
@@ -148,9 +155,30 @@ GoToUSA/
 └── CLAUDE.md
 ```
 
+## Como rodar
+
+Na raiz do repositório:
+
+| Comando | O que faz |
+|---|---|
+| `pnpm install` | Instala as dependências de todo o monorepo |
+| `pnpm dev` | Servidor de desenvolvimento em http://localhost:3000 |
+| `pnpm build` | Gera a versão de produção |
+| `pnpm start` | Roda a versão de produção (depois do build) |
+| `pnpm lint` | Verifica o código (ESLint) |
+| `pnpm typecheck` | Verifica os tipos (TypeScript) |
+
+### Convenções do código
+- **Next.js 16** (App Router): o antigo `middleware.ts` agora se chama `proxy.ts`. Antes de escrever código Next.js, consultar os guias em `apps/web/node_modules/next/dist/docs/` (ver `apps/web/AGENTS.md`), porque a versão tem mudanças em relação ao que é comum na internet.
+- **Idiomas:** rotas em `apps/web/src/app/[locale]/`. O idioma vem de `next/root-params`. Textos da interface ficam em `apps/web/messages/<idioma>.json`; **nenhum texto fixo no código**. A lista de idiomas fica em `packages/shared/src/i18n.ts`.
+- **Cores:** usar os tokens da paleta (`bg-surface`, `text-ink`, `bg-primary`, `bg-action`, `text-done` etc.), definidos em `apps/web/src/app/globals.css`. Nunca cores soltas.
+- **Direção do texto:** usar propriedades lógicas (`ms-`, `me-`, `ps-`, `pe-`, `start`, `end`) para funcionar em idiomas da direita para a esquerda.
+- **Regras compartilhadas** (tipos, validações, motor da jornada) ficam em `packages/shared`, nunca presas ao frontend.
+
 ## Ambiente de desenvolvimento
 
 - Sistema: Windows 11 com PowerShell.
+- Node.js 26 LTS e pnpm 12. Se `node`/`pnpm` não forem reconhecidos num terminal aberto antes da instalação, reinicie o terminal.
 - Por enquanto, apenas servidor local (nada publicado na web).
 - Git instalado em `C:\Program Files\Git\cmd\git.exe`. Se `git` não for reconhecido no terminal, use o caminho completo.
 - GitHub CLI instalado em `C:\Program Files\GitHub CLI\gh.exe` (sem login no ambiente do Claude Code). O push funciona pela credencial salva no Windows.
@@ -171,5 +199,5 @@ GoToUSA/
 - [ ] Modelo da jornada (fases, etapas e regras de geração)
 - [ ] Estratégia de conteúdo (fontes, revisão, idiomas)
 - [ ] Wireframes das telas principais
-- [ ] Preparação do ambiente e esqueleto do projeto
+- [x] Preparação do ambiente e esqueleto do projeto (marco 1)
 - [ ] Implementação do MVP

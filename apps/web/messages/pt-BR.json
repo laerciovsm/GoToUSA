@@ -1,0 +1,49 @@
+{
+  "Metadata": {
+    "title": "GoToUSA",
+    "description": "Seu companheiro na jornada de preparação para morar nos Estados Unidos."
+  },
+  "Header": {
+    "home": "GoToUSA, página inicial",
+    "language": "Idioma"
+  },
+  "Welcome": {
+    "eyebrow": "Sua jornada para os Estados Unidos",
+    "title": "Mudar de país é uma jornada. Vamos caminhar juntos.",
+    "intro": "Visto, dinheiro e moradia são importantes, mas são só parte do caminho. Antes vem a preparação: idioma, cultura, finanças, família e o lugar certo para você. O GoToUSA ajuda você a enxergar o todo e acompanhar a sua evolução, passo a passo.",
+    "pointsTitle": "Antes de começar",
+    "points": {
+      "you": {
+        "title": "Quem faz a jornada é você",
+        "body": "O GoToUSA é o seu guia: mostra as tarefas, explica, lembra e comemora com você. Mas quem decide e age é sempre você."
+      },
+      "whole": {
+        "title": "Veja o caminho inteiro",
+        "body": "É uma jornada longa, com esforço e renúncias. Ver tudo organizado desde o início ajuda a não desistir nas primeiras dificuldades."
+      },
+      "decide": {
+        "title": "Decidir também é vitória",
+        "body": "Se no meio do caminho você perceber que não é para você, tudo bem. O importante é decidir com consciência, pelos motivos certos."
+      },
+      "data": {
+        "title": "Seus dados ficam com você",
+        "body": "Suas respostas ficam salvas só neste navegador. Limpar o navegador apaga tudo, mas você poderá baixar a sua jornada para guardar."
+      }
+    }
+  },
+  "Disclaimer": {
+    "title": "Aviso importante",
+    "body1": "O GoToUSA é um apoio à sua jornada. Ele não é uma consultoria jurídica e não dá orientação jurídica.",
+    "body2": "As informações apresentadas são compiladas de fontes oficiais dos Estados Unidos, mas erros ao resumir podem acontecer. Cada conteúdo traz o link para a fonte oficial completa.",
+    "body3": "Para decisões sobre a sua situação, consulte sempre a fonte oficial ou procure um advogado de imigração ou um especialista.",
+    "checkbox": "Li e entendi que o GoToUSA não é uma consultoria jurídica.",
+    "accept": "Aceitar e começar minha jornada",
+    "acceptedOn": "Aviso aceito em {date}.",
+    "continue": "Continuar para o questionário"
+  },
+  "Questionnaire": {
+    "title": "Questionário",
+    "comingSoon": "O questionário está em construção e chega no próximo marco do projeto.",
+    "back": "Voltar para o início"
+  }
+}

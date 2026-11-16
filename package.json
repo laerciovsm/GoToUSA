@@ -1,0 +1,16 @@
+{
+  "name": "gotousa",
+  "private": true,
+  "description": "GoToUSA: companheiro de jornada para quem quer morar nos Estados Unidos.",
+  "packageManager": "pnpm@12.21.0",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @gotousa/web dev",
+    "build": "pnpm --filter @gotousa/web build",
+    "start": "pnpm --filter @gotousa/web start",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck"
+  }
+}

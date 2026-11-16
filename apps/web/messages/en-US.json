@@ -1,0 +1,49 @@
+{
+  "Metadata": {
+    "title": "GoToUSA",
+    "description": "Your companion on the journey to prepare for living in the United States."
+  },
+  "Header": {
+    "home": "GoToUSA, home page",
+    "language": "Language"
+  },
+  "Welcome": {
+    "eyebrow": "Your journey to the United States",
+    "title": "Moving to another country is a journey. Let's walk it together.",
+    "intro": "Visas, money and housing matter, but they are only part of the path. Preparation comes first: language, culture, finances, family and the right place for you. GoToUSA helps you see the whole picture and follow your progress, step by step.",
+    "pointsTitle": "Before you start",
+    "points": {
+      "you": {
+        "title": "You lead the journey",
+        "body": "GoToUSA is your guide: it shows the tasks, explains, reminds and celebrates with you. But you are always the one who decides and acts."
+      },
+      "whole": {
+        "title": "See the whole path",
+        "body": "It is a long journey, with effort and trade-offs. Seeing everything organized from the start helps you keep going when things get hard."
+      },
+      "decide": {
+        "title": "Deciding is also a win",
+        "body": "If along the way you realize it is not for you, that is okay. What matters is making a conscious decision, for the right reasons."
+      },
+      "data": {
+        "title": "Your data stays with you",
+        "body": "Your answers are saved only in this browser. Clearing the browser deletes everything, but you will be able to download your journey to keep it."
+      }
+    }
+  },
+  "Disclaimer": {
+    "title": "Important notice",
+    "body1": "GoToUSA supports your journey. It is not a legal service and does not provide legal advice.",
+    "body2": "The information shown is compiled from official U.S. sources, but mistakes can happen when summarizing. Each piece of content links to the full official source.",
+    "body3": "For decisions about your situation, always check the official source or talk to an immigration attorney or a specialist.",
+    "checkbox": "I have read and understand that GoToUSA is not a legal service.",
+    "accept": "Accept and start my journey",
+    "acceptedOn": "Notice accepted on {date}.",
+    "continue": "Continue to the questionnaire"
+  },
+  "Questionnaire": {
+    "title": "Questionnaire",
+    "comingSoon": "The questionnaire is being built and arrives in the next project milestone.",
+    "back": "Back to the start"
+  }
+}

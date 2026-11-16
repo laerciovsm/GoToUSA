@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* Paleta do GoToUSA (ver docs/design.md). Modo claro é o padrão. */
+:root {
+  --bg: #fafaf7;
+  --surface: #ffffff;
+  --ink: #1f2937;
+  --ink2: #4b5563;
+  --line: #e5e7e3;
+  --primary: #0f766e;
+  --primary-soft: #f0fdfa;
+  --on-primary: #ffffff;
+  --action: #c2410c;
+  --on-action: #ffffff;
+  --celebrate: #f59e0b;
+  --celebrate-soft: #fffbeb;
+  --on-celebrate: #1f2937;
+  --done: #15803d;
+  --alert: #b45309;
+  --error: #b91c1c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0f1716;
+    --surface: #17211f;
+    --ink: #e6edeb;
+    --ink2: #a7b4b1;
+    --line: #26332f;
+    --primary: #2dd4bf;
+    --primary-soft: #0f2e2b;
+    --on-primary: #06201d;
+    --action: #fb923c;
+    --on-action: #1a0f08;
+    --celebrate: #fbbf24;
+    --celebrate-soft: #2e2412;
+    --on-celebrate: #1a1406;
+    --done: #4ade80;
+    --alert: #f59e0b;
+    --error: #f87171;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink2: var(--ink2);
+  --color-line: var(--line);
+  --color-primary: var(--primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-on-primary: var(--on-primary);
+  --color-action: var(--action);
+  --color-on-action: var(--on-action);
+  --color-celebrate: var(--celebrate);
+  --color-celebrate-soft: var(--celebrate-soft);
+  --color-on-celebrate: var(--on-celebrate);
+  --color-done: var(--done);
+  --color-alert: var(--alert);
+  --color-error: var(--error);
+  --font-display: var(--font-fredoka), var(--font-nunito), ui-rounded, system-ui, sans-serif;
+  --font-sans: var(--font-nunito), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

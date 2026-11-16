@@ -1,0 +1,77 @@
+"use client";
+
+import { useId, useState, useSyncExternalStore } from "react";
+import { useFormatter, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import {
+  acceptDisclaimer,
+  getDisclaimerServerSnapshot,
+  getDisclaimerSnapshot,
+  parseDisclaimer,
+  subscribeDisclaimer,
+} from "@/lib/disclaimer-store";
+
+export function DisclaimerGate() {
+  const t = useTranslations("Disclaimer");
+  const format = useFormatter();
+  const checkboxId = useId();
+  const [checked, setChecked] = useState(false);
+
+  const raw = useSyncExternalStore(subscribeDisclaimer, getDisclaimerSnapshot, getDisclaimerServerSnapshot);
+  const acceptance = parseDisclaimer(raw);
+
+  if (acceptance) {
+    return (
+      <section className="flex flex-col gap-4 rounded-2xl border border-line bg-primary-soft p-5">
+        <p className="text-sm text-ink2">
+          <span className="font-bold text-done" aria-hidden="true">✓ </span>
+          {t("acceptedOn", {
+            date: format.dateTime(new Date(acceptance.acceptedAt), { dateStyle: "medium" }),
+          })}
+        </p>
+        <Link
+          href="/questionnaire"
+          className="self-start rounded-full bg-action px-6 py-3 font-bold text-on-action"
+        >
+          {t("continue")}
+        </Link>
+      </section>
+    );
+  }
+
+  return (
+    <section
+      aria-labelledby="disclaimer-title"
+      className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-5"
+    >
+      <h2 id="disclaimer-title" className="text-xl font-semibold">
+        {t("title")}
+      </h2>
+      <div className="flex flex-col gap-3 text-ink2">
+        <p>{t("body1")}</p>
+        <p>{t("body2")}</p>
+        <p>{t("body3")}</p>
+      </div>
+      <div className="flex items-start gap-3">
+        <input
+          id={checkboxId}
+          type="checkbox"
+          checked={checked}
+          onChange={(event) => setChecked(event.target.checked)}
+          className="mt-1 size-5 shrink-0 accent-done"
+        />
+        <label htmlFor={checkboxId} className="font-semibold">
+          {t("checkbox")}
+        </label>
+      </div>
+      <button
+        type="button"
+        disabled={!checked}
+        onClick={acceptDisclaimer}
+        className="self-start rounded-full bg-action px-6 py-3 font-bold text-on-action disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {t("accept")}
+      </button>
+    </section>
+  );
+}

@@ -1,0 +1,49 @@
+{
+  "Metadata": {
+    "title": "GoToUSA",
+    "description": "Tu compañero en el camino de preparación para vivir en Estados Unidos."
+  },
+  "Header": {
+    "home": "GoToUSA, página de inicio",
+    "language": "Idioma"
+  },
+  "Welcome": {
+    "eyebrow": "Tu camino hacia Estados Unidos",
+    "title": "Mudarse de país es un camino. Recorrámoslo juntos.",
+    "intro": "La visa, el dinero y la vivienda son importantes, pero son solo una parte del camino. Antes viene la preparación: idioma, cultura, finanzas, familia y el lugar adecuado para ti. GoToUSA te ayuda a ver el panorama completo y seguir tu avance, paso a paso.",
+    "pointsTitle": "Antes de empezar",
+    "points": {
+      "you": {
+        "title": "Quien hace el camino eres tú",
+        "body": "GoToUSA es tu guía: muestra las tareas, explica, recuerda y celebra contigo. Pero quien decide y actúa siempre eres tú."
+      },
+      "whole": {
+        "title": "Mira el camino completo",
+        "body": "Es un camino largo, con esfuerzo y renuncias. Ver todo organizado desde el inicio ayuda a no rendirse ante las primeras dificultades."
+      },
+      "decide": {
+        "title": "Decidir también es un logro",
+        "body": "Si en el camino te das cuenta de que no es para ti, está bien. Lo importante es decidir con conciencia, por los motivos correctos."
+      },
+      "data": {
+        "title": "Tus datos se quedan contigo",
+        "body": "Tus respuestas se guardan solo en este navegador. Borrar los datos del navegador elimina todo, pero podrás descargar tu camino para guardarlo."
+      }
+    }
+  },
+  "Disclaimer": {
+    "title": "Aviso importante",
+    "body1": "GoToUSA es un apoyo para tu camino. No es una asesoría legal y no ofrece orientación legal.",
+    "body2": "La información que se muestra se recopila de fuentes oficiales de Estados Unidos, pero pueden ocurrir errores al resumir. Cada contenido incluye el enlace a la fuente oficial completa.",
+    "body3": "Para decisiones sobre tu situación, consulta siempre la fuente oficial o busca un abogado de inmigración o un especialista.",
+    "checkbox": "He leído y entiendo que GoToUSA no es una asesoría legal.",
+    "accept": "Aceptar y comenzar mi camino",
+    "acceptedOn": "Aviso aceptado el {date}.",
+    "continue": "Continuar al cuestionario"
+  },
+  "Questionnaire": {
+    "title": "Cuestionario",
+    "comingSoon": "El cuestionario está en construcción y llega en el próximo hito del proyecto.",
+    "back": "Volver al inicio"
+  }
+}

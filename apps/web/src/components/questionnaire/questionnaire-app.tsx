@@ -238,7 +238,7 @@ export function QuestionnaireApp() {
           <p className="text-ink2">{justFinishedEssential ? t("essentialDoneBody") : t("blockDoneBody")}</p>
           <div className="flex flex-wrap gap-3">
             {essentialDone && (
-              <Link href="/journey" className="flex min-h-12 items-center rounded-full bg-action px-6 font-bold text-on-action">
+              <Link href="/today" className="flex min-h-12 items-center rounded-full bg-action px-6 font-bold text-on-action">
                 {t("seeJourney")}
               </Link>
             )}
@@ -325,7 +325,7 @@ export function QuestionnaireApp() {
         <section className="flex flex-col gap-2 rounded-2xl border border-celebrate bg-celebrate-soft p-5">
           <h2 className="text-xl font-semibold">{t("essentialDoneTitle")}</h2>
           <p className="text-ink2">{t("essentialDoneBody")}</p>
-          <Link href="/journey" className="mt-2 flex min-h-12 items-center self-start rounded-full bg-action px-6 font-bold text-on-action">
+          <Link href="/today" className="mt-2 flex min-h-12 items-center self-start rounded-full bg-action px-6 font-bold text-on-action">
             {t("seeJourney")}
           </Link>
         </section>

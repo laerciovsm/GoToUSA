@@ -204,7 +204,12 @@ Cada parte é testada no celular pelo fundador antes da próxima.
 - **Tela Família** (`/family`): quem vai (idades na meta), perfil profissional, cuidados (sem detalhes sensíveis), dinheiro (com a dica positiva de "renda única"), preferências, pontos de atenção e **caminhos de visto para conhecer**, agrupados em permanentes e temporários e por grupo, sem ranking, com "aparece por" em cada um. Cada seção tem **"Mudar resposta"**, que abre o bloco direto no questionário (`/questionnaire?block=<id>`). Blocos que podem trazer outros caminhos aparecem como convite.
 - **Tela Caminho** (`/family?path=<id>`): tipo e grupo, **por que apareceu** (por pessoa), requisitos oficiais resumidos com as fontes, a caixa fixa **"Converse com um advogado de imigração"**, o que fazer agora (atalho para as tarefas) e o aviso padrão com as fontes e a data de verificação (componente fixo `official-sources.tsx`, o mesmo da tela Tarefa).
 - A barra inferior ganhou a aba **Família**.
-- **Ainda não:** tela Hoje (parte 3), mala da prontidão, carimbos e check-in (5), por tema, filtro por pessoa e tarefa própria (6), progresso no arquivo de baixar e importar (quando essa função existir).
+### Parte 3 implementada (17/11/2026)
+
+- **Tela Hoje** (`/today`), primeira aba da barra inferior: meta com a contagem de meses (ou o convite "Que tal definir a sua meta?"), **um único próximo passo** com "Começar", "Ver mais passos desta semana" (quantos cabem nas horas por semana escolhidas, no máximo 5, por `weekSteps` em `packages/shared/src/journey/today.ts`), e cartões que só aparecem quando fazem sentido: tempo apertado (com "Rever a meta" e "Reservar mais tempo"), prioridades, blocos do questionário que acrescentam tarefas, data de ida que já passou e o seu porquê. A prontidão aparece em versão compacta (percentual e barra); a mala por tema é a parte 5.
+- **Abertura:** com o aviso aceito e o essencial do questionário concluído, a tela inicial leva direto para **Hoje**. O botão do questionário virou "Começar a minha jornada" (leva para Hoje).
+- **Ainda não:** "Novidades" (tarefas novas por causa de uma resposta) precisa guardar o que a pessoa já viu; fica para depois.
+- **Ainda não:** mala da prontidão, carimbos e check-in (5), por tema, filtro por pessoa e tarefa própria (6), progresso no arquivo de baixar e importar (quando essa função existir).
 
 ## Decisões tomadas (17/11/2026)
 

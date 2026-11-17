@@ -143,14 +143,15 @@
       "no": "No",
       "dontKnow": "No lo sé"
     },
-    "seeJourney": "Ver mi recorrido",
+    "seeJourney": "Empezar mi recorrido",
     "newQuestions": "{n, plural, one {# pregunta nueva para responder} other {# preguntas nuevas para responder}}"
   },
   "Nav": {
     "label": "Navegación principal",
     "journey": "Recorrido",
     "questionnaire": "Cuestionario",
-    "family": "Familia"
+    "family": "Familia",
+    "today": "Hoy"
   },
   "Journey": {
     "loading": "Cargando tu recorrido…",
@@ -297,5 +298,49 @@
     "doNow": "Qué puedes hacer ahora",
     "ageTodayAndGoal": "{today, plural, one {# año} other {# años}} hoy · {goal, plural, one {# año} other {# años}} en la meta ({date})",
     "ageNote": "Las edades usan solo el año de nacimiento, así que pueden variar un año."
+  },
+  "Today": {
+    "title": "Hoy",
+    "goalLabel": "Tu meta",
+    "monthsLeft": "{n, plural, =0 {¡Es este mes!} one {Falta # mes} other {Faltan # meses}}",
+    "passedTitle": "Tu fecha de viaje ya pasó",
+    "passedBody": "¿Ya te mudaste? ¿O cambió la fecha? Elige una nueva meta para que el recorrido acompañe tu momento.",
+    "newGoal": "Elegir una nueva meta",
+    "noGoalTitle": "¿Qué tal definir tu meta?",
+    "noGoalBody": "Con el mes del viaje, la app calcula el plazo de cada tarea y muestra si el tiempo alcanza.",
+    "noGoalAction": "Definir la fecha del viaje",
+    "nextStep": "Tu próximo paso",
+    "start": "Empezar",
+    "continue": "Continuar",
+    "showWeek": "{n, plural, one {Ver # paso más de esta semana} other {Ver # pasos más de esta semana}}",
+    "hideWeek": "Ocultar los pasos de la semana",
+    "allDoneTitle": "¡Todo al día!",
+    "allDoneBody": "No hay tareas abiertas ahora. Aparecen nuevas tareas a medida que avanza el recorrido y respondes más bloques.",
+    "seeJourney": "Ver el recorrido",
+    "tightTitle": "El tiempo está justo",
+    "tightBody": "Para llegar listo en {date}, necesitarías unas {needed} horas por semana, y hoy tienes {available}. ¿Qué tal revisar la meta o reservar más tiempo?",
+    "reviewGoal": "Revisar la meta",
+    "moreTime": "Reservar más tiempo",
+    "prioritiesTitle": "{n, plural, one {Tienes # prioridad} other {Tienes # prioridades}}",
+    "prioritiesBody": "El plazo sugerido ya pasó. ¿Nos organizamos? Empieza por la primera.",
+    "readiness": "Maleta de preparación",
+    "readinessHint": "Cuánto de la preparación ya hiciste, según el peso de cada tarea. No es probabilidad de visa.",
+    "missingTitle": "Responde más para completar el recorrido",
+    "missingBody": "Estos bloques del cuestionario pueden agregar tareas y caminos de visa:",
+    "whyTitle": "Tu porqué",
+    "theme": {
+      "immigration": "Inmigración",
+      "language": "Idioma",
+      "finance": "Finanzas",
+      "career": "Carrera",
+      "education": "Educación",
+      "family": "Familia",
+      "health": "Salud",
+      "housing": "Vivienda",
+      "documents": "Documentos",
+      "culture": "Cultura",
+      "practical": "Día a día",
+      "assets": "Bienes"
+    }
   }
 }

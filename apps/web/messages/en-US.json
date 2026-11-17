@@ -143,14 +143,15 @@
       "no": "No",
       "dontKnow": "I don't know"
     },
-    "seeJourney": "See my journey",
+    "seeJourney": "Start my journey",
     "newQuestions": "{n, plural, one {# new question to answer} other {# new questions to answer}}"
   },
   "Nav": {
     "label": "Main navigation",
     "journey": "Journey",
     "questionnaire": "Questionnaire",
-    "family": "Family"
+    "family": "Family",
+    "today": "Today"
   },
   "Journey": {
     "loading": "Loading your journey…",
@@ -297,5 +298,49 @@
     "doNow": "What you can do now",
     "ageTodayAndGoal": "{today, plural, one {# year} other {# years}} old today · {goal, plural, one {# year} other {# years}} at the goal ({date})",
     "ageNote": "Ages use only the birth year, so they may be off by one year."
+  },
+  "Today": {
+    "title": "Today",
+    "goalLabel": "Your goal",
+    "monthsLeft": "{n, plural, =0 {It's this month!} one {# month to go} other {# months to go}}",
+    "passedTitle": "Your departure date has passed",
+    "passedBody": "Have you already moved? Or did the date change? Choose a new goal so the journey keeps up with you.",
+    "newGoal": "Choose a new goal",
+    "noGoalTitle": "How about setting your goal?",
+    "noGoalBody": "With the departure month, the app calculates each task's deadline and shows whether the time works.",
+    "noGoalAction": "Set the departure date",
+    "nextStep": "Your next step",
+    "start": "Start",
+    "continue": "Continue",
+    "showWeek": "{n, plural, one {See # more step for this week} other {See # more steps for this week}}",
+    "hideWeek": "Hide this week's steps",
+    "allDoneTitle": "All caught up!",
+    "allDoneBody": "There are no open tasks right now. New tasks show up as the journey moves forward and you answer more sections.",
+    "seeJourney": "See the journey",
+    "tightTitle": "Time is tight",
+    "tightBody": "To be ready by {date}, you would need about {needed} hours a week, and today you have {available}. How about reviewing the goal or setting aside more time?",
+    "reviewGoal": "Review the goal",
+    "moreTime": "Set aside more time",
+    "prioritiesTitle": "{n, plural, one {You have # priority} other {You have # priorities}}",
+    "prioritiesBody": "The suggested deadline has passed. Let's get organized? Start with the first one.",
+    "readiness": "Readiness suitcase",
+    "readinessHint": "How much of the preparation you've done, weighing each task. It is not a visa chance.",
+    "missingTitle": "Answer more to complete the journey",
+    "missingBody": "These questionnaire sections can add tasks and visa paths:",
+    "whyTitle": "Your why",
+    "theme": {
+      "immigration": "Immigration",
+      "language": "Language",
+      "finance": "Finances",
+      "career": "Career",
+      "education": "Education",
+      "family": "Family",
+      "health": "Health",
+      "housing": "Housing",
+      "documents": "Documents",
+      "culture": "Culture",
+      "practical": "Daily life",
+      "assets": "Assets"
+    }
   }
 }

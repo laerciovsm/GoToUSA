@@ -143,14 +143,15 @@
       "no": "Não",
       "dontKnow": "Não sei"
     },
-    "seeJourney": "Ver a minha jornada",
+    "seeJourney": "Começar a minha jornada",
     "newQuestions": "{n, plural, one {# pergunta nova para responder} other {# perguntas novas para responder}}"
   },
   "Nav": {
     "label": "Navegação principal",
     "journey": "Jornada",
     "questionnaire": "Questionário",
-    "family": "Família"
+    "family": "Família",
+    "today": "Hoje"
   },
   "Journey": {
     "loading": "Carregando a sua jornada…",
@@ -297,5 +298,49 @@
     "doNow": "O que você pode fazer agora",
     "ageTodayAndGoal": "{today, plural, one {# ano} other {# anos}} hoje · {goal, plural, one {# ano} other {# anos}} na meta ({date})",
     "ageNote": "As idades usam só o ano de nascimento, então podem variar 1 ano para mais ou para menos."
+  },
+  "Today": {
+    "title": "Hoje",
+    "goalLabel": "Sua meta",
+    "monthsLeft": "{n, plural, =0 {É este mês!} one {Falta # mês} other {Faltam # meses}}",
+    "passedTitle": "A sua data de ida já passou",
+    "passedBody": "Você já se mudou? Ou a data mudou? Escolha uma nova meta para a jornada acompanhar o seu momento.",
+    "newGoal": "Escolher uma nova meta",
+    "noGoalTitle": "Que tal definir a sua meta?",
+    "noGoalBody": "Com o mês da ida, o app calcula os prazos de cada tarefa e mostra se o tempo está bom.",
+    "noGoalAction": "Definir a data de ida",
+    "nextStep": "Seu próximo passo",
+    "start": "Começar",
+    "continue": "Continuar",
+    "showWeek": "{n, plural, one {Ver mais # passo desta semana} other {Ver mais # passos desta semana}}",
+    "hideWeek": "Esconder os passos da semana",
+    "allDoneTitle": "Tudo em dia por aqui!",
+    "allDoneBody": "Não há tarefa aberta agora. Novas tarefas aparecem conforme a jornada avança e você responde mais blocos.",
+    "seeJourney": "Ver a jornada",
+    "tightTitle": "O tempo está apertado",
+    "tightBody": "Para chegar pronto em {date}, você precisaria de cerca de {needed} horas por semana, e hoje tem {available}. Que tal rever a meta ou reservar mais tempo?",
+    "reviewGoal": "Rever a meta",
+    "moreTime": "Reservar mais tempo",
+    "prioritiesTitle": "{n, plural, one {Você tem # prioridade} other {Você tem # prioridades}}",
+    "prioritiesBody": "O prazo sugerido já passou. Vamos organizar? Comece pela primeira.",
+    "readiness": "Mala da prontidão",
+    "readinessHint": "Quanto da preparação você já fez, contando o peso de cada tarefa. Não é chance de visto.",
+    "missingTitle": "Responda mais para completar a jornada",
+    "missingBody": "Estes blocos do questionário podem acrescentar tarefas e caminhos de visto:",
+    "whyTitle": "O seu porquê",
+    "theme": {
+      "immigration": "Imigração",
+      "language": "Idioma",
+      "finance": "Finanças",
+      "career": "Carreira",
+      "education": "Educação",
+      "family": "Família",
+      "health": "Saúde",
+      "housing": "Moradia",
+      "documents": "Documentos",
+      "culture": "Cultura",
+      "practical": "Dia a dia",
+      "assets": "Bens"
+    }
   }
 }

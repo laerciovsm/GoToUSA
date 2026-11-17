@@ -1,8 +1,10 @@
 "use client";
 
-import { useId, useState, useSyncExternalStore } from "react";
+import { useEffect, useId, useState, useSyncExternalStore } from "react";
 import { useFormatter, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { BLOCK_ORDER } from "@gotousa/shared";
+import { Link, useRouter } from "@/i18n/navigation";
+import { browserQuestionnaireRepository } from "@/lib/storage/questionnaire-repository";
 import {
   acceptDisclaimer,
   getDisclaimerServerSnapshot,
@@ -19,6 +21,26 @@ export function DisclaimerGate() {
 
   const raw = useSyncExternalStore(subscribeDisclaimer, getDisclaimerSnapshot, getDisclaimerServerSnapshot);
   const acceptance = parseDisclaimer(raw);
+  const router = useRouter();
+
+  // Decisão de 17/11/2026: depois do essencial do questionário, o app abre direto em "Hoje".
+  const accepted = acceptance !== null;
+  useEffect(() => {
+    if (!accepted) return;
+    let active = true;
+    browserQuestionnaireRepository
+      .load()
+      .then((data) => {
+        const essential = BLOCK_ORDER.filter((b) => b.stage === "essential");
+        if (active && data && essential.every((b) => data.completedBlocks.includes(b.id))) router.replace("/today");
+      })
+      .catch(() => {
+        // Sem dados legíveis: fica na tela inicial.
+      });
+    return () => {
+      active = false;
+    };
+  }, [accepted, router]);
 
   if (acceptance) {
     return (

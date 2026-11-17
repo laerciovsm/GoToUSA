@@ -10,6 +10,7 @@ import { generateJourney } from "./generate";
 import { loadCatalog } from "./load-node";
 import { buildFamilyProfile } from "./profile";
 import { computeReadiness } from "./readiness";
+import { monthsUntil, weekSteps } from "./today";
 import { createProgress, parseProgress, toIsoDate } from "./schema";
 import type { Catalog, JourneyProgress, PathDef, TaskDef } from "./types";
 
@@ -412,5 +413,33 @@ describe("caminhos de visto com o conteúdo real", () => {
     const t = j.tasks.find((x) => x.key === "talk-to-attorney")!;
     expect(t.state).toBe("waiting");
     expect(t.waitingFor).toEqual(["explore-paths"]);
+  });
+});
+
+describe("tela Hoje", () => {
+  const catalog = loadCatalog(CONTENT_DIR);
+
+  it("passos da semana começam pelo próximo passo e respeitam as horas escolhidas", () => {
+    const data = founderFamily(); // 1 a 3 horas por semana
+    const j = generateJourney(catalog, data, progressAt(), NOW);
+    const steps = weekSteps(j, data);
+    expect(steps[0]!.key).toBe(j.nextStep);
+    expect(steps.reduce((s, t) => s + t.hours, 0) <= 3 || steps.length === 1).toBe(true);
+    expect(steps.every((t) => t.state === "open")).toBe(true);
+  });
+
+  it("mais tempo por semana mostra mais passos (no máximo 5)", () => {
+    const little = founderFamily();
+    const lots = setAnswer(founderFamily(), "rhythm.weeklyTime", "gt5h", undefined, NOW);
+    const a = weekSteps(generateJourney(catalog, little, progressAt(), NOW), little).length;
+    const b = weekSteps(generateJourney(catalog, lots, progressAt(), NOW), lots).length;
+    expect(b).toBeGreaterThanOrEqual(a);
+    expect(b).toBeLessThanOrEqual(5);
+  });
+
+  it("meses até a meta", () => {
+    expect(monthsUntil("2027-12-01", NOW)).toBe(13);
+    expect(monthsUntil("2026-11-01", NOW)).toBe(0);
+    expect(monthsUntil("2026-09-01", NOW)).toBe(-2);
   });
 });

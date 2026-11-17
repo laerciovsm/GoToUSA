@@ -124,12 +124,144 @@ Ao fim de cada fase, a jornada faz um **check-in**:
 - **Não é aconselhamento jurídico:** todo conteúdo legal cita fontes oficiais e mostra a data da última revisão.
 - **Recalcular:** se a pessoa editar o questionário, a jornada é recalculada sem perder o progresso das tarefas que continuam válidas.
 
+## Modelo da jornada (Marco 3, passo 1 · rascunho de 17/11/2026, para revisão)
+
+> Define **o que existe** na jornada e **o que cada parte guarda**. O formato dos arquivos (passo 2), as regras de geração (passo 3) e o cálculo de prazos em detalhe (passo 4) vêm depois e seguem este modelo.
+
+### A ideia central: três camadas separadas
+
+| Camada | O que é | Onde fica | Muda quando |
+|---|---|---|---|
+| **1. Conteúdo (catálogo)** | Todas as fases, etapas e tarefas que existem, iguais para todo mundo, com textos, fontes e regras de "quando se aplica" | `content/` no repositório, traduzível | O conteúdo é escrito ou atualizado (inclusive pela atualização automática) |
+| **2. Jornada gerada** | Quais tarefas do catálogo valem **para esta família**, para **quem** de cada uma e com que **prazo** | Calculada na hora, a partir do questionário. Não precisa ser salva | A pessoa muda uma resposta ou a data de ida |
+| **3. Progresso** | O que a pessoa fez: status, subtarefas marcadas, anotações, plano "quando e onde", tarefas próprias | Navegador (IndexedDB), depois na conta. Entra no arquivo de baixar e importar | A pessoa usa a jornada |
+
+**Por que separar:** a jornada pode ser recalculada a qualquer momento sem perder nada do que a pessoa já fez, e o conteúdo pode ser corrigido ou ampliado sem mexer no progresso de ninguém.
+
+### Fase
+
+| Campo | Exemplo | Observação |
+|---|---|---|
+| ID estável | `discovery`, `planning`, `preparation`, `move`, `arrival`, `settling`, `future` | As 7 fases da tabela [Fases](#fases) |
+| Ordem | 0 a 6 | — |
+| Janela padrão | Planejamento: de 18 a 12 meses antes da ida | Usada quando a tarefa não tem prazo próprio. Fases 4 a 6 contam **depois da chegada** |
+| Check-in ao final | sim | Continuar, pausar, ajustar ou encerrar ([Pontos de reflexão](#pontos-de-reflexão)) |
+| Carimbo | um por fase | Elemento lúdico do passaporte |
+
+### Etapa
+
+Agrupa tarefas dentro de uma fase (ex.: na Preparação, a etapa "Documentos da família").
+
+| Campo | Observação |
+|---|---|
+| ID estável | ex.: `preparation.family-documents` |
+| Fase e ordem | — |
+| Título e resumo | Traduzíveis |
+
+Uma etapa sem nenhuma tarefa que se aplique à família **não aparece**.
+
+### Tarefa (no catálogo)
+
+| Campo | O que guarda | Observação |
+|---|---|---|
+| **ID estável** | ex.: `family-talk` | Nunca muda: é o que liga a tarefa ao progresso da pessoa |
+| **Fase e etapa** | — | — |
+| **Temas** | um ou mais dos [Temas](#temas-atravessam-todas-as-fases) | Para a visão por tema e a prontidão por tema |
+| **Tipo** | `action` ação · `learn` aprendizado · `reflect` reflexão · `decide` decisão · `alert` alerta legal | O alerta legal sempre recomenda advogado de imigração e aparece logo no início |
+| **Textos** | título, **por que importa**, passo a passo | Traduzíveis. Termos oficiais em inglês com explicação |
+| **Subtarefas** | lista de passos pequenos | Pequenas vitórias: cada uma pode ser marcada |
+| **Para quem** | `family` uma vez para a família · `each` uma vez para cada pessoa que atende a um filtro (ex.: cada filho, cada adulto, o cônjuge) | Ver [Para quem](#para-quem) |
+| **Quando se aplica** | condição sobre as respostas do questionário | Formato definido no passo 3. Sem condição, vale para todos |
+| **Prazo** | relativo à data de ida (ex.: "12 meses antes") ou à chegada (ex.: "nos primeiros 30 dias") ou "sem prazo" | Sem prazo próprio, usa a janela da fase |
+| **Depende de** | IDs de outras tarefas | Ex.: "só depois do passaporte pronto". A tarefa aparece como "aguardando" até a outra ser concluída |
+| **Peso** | `light` leve · `medium` médio · `heavy` grande | Para a prontidão ([Prontidão](#prontidão-cálculo)) |
+| **Tempo estimado** | ex.: 1 a 2 horas | Ajuda a pessoa a planejar o "quando e onde" |
+| **Custo estimado** | valor, moeda e fonte, ou "estimativa, fonte não oficial" | Liga ao [orçamento](orcamento.md) |
+| **Fontes oficiais** | link, órgão e **data de verificação** de cada fato | Obrigatório quando a tarefa tem fato legal, prazo, taxa ou requisito ([conteudo.md](conteudo.md#premissa-só-informação-oficial-e-verificada)) |
+| **Variações** | por país de origem e por estado de destino | Ex.: o passo a passo do passaporte muda conforme o país emissor |
+
+### Para quem
+
+- **Família:** uma tarefa só (ex.: "montar o orçamento da mudança").
+- **Por pessoa:** a tarefa se repete para cada pessoa que atende ao filtro, e cada cópia tem o seu próprio status. Exemplos de filtro: todos que vão; cada adulto; cada filho; cada filho com deficiência; cada dependente; o cônjuge. Na tela aparece o nome ou apelido da pessoa ("Passaporte · Pedro").
+- **Quem fica no país:** tarefas de apoio a quem fica entram como tarefas da família, citando a relação (ex.: "plano para a mãe que fica").
+
+### Tarefa na jornada (a cópia de cada família)
+
+É o que o motor gera: a tarefa do catálogo + a pessoa (quando é por pessoa) + o prazo calculado.
+
+- **Chave estável:** `ID da tarefa` (família) ou `ID da tarefa@ID da pessoa` (por pessoa). É por essa chave que o progresso é guardado. Como os IDs das pessoas nunca mudam, o progresso sobrevive a qualquer recálculo.
+- **Prazo calculado:** uma data (ou um mês) quando a data de ida é conhecida; senão, só a ordem e o texto relativo ("cerca de 12 meses antes da ida").
+- **Situação:** `waiting` aguardando outra tarefa · `open` disponível · e o status que a pessoa marcou.
+
+### Progresso (o que a pessoa faz)
+
+| Campo | Observação |
+|---|---|
+| **Status** | `todo` a fazer · `doing` em andamento · `done` concluída · `na` não se aplica |
+| Subtarefas marcadas | — |
+| Data de conclusão | Para o resumo do período e as celebrações |
+| Plano "quando e onde" | Opcional (premissa 3): ex.: "terças e quintas, às 20h" |
+| Anotação | Texto livre da pessoa, só para ela |
+| Motivo do "não se aplica" | Opcional, escolhido numa lista curta (ex.: "já resolvi antes", "não vale para o meu caso") |
+
+**Tarefas próprias:** a pessoa cria com título, e opcionalmente fase, tema, pessoa(s) e prazo. Contam no progresso com peso leve, mas **não** na prontidão por tema, para a pessoa não "inflar" a própria prontidão sem querer.
+
+O progresso fica num registro próprio no navegador, separado das respostas, com **versão do formato** e migração, como no questionário.
+
+### Prontidão (cálculo)
+
+- **Pesos:** leve = 1, médio = 3, grande = 5.
+- **Prontidão** = soma dos pesos das tarefas concluídas ÷ soma dos pesos das tarefas que se aplicam. Tarefas "não se aplica" saem da conta.
+- **Crédito parcial:** uma tarefa em andamento com subtarefas conta pela fração das subtarefas marcadas.
+- **Por tema e no total.** Nunca apresentada como chance de visto ([Indicador de progresso](#indicador-de-progresso)).
+- Tarefas "aguardando" contam no total, porque fazem parte do que falta.
+
+### Prazos (visão geral, detalhada no passo 4)
+
+- **Base:** a data de ida (`goal.departure`, mês e ano). Para calcular, considera o **dia 1º do mês** escolhido.
+- **Fases 0 a 3:** prazos para trás, a partir da ida. **Fases 4 a 6:** prazos para frente, a partir da chegada (a mesma data, até a pessoa informar a chegada real).
+- **Data de ida "ainda não sei":** sem datas, só a ordem e o texto relativo. A jornada sugere definir uma data como tarefa da Fase 1.
+- **Começou tarde** (o prazo já passou): a tarefa aparece como **"prioridade"**, nunca como "atrasada". Sem culpa, e o app sugere rever a data de ida se houver muitas nessa situação.
+
+### Recalcular
+
+Quando a pessoa muda uma resposta:
+1. O motor gera a jornada de novo.
+2. Tarefas que continuam valendo mantêm o progresso, pela chave estável.
+3. Tarefas que deixaram de valer **somem da tela, mas o progresso fica guardado**: se a resposta voltar, o que foi feito reaparece.
+4. Tarefas novas aparecem com um aviso discreto ("2 tarefas novas por causa da sua resposta").
+
+### Ligações com o questionário (exemplos do que o passo 3 vai detalhar)
+
+- `goal.duration` muda as fases (ex.: até 6 meses, sem a fase de estabelecimento).
+- `moment.decision` = `exploring`: a Fase 0 ganha tarefas de "conhecer antes de decidir".
+- `moment.life` = `hard`: as primeiras tarefas sugeridas são as leves.
+- `rhythm.cadence` e `rhythm.weeklyTime`: quantas tarefas a tela "Hoje" sugere por período.
+- A tabela completa "resposta → o que muda" está em [questionario-perguntas.md](questionario-perguntas.md#regras-o-que-cada-resposta-muda-na-jornada).
+
+### Exemplo de tarefa (só para mostrar o formato, não é conteúdo final)
+
+> **Conversar em família sobre a mudança** · Fase 0 · Tema: Família e dependentes · Tipo: reflexão · Para: família · Peso: médio · Prazo: sem prazo próprio (janela da Fase 0) · Fonte: não se aplica (não contém fato legal).
+> - Por que importa: decidir juntos evita surpresas e dá força nos dias difíceis.
+> - Subtarefas: marcar um momento sem pressa · contar o seu porquê · ouvir as dúvidas de cada um · anotar o que ficou combinado.
+> - Aparece com destaque quando `moment.partnerSupport` ∈ {`unsure`, `against`, `not_talked`}.
+
+### Decisões para o fundador
+
+1. **Escala de pesos** 1, 3 e 5 (leve, médio, grande) está boa?
+2. **Dia 1º do mês** como referência quando só se sabe o mês e o ano da ida?
+3. **"Não se aplica"** com motivo opcional, ou sem perguntar nada?
+4. **Prazo que já passou** aparece como "prioridade" (sem a palavra "atrasada")?
+5. **Tarefas próprias** fora da prontidão por tema (contam só no progresso geral)?
+
 ## Gratuito × pago (proposta)
 
 - **Grátis:** questionário, visão geral da jornada, Fases 0 e 1.
 - **Pago (plano anual):** fases detalhadas com todas as tarefas e subtarefas, lembretes e acesso em vários aparelhos.
 
 ## Pendências
+- [ ] Revisar e aprovar o [Modelo da jornada](#modelo-da-jornada-marco-3-passo-1--rascunho-de-17112026-para-revisão) (Marco 3, passo 1), incluindo as 5 decisões
 - [ ] Listar todas as etapas, tarefas e subtarefas de cada fase
 - [ ] Definir as regras que ligam cada resposta do questionário às tarefas
 - [ ] Definir o formato do conteúdo (MDX no repositório) e o processo de tradução e revisão

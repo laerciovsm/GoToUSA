@@ -239,7 +239,13 @@ Na raiz do repositório:
    Também em 17/11/2026: perguntas de **hobbies, bem-estar, passeios e viagens pelo próprio país** no Bloco 6 ([docs/questionario-perguntas.md](docs/questionario-perguntas.md#hobbies-bem-estar-e-passeios-implementado-em-17112026)).
    Tudo já está no GitHub. **Falta:** o fundador recomeçar o questionário no celular e testar de novo (inclusive se o zoom ao digitar parou); os ajustes entram em novos commits.
    **Pendências do questionário:** capital de cada estado com fonte oficial (.gov de cada estado); profissão e cargo como lista padronizada (avaliar O\*NET).
-4. **Marco 3:** motor da jornada (formato do conteúdo, regras de geração, cálculo de prazos), incluindo o **perfil da família** e os **caminhos de visto para conhecer**, gerados do questionário. Ver [docs/mvp.md](docs/mvp.md) e [docs/caminhos-visto.md](docs/caminhos-visto.md).
+4. **Marco 3: motor da jornada**, em 5 passos, documentando antes de implementar:
+   1. **Modelo da jornada:** rascunho escrito em 17/11/2026 em [docs/jornada.md](docs/jornada.md#modelo-da-jornada-marco-3-passo-1--rascunho-de-17112026-para-revisão) (três camadas: conteúdo, jornada gerada e progresso). **Aguardando a revisão do fundador e as 5 decisões listadas no fim da seção.**
+   2. Formato do conteúdo em `content/` (traduzível, com fonte e data de verificação).
+   3. Regras de geração (resposta → tarefas e para quem).
+   4. Cálculo de prazos a partir da data de ida.
+   5. Perfil da família e caminhos de visto para conhecer ([docs/caminhos-visto.md](docs/caminhos-visto.md)).
+   Depois: implementação com tarefas de exemplo. O conteúdo real da Fase 0 é outro marco, em paralelo.
 5. **Anotado para o momento certo:** custos personalizados e custo total aproximado da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
 6. Em paralelo: conteúdo da Fase 0 para o cenário inicial e levantamento das taxas oficiais do orçamento (passaporte no Brasil, vistos, USCIS, impostos e DMV dos estados da lista curta), sempre a partir de fontes oficiais.
 

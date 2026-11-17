@@ -181,7 +181,7 @@ Na raiz do repositório:
 | `pnpm start` | Roda a versão de produção (depois do build) |
 | `pnpm lint` | Verifica o código (ESLint) |
 | `pnpm typecheck` | Verifica os tipos (TypeScript) |
-| `pnpm test` | Roda os testes automáticos (Vitest): questionário, traduções completas, motor da jornada e validação do conteúdo |
+| `pnpm test` | Roda os testes automáticos (Vitest): questionário, traduções completas (questionário e interface), motor da jornada, caminhos de visto, validação do conteúdo, progresso e baixar/importar |
 
 ### Convenções do código
 - **Next.js 16** (App Router): o antigo `middleware.ts` agora se chama `proxy.ts`. Antes de escrever código Next.js, consultar os guias em `apps/web/node_modules/next/dist/docs/` (ver `apps/web/AGENTS.md`), porque a versão tem mudanças em relação ao que é comum na internet.
@@ -200,6 +200,10 @@ Na raiz do repositório:
 - **Armazenamento:** as telas usam só os repositórios de `apps/web/src/lib/storage/` (hoje IndexedDB; depois, a API). Todo dado lido passa pela validação Zod de `packages/shared`.
 - **UUID:** usar `uuid()` de `@gotousa/shared`, que funciona também sem HTTPS (teste no celular pela rede local).
 - **Jornada:** motor em `packages/shared/src/journey/`; conteúdo em `content/journey/` (uma pasta por tarefa: `task.json` + `pt-BR.md`, `en-US.md`, `es.md`). Ao criar uma tarefa, escreva os 3 idiomas e rode `pnpm test`: o teste `content.test.ts` bloqueia conteúdo com problema. Fato legal, prazo oficial ou taxa só com fonte oficial em `sources` e citado no texto com `[[fonte:id]]`.
+- **Telas:** `apps/web/src/app/[locale]/{today,journey,family,more}/page.tsx` (rotas) e `apps/web/src/components/{today,journey,family,more}/`. As telas da jornada usam `JourneyGate` (carrega respostas e progresso, mostra carregando/erro/convite ao questionário) e guardam o estado na URL (`?task=`, `?phase=`, `?view=theme`, `?person=`, `?new=1`, `?own=`, `?path=`), para o "voltar" do celular funcionar. Fontes oficiais sempre pelo componente fixo `official-sources.tsx`; Markdown do conteúdo só por `simple-markdown.tsx` (seguro, sem HTML).
+- **Progresso salvo na versão 2** (`checkins`, `pausedAt`, `endedAt`), com migração da versão 1 em `parseProgress`. Ao mudar o formato, nova versão com migração, como no questionário.
+- **Baixar e importar:** formato em `packages/shared/src/backup.ts` (`createBackup`, `parseBackup`): só respostas e progresso, validados por Zod e pelas migrações, limite de 2 MB. Ao criar um dado novo salvo no navegador, incluí-lo no arquivo.
+- **Condições do conteúdo:** além de `q` (família) e `p` (pessoa da vez), `w` lê a resposta de carreira do adulto da vez (`you.<w>` para você, `career.<w>` para os outros); em respostas de várias escolhas, `gte`/`lte` contam os itens marcados.
 - **Telas da jornada:** `apps/web/src/components/journey/`. O conteúdo chega pelo servidor no build (`apps/web/src/lib/journey/content.ts`, que importa `@gotousa/shared/node`; nunca importar isso em componente do navegador). Mudanças no progresso só pelas funções de `packages/shared/src/journey/progress.ts`. Textos da interface em `apps/web/messages/<idioma>.json`; o teste `ui-messages.test.ts` falha se um idioma tiver chaves diferentes do pt-BR.
 
 ## Ambiente de desenvolvimento
@@ -222,42 +226,69 @@ Na raiz do repositório:
 - [x] Modelo de negócio (freemium, plano anual) definido
 - [ ] Valor do plano anual e divisão entre grátis e pago
 - [x] Escopo do MVP: sem backend (preparado para ele), cenário inicial definido. Ver [docs/mvp.md](docs/mvp.md)
-- [x] Questionário inicial (perguntas e regras): **aprovado em 16/11/2026** em [docs/questionario-perguntas.md](docs/questionario-perguntas.md), traduzido para en-US e es
-- [ ] Orçamento da mudança: documentado em [docs/orcamento.md](docs/orcamento.md); faltam as fontes oficiais das taxas e as fontes das estimativas
-- [ ] Modelo da jornada (fases, etapas e regras de geração)
-- [ ] Estratégia de conteúdo (fontes, revisão, idiomas)
-- [ ] Wireframes das telas principais
-- [x] Preparação do ambiente e esqueleto do projeto (marco 1)
-- [ ] Implementação do MVP (marco 1 concluído; marco 2, o questionário, implementado e com os ajustes do primeiro teste do fundador feitos em 16/11/2026, aguardando novo teste no celular)
+- [x] Questionário inicial: **aprovado em 16/11/2026** ([docs/questionario-perguntas.md](docs/questionario-perguntas.md)), nos 3 idiomas
+- [ ] Orçamento da mudança: documentado em [docs/orcamento.md](docs/orcamento.md); faltam as fontes oficiais das taxas e das estimativas
+- [x] Modelo da jornada (fases, etapas, regras de geração, prazos, perfil e caminhos): **aprovado em 17/11/2026** ([docs/jornada.md](docs/jornada.md), [docs/caminhos-visto.md](docs/caminhos-visto.md))
+- [x] Estratégia de conteúdo (só fonte oficial, 3 idiomas, aviso padrão): [docs/conteudo.md](docs/conteudo.md)
+- [x] Telas da jornada: **aprovadas em 17/11/2026** ([docs/telas.md](docs/telas.md))
+- [x] Marco 1: ambiente e esqueleto do projeto
+- [x] Marco 2: questionário (com os ajustes dos testes do fundador)
+- [x] Marco 3: motor da jornada
+- [x] Caminhos de visto: 20 caminhos das fontes oficiais do USCIS
+- [x] Marco 5: telas da jornada (Hoje, Jornada, Tarefa, Família, Caminho, check-in, tarefa própria) e aba Mais (baixar e importar)
+- [ ] **Teste acumulado do fundador no celular** (em andamento, 17/11/2026)
+- [ ] Conteúdo real da jornada além das tarefas de exemplo (Fase 0 em diante), sempre com fonte oficial
+- [ ] Publicação sem backend, para os colegas do fundador usarem
+- [ ] Backend com conta (depois do MVP)
 
-## Próximos passos (onde paramos)
+## Onde paramos (17/11/2026)
 
-1. ~~Revisar o questionário~~ (aprovado em 16/11/2026, com o orçamento da mudança incluído).
-2. ~~Traduzir o questionário para en-US e es~~ (feito).
-3. **Marco 2:** questionário implementado. Primeiro teste do fundador feito em 16/11/2026, com estes ajustes:
-   - opção **"Do lar"** na situação de trabalho (você e cônjuge); quem é do lar não vê perguntas de carreira;
-   - **sexo** (Masculino/Feminino) de todas as pessoas, nascimento e **situação de trabalho** do cônjuge;
-   - **nascimento com mês e ano** para você e o cônjuge (`you.birth`, `partner.birth`, desde 17/11/2026), como já era para filhos e dependentes; quem respondeu só o ano vê o aviso "pergunta nova para responder" no bloco;
-   - gravidez só para mulheres de 18 a 55 anos; inglês só para filhos a partir de 3 anos; etapa da escola conforme a idade;
-   - opções que só aparecem quando fazem sentido (cônjuge e filho adulto na renda, moradia do empregador, intercâmbio de ensino médio, filial nos EUA);
-   - textos que se ajustam ao sexo ("Filha 1", "área dela") nos 3 idiomas;
-   - botão para recomeçar o questionário do zero.
-   Em 17/11/2026, também implementados: bloco **Seu momento**, **remédios padronizados** (quantidade, unidade e frequência; formato salvo na versão 2, com migração), **equipamentos, especialistas e quem fica no país** como opções e **cidades por estado** (Census Bureau, Vintage 2025).
-   Também em 17/11/2026: perguntas de **hobbies, bem-estar, passeios e viagens pelo próprio país** no Bloco 6 ([docs/questionario-perguntas.md](docs/questionario-perguntas.md#hobbies-bem-estar-e-passeios-implementado-em-17112026)).
-   Tudo já está no GitHub. **Falta:** o fundador recomeçar o questionário no celular e testar de novo (inclusive se o zoom ao digitar parou); os ajustes entram em novos commits.
-   **Pendências do questionário:** capital de cada estado com fonte oficial (.gov de cada estado); profissão e cargo como lista padronizada (avaliar O\*NET).
-4. **Marco 3: motor da jornada**, em 5 passos, documentando antes de implementar:
-   1. ✅ **Modelo da jornada:** aprovado em 17/11/2026 em [docs/jornada.md](docs/jornada.md#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) (três camadas: conteúdo, jornada gerada e progresso; pesos baixo, médio e alto; data de ida conta do dia 1º; prazo vencido vira "prioridade"; nascimento continua com mês e ano).
-   2. ✅ **Formato do conteúdo:** aprovado em 17/11/2026 em [docs/jornada.md](docs/jornada.md#formato-do-conteúdo-marco-3-passo-2--aprovado-em-17112026) (uma pasta por tarefa em `content/journey/tasks/`, `task.json` + um Markdown simples por idioma, **3 idiomas obrigatórios desde já**, testes automáticos).
-   3. ✅ **Regras de geração:** aprovadas em 17/11/2026 em [docs/jornada.md](docs/jornada.md#regras-de-geração-marco-3-passo-3--aprovado-em-17112026) (condições como dados no `task.json`, fatos calculados em código testado, tarefas **essenciais** entram para todos mesmo sem resposta, o que não se aplica não trava nada, destaque, próximo passo).
-   4. ✅ **Cálculo de prazos:** aprovado em 17/11/2026 em [docs/jornada.md](docs/jornada.md#cálculo-de-prazos-marco-3-passo-4--aprovado-em-17112026) (o mês da ida é a **meta**; prazos em mês e ano; Fase 0 com 1 mês a partir do início; conferência de realidade pelo tempo disponível).
-   5. ✅ **Perfil da família e caminhos de visto:** aprovado em 17/11/2026 em [docs/caminhos-visto.md](docs/caminhos-visto.md#como-o-motor-gera-o-perfil-e-os-caminhos-marco-3-passo-5--aprovado-em-17112026) (perfil calculado na hora; pontos de atenção = alertas da jornada; caminhos em `content/journey/paths/` com fonte oficial obrigatória; agrupados, sem ranking; avaliação de **cada adulto que vai**; asilo e refúgio fora). Premissa reforçada: todo fato sobre visto vem de fonte oficial, sempre.
-   - **Registro nas tarefas** de alinhamento e documentação (anotar o combinado e a situação dos documentos, sem enviar arquivos): [docs/jornada.md](docs/jornada.md#registro-da-tarefa-decisão-do-fundador-em-17112026).
-   - ✅ **Implementado em 17/11/2026:** motor em `packages/shared/src/journey/` (ver [docs/jornada.md](docs/jornada.md#implementação-do-motor-marco-3--17112026)), conteúdo de exemplo em `content/journey/` (7 tarefas, 3 idiomas, sem fatos legais) e a pergunta **"pretende trabalhar ou estudar nos EUA?"** para filhos e dependentes adultos (quem vai trabalhar entra no Bloco 11).
-   **Próximo:** Marco 5, as telas da jornada, **aprovadas em 17/11/2026** em [docs/telas.md](docs/telas.md) (barra inferior com Hoje · Jornada · Família · Mais; abre em Hoje depois do essencial; trilha simples; recompensa só na tarefa completa). Construção em 6 partes, cada uma testada no celular pelo fundador. **Partes 1 e 2 implementadas em 17/11/2026** (salvamento do progresso, conteúdo no build, telas Jornada e Tarefa em `/journey`, ver [docs/telas.md](docs/telas.md#partes-1-e-2-implementadas-17112026)); testadas pelo fundador. **Parte 4 (Família e Caminho, em `/family`) implementada em 17/11/2026**, antes da parte 3, para mostrar os caminhos de visto; aguardando o teste no celular. **Parte 3 (Hoje, em `/today`) implementada em 17/11/2026**; o app abre em Hoje depois do essencial. O fundador preferiu acumular funções para testar tudo junto. **Parte 5 (mala por tema, carimbos e check-in de fase; progresso salvo na versão 2, com migração) implementada em 17/11/2026.** **Parte 6 (por tema, filtro por pessoa e tarefa própria) implementada em 17/11/2026: Marco 5 concluído**, aguardando o teste acumulado do fundador no celular. **Aba "Mais" com baixar e importar a jornada, ajustes, questionário, idioma e aviso legal, implementada em 17/11/2026** (formato do arquivo em `packages/shared/src/backup.ts`). Pendência de tela: cartão "Novidades". Em paralelo: conteúdo real da Fase 0, sempre a partir de fonte oficial.
-   - ✅ **Caminhos de visto (17/11/2026):** 20 caminhos resumidos das páginas do USCIS, nos 3 idiomas, com fonte e data em cada fato, e a tarefa essencial **"Conversar com um advogado de imigração"** ([docs/caminhos-visto.md](docs/caminhos-visto.md#caminhos-publicados-levantamento-de-17112026)). O fundador **não revisa caminho a caminho**: sempre citar a fonte e dizer que o app é apoio à jornada e que o processo legal é conduzido por advogado ou profissional especializado. Aparecem na tela Família. Pendente: lista de países de tratado e instruções da loteria (o site do Departamento de Estado recusa acesso automático).
-5. **Anotado para o momento certo:** custos personalizados e custo total aproximado da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
-6. Em paralelo: conteúdo da Fase 0 para o cenário inicial e levantamento das taxas oficiais do orçamento (passaporte no Brasil, vistos, USCIS, impostos e DMV dos estados da lista curta), sempre a partir de fontes oficiais.
+O app já funciona de ponta a ponta no navegador do celular, **sem backend**: aviso legal → questionário → jornada com telas → caminhos de visto → baixar e importar. Tudo está no GitHub. **O fundador está fazendo o teste acumulado no celular** e vai mandar os ajustes de uma vez; corrigir em lote.
+
+### O que existe hoje
+
+**Questionário** (Marco 2, `/questionnaire`, aberto pela aba Mais)
+- 13 blocos (parte essencial de ~10 minutos + blocos para completar), adaptativo, nos 3 idiomas, com textos que mudam com o sexo (`select` do ICU).
+- Ajustes dos testes do fundador (16 e 17/11/2026): "Do lar" sem perguntas de carreira; sexo só M/F (como no passaporte) para todos; gravidez só para mulheres de 18 a 55 anos; inglês só para filhos a partir de 3 anos; escola conforme a idade; opções que só aparecem quando fazem sentido; botão "Recomeçar do zero"; bloco **Seu momento**; remédios padronizados (quantidade, unidade, frequência); equipamentos, especialistas e quem fica no país como opções; **cidades por estado** (Census Bureau, Vintage 2025); hobbies, bem-estar, passeios e viagens; pergunta "pretende trabalhar ou estudar?" para filhos e dependentes adultos (quem vai trabalhar entra no Bloco 11).
+- **Nascimento com mês e ano** para você e o cônjuge (`you.birth`, `partner.birth`), como já era para filhos e dependentes. Quem respondeu só o ano antes vê "pergunta nova para responder" no bloco; até lá, o ano antigo continua valendo.
+- Atalho `/questionnaire?block=<id>` abre um bloco direto (usado por "Mudar resposta").
+- Campos com letra de 16px para o iPhone não dar zoom (falta o fundador confirmar).
+
+**Motor da jornada** (Marco 3, `packages/shared/src/journey/`)
+- Três camadas: conteúdo (`content/journey`), jornada gerada (calculada na hora) e progresso (salvo no navegador). Condições como dados, fatos calculados, essenciais entram mesmo sem resposta, prazos pela meta (mês da ida), prioridade sem nada negativo, conferência de realidade, prontidão com pesos baixo/médio/alto, caminhos avaliados por adulto.
+- Conteúdo de exemplo: 8 tarefas nos 3 idiomas (conversar em família, conhecer os caminhos, **conversar com um advogado de imigração**, definir a data de ida, orçamento, plano de inglês, plano de cuidados, conferir passaporte). Só a tarefa do advogado tem fato com fonte (USCIS); as outras não têm fato legal.
+
+**Caminhos de visto** (`content/journey/paths/`, [docs/caminhos-visto.md](docs/caminhos-visto.md#caminhos-publicados-levantamento-de-17112026))
+- 20 caminhos resumidos das páginas do **USCIS** (conferidas em 17/11/2026): EB-1 (3), EB-2, EB-2 NIW, EB-3, H-1B, L-1, O-1, EB-5, E-2, TN, E-3, H-1B1, parente imediato, preferência familiar, K-1, F-1/M-1, J-1 e loteria. Cada fato com a fonte; "Links oficiais para consultar" do Departamento de Estado (os mesmos que o USCIS indica) onde a página não pôde ser lida.
+- **O fundador não revisa caminho a caminho** (decisão de 17/11/2026): dar toda a informação oficial possível, sempre com a fonte e sempre dizendo que o app é apoio à jornada e que o processo legal é conduzido por advogado ou profissional especializado.
+- Limites: o site do Departamento de Estado recusa acesso automático (lista de países com tratado E-1/E-2 e instruções anuais da loteria não usadas como dado; o texto manda conferir); E-1 fora (o questionário não pergunta sobre comércio); aposentadoria sem caminho (sem categoria específica nas páginas oficiais).
+
+**Telas** (Marco 5, [docs/telas.md](docs/telas.md)), barra inferior com **Hoje · Jornada · Família · Mais**
+- **Abertura:** com o aviso aceito e o essencial concluído, a tela inicial leva direto para Hoje.
+- **Hoje** (`/today`): meta e meses que faltam; um único próximo passo e "mais passos desta semana" (conforme as horas escolhidas); cartões de tempo apertado, prioridades, blocos que faltam, data que já passou e o seu porquê; mala da prontidão com "ver por tema"; **check-in** ao fim de cada fase (Continuar · Ajustar o plano · Pausar · Encerrar) e cartão de jornada pausada ou encerrada com "Retomar".
+- **Jornada** (`/journey`): atalho para os caminhos; **Por fase · Por tema**; filtro por pessoa; carimbos do passaporte; trilha das fases; etapas com "x de y"; selos Prioridade, Destaque e Aguardando; **tarefa própria** (`?new=1`, `?own=<id>`).
+- **Tarefa** (`/journey?task=<chave>`): por que importa, passos, passo a passo, fontes com o aviso padrão, "Quando e onde?", **Registro** (combinado, documentos ou anotações), anotação pessoal, Comecei · Concluí · Não se aplica (tudo desfazível), comemoração só na tarefa completa (com a recompensa escolhida) e convite para o check-in ao fechar a fase.
+- **Família** (`/family`): quem vai (idade hoje e na meta), perfil profissional, cuidados, dinheiro (dica de renda única), preferências, pontos de atenção e **caminhos para conhecer** (agrupados, sem ranking, "aparece por"); cada seção com "Mudar resposta".
+- **Caminho** (`/family?path=<id>`): por que apareceu (por pessoa), requisitos com fonte, caixa fixa "Converse com um advogado de imigração", o que fazer agora e o aviso padrão.
+- **Mais** (`/more`): **baixar a jornada** (arquivo .json, sem documentos nem senhas, com aviso de privacidade) e **importar** (validação completa, resumo e confirmação); ajustes (meta, data de chegada real, prazo da Descoberta); questionário; idioma; aviso legal. A tela inicial tem "Já tem uma jornada baixada? Importe aqui".
+
+### Para o teste do fundador (17/11/2026)
+1. Abrir http://<IP-do-PC>:3000 e conferir se vai direto para **Hoje**.
+2. Questionário (aba Mais): responder as 2 perguntas novas de nascimento; conferir se o zoom ao digitar parou.
+3. **Família:** idades e caminhos de visto (abrir um caminho).
+4. **Jornada:** carimbos, Por fase/Por tema, filtro por pessoa, abrir e concluir uma tarefa (passos, Registro, comemoração), criar uma tarefa própria, concluir a Descoberta para ver o check-in.
+5. **Mais:** baixar a jornada e importar em outro navegador.
+
+### Próximos passos
+1. **Corrigir em lote** o que o fundador encontrar no teste.
+2. **Publicar sem backend** para os colegas do fundador (decisão de 17/11/2026: seguir só com o navegador, sem login nem banco, por ser o mais seguro). Documentar antes de implementar: hospedagem gratuita que permita esse uso (conferir os termos), cabeçalhos de segurança completos (CSP), página de privacidade explicando que nada sai do aparelho, verificações automáticas no GitHub (Dependabot, Gitleaks), aviso de que o conteúdo ainda é pouco.
+3. **Conteúdo real da jornada** (Fase 0 em diante), sempre a partir de fonte oficial, e as taxas oficiais do orçamento.
+4. Pendências menores: cartão "Novidades" (precisa guardar o que a pessoa já viu); capital de cada estado com fonte .gov; profissão e cargo como lista padronizada (avaliar O\*NET); lista de países com tratado e instruções da loteria por uma fonte oficial legível (ex.: Federal Register, 9 FAM).
+5. **Depois do MVP:** backend com conta (login seguro, Argon2id, 2FA, banco criptografado, transferência da jornada do navegador para a conta), PWA, custos personalizados da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
+
+### Histórico das decisões e etapas
+- **16/11/2026:** questionário aprovado e traduzido; primeiro teste do fundador e ajustes; questionário como norte de tudo; sexo M/F como no passaporte.
+- **17/11/2026:** Marco 3 em 5 passos aprovados e implementados (modelo, formato do conteúdo, regras, prazos, perfil e caminhos); premissas reforçadas (só fonte oficial; positivo, mas baseado em fatos; fácil de usar; 3 idiomas sempre); registro nas tarefas; asilo e refúgio fora do app; telas aprovadas (funcionalidade primeiro, perfumaria depois; recompensa só na tarefa completa); Marco 5 implementado em 6 partes; 20 caminhos de visto do USCIS; nascimento com mês e ano; aba Mais com baixar e importar.
 
 ## Como trabalhamos
 

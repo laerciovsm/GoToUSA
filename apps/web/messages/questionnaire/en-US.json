@@ -11,6 +11,7 @@
     "history": { "title": "History with the U.S.", "intro": "Visits, visas, and people you know there." },
     "docs": { "title": "Documents", "intro": "Yes or no only: no files are uploaded." },
     "career": { "title": "Professional profile", "intro": "The careers of those who will work: you and your spouse. It's the basis for pointing to the visa paths worth learning about." },
+    "moment": { "title": "Your moment", "intro": "How your life is right now, so your journey starts at the right pace. Everything is optional." },
     "rhythm": { "title": "Your pace", "intro": "How often you want to follow your journey and what motivates you." }
   },
   "Q": {
@@ -65,6 +66,11 @@
       "nationalities": { "label": "What is your nationality? If you have more than one, select all.", "why": "Nationality affects visa types, agreements between countries, and some available programs." },
       "residence": { "label": "Which country do you live in today?", "why": "It determines the consulate, local documents, and the tasks for leaving the country." },
       "birthYear": { "label": "What year were you born?", "why": "Age affects visa types, health plans, and some tasks.", "placeholder": "E.g., 1985" },
+      "sex": {
+        "label": "What is your sex, as shown on your passport?",
+        "why": "Used only to show the questions and tasks that apply to each person (for example, pregnancy).",
+        "options": { "male": "Male", "female": "Female" }
+      },
       "languages": { "label": "Which languages do you speak?", "why": "It helps plan your adaptation and find communities that speak your language." },
       "english": {
         "label": "How is your English today?",
@@ -108,7 +114,8 @@
           "remote_foreign": "Remote work for a company in another country",
           "student": "Student",
           "retired": "Retired",
-          "unemployed": "Not working right now"
+          "unemployed": "Not working right now",
+          "homemaker": "Homemaker"
         }
       }
     },
@@ -251,15 +258,19 @@
         "why": "It adds planning tasks for those who stay: care, powers of attorney, sending money.",
         "options": { "yes": "Yes", "no": "No" }
       },
-      "leftBehindWho": { "label": "Who will stay?", "why": "Just to identify them in the journey. A nickname is fine.", "placeholder": "E.g., my mother" }
+      "leftBehindList": { "label": "Who will stay in your country?", "why": "It helps plan support for those who stay.", "options": {"parent": "Father or mother", "grandparent": "Grandparent", "child": "Son or daughter", "sibling": "Brother or sister", "partner": "Spouse", "in_law": "Parent-in-law", "other": "Someone else"} }
     },
     "partner": {
+      "sex": { "label": "What is your spouse's sex, as shown on their passport?", "why": "Used only to show the questions and tasks that apply to each person (for example, pregnancy)." },
+      "birthYear": { "label": "What year was your spouse born?", "why": "Age affects health plans and some tasks.", "placeholder": "E.g., 1987" },
+      "workStatus": { "label": "What is your spouse's work situation today?", "why": "It shows which career questions make sense and helps plan the family's income in the U.S." },
       "english": { "label": "How is your spouse's English?", "why": "It helps plan the family's English and who can work in the U.S." },
       "occupation": { "label": "What is your spouse's profession or occupation?", "why": "It helps think about the family's income in the U.S.", "placeholder": "E.g., Teacher" }
     },
     "child": {
       "nickname": { "label": "What would you like to call this child in the app?", "why": "Just to identify them in the journey. Use a nickname or leave it blank.", "placeholder": "E.g., Peter" },
       "birth": { "label": "Month and year of birth", "why": "The journey takes years. With the date, the app calculates the age at each point of the timeline, because some rules depend on it." },
+      "sex": { "label": "What is their sex, as shown on their documents?", "why": "Used only to show the questions and tasks that apply to each person (for example, pregnancy)." },
       "school": {
         "label": "What stage of school are they in?",
         "why": "It defines school and school-record tasks.",
@@ -294,6 +305,7 @@
         }
       },
       "birth": { "label": "Month and year of birth", "why": "With the date, the app calculates the age at each point of the timeline." },
+      "sex": { "label": "What is their sex, as shown on their documents?", "why": "Used only to show the questions and tasks that apply to each person (for example, pregnancy)." },
       "dependency": {
         "label": "What kind of dependence?",
         "why": "It helps plan care and budget.",
@@ -362,8 +374,10 @@
           "other": "Other"
         }
       },
-      "equipment": { "label": "Do they use any equipment? (e.g., wheelchair, hearing aid, CPAP)", "why": "Equipment may have transport rules and costs at the destination." },
-      "specialists": { "label": "Which specialists follow them?", "why": "It helps plan continued care in the U.S." },
+      "equipmentList": { "label": "Do they use any of this equipment?", "why": "Equipment may have transport rules and costs at the destination.", "options": {"none": "None", "wheelchair": "Wheelchair", "walker": "Walker or crutches", "hearing_aid": "Hearing aid", "glasses_special": "Special glasses or lenses (low vision)", "cpap": "CPAP or sleep apnea device", "oxygen": "Oxygen", "insulin_pump": "Insulin pump", "glucose_monitor": "Glucose monitor", "prosthesis": "Prosthesis or orthosis", "feeding_tube": "Feeding tube", "communication_device": "Alternative communication (e.g., board, tablet)", "other": "Other"} },
+      "equipmentOther": { "label": "What other equipment?", "why": "Just to include it in the journey.", "placeholder": "E.g., hospital bed" },
+      "specialistsList": { "label": "Are they followed by any of these specialists?", "why": "It helps plan continued care in the U.S.", "options": {"none": "None", "neurologist": "Neurologist", "psychiatrist": "Psychiatrist", "developmental_pediatrician": "Pediatric neurologist or developmental pediatrician", "cardiologist": "Cardiologist", "endocrinologist": "Endocrinologist", "pulmonologist": "Pulmonologist", "nephrologist": "Nephrologist", "oncologist": "Oncologist", "rheumatologist": "Rheumatologist", "gastroenterologist": "Gastroenterologist", "orthopedist": "Orthopedist", "ophthalmologist": "Ophthalmologist", "otolaryngologist": "ENT (otolaryngologist)", "geriatrician": "Geriatrician", "other": "Other"} },
+      "specialistsOther": { "label": "What other specialist?", "why": "Just to include it in the journey.", "placeholder": "E.g., hematologist" },
       "pregnancy": {
         "label": "Current pregnancy or planned within the next 2 years?",
         "why": "It affects the health plan, costs, and timeline.",
@@ -398,7 +412,7 @@
         "options": {
           "yes": "Yes",
           "partial": "Partly",
-          "no": "No, they're a full-time caregiver",
+          "no": "No, {partnerSex, select, male {he's} female {she's} other {they're}} a full-time caregiver",
           "no_other": "No, for another reason"
         }
       },
@@ -594,7 +608,7 @@
         "options": { "yes": "Yes", "some": "I have a few options", "no": "Not yet" }
       },
       "places": { "label": "Which states?", "why": "The state determines taxes, cost of living, climate, and services." },
-      "cities": { "label": "Any city in mind?", "why": "It makes comparisons more precise.", "placeholder": "E.g., Seattle, Boston" },
+      "cityList": { "label": "Any city in mind?", "why": "It makes comparisons of cost, climate and taxes more precise." },
       "why": { "label": "Why this place?", "why": "It helps compare the destination with what matters to you." },
       "criteria": {
         "label": "What matters most in the choice? (choose up to 3)",
@@ -665,11 +679,18 @@
         "options": { "yes": "Yes", "no": "No" }
       }
     },
+    "moment": {
+      "life": { "label": "How is your life right now?", "why": "Nobody needs to be perfect to start. Your answer only adjusts the pace: in a hard phase, the journey starts lighter.", "options": {"calm": "Calm", "busy": "Busy, but under control", "hard": "Going through a hard phase", "skip": "I'd rather not say"} },
+      "events": { "label": "Has anything major happened in your life in the last 12 months?", "why": "Big changes take energy. Knowing this helps the journey respect where you are.", "options": {"none": "None of these", "grief": "Losing someone close", "separation": "Separation or divorce", "job_loss": "Job loss", "family_illness": "Illness in the family", "own_health": "A health problem of my own", "new_baby": "A child's birth or arrival", "financial": "Financial strain", "other": "Another major change", "skip": "I'd rather not say"} },
+      "decision": { "label": "Where are you in your decision to live in the U.S.?", "why": "If you're still getting to know the idea, the journey starts by exploring before deciding. Concluding it's not for you is a good outcome too.", "options": {"exploring": "I'm still getting to know the idea", "leaning": "I'm leaning toward going", "decided": "I've decided I want to go"} },
+      "partnerSupport": { "label": "How does your spouse feel about the move?", "why": "A move like this works better when the couple is on the same page. If you're not there yet, the journey brings those conversations early.", "options": {"aligned": "They want it as much as I do", "mostly": "Supportive, with some doubts", "unsure": "Still unsure", "against": "They don't want to go", "not_talked": "We haven't talked yet"} },
+      "familySupport": { "label": "Do the people close to you support the idea?", "why": "Support makes a difference on hard days. Your answer helps the journey remind you where to find strength.", "options": {"yes": "Yes, they do", "partial": "Some of them do", "no": "They don't", "skip": "I'd rather not say"} }
+    },
     "career": {
       "nationalities": { "label": "What is your spouse's nationality? If more than one, select all.", "why": "Each adult's nationality can open or close different visa paths. Sometimes the best path is through the spouse." },
       "education": { "label": "What is your spouse's highest completed education?", "why": "Each adult's education helps point to the visa paths worth learning about." },
       "field": { "label": "What is your spouse's field of study?", "why": "It helps connect education with profession and the U.S. job market." },
-      "experienceYears": { "label": "How many years has your spouse worked in their field?", "why": "Years of experience help point to visa paths and plan the job search.", "placeholder": "E.g.: 8" },
+      "experienceYears": { "label": "How many years has your spouse worked in {sex, select, male {his} female {her} other {their}} field?", "why": "Years of experience help point to visa paths and plan the job search.", "placeholder": "E.g.: 8" },
       "regulated": { "label": "Does your spouse's profession require a registration or license to practice?", "why": "Licensed professions usually require validating the degree and license in the destination state." },
       "sector": {
         "label": "What area is the work in?",

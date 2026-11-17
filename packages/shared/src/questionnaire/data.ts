@@ -38,6 +38,16 @@ export const US_STATES: readonly { code: string; name: string }[] = [
   ["WY", "Wyoming"],
 ].map(([code, name]) => ({ code: code!, name: name! }));
 
+/** Unidades de dose de remédio (IDs estáveis; textos em Questionnaire.controls.medUnits). */
+export const MED_UNITS: readonly string[] = [
+  "mg", "mcg", "g", "ml", "drops", "tablet", "capsule", "iu", "puff", "patch", "application", "other",
+];
+
+/** Frequências de remédio (IDs estáveis; textos em Questionnaire.controls.medFrequencies). */
+export const MED_FREQUENCIES: readonly string[] = [
+  "daily_1", "daily_2", "daily_3", "daily_4", "daily_more", "weekly", "monthly", "as_needed", "other",
+];
+
 /** Moedas mais comuns, mostradas primeiro na escolha de moeda (ISO 4217). */
 export const COMMON_CURRENCIES: readonly string[] = [
   "USD", "BRL", "EUR", "MXN", "ARS", "COP", "CLP", "PEN", "UYU", "PYG", "BOB", "VES", "GBP", "CAD",

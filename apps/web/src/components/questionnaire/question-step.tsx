@@ -9,6 +9,8 @@ import {
   canAdvance,
   getAnswer,
   isAnswered,
+  textSexValues,
+  visibleOptions,
   type AnswerValue,
   type Medication,
   type Money,
@@ -26,6 +28,7 @@ import {
   TextAnswer,
   type ChoiceItem,
 } from "./controls";
+import { UsCitiesAnswer } from "./us-cities-answer";
 import { usePersonLabel } from "./use-person-label";
 
 type Props = {
@@ -71,9 +74,15 @@ export function QuestionStep({ step, index, total, blockTitle, data, defaultCurr
   const { question, person } = step;
   const value = getAnswer(data, question.id, person);
   const optionKey = question.optionsFrom ?? question.id;
-  const optionItems = (question.options ?? []).map((o) => ({ value: o, label: q(`${optionKey}.options.${o}`) }));
+  const now = new Date();
+  // Sexo de quem a pergunta fala, para os textos com gênero (ex.: "dele"/"dela").
+  const sexValues = textSexValues(data, step, now);
+  const optionItems = visibleOptions(question, { record: data, person, now }).map((o) => ({
+    value: o,
+    label: q(`${optionKey}.options.${o}`, sexValues),
+  }));
   const placeholder = q.has(`${question.id}.placeholder`) ? q(`${question.id}.placeholder`) : undefined;
-  const hint = q.has(`${question.id}.hint`) ? q(`${question.id}.hint`) : undefined;
+  const hint = q.has(`${question.id}.hint`) ? q(`${question.id}.hint`, sexValues) : undefined;
 
   // Leva o foco para o título a cada nova pergunta (leitores de tela e teclado).
   useEffect(() => {
@@ -161,6 +170,20 @@ export function QuestionStep({ step, index, total, blockTitle, data, defaultCurr
             multiple
           />
         );
+      case "usCities": {
+        // Só os estados escolhidos (e válidos) e só as cidades desses estados.
+        const states = asStrings(question.statesFrom ? getAnswer(data, question.statesFrom) : undefined).filter((code) =>
+          US_STATES.some((s) => s.code === code),
+        );
+        return (
+          <UsCitiesAnswer
+            labelledBy={headingId}
+            states={states}
+            value={asStrings(value).filter((v) => states.includes(v.split("-")[0]!))}
+            onChange={(v) => onAnswer(v.length > 0 ? v : undefined)}
+          />
+        );
+      }
       case "money":
         return (
           <MoneyAnswer
@@ -224,7 +247,7 @@ export function QuestionStep({ step, index, total, blockTitle, data, defaultCurr
         )}
 
         <h1 id={headingId} ref={headingRef} tabIndex={-1} className="text-2xl font-semibold leading-snug outline-none">
-          {q(`${question.id}.label`)}
+          {q(`${question.id}.label`, sexValues)}
         </h1>
 
         <div>
@@ -238,7 +261,7 @@ export function QuestionStep({ step, index, total, blockTitle, data, defaultCurr
             {t("whyAsk")}
           </button>
           <p id={whyId} hidden={!showWhy} className="mt-1 rounded-2xl bg-primary-soft p-4 text-ink2">
-            {q(`${question.id}.why`)}
+            {q(`${question.id}.why`, sexValues)}
           </p>
         </div>
 

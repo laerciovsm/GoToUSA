@@ -46,7 +46,12 @@ O GoToUSA ajuda a pessoa a **criar a própria jornada** e a evoluir nela, com tu
 
 ### Questionário e jornada: diretrizes
 - **O questionário é o norteador de tudo no app** (decisão de 16/11/2026): jornada, **perfil da família**, **caminhos de visto para conhecer**, orçamento e prioridades saem das respostas. Se uma tela precisa de um dado, ele vira pergunta adaptativa. O app dá o **norte**, nunca assessoria ("vale a pena conhecer este caminho", nunca "você se qualifica"). Referência legal de base: a [INA no USCIS](https://www.uscis.gov/laws-and-policy/legislation/immigration-and-nationality-act). Ver [docs/caminhos-visto.md](docs/caminhos-visto.md).
-- **Perfil profissional de você e do cônjuge** (Bloco 11): base dos caminhos por trabalho e por mérito profissional.
+- **Perfil profissional de você e do cônjuge** (Bloco 11): base dos caminhos por trabalho e por mérito profissional. Quem é **do lar** não vê as perguntas de carreira, só nacionalidade e escolaridade.
+- **Sexo: só Masculino e Feminino, como consta no passaporte ou documento** (decisão do fundador em 16/11/2026: é o que vale para visto e processos, não a identidade de gênero). É perguntado para todas as pessoas da família e serve para mostrar só o que se aplica (ex.: gravidez só para mulheres de 18 a 55 anos) e para ajustar os textos ("Filha 1", "área dela").
+- **Seu momento** (Bloco 12, decisão de 17/11/2026): poucas perguntas opcionais sobre a **situação de vida** (momento atual, eventos recentes, decisão, apoio do cônjuge e da família), sem escalas clínicas e sem nota. Servem só para ajustar o ritmo e o começo da jornada.
+- **Digitar o mínimo e padronizar** (decisão de 17/11/2026): sempre que possível, opções para escolher em vez de texto livre (remédios com quantidade, unidade e frequência; equipamentos; especialistas; quem fica no país; cidades). Texto livre só no "porquê", em apelidos e no "Outro".
+- **Cidades de destino por estado:** as 3 maiores em destaque e busca pelas demais, com dados oficiais do U.S. Census Bureau. A **capital com selo** está aprovada, mas pendente de fonte oficial (ver [docs/questionario-perguntas.md](docs/questionario-perguntas.md#cidades-dos-eua-fonte-e-capitais)).
+- **Lógica sem perguntas absurdas:** perguntas e opções só aparecem quando fazem sentido para aquela pessoa (ex.: inglês só para filhos a partir de 3 anos, etapa da escola conforme a idade, "Filho(a) adulto(a)" só se houver filho adulto). Ao criar perguntas, sempre pensar nesses casos.
 - **Questionário completo e detalhado:** precisa deixar muito claro o que a pessoa quer e prever qualquer situação. Exemplos: filho maior de idade com deficiência que depende da pessoa, pai ou mãe idoso que mora junto e vai na mudança, escolaridade, profissão, saúde, finanças.
 - **Completo, mas sem excesso:** perguntar só o essencial. O questionário é **adaptativo**, ou seja, as perguntas seguintes dependem das respostas anteriores, para ninguém responder o que não se aplica.
 - **Jornada o mais completa e organizada possível:** organizada em fases → etapas → tarefas → subtarefas. Cada tarefa se aplica às pessoas certas da família (titular, cônjuge, filhos, outros dependentes).
@@ -109,6 +114,7 @@ A ferramenta deve estar preparada para **qualquer idioma** desde o primeiro dia:
   - leve e rápido em conexões móveis lentas (páginas estáticas, poucas imagens, pouco JavaScript);
   - respeitar as áreas seguras da tela (entalhe/"notch" e barras do sistema);
   - testar sempre na largura de celular, além do computador.
+  - campos de digitação e seleção com letra de **no mínimo 16px** (regra global em `globals.css`), para o iPhone não dar zoom ao tocar no campo. Nunca bloquear o zoom manual (`maximum-scale=1`), por acessibilidade.
   - Depois do MVP, a aplicação vira **PWA**: a pessoa pode "instalar" o site na tela inicial do celular, com ícone próprio e funcionamento offline, sem passar por loja de aplicativos.
 - **Acessível:** seguindo boas práticas de acessibilidade (WCAG).
 - **Segurança em primeiro lugar** (ver seção Segurança).
@@ -180,6 +186,13 @@ Na raiz do repositório:
 - **Direção do texto:** usar propriedades lógicas (`ms-`, `me-`, `ps-`, `pe-`, `start`, `end`) para funcionar em idiomas da direita para a esquerda.
 - **Regras compartilhadas** (tipos, validações, motor da jornada) ficam em `packages/shared`, nunca presas ao frontend.
 - **Questionário:** perguntas, opções e condições em `packages/shared/src/questionnaire/definition.ts` (IDs estáveis, nunca renomear). Textos em `apps/web/messages/questionnaire/<idioma>.json`, na chave igual ao ID. Ao criar uma pergunta, adicione os textos nos 3 idiomas; o teste `messages.test.ts` falha se faltar algum.
+  - `when`: condição para a pergunta aparecer. `optionWhen`: condição para cada opção aparecer (aplicada por `visibleOptions`).
+  - Bloco sem nenhuma pergunta visível não aparece na lista (`blockApplies`).
+  - **Textos com gênero:** usar `{sex, select, male {…} female {…} other {…}}` (ICU). Variáveis em todo texto de pergunta, calculadas por `textSexValues`: `sex` (pessoa da vez; cônjuge nas perguntas `partner.*`; senão você), `partnerSex` e `adultChildSex`. O `other` é a forma neutra com "(a)".
+  - Na tela do questionário há o botão **"Recomeçar o questionário do zero"** (apaga as respostas do navegador, com confirmação).
+  - **Formato salvo com versão** (`schemaVersion`, hoje 2). Ao mudar o formato, criar a migração em `packages/shared/src/questionnaire/schema.ts` para não perder dados de quem já respondeu.
+  - Para trocar o **tipo** de uma pergunta (ex.: de texto para opções), criar um **ID novo** e retirar o antigo; nunca reaproveitar o ID com outro formato.
+  - **Cidades dos EUA:** `pnpm data:cities` gera `apps/web/public/data/us-cities/<UF>.json` a partir do arquivo oficial do Census (`scripts/build-us-cities.mjs`).
 - **Armazenamento:** as telas usam só os repositórios de `apps/web/src/lib/storage/` (hoje IndexedDB; depois, a API). Todo dado lido passa pela validação Zod de `packages/shared`.
 - **UUID:** usar `uuid()` de `@gotousa/shared`, que funciona também sem HTTPS (teste no celular pela rede local).
 
@@ -209,13 +222,22 @@ Na raiz do repositório:
 - [ ] Estratégia de conteúdo (fontes, revisão, idiomas)
 - [ ] Wireframes das telas principais
 - [x] Preparação do ambiente e esqueleto do projeto (marco 1)
-- [ ] Implementação do MVP (marco 1 concluído; marco 2, o questionário, implementado e aguardando o teste do fundador no celular)
+- [ ] Implementação do MVP (marco 1 concluído; marco 2, o questionário, implementado e com os ajustes do primeiro teste do fundador feitos em 16/11/2026, aguardando novo teste no celular)
 
 ## Próximos passos (onde paramos)
 
 1. ~~Revisar o questionário~~ (aprovado em 16/11/2026, com o orçamento da mudança incluído).
 2. ~~Traduzir o questionário para en-US e es~~ (feito).
-3. **Marco 2:** questionário implementado. O fundador testa no celular e aponta ajustes.
+3. **Marco 2:** questionário implementado. Primeiro teste do fundador feito em 16/11/2026, com estes ajustes:
+   - opção **"Do lar"** na situação de trabalho (você e cônjuge); quem é do lar não vê perguntas de carreira;
+   - **sexo** (Masculino/Feminino) de todas as pessoas, **ano de nascimento** e **situação de trabalho** do cônjuge;
+   - gravidez só para mulheres de 18 a 55 anos; inglês só para filhos a partir de 3 anos; etapa da escola conforme a idade;
+   - opções que só aparecem quando fazem sentido (cônjuge e filho adulto na renda, moradia do empregador, intercâmbio de ensino médio, filial nos EUA);
+   - textos que se ajustam ao sexo ("Filha 1", "área dela") nos 3 idiomas;
+   - botão para recomeçar o questionário do zero.
+   Em 17/11/2026, também implementados: bloco **Seu momento**, **remédios padronizados** (quantidade, unidade e frequência; formato salvo na versão 2, com migração), **equipamentos, especialistas e quem fica no país** como opções e **cidades por estado** (Census Bureau, Vintage 2025).
+   **Próximo:** o fundador recomeça o questionário no celular, testa de novo e aprova. Depois disso: commit e push.
+   **Pendências do questionário:** capital de cada estado com fonte oficial (.gov de cada estado); profissão e cargo como lista padronizada (avaliar O\*NET).
 4. **Marco 3:** motor da jornada (formato do conteúdo, regras de geração, cálculo de prazos), incluindo o **perfil da família** e os **caminhos de visto para conhecer**, gerados do questionário. Ver [docs/mvp.md](docs/mvp.md) e [docs/caminhos-visto.md](docs/caminhos-visto.md).
 5. **Anotado para o momento certo:** custos personalizados e custo total aproximado da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
 6. Em paralelo: conteúdo da Fase 0 para o cenário inicial e levantamento das taxas oficiais do orçamento (passaporte no Brasil, vistos, USCIS, impostos e DMV dos estados da lista curta), sempre a partir de fontes oficiais.

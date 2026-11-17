@@ -15,19 +15,25 @@
   - `país` / `países`: lista de países com busca
   - `por pessoa`: a pergunta se repete para cada pessoa da família
 - **Condição:** quando a pergunta só aparece em certos casos (ex.: "se `goal.purpose` = `work`").
+- **Condição de opção:** algumas opções só aparecem quando fazem sentido (ex.: "Filho(a) adulto(a)" só se algum filho tiver 18 anos ou mais).
+- **Sexo:** só `male` Masculino e `female` Feminino, **como consta no passaporte ou documento** (decisão do fundador em 16/11/2026: é o que vale para visto e processos). Serve para mostrar só as perguntas e tarefas que se aplicam (ex.: gravidez).
+- **Textos com gênero:** com o sexo informado, os textos se ajustam ("Filha 1", "área dela", "Aposentado"), usando `select` do ICU MessageFormat nos arquivos de tradução. Variáveis disponíveis em todo texto de pergunta: `sex` (de quem a pergunta fala: a pessoa da vez, o cônjuge nas perguntas `partner.*` ou você), `partnerSex` e `adultChildSex` (dos filhos adultos). Sem a informação (ou filhos de sexos diferentes), vale a forma neutra `other`, como "Filho(a)".
 - **(opcional)**: a pessoa pode pular. Toda pergunta delicada tem também **"Prefiro não responder"**.
 - **"Por que perguntamos?"**: toda pergunta tem um link curto que explica para que serve a resposta. Isso gera confiança e reduz desistência.
+- **Digitar o mínimo e padronizar** (decisão do fundador em 17/11/2026): sempre que possível, a resposta é uma **opção para escolher**, não texto livre. Respostas padronizadas podem ser lidas pelas regras da jornada, aparecem traduzidas em qualquer idioma e são mais fáceis de responder no celular. Texto livre só onde a palavra da pessoa é o valor (o "porquê"), em apelidos e no campo "Outro".
 - **Nenhum fato legal no texto das perguntas.** Explicações sobre regras ficam no conteúdo da jornada, com fonte oficial e aviso padrão.
 
 ## Experiência do questionário
 
 - **Duas etapas, para não cansar:**
-  1. **Essencial** (cerca de 10 minutos): blocos 1, 2, 3 e 10. Com isso, a primeira versão da jornada já é gerada. O Bloco 3 já inclui **autonomia e cuidador** de quem tem deficiência ou depende de cuidados, porque isso gera tarefas importantes desde o início.
+  1. **Essencial** (cerca de 10 minutos): blocos 1, 2, 3, 12 (Seu momento, todo opcional) e 10. Com isso, a primeira versão da jornada já é gerada. O Bloco 3 já inclui **autonomia e cuidador** de quem tem deficiência ou depende de cuidados, porque isso gera tarefas importantes desde o início.
   2. **Para completar** (no ritmo da pessoa): blocos 0, 11 (perfil profissional), 4, 5, 6, 7, 8 e 9. Cada bloco concluído deixa a jornada mais precisa, e o app mostra isso ("Responda o bloco Saúde para incluir as tarefas de medicação e cuidados").
 - Barra de progresso por bloco e tempo estimado de cada bloco.
 - Salva a cada resposta (no navegador). A pessoa pode sair e voltar.
 - Uma pergunta por tela no celular, com botões grandes.
 - Sempre dá para voltar e mudar uma resposta. A jornada é recalculada.
+- **Recomeçar do zero:** no fim da lista de blocos, a pessoa pode apagar todas as respostas (com confirmação) e começar de novo.
+- Um bloco **sem nenhuma pergunta que se aplique** à família não aparece (ex.: perfil profissional quando você é do lar e não tem cônjuge).
 
 ---
 
@@ -51,14 +57,15 @@
 | `you.nationalities` | Qual é a sua nacionalidade? Se tiver mais de uma, marque todas. | países | Obrigatória |
 | `you.residence` | Em que país você mora hoje? | país | Pré-preenchida com a primeira nacionalidade |
 | `you.birthYear` | Em que ano você nasceu? | número | — |
+| `you.sex` | Qual é o seu sexo, como consta no passaporte? | única | `male` Masculino · `female` Feminino |
 | `you.languages` | Quais idiomas você fala? | múltipla com busca | Lista de idiomas |
 | `you.english` | Como está o seu inglês hoje? | única | `none` Não falo · `basic` Entendo palavras e frases simples · `intermediate` Consigo me virar no dia a dia (mercado, restaurante) · `advanced` Consigo conversar sobre quase tudo · `fluent` Consigo trabalhar e estudar em inglês |
 | `you.education` | Qual é a sua escolaridade mais alta (concluída)? | única | `primary` Ensino fundamental · `secondary` Ensino médio · `technical` Curso técnico · `bachelor` Graduação · `postgrad` Especialização/MBA · `master` Mestrado · `doctorate` Doutorado |
 | `you.field` | Qual é a sua área de formação? | texto | Condição: `you.education` ≥ `technical` |
-| `you.occupation` | Qual é a sua profissão ou ocupação atual? | texto | — |
-| `you.experienceYears` | Há quantos anos você trabalha nessa área? | número | — |
-| `you.regulated` | A sua profissão exige registro ou licença para exercer? (ex.: medicina, enfermagem, direito, engenharia, contabilidade) | única | `yes` Sim · `no` Não · `unsure` Não sei |
-| `you.workStatus` | Qual é a sua situação de trabalho hoje? | única | `employed` Empregado(a) · `business_owner` Tenho empresa · `self_employed` Autônomo(a) · `remote_foreign` Trabalho remoto para empresa de outro país · `student` Estudante · `retired` Aposentado(a) · `unemployed` Sem trabalho no momento |
+| `you.workStatus` | Qual é a sua situação de trabalho hoje? | única | `employed` Empregado(a) · `business_owner` Tenho empresa · `self_employed` Autônomo(a) · `remote_foreign` Trabalho remoto para empresa de outro país · `student` Estudante · `retired` Aposentado(a) · `unemployed` Sem trabalho no momento · `homemaker` Do lar |
+| `you.occupation` | Qual é a sua profissão ou ocupação atual? | texto | Condição: `you.workStatus` ≠ `homemaker` |
+| `you.experienceYears` | Há quantos anos você trabalha nessa área? | número | Condição: `you.workStatus` ≠ `homemaker` |
+| `you.regulated` | A sua profissão exige registro ou licença para exercer? (ex.: medicina, enfermagem, direito, engenharia, contabilidade) | única | `yes` Sim · `no` Não · `unsure` Não sei. Condição: `you.workStatus` ≠ `homemaker` |
 
 ---
 
@@ -72,7 +79,7 @@
 | `goal.has` | O que você já tem hoje? | múltipla | `job_offer` Oferta de emprego · `school_admission` Aceite de escola ou universidade · `us_relative` Parente que mora nos EUA · `company_branch` Empresa com filial nos EUA · `capital` Dinheiro para investir · `nothing` Nada ainda |
 | `goal.sponsorship` | O empregador vai patrocinar qual tipo de visto? | única | `temporary` Visto de trabalho temporário · `greencard` Green Card (residência permanente) · `unsure` Não sei. Condição: `goal.purpose` ∈ {`work`, `transfer`} ou `goal.has` ∋ `job_offer` |
 | `goal.familyLink` | Quem é o seu parente nos EUA? | única | `spouse_citizen` Cônjuge cidadão(ã) · `spouse_resident` Cônjuge com Green Card · `parent_citizen` Pai/mãe cidadão(ã) · `parent_resident` Pai/mãe com Green Card · `child_citizen` Filho(a) cidadão(ã) · `sibling_citizen` Irmão(ã) cidadão(ã) · `other` Outro. Condição: `goal.purpose` = `family` ou `goal.has` ∋ `us_relative` |
-| `goal.studyLevel` | O que você quer estudar? | única | `language` Curso de inglês · `undergrad` Graduação · `grad` Mestrado/doutorado · `vocational` Curso técnico/profissionalizante · `exchange_hs` Intercâmbio no ensino médio. Condição: `goal.purpose` = `study` |
+| `goal.studyLevel` | O que você quer estudar? | única | `language` Curso de inglês · `undergrad` Graduação · `grad` Mestrado/doutorado · `vocational` Curso técnico/profissionalizante · `exchange_hs` Intercâmbio no ensino médio (só para quem tem menos de 21 anos). Condição: `goal.purpose` = `study` |
 | `goal.investRange` | Quanto você pensa em investir? (em USD) | única | `lt100k` Até 100 mil · `100to500k` De 100 mil a 500 mil · `500kto1m` De 500 mil a 1 milhão · `gt1m` Mais de 1 milhão · `unsure` Não sei. Condição: `goal.purpose` = `business` |
 
 ---
@@ -83,24 +90,30 @@
 |---|---|---|---|
 | `household.partner` | Você tem cônjuge ou companheiro(a)? | única | `none` Não · `going` Sim, e vai junto · `not_going` Sim, mas não vai · `undecided` Sim, mas ainda não sabemos se vai |
 | `household.partnerUnion` | Como é a união de vocês? | única | `civil_marriage` Casamento civil · `stable_union` União estável · `informal` Moramos juntos sem registro · `other` Outro. Condição: `household.partner` ∈ {`going`, `undecided`} |
+| `partner.sex` | Qual é o sexo do seu cônjuge, como consta no passaporte? | única | Mesmas opções de `you.sex`. Condição: `household.partner` ∈ {`going`, `undecided`} |
+| `partner.birthYear` | Em que ano o seu cônjuge nasceu? | número | Condição: `household.partner` ∈ {`going`, `undecided`} |
 | `partner.english` | Como está o inglês do seu cônjuge? | única (opcional) | Mesmas opções de `you.english`. Condição: `household.partner` ∈ {`going`, `undecided`} |
-| `partner.occupation` | Qual é a profissão ou ocupação do seu cônjuge? | texto (opcional) | Condição: `household.partner` ∈ {`going`, `undecided`} |
+| `partner.workStatus` | Qual é a situação de trabalho do seu cônjuge hoje? | única | Mesmas opções de `you.workStatus` (inclui `homemaker` Do lar). Condição: `household.partner` ∈ {`going`, `undecided`} |
+| `partner.occupation` | Qual é a profissão ou ocupação do seu cônjuge? | texto (opcional) | Condição: cônjuge vai (ou indeciso) e `partner.workStatus` ≠ `homemaker` |
 | `household.children` | Quantos filhos vão com você? Conte todos, de qualquer idade, inclusive os adultos. | número (0+) | Filhos adultos entram aqui, não em "outros dependentes" |
 | `child.birth` | Mês e ano de nascimento | por pessoa · mês/ano | Para cada filho. Nome ou apelido opcional, só para identificar na jornada. **Data, e não idade:** a jornada dura anos, e o app calcula a idade em qualquer data do cronograma |
-| `child.school` | Em que etapa da escola está? | por pessoa · única | `not_school` Ainda não estuda · `preschool` Educação infantil · `elementary` Fundamental · `high` Ensino médio · `college` Faculdade · `finished` Já terminou os estudos · `special` Educação especial |
+| `child.sex` | Qual é o sexo, como consta no documento? | por pessoa · única | Mesmas opções de `you.sex` |
+| `child.school` | Em que etapa da escola está? | por pessoa · única | `not_school` Ainda não estuda · `preschool` Educação infantil · `elementary` Fundamental · `high` Ensino médio · `college` Faculdade · `finished` Já terminou os estudos · `special` Educação especial. **Opções pela idade** (faixas largas, porque variam entre países): `preschool` até 7 anos · `elementary` 5 a 17 · `high` 11 a 21 · `college` 16+ · `finished` 14+. `not_school` e `special` aparecem sempre |
 | `child.specialNeeds` | Tem alguma deficiência ou precisa de cuidados contínuos? | por pessoa · única | `yes` Sim · `no` Não · `skip` Prefiro não responder (o detalhe fica no bloco Saúde) |
 | `health.autonomy` | No dia a dia, essa pessoa… | por pessoa · única | `independent` É independente · `supervision` Precisa de supervisão · `help` Precisa de ajuda em atividades diárias (banho, alimentação, vestir) · `full` Depende totalmente de outra pessoa. Condição: `child.specialNeeds` = `yes`. **Fica na parte essencial** porque gera tarefas importantes (ex.: *guardianship*) já na primeira jornada |
 | `health.caregiver` | Quem é o cuidador principal? | por pessoa · única | Lista das pessoas da família + `external` Cuidador contratado + `other` Outro. Condição: `health.autonomy` ≠ `independent` |
-| `child.english` | Fala inglês? | por pessoa · única | Mesmas opções de `you.english` |
+| `child.english` | Fala inglês? | por pessoa · única | Mesmas opções de `you.english`. Condição: 3 anos ou mais |
 | `household.otherChildren` | Você tem filhos de outro relacionamento que vão junto? | única | `yes` · `no`. Se sim: `household.custody` (abaixo) |
 | `household.custody` | O outro pai ou mãe concorda com a viagem? | única | `agrees` Sim, concorda · `disagrees` Não concorda · `unknown` Ainda não conversamos · `sole` Tenho a guarda exclusiva/o outro genitor é falecido |
 | `household.dependents` | Além do cônjuge e dos filhos, alguém que depende de você vai junto? (ex.: pai, mãe, avó, irmão) | número (0+) | — |
 | `dependent.relation` | Qual é a relação com você? | por pessoa · única | `parent` Pai/mãe · `grandparent` Avô/avó · `sibling` Irmão(ã) · `in_law` Sogro(a) · `other` Outro. (Filhos, de qualquer idade, ficam em `household.children`) |
 | `dependent.birth` | Mês e ano de nascimento | por pessoa · mês/ano | — |
+| `dependent.sex` | Qual é o sexo, como consta no documento? | por pessoa · única | Mesmas opções de `you.sex` |
 | `dependent.dependency` | Como é a dependência? | por pessoa · única | `full` Depende totalmente (cuidados e dinheiro) · `care` Precisa de cuidados, mas tem renda própria · `financial` Só financeira · `partial` Parcial |
 | `health.autonomy` / `health.caregiver` | (as mesmas perguntas dos filhos) | por pessoa | Condição: `dependent.dependency` ∈ {`full`, `care`, `partial`} |
 | `household.pets` | Vai levar animais de estimação? | múltipla | `none` Não · `dog` Cachorro · `cat` Gato · `bird` Ave · `other` Outro. Depois, quantos |
-| `household.leftBehind` | Alguém que depende de você vai ficar no seu país? | única | `yes` Sim · `no` Não. Se sim: quem (texto curto, opcional) |
+| `household.leftBehind` | Alguém que depende de você vai ficar no seu país? | única | `yes` Sim · `no` Não |
+| `household.leftBehindList` | Quem vai ficar no seu país? | múltipla (opcional) | `parent` Pai ou mãe · `grandparent` Avô ou avó · `child` Filho ou filha · `sibling` Irmão ou irmã · `partner` Cônjuge · `in_law` Sogro ou sogra · `other` Outra pessoa. Condição: `household.leftBehind` = `yes`. (Substituiu o texto livre `household.leftBehindWho`) |
 
 > **Autonomia e cuidador** são perguntados aqui para quem tem deficiência ou depende de cuidados. O **restante da saúde** (condições, medicação, terapias) fica no Bloco 4.
 
@@ -119,11 +132,11 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `health.intellectualDegree` | Grau da deficiência intelectual | única | `mild` Leve · `moderate` Moderado · `severe` Grave · `profound` Profundo · `unknown` Não sei. Condição: `intellectual` |
 | `health.autonomy` | No dia a dia, essa pessoa… | única | Mesmas opções do Bloco 3. **Só aparece para quem ainda não respondeu no Bloco 3** (a resposta é a mesma, com o mesmo ID) |
 | `health.caregiver` | Quem é o cuidador principal? | única | Igual ao Bloco 3. Condição: `health.autonomy` ≠ `independent` e ainda não respondida |
-| `health.medications` | Toma medicação contínua? | lista | Para cada remédio: **nome** (texto) · **dose** (texto, ex.: "3 mg") · **frequência** (texto, ex.: "1 vez ao dia") · **precisa de receita especial no seu país?** `yes`/`no`/`unsure` (termo neutro, que serve para qualquer país) |
+| `health.medications` | Toma medicação contínua? | lista | Para cada remédio: **nome** (único campo digitado) · **quantidade** (número) · **unidade** (escolha: `mg` · `mcg` · `g` · `ml` · `drops` gotas · `tablet` comprimido · `capsule` cápsula · `iu` UI · `puff` jato · `patch` adesivo · `application` aplicação · `other` outra) · **frequência** (escolha: `daily_1` a `daily_4` 1 a 4 vezes ao dia · `daily_more` mais de 4 vezes ao dia · `weekly` semanal · `monthly` mensal · `as_needed` só quando precisa · `other` outra) · **precisa de receita especial no seu país?** `yes`/`no`/`unsure`. O nome continua digitado porque os nomes comerciais mudam de país para país e não há lista oficial gratuita que cubra todos. Dados salvos no formato antigo (dose e frequência digitadas) são migrados automaticamente (versão 2 do formato) |
 | `health.therapies` | Faz algum tratamento ou terapia regular? | múltipla | `none` · `speech` Fonoaudiologia · `occupational` Terapia ocupacional · `physio` Fisioterapia · `psych` Psicologia/psiquiatria · `aba` Terapia comportamental (ex.: ABA) · `dialysis` Diálise · `other` Outra |
-| `health.equipment` | Usa algum equipamento? (ex.: cadeira de rodas, aparelho auditivo, CPAP) | texto (opcional) | — |
-| `health.specialists` | É acompanhado(a) por quais especialistas? | texto (opcional) | — |
-| `health.pregnancy` | Gravidez atual ou planejada para os próximos 2 anos? | única | `current` Grávida agora · `planned` Planejada · `no` Não. Condição: pessoa adulta |
+| `health.equipmentList` | Usa algum destes equipamentos? | múltipla | `none` Nenhum · `wheelchair` Cadeira de rodas · `walker` Andador ou muletas · `hearing_aid` Aparelho auditivo · `glasses_special` Óculos ou lentes especiais (baixa visão) · `cpap` CPAP · `oxygen` Oxigênio · `insulin_pump` Bomba de insulina · `glucose_monitor` Sensor de glicose · `prosthesis` Prótese ou órtese · `feeding_tube` Sonda de alimentação · `communication_device` Comunicação alternativa · `other` Outro (abre `health.equipmentOther`, texto). (Substituiu o texto livre `health.equipment`) |
+| `health.specialistsList` | É acompanhado(a) por algum destes especialistas? | múltipla | `none` Nenhum · `neurologist` Neurologista · `psychiatrist` Psiquiatra · `developmental_pediatrician` Neuropediatra ou pediatra do desenvolvimento (só até 20 anos) · `cardiologist` · `endocrinologist` · `pulmonologist` · `nephrologist` · `oncologist` · `rheumatologist` · `gastroenterologist` · `orthopedist` · `ophthalmologist` · `otolaryngologist` · `geriatrician` Geriatra (só a partir de 55 anos) · `other` Outro (abre `health.specialistsOther`, texto). (Substituiu o texto livre `health.specialists`) |
+| `health.pregnancy` | Gravidez atual ou planejada para os próximos 2 anos? | única | `current` Grávida agora · `planned` Planejada · `no` Não. Condição: sexo feminino e de 18 a 55 anos (faixa de bom senso do app, não regra oficial) |
 | `health.vaccines` | As vacinas estão em dia? | única | `yes` Sim · `no` Não · `unsure` Não sei |
 
 ---
@@ -134,8 +147,8 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 
 | ID | Pergunta | Tipo | Opções / observações |
 |---|---|---|---|
-| `money.earnersNow` | Quem gera renda na sua família hoje? | múltipla | `me` Eu · `partner` Cônjuge · `adult_child` Filho(a) adulto(a) · `other_member` Outra pessoa da família · `passive` Renda que não depende de trabalho (aluguel, aposentadoria) |
-| `money.earnersUS` | Quem pretende trabalhar nos EUA? | múltipla | `me` Eu · `partner` Cônjuge · `adult_child` Filho(a) adulto(a) · `unsure` Ainda não sei. **Observação:** a autorização de trabalho de cada pessoa depende do tipo de visto. A jornada mostra a regra geral com fonte oficial |
+| `money.earnersNow` | Quem gera renda na sua família hoje? | múltipla | `me` Eu · `partner` Cônjuge · `adult_child` Filho(a) adulto(a) · `other_member` Outra pessoa da família · `passive` Renda que não depende de trabalho (aluguel, aposentadoria). `partner` só aparece se houver cônjuge; `adult_child` só se algum filho tiver 18 anos ou mais |
+| `money.earnersUS` | Quem pretende trabalhar nos EUA? | múltipla | `me` Eu · `partner` Cônjuge · `adult_child` Filho(a) adulto(a) · `unsure` Ainda não sei. `partner` só se o cônjuge vai; `adult_child` só se algum filho tiver 18 anos ou mais. **Observação:** a autorização de trabalho de cada pessoa depende do tipo de visto. A jornada mostra a regra geral com fonte oficial |
 | `money.partnerAvailability` | O seu cônjuge teria disponibilidade para trabalhar? | única | `yes` Sim · `partial` Parcialmente · `no` Não, é cuidador(a) em tempo integral · `no_other` Não, por outro motivo. Condição: `household.partner` = `going` |
 | `money.otherSources` | Vocês têm ou poderiam ter outras fontes de renda? | múltipla | `remote_home` Trabalho remoto para empresa ou clientes do meu país · `freelance` Serviços como autônomo/freelancer · `online_business` Negócio online · `rent_home` Alugar imóvel no meu país · `investments` Rendimentos de investimentos · `none` Não vejo outras possibilidades agora · `unsure` Gostaria de ideias |
 | `money.saved` | Quanto você já tem guardado para a mudança? | número (opcional) | Pode digitar na moeda do seu país; o app converte para USD (cotação marcada como estimativa, com data) |
@@ -144,7 +157,7 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `money.expectedIncomeUS` | Se já tem oferta de emprego: qual é o salário anual oferecido? (em USD, antes dos impostos) | número (opcional) | Condição: `goal.has` ∋ `job_offer` ou `goal.purpose` = `transfer`. Sem oferta, o orçamento usa uma faixa da profissão (estimativa, de fonte oficial quando houver, ex.: BLS) |
 | `money.employerBenefits` | O que o empregador oferece além do salário? | múltipla (opcional) | `health` Plano de saúde · `relocation` Ajuda de custo para a mudança · `housing` Moradia · `visa_fees` Paga as taxas do visto · `lawyer` Paga o advogado · `unsure` Ainda não sei. Condição: igual a `money.expectedIncomeUS` |
 | `money.income` | Vai continuar tendo alguma renda depois da mudança? | múltipla | `none` Não · `remote_job` Trabalho remoto · `rent` Aluguel de imóvel · `pension` Aposentadoria/pensão · `business` Lucro de empresa · `other` Outra. Depois: valor mensal aproximado em USD (opcional) |
-| `money.housingPlan` | Como pretende morar nos EUA no começo? | única | `rent` Alugar · `buy_cash` Comprar à vista · `buy_financed` Comprar com financiamento · `family` Morar com família ou amigos · `employer` Moradia oferecida pelo empregador · `unsure` Não sei |
+| `money.housingPlan` | Como pretende morar nos EUA no começo? | única | `rent` Alugar · `buy_cash` Comprar à vista · `buy_financed` Comprar com financiamento · `family` Morar com família ou amigos · `employer` Moradia oferecida pelo empregador (só com oferta de emprego ou transferência) · `unsure` Não sei |
 | `money.carPlan` | E o carro? | única | `none` Não vou ter carro · `buy_cash` Comprar à vista · `buy_financed` Financiar · `lease` *Leasing* (aluguel de longo prazo) · `unsure` Não sei. Depois: quantos carros (número) |
 | `money.scoutingTrips` | Pretende visitar os EUA antes da mudança, para conhecer o destino? | única | `none` Não · `one` Uma vez · `two_plus` Duas vezes ou mais · `unsure` Não sei. Depois: quem vai nessas viagens (lista das pessoas da família) |
 | `money.moveBelongings` | O que pretende levar na mudança? | única | `suitcases` Só malas · `some_boxes` Malas e algumas caixas · `shipment` Mudança despachada (móveis e muitos objetos) · `unsure` Não sei |
@@ -178,7 +191,8 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | ID | Pergunta | Tipo | Opções / observações |
 |---|---|---|---|
 | `dest.known` | Você já sabe para onde quer ir? | única | `yes` Sim · `some` Tenho algumas opções · `no` Ainda não |
-| `dest.places` | Quais estados ou cidades? | múltipla com busca | Lista dos 50 estados + D.C., com campo de cidade opcional. Condição: `dest.known` ∈ {`yes`, `some`} |
+| `dest.places` | Quais estados? | múltipla com busca | Lista dos 50 estados + D.C. Condição: `dest.known` ∈ {`yes`, `some`} |
+| `dest.cityList` | Alguma cidade em mente? | cidades por estado | Para cada estado escolhido: as **3 maiores cidades em destaque** (com a população estimada), **busca por qualquer outra cidade** do estado e **"Ainda não sei a cidade neste estado"**. Com 1 ou 2 estados, tudo aberto; com mais, cada estado abre e fecha. Valor salvo: `UF-código do lugar no Census` (ex.: `WA-63000`) ou `UF-unsure`. Condição: estados escolhidos em `dest.places`. (Substituiu o texto livre `dest.cities`). Detalhes em [Cidades dos EUA](#cidades-dos-eua-fonte-e-capitais) |
 | `dest.why` | Por que esse lugar? | texto (opcional) | Condição: `dest.known` ∈ {`yes`, `some`} |
 | `dest.criteria` | O que mais pesa na escolha? (escolha até 3) | múltipla, máx. 3 | `cost` Custo de vida · `climate` Clima · `safety` Segurança · `schools` Escolas · `community` Comunidade do meu país/idioma · `jobs` Emprego na minha área · `taxes` Impostos do estado · `transit` Transporte público · `near_people` Perto de família ou amigos · `services` Serviços de saúde e deficiência |
 
@@ -219,7 +233,23 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 
 ---
 
+## Bloco 12 · Seu momento *(essencial · todo opcional)*
+
+> Decisão do fundador em 17/11/2026. Uma mudança dessas exige força de vontade, e a pessoa precisa estar minimamente bem para começar e não desistir. **Como não virar interrogatório psicológico:** perguntar sobre a **situação de vida**, não sobre o estado psicológico; poucas perguntas, todas opcionais e com "Prefiro não responder"; explicar para que servem; **sem escalas clínicas** (seria diagnóstico, que não é papel do app, e dado sensível de saúde mental pela LGPD); **nunca mostrar nota** de "prontidão". As respostas só ajustam o ritmo e o começo da jornada.
+
+| ID | Pergunta | Tipo | Opções / observações |
+|---|---|---|---|
+| `moment.life` | Como está a sua vida neste momento? | única | `calm` Tranquila · `busy` Corrida, mas sob controle · `hard` Passando por uma fase difícil · `skip` Prefiro não responder |
+| `moment.events` | Aconteceu algo marcante na sua vida nos últimos 12 meses? | múltipla | `none` Nada disso · `grief` Perda de alguém próximo · `separation` Separação ou divórcio · `job_loss` Perda de emprego · `family_illness` Doença na família · `own_health` Um problema de saúde meu · `new_baby` Nascimento ou chegada de um filho · `financial` Aperto financeiro · `other` Outra mudança importante · `skip` Prefiro não responder |
+| `moment.decision` | Como está a sua decisão de morar nos EUA? | única | `exploring` Ainda estou conhecendo a ideia · `leaning` Estou inclinado(a) a ir · `decided` Já decidi que quero ir |
+| `moment.partnerSupport` | Como o seu cônjuge vê a mudança? | única | `aligned` Quer tanto quanto eu · `mostly` Apoia, com algumas dúvidas · `unsure` Ainda está em dúvida · `against` Não quer ir · `not_talked` Ainda não conversamos. Condição: tem cônjuge (vá ou não) |
+| `moment.familySupport` | As pessoas próximas apoiam a sua ideia? | única | `yes` Sim, apoiam · `partial` Algumas pessoas apoiam · `no` Não apoiam · `skip` Prefiro não responder |
+
+---
+
 ## Bloco 11 · Perfil profissional *(para completar · por pessoa: você e cônjuge)*
+
+> **Quem é do lar** (`homemaker`) não tem carreira em andamento: para essa pessoa, só aparecem nacionalidade, escolaridade e área de formação (no caso do cônjuge). As perguntas de carreira (área, cargo, nível, empresa, conquistas, busca de trabalho) ficam de fora.
 
 > Incluído em 16/11/2026. Aprofunda a carreira de quem pode trabalhar ou liderar o pedido de visto. É a base do **norte dos caminhos de visto** e do **perfil da família** ([caminhos-visto.md](caminhos-visto.md)). Na tela, vem logo depois do Bloco 0, como o primeiro "para completar". Para você, o básico (escolaridade, área, anos de experiência, licença) já está no Bloco 1; para o cônjuge, é perguntado aqui.
 
@@ -228,17 +258,17 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `career.nationalities` | Qual é a nacionalidade do seu cônjuge? | países | Só cônjuge. Alguns caminhos dependem da nacionalidade de quem é o titular |
 | `career.education` | Escolaridade mais alta (concluída) do cônjuge | única | Mesmas opções de `you.education`. Só cônjuge |
 | `career.field` | Área de formação do cônjuge | texto | Só cônjuge, com escolaridade ≥ `technical` |
-| `career.experienceYears` | Há quantos anos o cônjuge trabalha na área? | número | Só cônjuge |
-| `career.regulated` | A profissão do cônjuge exige registro ou licença? | única | Mesmas opções de `you.regulated`. Só cônjuge |
+| `career.experienceYears` | Há quantos anos o cônjuge trabalha na área? | número | Só cônjuge com carreira |
+| `career.regulated` | A profissão do cônjuge exige registro ou licença? | única | Mesmas opções de `you.regulated`. Só cônjuge com carreira |
 | `career.sector` | Em que área é o trabalho? | por pessoa · única | `tech` Tecnologia · `health` Saúde · `engineering` Engenharia · `science` Ciência e pesquisa · `education` Educação · `business` Gestão e negócios · `finance` Finanças e contabilidade · `law` Direito · `arts` Artes, cultura e comunicação · `sports` Esportes · `trades` Ofícios técnicos · `hospitality` Hotelaria, alimentação e serviços · `agriculture` Agricultura · `public` Serviço público · `other` Outra |
 | `career.role` | Qual é o cargo ou a função atual? | por pessoa · texto | — |
 | `career.level` | Em que nível da carreira está hoje? | por pessoa · única | `entry` Começo de carreira · `mid` Experiente (pleno) · `senior` Sênior ou especialista · `manager` Gerente, coordenador(a) ou supervisor(a) · `executive` Diretor(a) ou executivo(a) · `owner` Dono(a) de empresa |
-| `career.multinational` | A empresa tem filial, sede ou empresa ligada nos EUA? | por pessoa · única | `yes` · `no` · `unsure` |
+| `career.multinational` | A empresa tem filial, sede ou empresa ligada nos EUA? | por pessoa · única | `yes` · `no` · `unsure`. Condição: situação de trabalho ∈ {`employed`, `business_owner`, `remote_foreign`} |
 | `career.companyTime` | Há quanto tempo trabalha nessa empresa? | por pessoa · única | `lt1y` Menos de 1 ano · `1to3y` De 1 a 3 anos · `gt3y` Mais de 3 anos. Condição: `career.multinational` = `yes` |
 | `career.achievements` | Quais destas conquistas fazem parte da carreira? Marque só o que dá para comprovar. | por pessoa · múltipla | `awards` Prêmios ou reconhecimentos · `associations` Associações que só aceitam profissionais de destaque · `media` Matérias sobre o trabalho · `judge` Avaliar o trabalho de outros · `contributions` Contribuições originais reconhecidas · `publications` Artigos, livros ou pesquisas · `exhibitions` Obras expostas ou apresentações · `leading_role` Liderança em organização reconhecida · `high_salary` Salário alto para a área · `license_cert` Licença ou certificação · `none` Nenhuma. **Espelha os tipos de evidência listados pelo USCIS (EB-1, EB-2), sem afirmar qualificação** |
 | `career.usJobSearch` | Já procurou trabalho nos EUA? | por pessoa · única | `not_yet` Ainda não · `searching` Procurando · `interviews` Já fiz entrevistas · `offer` Já tenho oferta |
 | `career.sameField` | Quer continuar na mesma área nos EUA? | por pessoa · única | `yes` · `maybe` · `change` Quero mudar de área · `no_work` Não pretendo trabalhar |
-| `career.principal` | Quem da família tem o perfil profissional mais forte para liderar o pedido de visto? | única | `me` Eu · `partner` Meu cônjuge · `both` Os dois · `unsure` Não sei. Condição: `household.partner` ∈ {`going`, `undecided`} |
+| `career.principal` | Quem da família tem o perfil profissional mais forte para liderar o pedido de visto? | única | `me` Eu · `partner` Meu cônjuge · `both` Os dois · `unsure` Não sei. Condição: `household.partner` ∈ {`going`, `undecided`} e **nenhum dos dois é do lar** |
 
 ---
 
@@ -282,9 +312,24 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `career.achievements` com itens marcados | Cria tarefas de preparação: **juntar provas** de cada conquista (cartas, certificados, publicações), sem prometer resultado |
 | `career.principal` ∈ {`partner`, `both`} | Mostra os caminhos pelos dois adultos |
 | `career.usJobSearch` = `not_yet` e propósito de trabalho | Inclui na Fase 1 as tarefas de currículo no padrão americano e de busca de emprego |
+| `moment.life` = `hard` ou `moment.events` com itens marcados | Sugere um ritmo mais leve e começa com tarefas bem pequenas (pequenas vitórias), sem culpa |
+| `moment.decision` = `exploring` | Começa por uma fase de **conhecer antes de decidir**; desistir com consciência é tratado como bom resultado |
+| `moment.partnerSupport` ∈ {`unsure`, `against`, `not_talked`} | Inclui logo no começo tarefas de **conversa do casal** sobre a mudança |
+| `moment.familySupport` = `no` | Reforça os lembretes do "porquê" e as celebrações de progresso |
+| `dest.cityList` com cidades | Usa as cidades nas comparações de custo de vida, clima e impostos (estado e cidade) |
+
+## Cidades dos EUA: fonte e capitais
+
+- **Fonte oficial:** U.S. Census Bureau, [City and Town Population Totals: 2020-2025](https://www.census.gov/data/datasets/time-series/demo/popest/2020s-total-cities-and-towns.html), arquivo SUB-EST2025 (**Vintage 2025**, população estimada em 1º de julho de 2025, publicada em 14/05/2026). Baixado em 17/11/2026.
+- **Script:** `scripts/build-us-cities.mjs` (rodar com `pnpm data:cities`) baixa o arquivo oficial e gera `apps/web/public/data/us-cities/<UF>.json` (19.483 cidades, 51 arquivos, cerca de 600 KB no total). O app baixa **só o arquivo do estado escolhido**, quando a pergunta aparece.
+- **O que entra:** os "incorporated places" do Census (cidades, towns, villages, boroughs), incluindo a parte principal das cidades consolidadas com o condado (ex.: Nashville, Indianapolis, Louisville). No Havaí, que não tem cidades incorporadas, entra o lugar oficial do Census (Urban Honolulu). **Áreas não incorporadas (CDPs) de outros estados não estão neste arquivo**: alguns subúrbios conhecidos podem não aparecer. Se fizer falta, avaliar outro arquivo oficial do Census.
+- **Atualização:** quando o Census publicar a próxima edição (Vintage 2026), trocar a URL e a coluna no script e rodar de novo.
+- **Capital do estado (pendente):** a ideia aprovada é mostrar a capital primeiro, com o selo "Capital". Ainda **não está implementado** porque não encontramos uma fonte oficial que liste **estado e capital juntos** em formato que dê para usar com segurança. O mapa do Census (Statistics in Schools) traz os nomes das capitais, mas não diz de qual estado é cada uma (há nomes repetidos, como Columbia, Jackson, Springfield), e a tentativa de associar pela posição no mapa errou. **Conhecimento de memória não é fonte.** Próximo passo: levantar a capital de cada estado no site oficial do governo do estado (.gov) e guardar com o link e a data.
 
 ## Pendências
 - [x] Aprovar a lista de perguntas e opções (aprovada em 16/11/2026, com os ajustes: autonomia na parte essencial, filhos de qualquer idade num só lugar, data de nascimento em vez de idade, perguntas de poupança, cônjuge, orçamento)
 - [x] Aprovar a divisão entre "essencial" e "para completar"
 - [x] Traduzir os textos para en-US e es (em `apps/web/messages/questionnaire/`; um teste automático confere se nenhum texto falta em nenhum idioma)
 - [ ] Completar a tabela de regras junto com o conteúdo da jornada
+- [ ] Capital de cada estado com fonte oficial (ver [Cidades dos EUA](#cidades-dos-eua-fonte-e-capitais))
+- [ ] Profissão, cargo e área de formação como lista padronizada (avaliar a classificação oficial O\*NET do Departamento do Trabalho dos EUA; precisa ser verificada antes)

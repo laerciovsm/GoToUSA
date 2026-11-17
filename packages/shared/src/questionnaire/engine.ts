@@ -25,7 +25,7 @@ export function uuid(): string {
 export function createQuestionnaire(now: Date = new Date()): QuestionnaireData {
   const iso = now.toISOString();
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     id: uuid(),
     createdAt: iso,
     updatedAt: iso,
@@ -69,9 +69,38 @@ export function personAge(data: QuestionnaireData, person: Person, date: Date): 
     const year = data.answers["you.birthYear"];
     return typeof year === "number" ? date.getFullYear() - year : undefined;
   }
+  if (person.kind === "partner") {
+    const year = data.answers["partner.birthYear"];
+    return typeof year === "number" ? date.getFullYear() - year : undefined;
+  }
   if (person.kind === "child") return ageAt(stringAnswer(data, "child.birth", person), date);
   if (person.kind === "dependent") return ageAt(stringAnswer(data, "dependent.birth", person), date);
   return undefined;
+}
+
+/** Sexo de uma pessoa da família ("male" ou "female"; undefined se não informado). */
+export function personSex(data: QuestionnaireData, person: Person): string | undefined {
+  if (person.kind === "self") return stringAnswer(data, "you.sex");
+  if (person.kind === "partner") return stringAnswer(data, "partner.sex");
+  if (person.kind === "child") return stringAnswer(data, "child.sex", person);
+  return stringAnswer(data, "dependent.sex", person);
+}
+
+/** Situação de trabalho de você ou do cônjuge (undefined para as outras pessoas). */
+export function workStatusOf(data: QuestionnaireData, person: Person): string | undefined {
+  if (person.kind === "self") return stringAnswer(data, "you.workStatus");
+  if (person.kind === "partner") return stringAnswer(data, "partner.workStatus");
+  return undefined;
+}
+
+/** Quem é do lar não tem carreira em andamento: as perguntas profissionais não se aplicam. */
+export function hasCareer(data: QuestionnaireData, person: Person): boolean {
+  return workStatusOf(data, person) !== "homemaker";
+}
+
+/** Algum filho que vai na mudança tem 18 anos ou mais? */
+export function hasAdultChild(data: QuestionnaireData, date: Date): boolean {
+  return data.people.some((p) => p.kind === "child" && (personAge(data, p, date) ?? 0) >= 18);
 }
 
 function stringAnswer(data: QuestionnaireData, id: string, person?: Person): string | undefined {
@@ -178,6 +207,42 @@ export function peopleOf(data: QuestionnaireData, group: PersonGroup["group"]): 
   return data.people;
 }
 
+/** Valor usado nos textos com gênero (ICU `select`): "male", "female" ou "other" quando não se sabe. */
+export type TextSex = "male" | "female" | "other";
+
+const toTextSex = (sex: string | undefined): TextSex => (sex === "male" || sex === "female" ? sex : "other");
+
+/**
+ * Variáveis de gênero passadas a todos os textos de um passo:
+ * - `sex`: de quem a pergunta fala (a pessoa da vez; o cônjuge nas perguntas "partner.*"; senão, você);
+ * - `partnerSex`: do cônjuge;
+ * - `adultChildSex`: dos filhos adultos ("other" se não houver ou se forem de sexos diferentes).
+ */
+export function textSexValues(
+  data: QuestionnaireData,
+  step: Pick<Step, "question" | "person">,
+  now: Date = new Date(),
+): { sex: TextSex; partnerSex: TextSex; adultChildSex: TextSex } {
+  const self = data.people.find((p) => p.kind === "self");
+  const partner = data.people.find((p) => p.kind === "partner");
+  const subject = step.person ?? (step.question.id.startsWith("partner.") ? partner : self);
+  const adultSexes = new Set(
+    data.people
+      .filter((p) => p.kind === "child" && (personAge(data, p, now) ?? 0) >= 18)
+      .map((p) => toTextSex(personSex(data, p))),
+  );
+  return {
+    sex: toTextSex(subject ? personSex(data, subject) : undefined),
+    partnerSex: toTextSex(partner ? personSex(data, partner) : undefined),
+    adultChildSex: adultSexes.size === 1 ? [...adultSexes][0]! : "other",
+  };
+}
+
+/** Opções visíveis de uma pergunta, aplicando as condições de cada opção. */
+export function visibleOptions(question: Question, ctx: QuestionContext): string[] {
+  return (question.options ?? []).filter((o) => question.optionWhen?.[o]?.(ctx) ?? true);
+}
+
 export function stepKey(blockId: string, questionId: string, person?: Person): string {
   return person ? `${blockId}/${questionId}/${person.id}` : `${blockId}/${questionId}`;
 }
@@ -201,6 +266,11 @@ export function visibleSteps(block: Block, data: QuestionnaireData, now: Date = 
     }
   }
   return steps;
+}
+
+/** Um bloco se aplica quando tem pelo menos uma pergunta visível para esta família. */
+export function blockApplies(block: Block, data: QuestionnaireData, now: Date = new Date()): boolean {
+  return visibleSteps(block, data, now).length > 0;
 }
 
 export type BlockProgress = { answered: number; total: number; completed: boolean };

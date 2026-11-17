@@ -2,16 +2,16 @@
 
 import { useId, useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { COMMON_CURRENCIES, type Medication, type Money } from "@gotousa/shared";
+import { COMMON_CURRENCIES, MED_FREQUENCIES, MED_UNITS, type Medication, type Money } from "@gotousa/shared";
 
-const optionClass = (selected: boolean, disabled = false) =>
+export const optionClass = (selected: boolean, disabled = false) =>
   [
     "flex min-h-12 w-full cursor-pointer items-center gap-3 rounded-2xl border-2 px-4 py-3 text-start",
     selected ? "border-primary bg-primary-soft" : "border-line bg-surface",
     disabled ? "cursor-not-allowed opacity-50" : "",
   ].join(" ");
 
-const inputClass =
+export const inputClass =
   "min-h-12 w-full rounded-2xl border-2 border-line bg-surface px-4 py-3 text-ink placeholder:text-ink2/70 focus:border-primary";
 
 export type ChoiceItem = { value: string; label: string };
@@ -258,7 +258,7 @@ export function MonthYearAnswer(props: {
   );
 }
 
-const normalize = (text: string) =>
+export const normalize = (text: string) =>
   text
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "")
@@ -418,19 +418,25 @@ export function MoneyAnswer(props: {
   );
 }
 
-const EMPTY_MEDICATION: Medication = { name: "", dose: "", frequency: "", special: "" };
+const EMPTY_MEDICATION: Medication = { name: "", amount: null, unit: "", frequency: "", special: "" };
 
-/** Lista de remédios: nome, dose, frequência e se precisa de receita especial. */
+/**
+ * Lista de remédios. Só o nome é digitado; quantidade, unidade e frequência são escolhidas,
+ * para as respostas ficarem padronizadas (ver MED_UNITS e MED_FREQUENCIES).
+ */
 export function MedicationsAnswer(props: { value: Medication[]; onChange: (value: Medication[]) => void }) {
   const t = useTranslations("Questionnaire.controls");
   const [rows, setRows] = useState<Medication[]>(props.value.length > 0 ? props.value : [EMPTY_MEDICATION]);
+  const [amountText, setAmountText] = useState<string[]>(() =>
+    (props.value.length > 0 ? props.value : [EMPTY_MEDICATION]).map((m) => (m.amount === null ? "" : String(m.amount))),
+  );
 
   const update = (next: Medication[]) => {
     setRows(next);
     // Só grava os remédios com nome preenchido.
     props.onChange(next.filter((m) => m.name.trim() !== ""));
   };
-  const setField = (index: number, field: keyof Medication, value: string) =>
+  const setField = <K extends keyof Medication>(index: number, field: K, value: Medication[K]) =>
     update(rows.map((m, i) => (i === index ? { ...m, [field]: value } : m)));
 
   return (
@@ -449,32 +455,53 @@ export function MedicationsAnswer(props: { value: Medication[]; onChange: (value
             />
           </label>
           <div className="flex flex-wrap gap-3">
-            <label className="flex min-w-40 flex-1 flex-col gap-1 text-sm font-semibold text-ink2">
-              {t("medDose")}
+            <label className="flex w-28 flex-col gap-1 text-sm font-semibold text-ink2">
+              {t("medAmount")}
               <input
                 type="text"
-                value={med.dose}
-                maxLength={200}
-                onChange={(e) => setField(index, "dose", e.target.value)}
+                inputMode="decimal"
+                value={amountText[index] ?? ""}
+                maxLength={10}
+                onChange={(e) => {
+                  const text = e.target.value;
+                  setAmountText((prev) => prev.map((v, i) => (i === index ? text : v)));
+                  setField(index, "amount", parseAmount(text) ?? null);
+                }}
                 className={inputClass}
               />
             </label>
             <label className="flex min-w-40 flex-1 flex-col gap-1 text-sm font-semibold text-ink2">
-              {t("medFrequency")}
-              <input
-                type="text"
-                value={med.frequency}
-                maxLength={200}
-                onChange={(e) => setField(index, "frequency", e.target.value)}
-                className={inputClass}
-              />
+              {t("medUnit")}
+              <select value={med.unit} onChange={(e) => setField(index, "unit", e.target.value)} className={inputClass}>
+                <option value="">{t("choose")}</option>
+                {MED_UNITS.map((u) => (
+                  <option key={u} value={u}>
+                    {t(`medUnits.${u}`)}
+                  </option>
+                ))}
+              </select>
             </label>
           </div>
+          <label className="flex flex-col gap-1 text-sm font-semibold text-ink2">
+            {t("medFrequency")}
+            <select
+              value={med.frequency}
+              onChange={(e) => setField(index, "frequency", e.target.value)}
+              className={inputClass}
+            >
+              <option value="">{t("choose")}</option>
+              {MED_FREQUENCIES.map((f) => (
+                <option key={f} value={f}>
+                  {t(`medFrequencies.${f}`)}
+                </option>
+              ))}
+            </select>
+          </label>
           <label className="flex flex-col gap-1 text-sm font-semibold text-ink2">
             {t("medSpecial")}
             <select
               value={med.special}
-              onChange={(e) => setField(index, "special", e.target.value)}
+              onChange={(e) => setField(index, "special", e.target.value as Medication["special"])}
               className={inputClass}
             >
               <option value="">{t("choose")}</option>
@@ -486,7 +513,10 @@ export function MedicationsAnswer(props: { value: Medication[]; onChange: (value
           {rows.length > 1 && (
             <button
               type="button"
-              onClick={() => update(rows.filter((_, i) => i !== index))}
+              onClick={() => {
+                setAmountText((prev) => prev.filter((_, i) => i !== index));
+                update(rows.filter((_, i) => i !== index));
+              }}
               className="min-h-11 self-start font-bold text-error underline underline-offset-4"
             >
               {t("medRemove")}
@@ -496,7 +526,10 @@ export function MedicationsAnswer(props: { value: Medication[]; onChange: (value
       ))}
       <button
         type="button"
-        onClick={() => setRows([...rows, EMPTY_MEDICATION])}
+        onClick={() => {
+          setRows([...rows, EMPTY_MEDICATION]);
+          setAmountText((prev) => [...prev, ""]);
+        }}
         className="min-h-11 self-start rounded-full border-2 border-primary px-5 font-bold text-primary"
       >
         + {t("medAdd")}

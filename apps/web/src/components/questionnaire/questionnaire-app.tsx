@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "
 import { useTranslations } from "next-intl";
 import {
   BLOCK_ORDER,
+  blockApplies,
   blockProgress,
   createQuestionnaire,
   getAnswer,
@@ -57,6 +58,7 @@ export function QuestionnaireApp() {
   const [data, setData] = useState<QuestionnaireData | undefined>();
   const [view, setView] = useState<View>({ kind: "overview" });
   const [saveFailed, setSaveFailed] = useState(false);
+  const [confirmRestart, setConfirmRestart] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const pending = useRef<QuestionnaireData | undefined>(undefined);
   const disclaimer = parseDisclaimer(
@@ -203,7 +205,7 @@ export function QuestionnaireApp() {
   const essentialDone = essentialBlocks.every((b) => data.completedBlocks.includes(b.id));
 
   if (view.kind === "blockDone") {
-    const nextBlock = BLOCK_ORDER.find((b) => !data.completedBlocks.includes(b.id));
+    const nextBlock = BLOCK_ORDER.find((b) => !data.completedBlocks.includes(b.id) && blockApplies(b, data));
     const justFinishedEssential = essentialDone && getBlock(view.blockId)?.stage === "essential";
     return (
       <Shell>
@@ -309,13 +311,49 @@ export function QuestionnaireApp() {
           <p className="text-ink2">{t("completeHint")}</p>
         </div>
         <ul className="grid gap-4 sm:grid-cols-2">
-          {BLOCK_ORDER.filter((b) => b.stage === "complete").map(renderBlock)}
+          {BLOCK_ORDER.filter((b) => b.stage === "complete" && blockApplies(b, data)).map(renderBlock)}
         </ul>
       </section>
 
-      <Link href="/" className="min-h-11 self-start font-bold text-primary underline underline-offset-4">
-        {t("back")}
-      </Link>
+      <section className="flex flex-col items-start gap-3 border-t border-line pt-6">
+        {confirmRestart ? (
+          <div role="alertdialog" aria-labelledby="restart-title" className="flex flex-col gap-3 rounded-2xl border border-error p-5">
+            <h2 id="restart-title" className="text-lg font-semibold">{t("restartTitle")}</h2>
+            <p className="text-ink2">{t("restartBody")}</p>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  update(createQuestionnaire(), true);
+                  setConfirmRestart(false);
+                  setView({ kind: "overview" });
+                }}
+                className="min-h-12 rounded-full border-2 border-error px-5 font-bold text-ink"
+              >
+                {t("restartConfirm")}
+              </button>
+              <button
+                type="button"
+                onClick={() => setConfirmRestart(false)}
+                className="min-h-12 rounded-full bg-action px-6 font-bold text-on-action"
+              >
+                {t("restartCancel")}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setConfirmRestart(true)}
+            className="min-h-11 font-bold text-ink2 underline underline-offset-4"
+          >
+            {t("restart")}
+          </button>
+        )}
+        <Link href="/" className="min-h-11 font-bold text-primary underline underline-offset-4">
+          {t("back")}
+        </Link>
+      </section>
     </Shell>
   );
 }

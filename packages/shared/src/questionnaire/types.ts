@@ -19,9 +19,17 @@ export type MonthYear = string;
 
 export type Money = { amount: number; currency: string };
 
+/**
+ * Remédio de uso contínuo. Só o nome é digitado; dose, unidade e frequência são escolhidas
+ * em listas (MED_UNITS e MED_FREQUENCIES), para padronizar as respostas.
+ */
 export type Medication = {
   name: string;
-  dose: string;
+  /** Quantidade da dose (ex.: 3), ou null se não informada. */
+  amount: number | null;
+  /** Unidade da dose (ID de MED_UNITS), ou "" se não informada. */
+  unit: string;
+  /** Frequência (ID de MED_FREQUENCIES), ou "" se não informada. */
   frequency: string;
   /** Precisa de receita especial no país de origem? */
   special: "yes" | "no" | "unsure" | "";
@@ -48,6 +56,11 @@ export type QuestionType =
   | "languages"
   /** Vários estados dos EUA (códigos postais, ex.: "WA"). */
   | "usStates"
+  /**
+   * Cidades dos estados escolhidos em `statesFrom`. Cada valor é "UF-código do lugar no Census"
+   * (ex.: "WA-63000") ou "UF-unsure" ("ainda não sei a cidade" naquele estado).
+   */
+  | "usCities"
   | "money"
   | "medications"
   /** Escolhe pessoas da família (uma ou várias). */
@@ -69,6 +82,11 @@ export type Question = {
   options?: readonly string[];
   /** Usa os textos das opções de outra pergunta (ex.: inglês do cônjuge usa os de you.english). */
   optionsFrom?: string;
+  /**
+   * Condição para uma opção aparecer (ex.: "Filho(a) adulto(a)" só se houver filho adulto).
+   * Opções sem condição aparecem sempre.
+   */
+  optionWhen?: Readonly<Record<string, (ctx: QuestionContext) => boolean>>;
   /** Opções que desmarcam as outras (ex.: "Nenhuma"). */
   exclusive?: readonly string[];
   /** Máximo de opções em "multi". */
@@ -90,6 +108,8 @@ export type Question = {
   extraOptions?: readonly string[];
   /** "people": não lista a própria pessoa da vez. */
   excludeSelf?: boolean;
+  /** "usCities": pergunta que tem os estados escolhidos (ex.: "dest.places"). */
+  statesFrom?: string;
   /** "country": sugere como resposta inicial o primeiro valor desta outra pergunta. */
   prefillFrom?: string;
   /** A pessoa pode pular a pergunta. */
@@ -122,8 +142,8 @@ export type Block = {
 
 /** Dados do questionário salvos no navegador (e, no futuro, na conta). */
 export type QuestionnaireData = {
-  /** Versão do formato, para migrar dados antigos sem perda. */
-  schemaVersion: 1;
+  /** Versão do formato, para migrar dados antigos sem perda (ver schema.ts). */
+  schemaVersion: 2;
   /** UUID do questionário. */
   id: string;
   createdAt: string;

@@ -6,14 +6,33 @@ import {
   autonomyAskedInHousehold,
   ctxAnswer as a,
   ctxPersonAnswer as p,
+  hasAdultChild,
+  hasCareer,
   includes,
   partnerIsGoing,
   personAge,
+  personSex,
+  workStatusOf,
 } from "./engine";
 import type { Block, BlockItem, Question, QuestionContext } from "./types";
 
 const ENGLISH_LEVELS = ["none", "basic", "intermediate", "advanced", "fluent"] as const;
 const HIGHER_EDUCATION = new Set(["technical", "bachelor", "postgrad", "master", "doctorate"]);
+/** Sexo como consta no passaporte (decisão do fundador em 16/11/2026: só masculino e feminino). */
+const SEX = ["male", "female"] as const;
+const WORK_STATUS = [
+  "employed",
+  "business_owner",
+  "self_employed",
+  "remote_foreign",
+  "student",
+  "retired",
+  "unemployed",
+  "homemaker",
+] as const;
+/** Situações em que a pessoa trabalha numa empresa (a própria ou de outros). */
+const COMPANY_STATUS = new Set(["employed", "business_owner", "remote_foreign"]);
+const CURRENT_YEAR = new Date().getFullYear();
 
 const hasSelection = (value: unknown, none: string) =>
   Array.isArray(value) && value.length > 0 && !value.includes(none);
@@ -75,6 +94,10 @@ const whyBlock: Block = {
   ]),
 };
 
+/** Quem é do lar não tem carreira em andamento: as perguntas profissionais não se aplicam. */
+const selfHasCareer = (ctx: QuestionContext) => a(ctx, "you.workStatus") !== "homemaker";
+const partnerHasCareer = (ctx: QuestionContext) => a(ctx, "partner.workStatus") !== "homemaker";
+
 const youBlock: Block = {
   id: "you",
   number: 1,
@@ -83,7 +106,8 @@ const youBlock: Block = {
   items: [
     { id: "you.nationalities", type: "countries" },
     { id: "you.residence", type: "country", prefillFrom: "you.nationalities" },
-    { id: "you.birthYear", type: "number", min: 1900, maxValue: new Date().getFullYear() },
+    { id: "you.birthYear", type: "number", min: 1900, maxValue: CURRENT_YEAR },
+    { id: "you.sex", type: "single", options: SEX },
     { id: "you.languages", type: "languages", optional: true },
     { id: "you.english", type: "single", options: ENGLISH_LEVELS },
     {
@@ -97,14 +121,10 @@ const youBlock: Block = {
       optional: true,
       when: (ctx) => HIGHER_EDUCATION.has(String(a(ctx, "you.education"))),
     },
-    { id: "you.occupation", type: "text", optional: true },
-    { id: "you.experienceYears", type: "number", min: 0, maxValue: 70, optional: true },
-    { id: "you.regulated", type: "single", options: ["yes", "no", "unsure"] },
-    {
-      id: "you.workStatus",
-      type: "single",
-      options: ["employed", "business_owner", "self_employed", "remote_foreign", "student", "retired", "unemployed"],
-    },
+    { id: "you.workStatus", type: "single", options: WORK_STATUS },
+    { id: "you.occupation", type: "text", optional: true, when: selfHasCareer },
+    { id: "you.experienceYears", type: "number", min: 0, maxValue: 70, optional: true, when: selfHasCareer },
+    { id: "you.regulated", type: "single", options: ["yes", "no", "unsure"], when: selfHasCareer },
   ],
 };
 
@@ -165,6 +185,13 @@ const goalBlock: Block = {
       id: "goal.studyLevel",
       type: "single",
       options: ["language", "undergrad", "grad", "vocational", "exchange_hs"],
+      optionWhen: {
+        // Intercâmbio de ensino médio só faz sentido para quem ainda está nessa idade.
+        exchange_hs: (ctx) => {
+          const year = a(ctx, "you.birthYear");
+          return typeof year !== "number" || ctx.now.getFullYear() - year < 21;
+        },
+      },
       when: (ctx) => a(ctx, "goal.purpose") === "study",
     },
     {
@@ -177,6 +204,14 @@ const goalBlock: Block = {
 };
 
 const isPartner = (ctx: QuestionContext) => ctx.person?.kind === "partner";
+/** A pessoa da vez tem carreira (não é do lar). */
+const personHasCareer = (ctx: QuestionContext) => !!ctx.person && hasCareer(ctx.record, ctx.person);
+/** A pessoa da vez trabalha numa empresa (perguntas sobre filial nos EUA e tempo de casa). */
+const worksAtCompany = (ctx: QuestionContext) => {
+  if (!ctx.person) return false;
+  const status = workStatusOf(ctx.record, ctx.person);
+  return status === undefined || COMPANY_STATUS.has(status);
+};
 
 /**
  * Bloco 11 · Perfil profissional: aprofunda a carreira de você e do cônjuge.
@@ -205,13 +240,19 @@ const careerBlock: Block = {
           type: "text",
           when: (ctx) => isPartner(ctx) && HIGHER_EDUCATION.has(String(p(ctx, "career.education"))),
         },
-        { id: "career.experienceYears", type: "number", min: 0, maxValue: 70, when: isPartner },
+        {
+          id: "career.experienceYears",
+          type: "number",
+          min: 0,
+          maxValue: 70,
+          when: (ctx) => isPartner(ctx) && personHasCareer(ctx),
+        },
         {
           id: "career.regulated",
           type: "single",
           options: ["yes", "no", "unsure"],
           optionsFrom: "you.regulated",
-          when: isPartner,
+          when: (ctx) => isPartner(ctx) && personHasCareer(ctx),
         },
         {
           id: "career.sector",
@@ -233,15 +274,26 @@ const careerBlock: Block = {
             "public",
             "other",
           ],
+          when: personHasCareer,
         },
-        { id: "career.role", type: "text" },
-        { id: "career.level", type: "single", options: ["entry", "mid", "senior", "manager", "executive", "owner"] },
-        { id: "career.multinational", type: "single", options: ["yes", "no", "unsure"] },
+        { id: "career.role", type: "text", when: personHasCareer },
+        {
+          id: "career.level",
+          type: "single",
+          options: ["entry", "mid", "senior", "manager", "executive", "owner"],
+          when: personHasCareer,
+        },
+        {
+          id: "career.multinational",
+          type: "single",
+          options: ["yes", "no", "unsure"],
+          when: (ctx) => personHasCareer(ctx) && worksAtCompany(ctx),
+        },
         {
           id: "career.companyTime",
           type: "single",
           options: ["lt1y", "1to3y", "gt3y"],
-          when: (ctx) => p(ctx, "career.multinational") === "yes",
+          when: (ctx) => personHasCareer(ctx) && worksAtCompany(ctx) && p(ctx, "career.multinational") === "yes",
         },
         {
           id: "career.achievements",
@@ -260,18 +312,36 @@ const careerBlock: Block = {
             "none",
           ],
           exclusive: ["none"],
+          when: personHasCareer,
         },
-        { id: "career.usJobSearch", type: "single", options: ["not_yet", "searching", "interviews", "offer"] },
-        { id: "career.sameField", type: "single", options: ["yes", "maybe", "change", "no_work"] },
+        {
+          id: "career.usJobSearch",
+          type: "single",
+          options: ["not_yet", "searching", "interviews", "offer"],
+          when: personHasCareer,
+        },
+        {
+          id: "career.sameField",
+          type: "single",
+          options: ["yes", "maybe", "change", "no_work"],
+          when: personHasCareer,
+        },
       ],
     },
     {
       id: "career.principal",
       type: "single",
       options: ["me", "partner", "both", "unsure"],
-      when: (ctx) => partnerIsGoing(ctx.record),
+      // Só pergunta quando os dois têm carreira; se um é do lar, a resposta é óbvia.
+      when: (ctx) => partnerIsGoing(ctx.record) && selfHasCareer(ctx) && partnerHasCareer(ctx),
     },
   ]),
+};
+
+/** A idade da pessoa da vez está entre min e max (inclusive)? Sem data informada, considera que sim. */
+const childAgeIn = (ctx: QuestionContext, min: number, max: number) => {
+  const age = ctx.person ? personAge(ctx.record, ctx.person, ctx.now) : undefined;
+  return age === undefined || (age >= min && age <= max);
 };
 
 const householdBlock: Block = {
@@ -288,6 +358,20 @@ const householdBlock: Block = {
       when: (ctx) => partnerIsGoing(ctx.record),
     },
     {
+      id: "partner.sex",
+      type: "single",
+      options: SEX,
+      optionsFrom: "you.sex",
+      when: (ctx) => partnerIsGoing(ctx.record),
+    },
+    {
+      id: "partner.birthYear",
+      type: "number",
+      min: 1900,
+      maxValue: CURRENT_YEAR,
+      when: (ctx) => partnerIsGoing(ctx.record),
+    },
+    {
       id: "partner.english",
       type: "single",
       options: ENGLISH_LEVELS,
@@ -295,22 +379,53 @@ const householdBlock: Block = {
       optional: true,
       when: (ctx) => partnerIsGoing(ctx.record),
     },
-    { id: "partner.occupation", type: "text", optional: true, when: (ctx) => partnerIsGoing(ctx.record) },
+    {
+      id: "partner.workStatus",
+      type: "single",
+      options: WORK_STATUS,
+      optionsFrom: "you.workStatus",
+      when: (ctx) => partnerIsGoing(ctx.record),
+    },
+    {
+      id: "partner.occupation",
+      type: "text",
+      optional: true,
+      when: (ctx) => partnerIsGoing(ctx.record) && partnerHasCareer(ctx),
+    },
     { id: "household.children", type: "number", min: 0, maxValue: 20 },
     {
       group: "children",
       questions: [
         { id: "child.nickname", type: "text", optional: true },
         { id: "child.birth", type: "monthYear", range: "past" },
+        { id: "child.sex", type: "single", options: SEX, optionsFrom: "you.sex" },
         {
           id: "child.school",
           type: "single",
           options: ["not_school", "preschool", "elementary", "high", "college", "finished", "special"],
+          // Faixas largas de propósito (as idades escolares variam entre países). Sem data, mostra tudo.
+          optionWhen: {
+            preschool: (ctx) => childAgeIn(ctx, 0, 7),
+            elementary: (ctx) => childAgeIn(ctx, 5, 17),
+            high: (ctx) => childAgeIn(ctx, 11, 21),
+            college: (ctx) => childAgeIn(ctx, 16, 120),
+            finished: (ctx) => childAgeIn(ctx, 14, 120),
+          },
         },
         { id: "child.specialNeeds", type: "single", options: ["yes", "no", "skip"] },
         autonomy((ctx) => p(ctx, "child.specialNeeds") === "yes"),
         caregiver((ctx) => p(ctx, "child.specialNeeds") === "yes"),
-        { id: "child.english", type: "single", options: ENGLISH_LEVELS, optionsFrom: "you.english" },
+        {
+          id: "child.english",
+          type: "single",
+          options: ENGLISH_LEVELS,
+          optionsFrom: "you.english",
+          // Bebês ainda não falam nenhum idioma: a pergunta só aparece a partir dos 3 anos.
+          when: (ctx) => {
+            const age = ctx.person ? personAge(ctx.record, ctx.person, ctx.now) : undefined;
+            return age === undefined || age >= 3;
+          },
+        },
       ],
     },
     {
@@ -332,6 +447,7 @@ const householdBlock: Block = {
         { id: "dependent.nickname", type: "text", optional: true },
         { id: "dependent.relation", type: "single", options: ["parent", "grandparent", "sibling", "in_law", "other"] },
         { id: "dependent.birth", type: "monthYear", range: "past" },
+        { id: "dependent.sex", type: "single", options: SEX, optionsFrom: "you.sex" },
         { id: "dependent.dependency", type: "single", options: ["full", "care", "financial", "partial"] },
         autonomy((ctx) => !!ctx.person && autonomyAskedInHousehold(ctx.record, ctx.person)),
         caregiver((ctx) => !!ctx.person && autonomyAskedInHousehold(ctx.record, ctx.person)),
@@ -353,12 +469,45 @@ const householdBlock: Block = {
     },
     { id: "household.leftBehind", type: "single", options: ["yes", "no"] },
     {
-      id: "household.leftBehindWho",
-      type: "text",
+      id: "household.leftBehindList",
+      type: "multi",
+      options: ["parent", "grandparent", "child", "sibling", "partner", "in_law", "other"],
       optional: true,
       when: (ctx) => a(ctx, "household.leftBehind") === "yes",
     },
   ],
+};
+
+/**
+ * Bloco 12 · Seu momento (decisão do fundador em 17/11/2026).
+ * Situação de vida, não estado psicológico: sem escalas clínicas, sem nota, tudo opcional.
+ * Serve só para ajustar o ritmo e o começo da jornada (ver docs/jornada.md).
+ */
+const momentBlock: Block = {
+  id: "moment",
+  number: 12,
+  stage: "essential",
+  minutes: 1,
+  items: allOptional([
+    { id: "moment.life", type: "single", options: ["calm", "busy", "hard", "skip"] },
+    {
+      id: "moment.events",
+      type: "multi",
+      options: ["none", "grief", "separation", "job_loss", "family_illness", "own_health", "new_baby", "financial", "other", "skip"],
+      exclusive: ["none", "skip"],
+    },
+    { id: "moment.decision", type: "single", options: ["exploring", "leaning", "decided"] },
+    {
+      id: "moment.partnerSupport",
+      type: "single",
+      options: ["aligned", "mostly", "unsure", "against", "not_talked"],
+      when: (ctx) => {
+        const partner = a(ctx, "household.partner");
+        return partner !== undefined && partner !== "none";
+      },
+    },
+    { id: "moment.familySupport", type: "single", options: ["yes", "partial", "no", "skip"] },
+  ]),
 };
 
 const healthBlock: Block = {
@@ -397,22 +546,87 @@ const healthBlock: Block = {
           options: ["none", "speech", "occupational", "physio", "psych", "aba", "dialysis", "other"],
           exclusive: ["none"],
         },
-        { id: "health.equipment", type: "text" },
-        { id: "health.specialists", type: "text", long: true },
+        {
+          id: "health.equipmentList",
+          type: "multi",
+          options: [
+            "none",
+            "wheelchair",
+            "walker",
+            "hearing_aid",
+            "glasses_special",
+            "cpap",
+            "oxygen",
+            "insulin_pump",
+            "glucose_monitor",
+            "prosthesis",
+            "feeding_tube",
+            "communication_device",
+            "other",
+          ],
+          exclusive: ["none"],
+        },
+        { id: "health.equipmentOther", type: "text", when: (ctx) => includes(p(ctx, "health.equipmentList"), "other") },
+        {
+          id: "health.specialistsList",
+          type: "multi",
+          options: [
+            "none",
+            "neurologist",
+            "psychiatrist",
+            "developmental_pediatrician",
+            "cardiologist",
+            "endocrinologist",
+            "pulmonologist",
+            "nephrologist",
+            "oncologist",
+            "rheumatologist",
+            "gastroenterologist",
+            "orthopedist",
+            "ophthalmologist",
+            "otolaryngologist",
+            "geriatrician",
+            "other",
+          ],
+          optionWhen: {
+            developmental_pediatrician: (ctx) => {
+              const age = ctx.person ? personAge(ctx.record, ctx.person, ctx.now) : undefined;
+              return age === undefined || age < 21;
+            },
+            geriatrician: (ctx) => {
+              const age = ctx.person ? personAge(ctx.record, ctx.person, ctx.now) : undefined;
+              return age === undefined || age >= 55;
+            },
+          },
+          exclusive: ["none"],
+        },
+        {
+          id: "health.specialistsOther",
+          type: "text",
+          when: (ctx) => includes(p(ctx, "health.specialistsList"), "other"),
+        },
         {
           id: "health.pregnancy",
           type: "single",
           options: ["current", "planned", "no"],
+          // Só para mulheres de 18 a 55 anos (filtro de bom senso do app, não regra oficial).
           when: (ctx) => {
             if (!ctx.person) return false;
+            if (personSex(ctx.record, ctx.person) === "male") return false;
             const age = personAge(ctx.record, ctx.person, ctx.now);
-            return age === undefined ? ctx.person.kind !== "child" : age >= 18;
+            return age === undefined ? ctx.person.kind !== "child" : age >= 18 && age <= 55;
           },
         },
         { id: "health.vaccines", type: "single", options: ["yes", "no", "unsure"] },
       ],
     },
   ]),
+};
+
+/** Tem cônjuge (indo ou não na mudança). */
+const hasPartner = (ctx: QuestionContext) => {
+  const partner = a(ctx, "household.partner");
+  return partner !== undefined && partner !== "none";
 };
 
 const moneyBlock: Block = {
@@ -425,11 +639,19 @@ const moneyBlock: Block = {
       id: "money.earnersNow",
       type: "multi",
       options: ["me", "partner", "adult_child", "other_member", "passive"],
+      optionWhen: {
+        partner: hasPartner,
+        adult_child: (ctx) => hasAdultChild(ctx.record, ctx.now),
+      },
     },
     {
       id: "money.earnersUS",
       type: "multi",
       options: ["me", "partner", "adult_child", "unsure"],
+      optionWhen: {
+        partner: (ctx) => partnerIsGoing(ctx.record),
+        adult_child: (ctx) => hasAdultChild(ctx.record, ctx.now),
+      },
       exclusive: ["unsure"],
     },
     {
@@ -471,6 +693,7 @@ const moneyBlock: Block = {
       id: "money.housingPlan",
       type: "single",
       options: ["rent", "buy_cash", "buy_financed", "family", "employer", "unsure"],
+      optionWhen: { employer: hasJobOffer },
     },
     { id: "money.carPlan", type: "single", options: ["none", "buy_cash", "buy_financed", "lease", "unsure"] },
     {
@@ -538,7 +761,12 @@ const destBlock: Block = {
   items: allOptional([
     { id: "dest.known", type: "single", options: ["yes", "some", "no"] },
     { id: "dest.places", type: "usStates", when: destKnown },
-    { id: "dest.cities", type: "text", when: destKnown },
+    {
+      id: "dest.cityList",
+      type: "usCities",
+      statesFrom: "dest.places",
+      when: (ctx) => destKnown(ctx) && Array.isArray(a(ctx, "dest.places")) && (a(ctx, "dest.places") as string[]).length > 0,
+    },
     { id: "dest.why", type: "text", long: true, when: destKnown },
     {
       id: "dest.criteria",
@@ -619,6 +847,7 @@ export const BLOCKS: readonly Block[] = [
   youBlock,
   goalBlock,
   householdBlock,
+  momentBlock,
   careerBlock,
   healthBlock,
   moneyBlock,

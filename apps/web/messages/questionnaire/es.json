@@ -11,6 +11,7 @@
     "history": { "title": "Historial con EE. UU.", "intro": "Visitas, visas y personas que conoces allá." },
     "docs": { "title": "Documentos", "intro": "Solo sí o no: no se envía ningún archivo." },
     "career": { "title": "Perfil profesional", "intro": "La carrera de quienes van a trabajar: tú y tu cónyuge. Es la base para indicar los caminos de visa que vale la pena conocer." },
+    "moment": { "title": "Tu momento", "intro": "Cómo está tu vida ahora, para que tu camino empiece al ritmo adecuado. Todo es opcional." },
     "rhythm": { "title": "Tu ritmo", "intro": "Con qué frecuencia quieres seguir tu camino y qué te motiva." }
   },
   "Q": {
@@ -49,7 +50,7 @@
       },
       "fearsOther": { "label": "¿Cuál es la otra preocupación?", "why": "Para registrar tu preocupación con tus propias palabras." },
       "giveUp": {
-        "label": "¿A qué estás dispuesto(a) a renunciar?",
+        "label": "¿A qué estás {sex, select, male {dispuesto} female {dispuesta} other {dispuesto(a)}} a renunciar?",
         "why": "Toda mudanza implica renuncias. Pensarlas antes ayuda a decidir con conciencia.",
         "options": {
           "near_family": "Vivir cerca de la familia",
@@ -65,6 +66,11 @@
       "nationalities": { "label": "¿Cuál es tu nacionalidad? Si tienes más de una, márcalas todas.", "why": "La nacionalidad cambia los tipos de visa, los acuerdos entre países y algunos programas disponibles." },
       "residence": { "label": "¿En qué país vives hoy?", "why": "Define el consulado, los documentos locales y las tareas de salida del país." },
       "birthYear": { "label": "¿En qué año naciste?", "why": "La edad influye en los tipos de visa, los seguros médicos y algunas tareas.", "placeholder": "Ej.: 1985" },
+      "sex": {
+        "label": "¿Cuál es tu sexo, según tu pasaporte?",
+        "why": "Se usa solo para mostrar las preguntas y tareas que corresponden a cada persona (por ejemplo, embarazo).",
+        "options": { "male": "Masculino", "female": "Femenino" }
+      },
       "languages": { "label": "¿Qué idiomas hablas?", "why": "Ayuda a pensar en la adaptación y en comunidades que hablan tu idioma." },
       "english": {
         "label": "¿Cómo está tu inglés hoy?",
@@ -102,13 +108,14 @@
         "label": "¿Cuál es tu situación laboral hoy?",
         "why": "Influye en los ingresos, el camino de visa y los impuestos.",
         "options": {
-          "employed": "Empleado(a)",
+          "employed": "{sex, select, male {Empleado} female {Empleada} other {Empleado(a)}}",
           "business_owner": "Tengo una empresa",
           "self_employed": "Trabajo por cuenta propia",
           "remote_foreign": "Trabajo remoto para una empresa de otro país",
           "student": "Estudiante",
-          "retired": "Jubilado(a)",
-          "unemployed": "Sin trabajo en este momento"
+          "retired": "{sex, select, male {Jubilado} female {Jubilada} other {Jubilado(a)}}",
+          "unemployed": "Sin trabajo en este momento",
+          "homemaker": "Se dedica al hogar"
         }
       }
     },
@@ -118,7 +125,7 @@
         "why": "El motivo define los caminos posibles y las primeras tareas.",
         "options": {
           "work": "Trabajar",
-          "transfer": "Ser trasladado(a) por la empresa donde trabajo",
+          "transfer": "Ser {sex, select, male {trasladado} female {trasladada} other {trasladado(a)}} por la empresa donde trabajo",
           "study": "Estudiar",
           "business": "Emprender o invertir",
           "family": "Reunirme con familia que vive allá",
@@ -251,15 +258,19 @@
         "why": "Incluye tareas de planificación para quien se queda: cuidados, poderes notariales, envío de dinero.",
         "options": { "yes": "Sí", "no": "No" }
       },
-      "leftBehindWho": { "label": "¿Quién se quedará?", "why": "Solo para identificar a la persona. Puede ser un apodo.", "placeholder": "Ej.: mi madre" }
+      "leftBehindList": { "label": "¿Quién se quedará en tu país?", "why": "Ayuda a planificar el apoyo a quienes se quedan.", "options": {"parent": "Padre o madre", "grandparent": "Abuelo o abuela", "child": "Hijo o hija", "sibling": "Hermano o hermana", "partner": "Cónyuge", "in_law": "Suegro o suegra", "other": "Otra persona"} }
     },
     "partner": {
+      "sex": { "label": "¿Cuál es el sexo de tu cónyuge, según su pasaporte?", "why": "Se usa solo para mostrar las preguntas y tareas que corresponden a cada persona (por ejemplo, embarazo)." },
+      "birthYear": { "label": "¿En qué año nació tu cónyuge?", "why": "La edad influye en los seguros médicos y algunas tareas.", "placeholder": "Ej.: 1987" },
+      "workStatus": { "label": "¿Cuál es la situación laboral de tu cónyuge hoy?", "why": "Muestra qué preguntas sobre la carrera tienen sentido y ayuda a pensar en los ingresos de la familia en EE. UU." },
       "english": { "label": "¿Cómo está el inglés de tu cónyuge?", "why": "Ayuda a planificar el inglés de la familia y quién puede trabajar en EE. UU." },
       "occupation": { "label": "¿Cuál es la profesión u ocupación de tu cónyuge?", "why": "Ayuda a pensar en los ingresos de la familia en EE. UU.", "placeholder": "Ej.: Profesora" }
     },
     "child": {
       "nickname": { "label": "¿Cómo quieres llamar a este hijo o hija en la app?", "why": "Solo para identificarlo. Puede ser un apodo o dejarlo en blanco.", "placeholder": "Ej.: Pedro" },
       "birth": { "label": "Mes y año de nacimiento", "why": "El camino dura años. Con la fecha, la app calcula la edad en cada momento del cronograma, porque algunas reglas dependen de ella." },
+      "sex": { "label": "¿Cuál es su sexo, según sus documentos?", "why": "Se usa solo para mostrar las preguntas y tareas que corresponden a cada persona (por ejemplo, embarazo)." },
       "school": {
         "label": "¿En qué etapa escolar está?",
         "why": "Define las tareas de escuela y de documentos escolares.",
@@ -294,6 +305,7 @@
         }
       },
       "birth": { "label": "Mes y año de nacimiento", "why": "Con la fecha, la app calcula la edad en cada momento del cronograma." },
+      "sex": { "label": "¿Cuál es su sexo, según sus documentos?", "why": "Se usa solo para mostrar las preguntas y tareas que corresponden a cada persona (por ejemplo, embarazo)." },
       "dependency": {
         "label": "¿Cómo es la dependencia?",
         "why": "Ayuda a planificar cuidados y presupuesto.",
@@ -362,8 +374,10 @@
           "other": "Otro"
         }
       },
-      "equipment": { "label": "¿Usa algún equipo? (ej.: silla de ruedas, audífono, CPAP)", "why": "Los equipos pueden tener reglas de transporte y costos en el destino." },
-      "specialists": { "label": "¿Qué especialistas lo acompañan?", "why": "Ayuda a planificar la continuidad del seguimiento en EE. UU." },
+      "equipmentList": { "label": "¿Usa alguno de estos equipos?", "why": "Los equipos pueden tener reglas de transporte y costos en el destino.", "options": {"none": "Ninguno", "wheelchair": "Silla de ruedas", "walker": "Andador o muletas", "hearing_aid": "Audífono", "glasses_special": "Lentes especiales (baja visión)", "cpap": "CPAP o aparato para apnea", "oxygen": "Oxígeno", "insulin_pump": "Bomba de insulina", "glucose_monitor": "Sensor de glucosa", "prosthesis": "Prótesis u órtesis", "feeding_tube": "Sonda de alimentación", "communication_device": "Comunicación alternativa (ej.: tablero, tableta)", "other": "Otro"} },
+      "equipmentOther": { "label": "¿Qué otro equipo?", "why": "Solo para incluirlo en el camino.", "placeholder": "Ej.: cama hospitalaria" },
+      "specialistsList": { "label": "¿Lo acompaña alguno de estos especialistas?", "why": "Ayuda a planificar la continuidad del seguimiento en EE. UU.", "options": {"none": "Ninguno", "neurologist": "Neurólogo", "psychiatrist": "Psiquiatra", "developmental_pediatrician": "Neuropediatra o pediatra del desarrollo", "cardiologist": "Cardiólogo", "endocrinologist": "Endocrinólogo", "pulmonologist": "Neumólogo", "nephrologist": "Nefrólogo", "oncologist": "Oncólogo", "rheumatologist": "Reumatólogo", "gastroenterologist": "Gastroenterólogo", "orthopedist": "Ortopedista", "ophthalmologist": "Oftalmólogo", "otolaryngologist": "Otorrinolaringólogo", "geriatrician": "Geriatra", "other": "Otro"} },
+      "specialistsOther": { "label": "¿Qué otro especialista?", "why": "Solo para incluirlo en el camino.", "placeholder": "Ej.: hematólogo" },
       "pregnancy": {
         "label": "¿Embarazo actual o planificado para los próximos 2 años?",
         "why": "Influye en el seguro médico, los costos y el cronograma.",
@@ -382,7 +396,7 @@
         "options": {
           "me": "Yo",
           "partner": "Cónyuge",
-          "adult_child": "Hijo(a) adulto(a)",
+          "adult_child": "{adultChildSex, select, male {Hijo adulto} female {Hija adulta} other {Hijo(a) adulto(a)}}",
           "other_member": "Otra persona de la familia",
           "passive": "Ingresos que no dependen del trabajo (alquiler, jubilación)"
         }
@@ -390,7 +404,7 @@
       "earnersUS": {
         "label": "¿Quién piensa trabajar en EE. UU.?",
         "why": "La autorización de trabajo de cada persona depende del tipo de visa. Mostramos la regla general con fuente oficial.",
-        "options": { "me": "Yo", "partner": "Cónyuge", "adult_child": "Hijo(a) adulto(a)", "unsure": "Todavía no lo sé" }
+        "options": { "me": "Yo", "partner": "Cónyuge", "adult_child": "{adultChildSex, select, male {Hijo adulto} female {Hija adulta} other {Hijo(a) adulto(a)}}", "unsure": "Todavía no lo sé" }
       },
       "partnerAvailability": {
         "label": "¿Tu cónyuge tendría disponibilidad para trabajar?",
@@ -398,7 +412,7 @@
         "options": {
           "yes": "Sí",
           "partial": "Parcialmente",
-          "no": "No, es cuidador(a) a tiempo completo",
+          "no": "No, es {partnerSex, select, male {cuidador} female {cuidadora} other {cuidador(a)}} a tiempo completo",
           "no_other": "No, por otro motivo"
         }
       },
@@ -594,7 +608,7 @@
         "options": { "yes": "Sí", "some": "Tengo algunas opciones", "no": "Todavía no" }
       },
       "places": { "label": "¿Qué estados?", "why": "El estado define impuestos, costo de vida, clima y servicios." },
-      "cities": { "label": "¿Alguna ciudad en mente?", "why": "Ayuda a que las comparaciones sean más precisas.", "placeholder": "Ej.: Seattle, Boston" },
+      "cityList": { "label": "¿Alguna ciudad en mente?", "why": "Ayuda a que las comparaciones de costo, clima e impuestos sean más precisas." },
       "why": { "label": "¿Por qué ese lugar?", "why": "Ayuda a comparar el destino con lo que es importante para ti." },
       "criteria": {
         "label": "¿Qué pesa más en la elección? (elige hasta 3)",
@@ -665,6 +679,13 @@
         "options": { "yes": "Sí", "no": "No" }
       }
     },
+    "moment": {
+      "life": { "label": "¿Cómo está tu vida en este momento?", "why": "Nadie necesita estar perfecto para empezar. La respuesta solo ajusta el ritmo: en una etapa difícil, el camino empieza más liviano.", "options": {"calm": "Tranquila", "busy": "Ajetreada, pero bajo control", "hard": "Pasando por una etapa difícil", "skip": "Prefiero no responder"} },
+      "events": { "label": "¿Pasó algo importante en tu vida en los últimos 12 meses?", "why": "Los cambios grandes consumen energía. Saberlo ayuda a que el camino respete tu momento.", "options": {"none": "Nada de esto", "grief": "La pérdida de alguien cercano", "separation": "Separación o divorcio", "job_loss": "Pérdida de empleo", "family_illness": "Enfermedad en la familia", "own_health": "Un problema de salud propio", "new_baby": "El nacimiento o la llegada de un hijo", "financial": "Dificultades económicas", "other": "Otro cambio importante", "skip": "Prefiero no responder"} },
+      "decision": { "label": "¿Cómo está tu decisión de vivir en EE. UU.?", "why": "Si todavía estás conociendo la idea, el camino empieza explorando antes de decidir. Concluir que no es para ti también es un buen resultado.", "options": {"exploring": "Todavía estoy conociendo la idea", "leaning": "Estoy {sex, select, male {inclinado} female {inclinada} other {inclinado(a)}} a ir", "decided": "Ya decidí que quiero ir"} },
+      "partnerSupport": { "label": "¿Cómo ve tu cónyuge la mudanza?", "why": "Una mudanza así funciona mejor cuando la pareja está de acuerdo. Si todavía no lo está, el camino trae esas conversaciones desde el principio.", "options": {"aligned": "Lo quiere tanto como yo", "mostly": "Apoya, con algunas dudas", "unsure": "Todavía tiene dudas", "against": "No quiere ir", "not_talked": "Todavía no lo hablamos"} },
+      "familySupport": { "label": "¿Las personas cercanas apoyan tu idea?", "why": "El apoyo hace la diferencia en los días difíciles. La respuesta ayuda al camino a recordarte dónde buscar fuerza.", "options": {"yes": "Sí, me apoyan", "partial": "Algunas personas me apoyan", "no": "No me apoyan", "skip": "Prefiero no responder"} }
+    },
     "career": {
       "nationalities": { "label": "¿Cuál es la nacionalidad de tu cónyuge? Si tiene más de una, márcalas todas.", "why": "La nacionalidad de cada adulto puede abrir o cerrar caminos de visa diferentes. A veces, el mejor camino es a través del cónyuge." },
       "education": { "label": "¿Cuál es el nivel de estudios más alto (terminado) de tu cónyuge?", "why": "La formación de cada adulto ayuda a indicar qué caminos de visa vale la pena conocer." },
@@ -700,9 +721,9 @@
           "entry": "Inicio de carrera",
           "mid": "Con experiencia (nivel medio)",
           "senior": "Sénior o especialista",
-          "manager": "Gerente, coordinador(a) o supervisor(a)",
-          "executive": "Director(a) o ejecutivo(a)",
-          "owner": "Dueño(a) de empresa"
+          "manager": "Gerente, {sex, select, male {coordinador o supervisor} female {coordinadora o supervisora} other {coordinador(a) o supervisor(a)}}",
+          "executive": "{sex, select, male {Director o ejecutivo} female {Directora o ejecutiva} other {Director(a) o ejecutivo(a)}}",
+          "owner": "{sex, select, male {Dueño} female {Dueña} other {Dueño(a)}} de empresa"
         }
       },
       "multinational": {

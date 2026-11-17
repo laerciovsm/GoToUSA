@@ -12,6 +12,7 @@
     "start": "pnpm --filter @gotousa/web start",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
-    "test": "pnpm -r test"
+    "test": "pnpm -r test",
+    "data:cities": "node scripts/build-us-cities.mjs"
   }
 }

@@ -74,6 +74,7 @@ O GoToUSA ajuda a pessoa a **criar a própria jornada** e a evoluir nela, com tu
 - **Não** coletar documentos, como passaporte e certidões.
 - **Não** coletar dados pessoais sensíveis. As respostas do questionário servem apenas para montar a jornada.
 - **Não** dar aconselhamento jurídico.
+- **Não** tratar de asilo e refúgio: não é o objetivo do app (decisão de 17/11/2026).
 
 ## Modelo de negócio (freemium)
 
@@ -246,7 +247,9 @@ Na raiz do repositório:
    2. ✅ **Formato do conteúdo:** aprovado em 17/11/2026 em [docs/jornada.md](docs/jornada.md#formato-do-conteúdo-marco-3-passo-2--aprovado-em-17112026) (uma pasta por tarefa em `content/journey/tasks/`, `task.json` + um Markdown simples por idioma, **3 idiomas obrigatórios desde já**, testes automáticos).
    3. ✅ **Regras de geração:** aprovadas em 17/11/2026 em [docs/jornada.md](docs/jornada.md#regras-de-geração-marco-3-passo-3--aprovado-em-17112026) (condições como dados no `task.json`, fatos calculados em código testado, tarefas **essenciais** entram para todos mesmo sem resposta, o que não se aplica não trava nada, destaque, próximo passo).
    4. ✅ **Cálculo de prazos:** aprovado em 17/11/2026 em [docs/jornada.md](docs/jornada.md#cálculo-de-prazos-marco-3-passo-4--aprovado-em-17112026) (o mês da ida é a **meta**; prazos em mês e ano; Fase 0 com 1 mês a partir do início; conferência de realidade pelo tempo disponível).
-   5. **Perfil da família e caminhos de visto:** rascunho em [docs/caminhos-visto.md](docs/caminhos-visto.md#como-o-motor-gera-o-perfil-e-os-caminhos-marco-3-passo-5--rascunho-de-17112026-para-revisão) (perfil calculado na hora; pontos de atenção = alertas da jornada; catálogo de caminhos em `content/journey/paths/` com fonte oficial obrigatória; sem ranking; avaliação por adulto). **Aguardando a revisão do fundador e 4 decisões.** Premissa reforçada: todo fato sobre visto vem de fonte oficial, sempre.
+   5. ✅ **Perfil da família e caminhos de visto:** aprovado em 17/11/2026 em [docs/caminhos-visto.md](docs/caminhos-visto.md#como-o-motor-gera-o-perfil-e-os-caminhos-marco-3-passo-5--aprovado-em-17112026) (perfil calculado na hora; pontos de atenção = alertas da jornada; caminhos em `content/journey/paths/` com fonte oficial obrigatória; agrupados, sem ranking; avaliação de **cada adulto que vai**; asilo e refúgio fora). Premissa reforçada: todo fato sobre visto vem de fonte oficial, sempre.
+   - **Registro nas tarefas** de alinhamento e documentação (anotar o combinado e a situação dos documentos, sem enviar arquivos): [docs/jornada.md](docs/jornada.md#registro-da-tarefa-decisão-do-fundador-em-17112026).
+   - **Proposta pendente:** perguntas para filhos e dependentes adultos (pretende trabalhar ou estudar?), [docs/caminhos-visto.md](docs/caminhos-visto.md#adultos-além-do-casal-no-questionário-proposta).
    Depois: implementação com tarefas de exemplo. O conteúdo real da Fase 0 é outro marco, em paralelo.
 5. **Anotado para o momento certo:** custos personalizados e custo total aproximado da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
 6. Em paralelo: conteúdo da Fase 0 para o cenário inicial e levantamento das taxas oficiais do orçamento (passaporte no Brasil, vistos, USCIS, impostos e DMV dos estados da lista curta), sempre a partir de fontes oficiais.

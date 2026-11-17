@@ -181,6 +181,7 @@ Uma etapa sem nenhuma tarefa que se aplique à família **não aparece**.
 | **Custo estimado** | valor, moeda e fonte, ou "estimativa, fonte não oficial" | Liga ao [orçamento](orcamento.md) |
 | **Fontes oficiais** | link, órgão e **data de verificação** de cada fato | Obrigatório quando a tarefa tem fato legal, prazo, taxa ou requisito ([conteudo.md](conteudo.md#premissa-só-informação-oficial-e-verificada)) |
 | **Variações** | por país de origem e por estado de destino | Ex.: o passo a passo do passaporte muda conforme o país emissor |
+| **Registro** | `agreement` alinhamento · `documents` documentação (com a lista de documentos) · `notes` anotações · ou nenhum | Ver [Registro da tarefa](#registro-da-tarefa-decisão-do-fundador-em-17112026) |
 
 ### Para quem
 
@@ -207,6 +208,21 @@ Uma etapa sem nenhuma tarefa que se aplique à família **não aparece**.
 | Anotação | Texto livre da pessoa, só para ela |
 
 Marcar **"não se aplica"** não pede motivo: um toque e pronto.
+
+### Registro da tarefa (decisão do fundador em 17/11/2026)
+
+Toda tarefa que depende de **alinhamento** (com a família, o cônjuge ou outras pessoas) ou que envolve **documentação** tem uma seção **"Registro"**, para a pessoa anotar o que foi combinado e o que foi juntado. O tipo de registro vem do `task.json` (campo `record`):
+
+| Tipo | Para que serve | O que a pessoa registra |
+|---|---|---|
+| `agreement` alinhamento | Conversas e decisões em conjunto (ex.: conversar em família, decidir o estado) | Data da conversa · quem participou (escolhe as pessoas da família) · o que foi decidido · próximos passos · todos de acordo? (sim · em parte · ainda não) |
+| `documents` documentação | Juntar e conferir documentos (ex.: certidões, passaportes) | Para cada documento da lista da tarefa e cada pessoa: situação (tenho · pedi · falta) · validade (mês e ano, quando houver) · observação |
+| `notes` anotações | Qualquer outra tarefa que peça registro | Texto livre |
+
+- **O app nunca recebe arquivos nem números de documentos.** Registrar é anotar a situação, não enviar o documento ("não coletar documentos" está no escopo do [CLAUDE.md](../CLAUDE.md)). A tela lembra: "não anote números de documentos nem senhas".
+- **Escolher em vez de digitar** sempre que possível (premissa de padronizar).
+- O registro fica no **progresso** da pessoa (camada 3), entra no arquivo de baixar e importar e, como o resto, sobrevive ao recálculo.
+- Concluir a tarefa **não exige** preencher o registro: ele ajuda, não trava.
 
 **Tarefas próprias:** a pessoa cria com título, e opcionalmente fase, etapa, tema, pessoa(s), peso e prazo (peso padrão: baixo). Contam no **progresso geral** e no progresso da **etapa e do tema** que a pessoa escolher. Sem etapa ou tema, contam só no progresso geral.
 

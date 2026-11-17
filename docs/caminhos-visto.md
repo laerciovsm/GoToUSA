@@ -73,7 +73,7 @@ Uma tela-resumo, gerada só a partir das respostas, que mostra **quem é essa fa
 - **Caminhos para conhecer:** a lista acima, com "por que apareceu".
 - Fica no navegador, como todo o resto, e entra no arquivo de baixar e importar.
 
-## Como o motor gera o perfil e os caminhos (Marco 3, passo 5 · rascunho de 17/11/2026, para revisão)
+## Como o motor gera o perfil e os caminhos (Marco 3, passo 5 · aprovado em 17/11/2026)
 
 > Segue as regras já aprovadas da jornada: [modelo](jornada.md#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026), [formato do conteúdo](jornada.md#formato-do-conteúdo-marco-3-passo-2--aprovado-em-17112026) e [regras de geração](jornada.md#regras-de-geração-marco-3-passo-3--aprovado-em-17112026). **Premissa reforçada pelo fundador em 17/11/2026: todo fato sobre visto vem de fonte oficial, sempre.** Este documento define só a **lógica** (que resposta leva a qual caminho). Descrições, requisitos, valores e prazos entram no conteúdo de cada caminho, resumidos da fonte oficial e com data de verificação.
 
@@ -109,11 +109,12 @@ Cada caminho fica em `content/journey/paths/<id>/`, no mesmo formato aprovado da
 
 ### Como os caminhos aparecem
 
-- **Sem ranking e sem nota.** Os caminhos aparecem **agrupados** (permanentes e temporários, e por grupo), nunca ordenados como "o melhor para você" e nunca com pontuação. Ordenar por "quantos motivos bateram" passaria a ideia de chance, que é proibida pelas [regras de linguagem](#regras-de-linguagem-obrigatórias).
-- **Por adulto:** nos caminhos `byWorker`, o motor avalia você e o cônjuge separadamente e mostra "por você", "pelo cônjuge" ou "pelos dois". `career.principal` não esconde caminhos; só destaca o que a pessoa indicou.
+- **Simples, funcional e sem nada negativo.** Os caminhos aparecem **agrupados** (permanentes e temporários, e por grupo), sem ranking, sem nota e sem "melhor" ou "pior". Ordenar por "quantos motivos bateram" passaria a ideia de chance, que é proibida pelas [regras de linguagem](#regras-de-linguagem-obrigatórias).
+- **Por adulto:** nos caminhos `byWorker`, o motor avalia **cada adulto que vai** separadamente (você, o cônjuge e também filhos e dependentes com 18 anos ou mais na data de ida) e mostra por quem o caminho aparece. `career.principal` não esconde caminhos; só destaca o que a pessoa indicou.
+- **Adultos além do casal:** um filho ou dependente adulto pode precisar do **próprio caminho** (a regra geral de dependentes tem limite de idade, sempre explicada com fonte oficial). O perfil e a jornada mostram isso como ponto de atenção. Para avaliar caminhos de trabalho ou estudo desses adultos, o questionário precisa conhecê-los melhor: ver [Adultos além do casal no questionário](#adultos-além-do-casal-no-questionário-proposta).
 - **Cada caminho mostra:** por que apareceu · requisitos oficiais resumidos com a fonte e a data · o que você pode fazer agora (tarefas) · recomendação de advogado de imigração · aviso padrão.
 - **Nenhum caminho apareceu:** entra na Fase 0 a tarefa essencial "explorar os caminhos possíveis", com as páginas oficiais gerais. É um resultado válido, mostrado de forma positiva.
-- **Proteção (`goal.purpose` = `protection`):** não lista caminhos. Mostra só a fonte oficial e a recomendação forte de procurar ajuda jurídica especializada, porque é um tema delicado demais para um resumo.
+- **Asilo e refúgio ficam fora do app** (decisão do fundador em 17/11/2026): não é o objetivo do GoToUSA. A opção "Preciso de proteção" foi retirada do questionário.
 
 ### Mapeamento: grupos ainda sem fonte conferida
 
@@ -127,6 +128,7 @@ O mapeamento de trabalho, mérito, transferência e investimento está na tabela
 | `goal.purpose` = `exchange` | Intercâmbio | Conferir na fonte oficial |
 | `goal.purpose` = `lottery` | Loteria do Green Card | Conferir na fonte oficial |
 | `goal.purpose` = `retire` | Explorar caminhos para quem se aposenta | Conferir na fonte oficial se há categoria específica antes de mostrar qualquer caminho |
+| Filho ou dependente com 18 anos ou mais na data de ida | Ponto de atenção: pode precisar do próprio caminho | Regra geral de dependentes explicada com fonte oficial |
 
 ### Garantias (testes automáticos)
 
@@ -135,19 +137,28 @@ O mapeamento de trabalho, mérito, transferência e investimento está na tabela
 3. Cenários testados, começando pelo [cenário inicial](mvp.md#cenário-inicial-de-validação): para cada família de exemplo, o teste confere quais caminhos aparecem e com quais motivos.
 4. Nenhum texto de caminho usa as expressões proibidas ("você se qualifica", "suas chances" e equivalentes nos 3 idiomas): o teste procura essas palavras.
 
-### Decisões para o fundador
+### Decisões tomadas (17/11/2026)
 
-1. **Caminhos sem ranking e sem nota**, só agrupados por tipo, para não passar a ideia de chance?
-2. **Caminhos avaliados por adulto** (você e o cônjuge), mostrando quem seria o titular, sem esconder nenhum?
-3. **Pontos de atenção do perfil = alertas da jornada**, uma fonte só?
-4. **Proteção (asilo e refúgio):** só a fonte oficial e a recomendação de ajuda jurídica especializada, sem listar caminhos?
+1. ✅ **Nada negativo, funcional e simples:** caminhos agrupados, sem ranking e sem nota.
+2. ✅ **Avaliação por adulto:** você, o cônjuge e **todo filho ou dependente maior de idade** que vai.
+3. ✅ **Pontos de atenção do perfil = alertas da jornada**, uma fonte só.
+4. ✅ **Asilo e refúgio fora do app:** não é o objetivo do GoToUSA; a opção saiu do questionário.
+
+### Adultos além do casal no questionário (proposta)
+
+Hoje o perfil profissional (Bloco 11) só pergunta sobre você e o cônjuge. Para considerar os outros adultos:
+- Para cada filho ou dependente com 18 anos ou mais na data de ida, uma pergunta: **"Essa pessoa pretende trabalhar ou estudar nos EUA?"** (trabalhar · estudar · as duas coisas · não · ainda não sei).
+- Se trabalhar: as perguntas de carreira do Bloco 11 (escolaridade, área, experiência, conquistas). Se estudar: o nível de estudo pretendido.
+- Se não (ex.: um filho que depende de cuidados): nenhuma pergunta a mais. A jornada mostra os pontos de atenção e as tarefas de cuidado, como já acontece.
+- A implementação entra junto com a do motor, com a aprovação do fundador.
 
 ## Perguntas novas (Bloco 11 · Perfil profissional)
 
 Incluídas em 16/11/2026 para aprofundar a carreira **de você e do cônjuge**. Detalhes em [questionario-perguntas.md](questionario-perguntas.md#bloco-11--perfil-profissional-para-completar--por-pessoa-você-e-cônjuge). As opções de conquistas espelham, em linguagem simples, os tipos de evidência listados pelo USCIS, sem afirmar que a pessoa se qualifica.
 
 ## Pendências
-- [ ] Revisar e aprovar [Como o motor gera o perfil e os caminhos](#como-o-motor-gera-o-perfil-e-os-caminhos-marco-3-passo-5--rascunho-de-17112026-para-revisão) (Marco 3, passo 5)
+- [x] Revisar e aprovar [Como o motor gera o perfil e os caminhos](#como-o-motor-gera-o-perfil-e-os-caminhos-marco-3-passo-5--aprovado-em-17112026) (Marco 3, passo 5), aprovado em 17/11/2026
+- [ ] Aprovar a proposta de [adultos além do casal no questionário](#adultos-além-do-casal-no-questionário-proposta)
 - [ ] Completar o mapeamento no Marco 3, com o conteúdo de cada caminho resumido da fonte oficial
 - [ ] Conferir na fonte oficial os grupos de família, estudo, intercâmbio, loteria e aposentadoria antes de escrever os caminhos
 - [ ] Conferir em fonte oficial a lista de países de tratado (E-1/E-2) e as nacionalidades de TN e E-3 antes de usar no mapeamento

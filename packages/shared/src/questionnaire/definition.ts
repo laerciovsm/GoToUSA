@@ -149,7 +149,6 @@ const goalBlock: Block = {
         "talent",
         "exchange",
         "lottery",
-        "protection",
         "unsure",
       ],
     },

@@ -220,8 +220,12 @@ export type OwnTask = {
   createdAt: string;
 };
 
+/** Resposta do check-in ao fim de uma fase (docs/jornada.md, "Pontos de reflexão"). */
+export type CheckinAnswer = "continue" | "pause" | "adjust" | "end";
+export type Checkin = { answer: CheckinAnswer; /** ISO */ at: string };
+
 export type JourneyProgress = {
-  schemaVersion: 1;
+  schemaVersion: 2;
   /** Início da jornada (AAAA-MM-DD): base da Fase 0. */
   startedAt: string;
   /** Prazo da Fase 0 escolhido pela pessoa (AAAA-MM-DD), ou null para o padrão de 1 mês. */
@@ -231,6 +235,12 @@ export type JourneyProgress = {
   /** Progresso por chave estável ("idDaTarefa" ou "idDaTarefa@idDaPessoa"). Nada é apagado no recálculo. */
   tasks: Record<string, TaskProgress>;
   ownTasks: OwnTask[];
+  /** Check-in de cada fase concluída. */
+  checkins: Partial<Record<PhaseId, Checkin>>;
+  /** Jornada pausada pela pessoa (ISO), ou null. Tudo continua salvo. */
+  pausedAt: string | null;
+  /** Jornada encerrada por decisão consciente (ISO), ou null. Pode ser retomada. */
+  endedAt: string | null;
 };
 
 // ---------------------------------------------------------------------------

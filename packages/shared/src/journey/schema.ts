@@ -131,8 +131,7 @@ const recordSchema = z.union([
   z.strictObject({ type: z.literal("notes"), text: text(10000) }),
 ]);
 
-export const progressSchema = z.strictObject({
-  schemaVersion: z.literal(1),
+const progressV1Shape = {
   startedAt: isoDate,
   discoveryDue: isoDate.nullable(),
   arrivalDate: isoDate.nullable(),
@@ -163,17 +162,42 @@ export const progressSchema = z.strictObject({
       }),
     )
     .max(500),
-});
+};
 
-/** Valida o progresso salvo. Retorna undefined se não for válido. */
+const checkinSchema = z.strictObject({ answer: z.enum(["continue", "pause", "adjust", "end"]), at: z.iso.datetime() });
+
+/** Versão 2 (17/11/2026): check-in de fase, pausa e encerramento. */
+export const progressSchema = z.strictObject({
+  ...progressV1Shape,
+  schemaVersion: z.literal(2),
+  checkins: z.partialRecord(phase, checkinSchema),
+  pausedAt: z.iso.datetime().nullable(),
+  endedAt: z.iso.datetime().nullable(),
+});
+const progressV1Schema = z.strictObject({ ...progressV1Shape, schemaVersion: z.literal(1) });
+
+/** Valida o progresso salvo (migrando a versão 1). Retorna undefined se não for válido. */
 export function parseProgress(value: unknown): JourneyProgress | undefined {
   const result = progressSchema.safeParse(value);
-  return result.success ? (result.data as JourneyProgress) : undefined;
+  if (result.success) return result.data as JourneyProgress;
+  const v1 = progressV1Schema.safeParse(value);
+  if (!v1.success) return undefined;
+  return { ...(v1.data as Omit<JourneyProgress, "schemaVersion" | "checkins" | "pausedAt" | "endedAt">), schemaVersion: 2, checkins: {}, pausedAt: null, endedAt: null };
 }
 
 /** Progresso novo: a jornada começa hoje. */
 export function createProgress(now: Date = new Date()): JourneyProgress {
-  return { schemaVersion: 1, startedAt: toIsoDate(now), discoveryDue: null, arrivalDate: null, tasks: {}, ownTasks: [] };
+  return {
+    schemaVersion: 2,
+    startedAt: toIsoDate(now),
+    discoveryDue: null,
+    arrivalDate: null,
+    tasks: {},
+    ownTasks: [],
+    checkins: {},
+    pausedAt: null,
+    endedAt: null,
+  };
 }
 
 /** Data local em AAAA-MM-DD (sem horário, para não mudar de dia por causa do fuso). */

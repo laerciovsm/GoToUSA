@@ -3,7 +3,7 @@
  * sem mudar o anterior, para a tela salvar e recalcular a jornada.
  * Nada é apagado no recálculo: o progresso de uma tarefa que deixou de se aplicar continua guardado.
  */
-import type { JourneyProgress, RecordSpec, TaskProgress, TaskRecord, TaskStatus } from "./types";
+import type { CheckinAnswer, JourneyProgress, PhaseId, RecordSpec, TaskProgress, TaskRecord, TaskStatus } from "./types";
 
 export function emptyTaskProgress(): TaskProgress {
   return { status: "todo", subtasks: [], doneAt: null, plan: "", note: "", record: null };
@@ -56,6 +56,25 @@ export function emptyRecord(spec: RecordSpec): TaskRecord {
   if (spec.type === "agreement") return { type: "agreement", date: "", people: [], decided: "", nextSteps: "", agreed: "" };
   if (spec.type === "documents") return { type: "documents", items: {} };
   return { type: "notes", text: "" };
+}
+
+/**
+ * Guarda o check-in de uma fase concluída. "Pausar" e "Encerrar" ficam registrados na jornada
+ * (tudo continua salvo); "Continuar" e "Ajustar o plano" retomam a jornada se ela estava pausada.
+ */
+export function recordCheckin(progress: JourneyProgress, phase: PhaseId, answer: CheckinAnswer, now: Date = new Date()): JourneyProgress {
+  const at = now.toISOString();
+  return {
+    ...progress,
+    checkins: { ...progress.checkins, [phase]: { answer, at } },
+    pausedAt: answer === "pause" ? at : null,
+    endedAt: answer === "end" ? at : null,
+  };
+}
+
+/** Retoma a jornada pausada ou encerrada. */
+export function resumeJourney(progress: JourneyProgress): JourneyProgress {
+  return { ...progress, pausedAt: null, endedAt: null };
 }
 
 /** Chave de um documento no registro: "passport@<idDaPessoa>". */

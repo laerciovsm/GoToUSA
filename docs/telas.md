@@ -209,7 +209,13 @@ Cada parte é testada no celular pelo fundador antes da próxima.
 - **Tela Hoje** (`/today`), primeira aba da barra inferior: meta com a contagem de meses (ou o convite "Que tal definir a sua meta?"), **um único próximo passo** com "Começar", "Ver mais passos desta semana" (quantos cabem nas horas por semana escolhidas, no máximo 5, por `weekSteps` em `packages/shared/src/journey/today.ts`), e cartões que só aparecem quando fazem sentido: tempo apertado (com "Rever a meta" e "Reservar mais tempo"), prioridades, blocos do questionário que acrescentam tarefas, data de ida que já passou e o seu porquê. A prontidão aparece em versão compacta (percentual e barra); a mala por tema é a parte 5.
 - **Abertura:** com o aviso aceito e o essencial do questionário concluído, a tela inicial leva direto para **Hoje**. O botão do questionário virou "Começar a minha jornada" (leva para Hoje).
 - **Ainda não:** "Novidades" (tarefas novas por causa de uma resposta) precisa guardar o que a pessoa já viu; fica para depois.
-- **Ainda não:** mala da prontidão, carimbos e check-in (5), por tema, filtro por pessoa e tarefa própria (6), progresso no arquivo de baixar e importar (quando essa função existir).
+### Parte 5 implementada (17/11/2026)
+
+- **Mala da prontidão:** na tela Hoje, o percentual total e, em "Ver por tema", a prontidão de cada tema que tem tarefas.
+- **Carimbos do passaporte:** na Jornada, acima da trilha, um carimbo por fase concluída (com tarefas, todas concluídas ou "não se aplica") e os espaços das fases que faltam ("Carimbos: 1 de 7").
+- **Check-in de fase:** ao concluir a última tarefa de uma fase, a comemoração mostra o carimbo e "Fazer o check-in da fase". Na tela Hoje, a primeira fase concluída sem check-in mostra a pergunta "Depois do que você viu, ainda faz sentido para você?" com **Continuar · Ajustar o plano · Pausar · Encerrar**. Pausar e Encerrar ficam guardados e mostram um cartão respeitoso com **Retomar a jornada**; Encerrar mostra o resumo do que a pessoa construiu ("decidir com consciência também é sucesso").
+- **Formato salvo do progresso na versão 2** (`checkins`, `pausedAt`, `endedAt`), com migração automática da versão 1 (`parseProgress`).
+- **Ainda não:** por tema, filtro por pessoa e tarefa própria (6), progresso no arquivo de baixar e importar (quando essa função existir).
 
 ## Decisões tomadas (17/11/2026)
 

@@ -249,7 +249,13 @@
     },
     "pathsCardTitle": "Caminhos de visto para conhecer",
     "pathsCardCount": "{n, plural, one {# caminho apareceu pelas suas respostas} other {# caminhos apareceram pelas suas respostas}}",
-    "pathsCardNone": "Veja por que nenhum apareceu ainda e o que responder"
+    "pathsCardNone": "Veja por que nenhum apareceu ainda e o que responder",
+    "stamps": "Carimbos do passaporte",
+    "stampsCount": "Carimbos: {n} de {total}",
+    "stampDone": "Carimbo da fase {phase}",
+    "stampEmpty": "Fase {phase}: carimbo ainda por conquistar",
+    "phaseStamped": "Fase {phase} concluída: você ganhou o carimbo!",
+    "doCheckin": "Fazer o check-in da fase"
   },
   "Family": {
     "title": "Sua família",
@@ -341,6 +347,21 @@
       "culture": "Cultura",
       "practical": "Dia a dia",
       "assets": "Bens"
-    }
+    },
+    "checkinTitle": "Você concluiu a fase {phase}!",
+    "checkinQuestion": "Depois do que você viu, ainda faz sentido para você?",
+    "checkinContinue": "Continuar",
+    "checkinAdjust": "Ajustar o plano",
+    "checkinPause": "Pausar",
+    "checkinEnd": "Encerrar",
+    "checkinHint": "Qualquer resposta está certa. Pausar guarda tudo; encerrar é uma decisão consciente, e você pode retomar quando quiser.",
+    "pausedTitle": "Jornada pausada",
+    "pausedBody": "Você pausou em {date}. Tudo continua salvo, do jeito que estava.",
+    "endedTitle": "Você decidiu encerrar a jornada",
+    "endedBody": "Decisão tomada em {date}. Decidir com consciência, olhando o todo, também é sucesso.",
+    "endedSummary": "O que você construiu: {done, plural, one {# tarefa concluída} other {# tarefas concluídas}} e {percent}% da preparação. As suas anotações e registros continuam salvos.",
+    "resume": "Retomar a jornada",
+    "showThemes": "Ver por tema",
+    "hideThemes": "Esconder os temas"
   }
 }

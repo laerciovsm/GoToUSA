@@ -3,7 +3,7 @@
  */
 import type { QuestionnaireData } from "../questionnaire/types";
 import { parseIsoDate, WEEKLY_HOURS } from "./dates";
-import { PHASE_IDS, type Journey, type JourneyTask } from "./types";
+import { PHASE_IDS, type Journey, type JourneyProgress, type JourneyTask, type PhaseId } from "./types";
 
 const PHASE_ORDER = new Map(PHASE_IDS.map((id, i) => [id, i]));
 /** Sem tempo semanal informado, considera de 1 a 3 horas (a opção mais comum). */
@@ -39,6 +39,23 @@ export function weekSteps(journey: Journey, data: QuestionnaireData): JourneyTas
     used += task.hours;
   }
   return result;
+}
+
+const finished = (t: JourneyTask) => t.status === "done" || t.status === "na";
+
+/** Fases concluídas (com tarefas, todas concluídas ou "não se aplica"): cada uma vale um carimbo. */
+export function completedPhases(journey: Journey): PhaseId[] {
+  return journey.phases
+    .filter((ph) => {
+      const tasks = journey.tasks.filter((t) => t.phase === ph.id);
+      return tasks.length > 0 && tasks.every(finished);
+    })
+    .map((ph) => ph.id);
+}
+
+/** Primeira fase concluída que ainda não teve check-in (o convite aparece na tela Hoje). */
+export function pendingCheckin(journey: Journey, progress: JourneyProgress): PhaseId | null {
+  return completedPhases(journey).find((ph) => !progress.checkins[ph]) ?? null;
 }
 
 /** Meses inteiros que faltam até a meta (dia 1º do mês de ida). 0 no próprio mês; negativo se já passou. */

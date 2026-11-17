@@ -249,7 +249,13 @@
     },
     "pathsCardTitle": "Visa paths worth exploring",
     "pathsCardCount": "{n, plural, one {# path showed up from your answers} other {# paths showed up from your answers}}",
-    "pathsCardNone": "See why none showed up yet and what to answer"
+    "pathsCardNone": "See why none showed up yet and what to answer",
+    "stamps": "Passport stamps",
+    "stampsCount": "Stamps: {n} of {total}",
+    "stampDone": "{phase} phase stamp",
+    "stampEmpty": "{phase} phase: stamp still to earn",
+    "phaseStamped": "{phase} phase complete: you earned the stamp!",
+    "doCheckin": "Do the phase check-in"
   },
   "Family": {
     "title": "Your family",
@@ -341,6 +347,21 @@
       "culture": "Culture",
       "practical": "Daily life",
       "assets": "Assets"
-    }
+    },
+    "checkinTitle": "You finished the {phase} phase!",
+    "checkinQuestion": "After what you've seen, does it still make sense for you?",
+    "checkinContinue": "Continue",
+    "checkinAdjust": "Adjust the plan",
+    "checkinPause": "Pause",
+    "checkinEnd": "End",
+    "checkinHint": "Any answer is the right one. Pausing keeps everything; ending is a conscious decision, and you can resume whenever you want.",
+    "pausedTitle": "Journey paused",
+    "pausedBody": "You paused on {date}. Everything is still saved, just as it was.",
+    "endedTitle": "You decided to end the journey",
+    "endedBody": "Decision made on {date}. Deciding consciously, after seeing the whole picture, is also a success.",
+    "endedSummary": "What you built: {done, plural, one {# task done} other {# tasks done}} and {percent}% of the preparation. Your notes and records are still saved.",
+    "resume": "Resume the journey",
+    "showThemes": "See by theme",
+    "hideThemes": "Hide themes"
   }
 }

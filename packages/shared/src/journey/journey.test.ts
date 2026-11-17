@@ -322,7 +322,7 @@ describe("progresso salvo e textos", () => {
   it("valida o progresso (ida e volta) e recusa formato desconhecido", () => {
     const p = progressAt();
     expect(parseProgress(JSON.parse(JSON.stringify(p)))).toEqual(p);
-    expect(parseProgress({ ...p, schemaVersion: 2 })).toBeUndefined();
+    expect(parseProgress({ ...p, schemaVersion: 3 })).toBeUndefined();
   });
   it("lê o cabeçalho dos textos", () => {
     const { data, body } = parseFrontmatter("---\ntitle: Olá: mundo\nsubtasks:\n  a-1: Primeira\n---\n\nTexto");

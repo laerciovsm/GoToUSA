@@ -249,7 +249,13 @@
     },
     "pathsCardTitle": "Caminos de visa para conocer",
     "pathsCardCount": "{n, plural, one {# camino apareció por tus respuestas} other {# caminos aparecieron por tus respuestas}}",
-    "pathsCardNone": "Mira por qué todavía no aparece ninguno y qué responder"
+    "pathsCardNone": "Mira por qué todavía no aparece ninguno y qué responder",
+    "stamps": "Sellos del pasaporte",
+    "stampsCount": "Sellos: {n} de {total}",
+    "stampDone": "Sello de la fase {phase}",
+    "stampEmpty": "Fase {phase}: sello por conquistar",
+    "phaseStamped": "Fase {phase} completada: ¡ganaste el sello!",
+    "doCheckin": "Hacer el check-in de la fase"
   },
   "Family": {
     "title": "Tu familia",
@@ -341,6 +347,21 @@
       "culture": "Cultura",
       "practical": "Día a día",
       "assets": "Bienes"
-    }
+    },
+    "checkinTitle": "¡Completaste la fase {phase}!",
+    "checkinQuestion": "Después de lo que viste, ¿todavía tiene sentido para ti?",
+    "checkinContinue": "Continuar",
+    "checkinAdjust": "Ajustar el plan",
+    "checkinPause": "Pausar",
+    "checkinEnd": "Terminar",
+    "checkinHint": "Cualquier respuesta es correcta. Pausar guarda todo; terminar es una decisión consciente, y puedes retomar cuando quieras.",
+    "pausedTitle": "Recorrido en pausa",
+    "pausedBody": "Pausaste el {date}. Todo sigue guardado, tal como estaba.",
+    "endedTitle": "Decidiste terminar el recorrido",
+    "endedBody": "Decisión tomada el {date}. Decidir con conciencia, viendo el panorama completo, también es un éxito.",
+    "endedSummary": "Lo que construiste: {done, plural, one {# tarea completada} other {# tareas completadas}} y {percent}% de la preparación. Tus notas y registros siguen guardados.",
+    "resume": "Retomar el recorrido",
+    "showThemes": "Ver por tema",
+    "hideThemes": "Ocultar los temas"
   }
 }

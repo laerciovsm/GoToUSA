@@ -2,29 +2,34 @@
 
 import { useState } from "react";
 import { useFormatter, useTranslations } from "next-intl";
-import { monthsUntil, parseIsoDate, weekSteps, type JourneyTask } from "@gotousa/shared";
+import { monthsUntil, parseIsoDate, pendingCheckin, THEME_IDS, weekSteps, type JourneyTask } from "@gotousa/shared";
 import { Link } from "@/i18n/navigation";
 import type { JourneyContent } from "@/lib/journey/content";
-import { JourneyGate, type ReadyJourney } from "@/components/journey/journey-gate";
+import { JourneyGate, type JourneyUpdate, type ReadyJourney } from "@/components/journey/journey-gate";
+import { CheckinCard, PausedOrEnded } from "./checkin";
 import { useJourneyText } from "@/components/journey/use-journey-text";
 
 /** Tela "Hoje" (Marco 5, parte 3): a meta, o próximo passo e o que precisa de atenção. */
 export function TodayApp({ content }: { content: JourneyContent }) {
-  return <JourneyGate content={content}>{(state) => <Today content={content} state={state} />}</JourneyGate>;
+  return <JourneyGate content={content}>{(state, update) => <Today content={content} state={state} update={update} />}</JourneyGate>;
 }
 
 const card = "flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5";
 const primaryButton = "flex min-h-12 items-center self-start rounded-full bg-action px-6 font-bold text-on-action";
 const secondaryButton = "flex min-h-12 items-center rounded-full border-2 border-primary px-5 font-bold text-primary";
 
-function Today({ content, state }: { content: JourneyContent; state: ReadyJourney }) {
+function Today({ content, state, update }: { content: JourneyContent; state: ReadyJourney; update: JourneyUpdate }) {
   const t = useTranslations("Today");
   const tj = useTranslations("Journey");
   const tb = useTranslations("QBlocks");
   const format = useFormatter();
   const { taskTitle, hoursText } = useJourneyText(content, state.data);
   const [showWeek, setShowWeek] = useState(false);
-  const { journey, readiness, data, now } = state;
+  const [showThemes, setShowThemes] = useState(false);
+  const { journey, readiness, data, now, progress } = state;
+  const stopped = progress.pausedAt !== null || progress.endedAt !== null;
+  const checkinPhase = pendingCheckin(journey, progress);
+  const themes = THEME_IDS.filter((th) => (readiness.byTheme[th]?.total ?? 0) > 0);
 
   const next = journey.tasks.find((x) => x.key === journey.nextStep);
   const week = weekSteps(journey, data).filter((x) => x.key !== journey.nextStep);
@@ -66,8 +71,12 @@ function Today({ content, state }: { content: JourneyContent; state: ReadyJourne
         </section>
       )}
 
+      {/* Check-in de fim de fase, e jornada pausada ou encerrada */}
+      {checkinPhase && !stopped && <CheckinCard content={content} phase={checkinPhase} update={update} />}
+      {stopped && <PausedOrEnded state={state} update={update} />}
+
       {/* Próximo passo */}
-      {next ? (
+      {stopped ? null : next ? (
         <section className={`${card} border-2 border-action`}>
           <p className="text-sm font-bold uppercase tracking-widest text-action">{t("nextStep")}</p>
           <h2 className="text-xl font-semibold">{taskTitle(next.key)}</h2>
@@ -104,7 +113,7 @@ function Today({ content, state }: { content: JourneyContent; state: ReadyJourne
       )}
 
       {/* Conferência de realidade apertada: positivo, mas claro sobre o fato. */}
-      {reality.kind === "tight" && (
+      {!stopped && reality.kind === "tight" && (
         <section className={`${card} bg-celebrate-soft`}>
           <h2 className="text-lg font-semibold">⏱️ {t("tightTitle")}</h2>
           <p>
@@ -122,7 +131,7 @@ function Today({ content, state }: { content: JourneyContent; state: ReadyJourne
       )}
 
       {/* Prioridades (prazo sugerido já passou) */}
-      {priorities.length > 0 && (
+      {!stopped && priorities.length > 0 && (
         <section className={card}>
           <h2 className="text-lg font-semibold">★ {t("prioritiesTitle", { n: priorities.length })}</h2>
           <p className="text-sm text-ink2">{t("prioritiesBody")}</p>
@@ -148,6 +157,30 @@ function Today({ content, state }: { content: JourneyContent; state: ReadyJourne
           <div className="h-full rounded-full bg-done" style={{ width: `${percent}%` }} />
         </div>
         <p className="text-sm text-ink2">{t("readinessHint")}</p>
+        {themes.length > 0 && (
+          <button type="button" onClick={() => setShowThemes((v) => !v)} aria-expanded={showThemes} className="min-h-11 self-start font-bold text-primary underline underline-offset-4">
+            {showThemes ? t("hideThemes") : t("showThemes")}
+          </button>
+        )}
+        {showThemes && (
+          <ul className="flex flex-col gap-3">
+            {themes.map((th) => {
+              const score = readiness.byTheme[th]!;
+              const pct = Math.round(score.ratio * 100);
+              return (
+                <li key={th} className="flex flex-col gap-1">
+                  <span className="flex justify-between gap-2 text-sm">
+                    <span className="font-semibold">{t(`theme.${th}`)}</span>
+                    <span className="text-ink2">{pct}%</span>
+                  </span>
+                  <span className="h-2 overflow-hidden rounded-full bg-line" aria-hidden="true">
+                    <span className="block h-full rounded-full bg-done" style={{ width: `${pct}%` }} />
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </section>
 
       {/* Blocos do questionário que podem acrescentar tarefas e caminhos */}

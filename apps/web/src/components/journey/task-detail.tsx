@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { useFormatter, useTranslations } from "next-intl";
 import {
+  completedPhases,
   emptyRecord,
   setTaskStatus,
   taskProgress,
@@ -12,6 +13,7 @@ import {
   type JourneyTask,
   type TaskRecord,
 } from "@gotousa/shared";
+import { Link } from "@/i18n/navigation";
 import type { JourneyContent } from "@/lib/journey/content";
 import type { JourneyState } from "./use-journey";
 import { useJourneyText } from "./use-journey-text";
@@ -88,6 +90,12 @@ export function TaskDetail({ content, state, task, update, onOpenTask, onBack }:
           </span>
           <h2 className="text-xl font-semibold">{t("celebrateTitle")}</h2>
           <p className="text-ink2">{celebration ? t("celebrateReward", { reward: celebration }) : t("celebrateBody")}</p>
+          {completedPhases(state.journey).includes(task.phase) && !state.progress.checkins[task.phase] && (
+            <div className="flex flex-col items-start gap-2 rounded-xl bg-surface p-3">
+              <p className="font-semibold">🛂 {t("phaseStamped", { phase: phaseTitle ?? task.phase })}</p>
+              <Link href="/today" className={primaryButton + " flex items-center"}>{t("doCheckin")}</Link>
+            </div>
+          )}
           <div className="flex flex-wrap gap-3">
             {nextStep && (
               <button type="button" onClick={() => onOpenTask(nextStep)} className={primaryButton}>

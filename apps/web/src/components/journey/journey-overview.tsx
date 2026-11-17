@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type { JourneyTask, PhaseId } from "@gotousa/shared";
+import { completedPhases, type JourneyTask, type PhaseId } from "@gotousa/shared";
 import { Link } from "@/i18n/navigation";
 import type { JourneyContent } from "@/lib/journey/content";
 import type { JourneyState } from "./use-journey";
@@ -61,6 +61,32 @@ export function JourneyOverview({ content, state, selectedPhase, onSelectPhase, 
         </span>
         <span aria-hidden="true" className="text-xl text-primary rtl:-scale-x-100">→</span>
       </Link>
+
+      {/* Carimbos do passaporte: um por fase concluída. */}
+      <section aria-label={t("stamps")} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-4">
+        <p className="text-sm font-bold text-ink2">
+          🛂 {t("stampsCount", { n: completedPhases(journey).length, total: journey.phases.length })}
+        </p>
+        <ul className="flex flex-wrap gap-2">
+          {journey.phases.map((ph) => {
+            const stamped = completedPhases(journey).includes(ph.id);
+            const title = content.texts.phases[ph.id]?.title ?? ph.id;
+            return (
+              <li key={ph.id}>
+                {stamped ? (
+                  <span role="img" aria-label={t("stampDone", { phase: title })} className="grid size-11 -rotate-12 place-items-center rounded-full border-4 border-double border-done bg-surface text-lg">
+                    <span aria-hidden="true">{PHASE_ICONS[ph.id]}</span>
+                  </span>
+                ) : (
+                  <span role="img" aria-label={t("stampEmpty", { phase: title })} className="grid size-11 place-items-center rounded-full border-2 border-dashed border-line text-lg opacity-40">
+                    <span aria-hidden="true">{PHASE_ICONS[ph.id]}</span>
+                  </span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
       {/* Trilha simples: as fases como paradas (todas aparecem desde o início, para ver o todo). */}
       <nav aria-label={t("trailLabel")} className="rounded-2xl border border-line bg-surface p-4">

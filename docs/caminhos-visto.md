@@ -73,11 +73,82 @@ Uma tela-resumo, gerada só a partir das respostas, que mostra **quem é essa fa
 - **Caminhos para conhecer:** a lista acima, com "por que apareceu".
 - Fica no navegador, como todo o resto, e entra no arquivo de baixar e importar.
 
+## Como o motor gera o perfil e os caminhos (Marco 3, passo 5 · rascunho de 17/11/2026, para revisão)
+
+> Segue as regras já aprovadas da jornada: [modelo](jornada.md#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026), [formato do conteúdo](jornada.md#formato-do-conteúdo-marco-3-passo-2--aprovado-em-17112026) e [regras de geração](jornada.md#regras-de-geração-marco-3-passo-3--aprovado-em-17112026). **Premissa reforçada pelo fundador em 17/11/2026: todo fato sobre visto vem de fonte oficial, sempre.** Este documento define só a **lógica** (que resposta leva a qual caminho). Descrições, requisitos, valores e prazos entram no conteúdo de cada caminho, resumidos da fonte oficial e com data de verificação.
+
+### Perfil da família: como é gerado
+
+- **Calculado na hora** a partir das respostas, como a jornada (camada 2 do modelo). Não precisa ser salvo e muda sozinho quando uma resposta muda.
+- **Seções:** as listadas em [Perfil da família](#perfil-da-família) (quem vai, perfil profissional, cuidados, dinheiro, preferências, pontos de atenção, caminhos para conhecer).
+- **Idades na data de ida** (a meta). Com a ida em "ainda não sei", usa a idade de hoje.
+- **Pontos de atenção = os alertas da jornada.** O perfil não tem regras próprias de alerta: mostra as tarefas do tipo **alerta legal** que se aplicam à família. Assim existe uma fonte só, com fonte oficial, e o perfil e a jornada nunca se contradizem. O tom segue a premissa 6: positivo, mas claro sobre o risco.
+- **Sem detalhes sensíveis na tela-resumo:** mostra "medicação contínua" ou "precisa de apoio", nunca nomes de remédios ou diagnósticos.
+- **Cada informação tem o atalho "mudar resposta"**, que leva direto à pergunta. Ao voltar, o perfil e a jornada já estão recalculados.
+- **Bloco não respondido:** "Responda o bloco Perfil profissional para ver os caminhos de visto que vale a pena conhecer" (positivo, sem cobrança).
+
+### Caminhos de visto: o catálogo
+
+Cada caminho fica em `content/journey/paths/<id>/`, no mesmo formato aprovado das tarefas: um `path.json` com a estrutura e um Markdown por idioma (**os 3 idiomas obrigatórios**), com as fontes oficiais.
+
+| Campo do `path.json` | O que guarda |
+|---|---|
+| `id` | ID estável (ex.: `eb2-advanced-degree`) |
+| `status` | `draft` ou `published`. **Só é publicado com o resumo feito da fonte oficial** |
+| `kind` | `permanent` (residência permanente) ou `temporary` (temporário) |
+| `group` | trabalho · mérito e talento · transferência na empresa · investimento · família · estudo e intercâmbio · outros |
+| `showWhen` | Quando o caminho aparece para conhecer (mesmo formato de condição das tarefas) |
+| `reasons` | Lista de "por que apareceu": cada motivo tem a sua condição e o seu texto, e só aparece o motivo cuja condição vale (ex.: "você marcou 3 conquistas na carreira") |
+| `byWorker` | `true` quando o caminho é avaliado **por adulto** (você e o cônjuge separadamente), mostrando quem seria o titular |
+| `tasks` | Tarefas da jornada de "o que você pode fazer agora" (ex.: juntar provas das conquistas) |
+| `sources` | Fontes oficiais com órgão, link e data de verificação. **Obrigatório: pelo menos uma** |
+
+**Peças novas de condição** (somam-se às aprovadas no passo 3):
+- `{ "path": "eb2-advanced-degree" }`: o caminho está sendo mostrado. Serve para as tarefas de "o que fazer agora" entrarem na jornada só quando o caminho aparece.
+- `{ "nationalityIn": "e2-treaty-countries" }`: alguma nacionalidade do adulto da vez está numa **lista oficial** guardada em `content/data/`, com fonte e data de verificação. Nenhuma lista de países é escrita de memória.
+
+### Como os caminhos aparecem
+
+- **Sem ranking e sem nota.** Os caminhos aparecem **agrupados** (permanentes e temporários, e por grupo), nunca ordenados como "o melhor para você" e nunca com pontuação. Ordenar por "quantos motivos bateram" passaria a ideia de chance, que é proibida pelas [regras de linguagem](#regras-de-linguagem-obrigatórias).
+- **Por adulto:** nos caminhos `byWorker`, o motor avalia você e o cônjuge separadamente e mostra "por você", "pelo cônjuge" ou "pelos dois". `career.principal` não esconde caminhos; só destaca o que a pessoa indicou.
+- **Cada caminho mostra:** por que apareceu · requisitos oficiais resumidos com a fonte e a data · o que você pode fazer agora (tarefas) · recomendação de advogado de imigração · aviso padrão.
+- **Nenhum caminho apareceu:** entra na Fase 0 a tarefa essencial "explorar os caminhos possíveis", com as páginas oficiais gerais. É um resultado válido, mostrado de forma positiva.
+- **Proteção (`goal.purpose` = `protection`):** não lista caminhos. Mostra só a fonte oficial e a recomendação forte de procurar ajuda jurídica especializada, porque é um tema delicado demais para um resumo.
+
+### Mapeamento: grupos ainda sem fonte conferida
+
+O mapeamento de trabalho, mérito, transferência e investimento está na tabela acima, com as fontes conferidas em 16/11/2026. Para os outros propósitos do questionário, o caminho só é escrito depois de conferido na fonte oficial (USCIS ou Departamento de Estado):
+
+| Se… | Grupo para conhecer | Situação |
+|---|---|---|
+| `goal.purpose` = `family` ou `goal.familyLink` respondida | Família (conforme o parentesco em `goal.familyLink`) | Conferir as categorias na fonte oficial |
+| `goal.purpose` = `marriage` | Família (casamento com cidadão americano) | Conferir na fonte oficial |
+| `goal.purpose` = `study` | Estudo (conforme `goal.studyLevel`) | Conferir na fonte oficial |
+| `goal.purpose` = `exchange` | Intercâmbio | Conferir na fonte oficial |
+| `goal.purpose` = `lottery` | Loteria do Green Card | Conferir na fonte oficial |
+| `goal.purpose` = `retire` | Explorar caminhos para quem se aposenta | Conferir na fonte oficial se há categoria específica antes de mostrar qualquer caminho |
+
+### Garantias (testes automáticos)
+
+1. Todo caminho publicado tem fonte oficial, os 3 idiomas e condições que citam só perguntas e opções existentes.
+2. Toda lista de países usada em condição tem fonte e data de verificação.
+3. Cenários testados, começando pelo [cenário inicial](mvp.md#cenário-inicial-de-validação): para cada família de exemplo, o teste confere quais caminhos aparecem e com quais motivos.
+4. Nenhum texto de caminho usa as expressões proibidas ("você se qualifica", "suas chances" e equivalentes nos 3 idiomas): o teste procura essas palavras.
+
+### Decisões para o fundador
+
+1. **Caminhos sem ranking e sem nota**, só agrupados por tipo, para não passar a ideia de chance?
+2. **Caminhos avaliados por adulto** (você e o cônjuge), mostrando quem seria o titular, sem esconder nenhum?
+3. **Pontos de atenção do perfil = alertas da jornada**, uma fonte só?
+4. **Proteção (asilo e refúgio):** só a fonte oficial e a recomendação de ajuda jurídica especializada, sem listar caminhos?
+
 ## Perguntas novas (Bloco 11 · Perfil profissional)
 
 Incluídas em 16/11/2026 para aprofundar a carreira **de você e do cônjuge**. Detalhes em [questionario-perguntas.md](questionario-perguntas.md#bloco-11--perfil-profissional-para-completar--por-pessoa-você-e-cônjuge). As opções de conquistas espelham, em linguagem simples, os tipos de evidência listados pelo USCIS, sem afirmar que a pessoa se qualifica.
 
 ## Pendências
+- [ ] Revisar e aprovar [Como o motor gera o perfil e os caminhos](#como-o-motor-gera-o-perfil-e-os-caminhos-marco-3-passo-5--rascunho-de-17112026-para-revisão) (Marco 3, passo 5)
 - [ ] Completar o mapeamento no Marco 3, com o conteúdo de cada caminho resumido da fonte oficial
+- [ ] Conferir na fonte oficial os grupos de família, estudo, intercâmbio, loteria e aposentadoria antes de escrever os caminhos
 - [ ] Conferir em fonte oficial a lista de países de tratado (E-1/E-2) e as nacionalidades de TN e E-3 antes de usar no mapeamento
 - [ ] Desenhar a tela do perfil da família

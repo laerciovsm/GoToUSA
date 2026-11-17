@@ -460,7 +460,7 @@ Quando um bloco ainda não respondido poderia acrescentar tarefas, o app avisa d
 2. ✅ **Tarefas essenciais entram automaticamente para todos**, inclusive sem resposta; só as "conforme o caso" dependem das respostas (17/11/2026).
 3. ✅ **O que não se aplica não trava nada** (17/11/2026).
 
-## Cálculo de prazos (Marco 3, passo 4 · rascunho de 17/11/2026, para revisão)
+## Cálculo de prazos (Marco 3, passo 4 · aprovado em 17/11/2026)
 
 > Como cada tarefa ganha a sua data. Detalha a [visão geral de prazos](#prazos-visão-geral-detalhada-no-passo-4) do modelo aprovado.
 
@@ -485,7 +485,7 @@ Quando um bloco ainda não respondido poderia acrescentar tarefas, o app avisa d
 
 | Fase | Janela | Prazo padrão (fim da janela) |
 |---|---|---|
-| 0. Descoberta | do início da jornada | 1 mês depois do início |
+| 0. Descoberta | do início da jornada | 1 mês depois do início (a pessoa pode mudar) |
 | 1. Planejamento | 18 a 12 meses antes da ida | 12 meses antes da ida |
 | 2. Preparação | 12 a 3 meses antes | 3 meses antes da ida |
 | 3. Mudança | últimos 90 dias | a data de ida |
@@ -537,7 +537,7 @@ Quando um prazo vem de uma regra ou de um tempo oficial (ex.: validade mínima d
 ### Decisões
 
 1. ✅ **O mês da ida é a meta** (17/11/2026): a data de ida aparece como **meta** ("Meta: março de 2027"), e os prazos das tarefas em mês e ano ("até março de 2027"), sem dia exato.
-2. **Fase 0 com prazo contado do início da jornada** (padrão: 1 mês), para a pessoa começar com ritmo? Ou a Fase 0 sem prazo?
+2. ✅ **Fase 0 com prazo de 1 mês, contado do início da jornada** (17/11/2026): dá ritmo para não ficar parado só pensando. É uma sugestão sem pressão, e a pessoa pode mudar esse prazo (o novo prazo fica guardado no progresso).
 3. ✅ **Conferência de realidade** pelo tempo estimado × tempo por semana, sugerindo rever a data de ida ou reservar mais tempo quando não couber (17/11/2026).
 
 ## Gratuito × pago (proposta)
@@ -549,7 +549,7 @@ Quando um prazo vem de uma regra ou de um tempo oficial (ex.: validade mínima d
 - [x] Revisar e aprovar o [Modelo da jornada](#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) (Marco 3, passo 1), aprovado em 17/11/2026
 - [x] Revisar e aprovar o [Formato do conteúdo](#formato-do-conteúdo-marco-3-passo-2--aprovado-em-17112026) (Marco 3, passo 2), aprovado em 17/11/2026
 - [x] Revisar e aprovar as [Regras de geração](#regras-de-geração-marco-3-passo-3--aprovado-em-17112026) (Marco 3, passo 3), aprovadas em 17/11/2026
-- [ ] Revisar e aprovar o [Cálculo de prazos](#cálculo-de-prazos-marco-3-passo-4--rascunho-de-17112026-para-revisão) (Marco 3, passo 4)
+- [x] Revisar e aprovar o [Cálculo de prazos](#cálculo-de-prazos-marco-3-passo-4--aprovado-em-17112026) (Marco 3, passo 4), aprovado em 17/11/2026
 - [ ] Listar todas as etapas, tarefas e subtarefas de cada fase
 - [ ] Definir as regras que ligam cada resposta do questionário às tarefas
 - [ ] Definir o formato do conteúdo (MDX no repositório) e o processo de tradução e revisão

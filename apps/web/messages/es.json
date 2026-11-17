@@ -148,7 +148,8 @@
   "Nav": {
     "label": "Navegación principal",
     "journey": "Recorrido",
-    "questionnaire": "Cuestionario"
+    "questionnaire": "Cuestionario",
+    "family": "Familia"
   },
   "Journey": {
     "loading": "Cargando tu recorrido…",
@@ -244,5 +245,52 @@
       "validUntil": "Válido hasta (mes y año)",
       "docNote": "Observación"
     }
+  },
+  "Family": {
+    "title": "Tu familia",
+    "intro": "Un resumen hecho solo con tus respuestas. Toca \"Cambiar respuesta\" para ajustar; todo se recalcula al instante.",
+    "changeAnswer": "Cambiar respuesta",
+    "notAnswered": "Todavía sin responder.",
+    "people": "Quién va",
+    "ageAtGoal": "{age, plural, one {# año} other {# años}} en la meta",
+    "ageToday": "{age, plural, one {# año} other {# años}} hoy",
+    "career": "Perfil profesional",
+    "careerEmpty": "Todavía nadie tiene perfil profesional informado.",
+    "care": "Cuidados",
+    "careEmpty": "No se informó ningún cuidado especial.",
+    "needsSupport": "necesita apoyo en el día a día",
+    "medication": "medicación continua",
+    "money": "Dinero",
+    "earnersUS": "Van a trabajar en EE. UU.:",
+    "singleIncome": "Al principio, solo una persona planea trabajar en EE. UU. Conviene planear un ahorro mayor y averiguar con un profesional si otros adultos podrán trabajar según la visa.",
+    "preferences": "Preferencias",
+    "attention": "Puntos de atención",
+    "paths": "Caminos de visa para conocer",
+    "pathsIntro": "Según tus respuestas, vale la pena conocer estos caminos. Es una orientación, no una evaluación: quien evalúa tu caso es un abogado de inmigración.",
+    "noPaths": "Todavía no aparece ningún camino con claridad. Eso también es un resultado: empieza conociendo las posibilidades.",
+    "noPathsAction": "Conocer los caminos",
+    "missingBlocks": "Responde estos bloques para ver otros caminos que pueden encajar contigo:",
+    "kind": {
+      "permanent": "Residencia permanente (Green Card)",
+      "temporary": "Temporales"
+    },
+    "group": {
+      "work": "Trabajo",
+      "merit": "Mérito y talento",
+      "transfer": "Traslado de la empresa",
+      "investment": "Inversión",
+      "family": "Familia",
+      "study": "Estudio e intercambio",
+      "other": "Otros"
+    },
+    "showsFor": "Aparece por: {names}",
+    "pathNotFound": "Este camino no aparece para tus respuestas ahora.",
+    "backToFamily": "Volver a Familia",
+    "whyShown": "Por qué apareció",
+    "whyShownHint": "Estas respuestas llevaron a este camino. No confirman que la petición será aprobada.",
+    "reasonGeneral": "Coincide con tus respuestas.",
+    "lawyerTitle": "Habla con un abogado de inmigración",
+    "lawyerBody": "GoToUSA es un apoyo para tu recorrido, no una asesoría legal. La evaluación de tu caso y la conducción del proceso legal deben estar a cargo de un abogado de inmigración o un profesional especializado.",
+    "doNow": "Qué puedes hacer ahora"
   }
 }

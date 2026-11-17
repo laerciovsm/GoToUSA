@@ -199,7 +199,12 @@ Cada parte é testada no celular pelo fundador antes da próxima.
 - **Tela Jornada** (`/journey`): trilha simples com as fases (ícone, ✓ nas concluídas, "você está aqui"), etapas que abrem e fecham com "x de y", cartões com prazo, selos **Prioridade**, **Destaque** e **Aguardando**.
 - **Tela Tarefa** (`/journey?task=chave`): fase e etapa, para quem, peso, tempo e prazo; por que importa; subtarefas; passo a passo (leitor de Markdown seguro em `simple-markdown.tsx`, sem HTML); fontes oficiais com o aviso padrão (quando houver); "Quando e onde?"; **Registro** (combinado, documentos ou anotações); anotação pessoal; botões Comecei, Concluí e Não se aplica, todos com desfazer; tarefa aguardando mostra o que vem antes; comemoração só ao concluir a tarefa inteira, com a recompensa escolhida pela pessoa e o próximo passo.
 - **Barra inferior** por enquanto com **Jornada** e **Questionário**; Hoje, Família e Mais entram nas próximas partes. O questionário mostra "Ver a minha jornada" depois que a parte essencial é concluída.
-- **Ainda não:** tela Hoje (parte 3), Família e Caminho (4), mala da prontidão, carimbos e check-in (5), por tema, filtro por pessoa e tarefa própria (6), progresso no arquivo de baixar e importar (quando essa função existir).
+### Parte 4 implementada (17/11/2026, antes da parte 3, a pedido do fundador)
+
+- **Tela Família** (`/family`): quem vai (idades na meta), perfil profissional, cuidados (sem detalhes sensíveis), dinheiro (com a dica positiva de "renda única"), preferências, pontos de atenção e **caminhos de visto para conhecer**, agrupados em permanentes e temporários e por grupo, sem ranking, com "aparece por" em cada um. Cada seção tem **"Mudar resposta"**, que abre o bloco direto no questionário (`/questionnaire?block=<id>`). Blocos que podem trazer outros caminhos aparecem como convite.
+- **Tela Caminho** (`/family?path=<id>`): tipo e grupo, **por que apareceu** (por pessoa), requisitos oficiais resumidos com as fontes, a caixa fixa **"Converse com um advogado de imigração"**, o que fazer agora (atalho para as tarefas) e o aviso padrão com as fontes e a data de verificação (componente fixo `official-sources.tsx`, o mesmo da tela Tarefa).
+- A barra inferior ganhou a aba **Família**.
+- **Ainda não:** tela Hoje (parte 3), mala da prontidão, carimbos e check-in (5), por tema, filtro por pessoa e tarefa própria (6), progresso no arquivo de baixar e importar (quando essa função existir).
 
 ## Decisões tomadas (17/11/2026)
 

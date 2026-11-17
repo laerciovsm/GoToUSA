@@ -148,7 +148,8 @@
   "Nav": {
     "label": "Main navigation",
     "journey": "Journey",
-    "questionnaire": "Questionnaire"
+    "questionnaire": "Questionnaire",
+    "family": "Family"
   },
   "Journey": {
     "loading": "Loading your journey…",
@@ -244,5 +245,52 @@
       "validUntil": "Valid until (month and year)",
       "docNote": "Note"
     }
+  },
+  "Family": {
+    "title": "Your family",
+    "intro": "A summary built only from your answers. Tap \"Change answer\" to adjust; everything is recalculated right away.",
+    "changeAnswer": "Change answer",
+    "notAnswered": "Not answered yet.",
+    "people": "Who is going",
+    "ageAtGoal": "{age, plural, one {# year} other {# years}} old at the goal",
+    "ageToday": "{age, plural, one {# year} other {# years}} old today",
+    "career": "Professional profile",
+    "careerEmpty": "No professional profile reported yet.",
+    "care": "Care",
+    "careEmpty": "No special care reported.",
+    "needsSupport": "needs daily support",
+    "medication": "ongoing medication",
+    "money": "Money",
+    "earnersUS": "Will work in the U.S.:",
+    "singleIncome": "At first, only one person plans to work in the U.S. It's worth planning a larger cushion and checking with a professional whether other adults will be able to work under the visa.",
+    "preferences": "Preferences",
+    "attention": "Points of attention",
+    "paths": "Visa paths worth exploring",
+    "pathsIntro": "Based on your answers, these paths are worth exploring. It's a direction, not an evaluation: an immigration attorney evaluates your case.",
+    "noPaths": "No path stands out yet. That's a result too: start by learning about the possibilities.",
+    "noPathsAction": "Explore the paths",
+    "missingBlocks": "Answer these sections to see other paths that may fit you:",
+    "kind": {
+      "permanent": "Permanent residence (Green Card)",
+      "temporary": "Temporary"
+    },
+    "group": {
+      "work": "Work",
+      "merit": "Merit and talent",
+      "transfer": "Company transfer",
+      "investment": "Investment",
+      "family": "Family",
+      "study": "Study and exchange",
+      "other": "Other"
+    },
+    "showsFor": "Shows up for: {names}",
+    "pathNotFound": "This path doesn't show up for your answers right now.",
+    "backToFamily": "Back to Family",
+    "whyShown": "Why it showed up",
+    "whyShownHint": "These answers led to this path. They don't confirm that a petition will be approved.",
+    "reasonGeneral": "It matches your answers.",
+    "lawyerTitle": "Talk to an immigration attorney",
+    "lawyerBody": "GoToUSA supports your journey; it is not legal advice. Your case should be evaluated, and the legal process handled, by an immigration attorney or a qualified professional.",
+    "doNow": "What you can do now"
   }
 }

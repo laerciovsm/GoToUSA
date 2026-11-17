@@ -121,6 +121,21 @@ export function QuestionnaireApp() {
     if (view.kind !== "step") window.scrollTo({ top: 0 });
   }, [view]);
 
+  // Atalho "mudar resposta" (tela Família): ?block=<id> abre direto o bloco.
+  const deepLinkHandled = useRef(false);
+  useEffect(() => {
+    if (load.status !== "ready" || !data || deepLinkHandled.current) return;
+    deepLinkHandled.current = true;
+    const blockId = new URLSearchParams(window.location.search).get("block");
+    const block = blockId ? getBlock(blockId) : undefined;
+    if (!block || !blockApplies(block, data)) return;
+    const steps = visibleSteps(block, data);
+    const firstOpen = steps.find((s) => !isAnswered(getAnswer(data, s.question.id, s.person)));
+    const target = firstOpen ?? steps[0];
+    // Sai do efeito antes de mudar a tela (evita atualização em cascata na mesma renderização).
+    if (target) queueMicrotask(() => setView({ kind: "step", blockId: block.id, key: target.key }));
+  }, [load.status, data]);
+
   if (load.status === "loading") {
     return <Shell><p className="text-ink2">{t("loading")}</p></Shell>;
   }

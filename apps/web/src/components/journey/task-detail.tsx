@@ -17,6 +17,7 @@ import type { JourneyState } from "./use-journey";
 import { useJourneyText } from "./use-journey-text";
 import { SimpleMarkdown } from "./simple-markdown";
 import { TaskRecordSection } from "./task-record";
+import { OfficialSources } from "./official-sources";
 
 type Ready = Extract<JourneyState, { status: "ready" }>;
 type Props = {
@@ -177,25 +178,7 @@ export function TaskDetail({ content, state, task, update, onOpenTask, onBack }:
         </section>
       )}
 
-      {def.sources.length > 0 && (
-        <aside className="flex flex-col gap-2 rounded-2xl border border-line bg-primary-soft p-4 text-sm">
-          <p className="font-bold">ℹ️ {t("aboutInfo")}</p>
-          <p className="text-ink2">{t("aboutInfoBody")}</p>
-          <ul className="flex flex-col gap-1">
-            {def.sources.map((s) => (
-              <li key={s.id}>
-                <a href={s.url} target="_blank" rel="noopener noreferrer" className="font-bold text-primary underline underline-offset-2">
-                  {s.agency} – {s.title}
-                </a>{" "}
-                <span className="text-ink2">
-                  ({t("verifiedOn", { date: format.dateTime(new Date(`${s.verifiedAt}T12:00:00`), { dateStyle: "short" }) })})
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-ink2">{t("aboutInfoLegal")}</p>
-        </aside>
-      )}
+      <OfficialSources sources={def.sources} />
 
       <section className="flex flex-col gap-2">
         <label htmlFor={planId} className="text-lg font-semibold">{t("plan")}</label>

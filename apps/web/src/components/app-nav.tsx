@@ -5,10 +5,11 @@ import { Link, usePathname } from "@/i18n/navigation";
 
 /**
  * Barra inferior (docs/telas.md). Por enquanto só com as telas que já existem;
- * Hoje, Família e Mais entram nas próximas partes do Marco 5.
+ * Hoje e Mais entram nas próximas partes do Marco 5.
  */
 const TABS = [
   { href: "/journey", key: "journey", icon: "🧭" },
+  { href: "/family", key: "family", icon: "👨‍👩‍👧" },
   { href: "/questionnaire", key: "questionnaire", icon: "📝" },
 ] as const;
 

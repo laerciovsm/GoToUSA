@@ -184,6 +184,33 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `pref.community` | Quer morar perto de pessoas do seu país ou que falam seu idioma? | única | `yes` Sim, é importante · `some` Seria bom, mas não essencial · `immersion` Prefiro imersão total |
 | `pref.familyPriorities` | Para a sua família, o que é prioridade? | múltipla | `schools` Boas escolas · `special_ed` Educação especial · `safety` Segurança · `hospitals` Hospitais e especialistas por perto · `disability_services` Serviços para pessoas com deficiência · `elder_care` Cuidados para idosos · `none` Nenhuma em especial |
 
+### Proposta: hobbies, bem-estar e passeios *(documentada em 17/11/2026, ainda não implementada)*
+
+> Pedido do fundador: saber os hobbies da pessoa, o que a faz se sentir bem, os lugares e passeios de que gosta e se gosta de viajar pelo próprio país. **Para que serve:**
+> 1. **Escolha do lugar:** quem ama trilha, praia ou vida cultural tem um estado e uma cidade que combinam melhor (soma a `pref.leisure`, `pref.climate` e `pref.placeSize`).
+> 2. **Adaptação:** hobbies são o jeito mais natural de fazer amigos e criar rotina num país novo. A jornada pode sugerir, por exemplo, procurar um grupo de corrida ou de música na cidade de destino.
+> 3. **Bem-estar nos dias difíceis:** o que faz a pessoa se sentir bem vira lembrete e sugestão de recompensa (soma a `rhythm.rewards`), sem culpa.
+> 4. **Orçamento:** os hobbies dão uma ideia da linha de lazer no custo mensal.
+>
+> **Cuidados:** poucas perguntas, todas opcionais e de múltipla escolha (digitar o mínimo). **Não perguntar religião**: é dado sensível pela LGPD e GDPR. Para não repetir perguntas, `pref.leisure` continua sendo "o que gosta de ter por perto" e as novas perguntas falam do que a pessoa **faz**.
+
+| ID | Pergunta | Tipo | Opções / observações |
+|---|---|---|---|
+| `pref.hobbies` | O que você gosta de fazer no tempo livre? | múltipla, por pessoa (você e cônjuge; filhos depois, se fizer sentido) | `walking_running` Caminhar ou correr · `gym` Academia · `team_sports` Esportes em grupo · `hiking` Trilhas e natureza · `water` Praia, piscina ou esportes na água · `cycling` Pedalar · `fishing` Pescar · `music` Música (tocar, cantar, ouvir ao vivo) · `arts_crafts` Artes e trabalhos manuais · `reading` Ler · `cooking` Cozinhar · `gardening` Jardinagem · `games` Jogos e videogame · `volunteering` Trabalho voluntário · `pets` Cuidar de animais · `tech` Tecnologia e projetos pessoais · `other` Outro |
+| `pref.feelGood` | O que faz você se sentir bem quando está cansado(a) ou desanimado(a)? | múltipla | `family_time` Tempo com a família · `friends` Encontrar amigos · `nature` Estar na natureza · `exercise` Fazer exercício · `quiet_home` Ficar em casa, no sossego · `hobby` Dedicar tempo a um hobby · `travel` Viajar ou passear · `learning` Aprender algo novo · `food` Uma boa refeição · `other` Outro |
+| `pref.outings` | Que passeios você mais gosta? | múltipla | `parks` Parques · `museums` Museus e exposições · `shows` Shows, teatro e cinema · `restaurants` Restaurantes e cafés · `shopping` Compras · `sports_events` Eventos esportivos · `theme_parks` Parques temáticos · `road_trips` Viagens de carro · `historic` Lugares históricos · `nightlife` Vida noturna |
+| `pref.domesticTravel` | Você gosta de viajar dentro do seu país para conhecer lugares novos? | única | `often` Sim, viajo sempre que posso · `sometimes` De vez em quando · `rarely` Raramente · `not_interested` Não é algo que eu procure |
+
+**Regras na jornada (rascunho):**
+
+| Resposta | O que muda na jornada |
+|---|---|
+| `pref.hobbies` e `pref.outings` | Entram na comparação de estados e cidades e geram tarefas de adaptação ("procure um grupo de … na cidade de destino") |
+| `pref.feelGood` | Vira sugestão de recompensa e lembrete nos dias difíceis e nos check-ins |
+| `pref.domesticTravel` = `often` ou `sometimes` | Sugere conhecer os EUA como parte da adaptação e entra na linha de lazer do orçamento |
+
+**Quando implementar:** junto com os ajustes que saírem do teste do fundador no celular, antes ou no começo do Marco 3. Acrescentar perguntas é barato (não quebra nada), e o motor da jornada já nasce sabendo usar esses dados.
+
 ---
 
 ## Bloco 7 · Destino *(para completar)*

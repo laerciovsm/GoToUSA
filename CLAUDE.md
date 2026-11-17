@@ -243,8 +243,8 @@ Na raiz do repositório:
    **Pendências do questionário:** capital de cada estado com fonte oficial (.gov de cada estado); profissão e cargo como lista padronizada (avaliar O\*NET).
 4. **Marco 3: motor da jornada**, em 5 passos, documentando antes de implementar:
    1. ✅ **Modelo da jornada:** aprovado em 17/11/2026 em [docs/jornada.md](docs/jornada.md#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) (três camadas: conteúdo, jornada gerada e progresso; pesos baixo, médio e alto; data de ida conta do dia 1º; prazo vencido vira "prioridade"; nascimento continua com mês e ano).
-   2. **Formato do conteúdo:** rascunho em [docs/jornada.md](docs/jornada.md#formato-do-conteúdo-marco-3-passo-2--rascunho-de-17112026-para-revisão) (uma pasta por tarefa em `content/journey/tasks/`, `task.json` + um Markdown por idioma, testes automáticos). **Aguardando a revisão do fundador e 3 decisões.**
-   3. Regras de geração (resposta → tarefas e para quem).
+   2. ✅ **Formato do conteúdo:** aprovado em 17/11/2026 em [docs/jornada.md](docs/jornada.md#formato-do-conteúdo-marco-3-passo-2--aprovado-em-17112026) (uma pasta por tarefa em `content/journey/tasks/`, `task.json` + um Markdown simples por idioma, **3 idiomas obrigatórios desde já**, testes automáticos).
+   3. **Regras de geração:** rascunho em [docs/jornada.md](docs/jornada.md#regras-de-geração-marco-3-passo-3--rascunho-de-17112026-para-revisão) (condições como dados no `task.json`, fatos calculados em código testado, destaque, pergunta sem resposta, dependências, próximo passo). **Aguardando a revisão do fundador e 3 decisões.**
    4. Cálculo de prazos a partir da data de ida.
    5. Perfil da família e caminhos de visto para conhecer ([docs/caminhos-visto.md](docs/caminhos-visto.md)).
    Depois: implementação com tarefas de exemplo. O conteúdo real da Fase 0 é outro marco, em paralelo.

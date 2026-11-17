@@ -260,7 +260,7 @@ Quando a pessoa muda uma resposta:
 5. **Tarefas próprias:** contam no progresso geral e no da etapa e do tema escolhidos.
 6. **Data de nascimento:** continua com mês e ano, com alertas perto de idades que mudam regras.
 
-## Formato do conteúdo (Marco 3, passo 2 · rascunho de 17/11/2026, para revisão)
+## Formato do conteúdo (Marco 3, passo 2 · aprovado em 17/11/2026)
 
 > Como as fases, etapas e tarefas ficam guardadas em `content/`. Segue o [modelo da jornada](#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) e as regras de [conteudo.md](conteudo.md).
 
@@ -350,11 +350,107 @@ Como no questionário, um teste falha se algo estiver errado, antes de qualquer 
 - Tudo é validado com Zod em `packages/shared`, como as respostas do questionário.
 - Tarefas em rascunho nunca entram no pacote.
 
+### Decisões tomadas (17/11/2026)
+
+1. ✅ **Uma pasta por tarefa** (estrutura + um texto por idioma). Comparada com um arquivo por fase, um banco de dados com painel (CMS) e um arquivo por tarefa com os 3 idiomas: é a que melhor combina com o histórico no Git, a atualização automática e a tradução.
+2. ✅ **Markdown simples**, sem MDX: o texto nunca vira código, então um erro no conteúdo não quebra a página, e a atualização automática por IA mexe só em texto. As partes interativas a tela monta a partir do `task.json`.
+3. ✅ **Idiomas (decidido em 17/11/2026): os 3 idiomas desde já.** Nenhuma tarefa é publicada sem pt-BR, en-US e es completos; o teste bloqueia. (Isso substitui, para a jornada, a ideia de "pt-BR primeiro" de [conteudo.md](conteudo.md#onde-o-conteúdo-fica).)
+
+## Regras de geração (Marco 3, passo 3 · rascunho de 17/11/2026, para revisão)
+
+> Como o motor decide **quais tarefas entram**, **para quem** e **em que ordem**, a partir das respostas do questionário. Segue o [modelo](#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) e o [formato](#formato-do-conteúdo-marco-3-passo-2--aprovado-em-17112026) aprovados.
+
+### A ideia: condições escritas como dados, cálculos difíceis em código testado
+
+- As condições ficam no `task.json` (campo `appliesWhen`) como **dados simples**, não como código. Assim, escrever ou atualizar conteúdo (inclusive pela atualização automática) nunca quebra o app.
+- Contas mais difíceis (ex.: "idade do filho na data de ida", "o cônjuge vai") ficam em **fatos calculados**: pequenas funções em `packages/shared`, com testes, que as condições só consultam pelo nome.
+
+### Como uma condição é escrita
+
+| Peça | Exemplo | Significa |
+|---|---|---|
+| Resposta é | `{ "q": "goal.purpose", "is": "work" }` | O propósito é trabalho |
+| Resposta é uma destas | `{ "q": "goal.purpose", "in": ["work", "transfer"] }` | Trabalho ou transferência |
+| Escolha múltipla contém | `{ "q": "goal.has", "has": "job_offer" }` | Marcou "oferta de emprego" |
+| Número | `{ "q": "household.children", "gte": 1 }` | Pelo menos 1 filho (`gte` ≥, `lte` ≤, `gt` >, `lt` <) |
+| Fato calculado | `{ "fact": "partnerGoing" }` | O cônjuge vai (ou ainda não sabe) |
+| Fato com número | `{ "fact": "maxChildAgeAtDeparture", "gte": 21 }` | Algum filho terá 21 anos ou mais na data de ida |
+| Todas | `{ "all": [ ... ] }` | Todas as condições da lista |
+| Alguma | `{ "any": [ ... ] }` | Pelo menos uma condição da lista |
+| Não | `{ "not": { ... } }` | O contrário |
+
+**Para tarefas por pessoa** (campo `who`), a condição também pode olhar a pessoa da vez:
+
+| Peça | Exemplo | Significa |
+|---|---|---|
+| Tipo de pessoa | `{ "kind": "child" }` | É filho ou filha (`self`, `partner`, `child`, `dependent`) |
+| Resposta da pessoa | `{ "p": "child.specialNeeds", "is": "yes" }` | Este filho tem deficiência ou precisa de cuidados |
+| Idade | `{ "age": { "gte": 18 } }` | Tem 18 anos ou mais (hoje) |
+| Idade na ida | `{ "ageAtDeparture": { "gte": 21 } }` | Terá 21 anos ou mais na data de ida |
+| Sexo | `{ "sex": "female" }` | Mulher |
+
+Exemplo completo de `who`: "uma cópia para cada filho com deficiência":
+```json
+{ "scope": "each", "where": { "all": [ { "kind": "child" }, { "p": "child.specialNeeds", "is": "yes" } ] } }
+```
+
+### Fatos calculados (primeira lista)
+
+| Nome | O que calcula |
+|---|---|
+| `partnerGoing` | O cônjuge vai ou ainda não sabe |
+| `hasPartner` | Tem cônjuge (indo ou não) |
+| `childrenCount`, `dependentsCount` | Quantos filhos e dependentes vão |
+| `hasAdultChild` | Algum filho com 18 anos ou mais |
+| `maxChildAgeAtDeparture` | Idade do filho mais velho na data de ida |
+| `hasJobOffer` | Tem oferta de emprego ou é transferência |
+| `hasSpecialNeeds` | Alguém da família tem deficiência ou precisa de cuidados |
+| `monthsUntilDeparture` | Meses até a data de ida (vazio se "ainda não sei") |
+| `selfHasCareer`, `partnerHasCareer` | Não é do lar |
+
+A lista cresce conforme o conteúdo precisar. Cada fato novo entra com teste.
+
+### Também para fases e etapas
+
+Fases e etapas podem ter `appliesWhen`. Exemplo: a fase de **Estabelecimento** não aparece quando `goal.duration` = `lt6m` (até 6 meses), como já previsto em [Como o tempo de estadia muda a jornada](#como-o-tempo-de-estadia-muda-a-jornada).
+
+### Destaque (o que vem primeiro)
+
+Além de "entra ou não entra", uma tarefa pode ter `highlightWhen`: quando a condição vale, ela ganha **destaque** e aparece antes na tela "Hoje". Exemplos:
+- "Conversar em família sobre a mudança" em destaque quando `moment.partnerSupport` ∈ {`unsure`, `against`, `not_talked`}.
+- Tarefas de "conhecer antes de decidir" em destaque quando `moment.decision` = `exploring`.
+
+### Pergunta sem resposta
+
+Muitas perguntas são opcionais. Regra: **se a condição depende de uma pergunta sem resposta, a tarefa não entra**. A exceção é marcada no próprio conteúdo com `"ifUnanswered": true`: a tarefa entra mesmo sem a resposta, quando é importante não deixar passar. Exemplo: "conferir a validade dos passaportes" entra se a pessoa não respondeu sobre passaportes.
+
+Quando um bloco ainda não respondido poderia acrescentar tarefas, o app avisa de forma positiva: "Responda o bloco Saúde para incluir as tarefas de medicação e cuidados".
+
+### Dependências
+
+- Se a tarefa da qual outra depende **não se aplica** a esta família, a dependência é ignorada (conta como resolvida).
+- Em tarefas por pessoa, a dependência é da mesma pessoa quando as duas são por pessoa (ex.: "visto do Pedro" depende do "passaporte do Pedro").
+- A tarefa fica "aguardando" até a outra ser concluída ou marcada "não se aplica".
+
+### Ordem na jornada e próximo passo
+
+1. Ordem da fase → ordem da etapa → prazo → destaque → peso.
+2. O **próximo passo** da tela "Hoje": a primeira tarefa disponível (não aguardando) da fase mais adiantada, com prioridade para as em destaque e as com prazo vencido ("prioridade").
+3. Se `moment.life` = `hard`, o próximo passo sugerido é uma tarefa de peso **baixo** (pequenas vitórias).
+4. A quantidade de passos sugeridos por período segue `rhythm.cadence` e `rhythm.weeklyTime`.
+
+### Garantias (testes automáticos)
+
+1. Toda condição só cita **perguntas e opções que existem** no questionário (um ID errado reprova o teste).
+2. Todo fato calculado citado existe.
+3. A mesma resposta gera **sempre a mesma jornada** (o motor não depende de sorte nem de hora do dia, só da data de hoje para idades e prazos).
+4. Cenários de teste com famílias de exemplo, começando pelo [cenário inicial](mvp.md#cenário-inicial-de-validação): casal + filho adulto com deficiência.
+
 ### Decisões para o fundador
 
-1. **Uma pasta por tarefa** (estrutura + um texto por idioma) está bom?
-2. **Markdown simples** em vez de MDX?
-3. ✅ **Idiomas (decidido em 17/11/2026): os 3 idiomas desde já.** Nenhuma tarefa é publicada sem pt-BR, en-US e es completos; o teste bloqueia. (Isso substitui, para a jornada, a ideia de "pt-BR primeiro" de [conteudo.md](conteudo.md#onde-o-conteúdo-fica).)
+1. **Condições como dados simples** no conteúdo, e contas difíceis como **fatos calculados** em código testado: está bom?
+2. **Pergunta sem resposta:** a tarefa não entra, a não ser que o conteúdo a marque como importante mesmo sem resposta?
+3. **Dependência de uma tarefa que não se aplica** conta como resolvida?
 
 ## Gratuito × pago (proposta)
 
@@ -363,7 +459,8 @@ Como no questionário, um teste falha se algo estiver errado, antes de qualquer 
 
 ## Pendências
 - [x] Revisar e aprovar o [Modelo da jornada](#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) (Marco 3, passo 1), aprovado em 17/11/2026
-- [ ] Revisar e aprovar o [Formato do conteúdo](#formato-do-conteúdo-marco-3-passo-2--rascunho-de-17112026-para-revisão) (Marco 3, passo 2)
+- [x] Revisar e aprovar o [Formato do conteúdo](#formato-do-conteúdo-marco-3-passo-2--aprovado-em-17112026) (Marco 3, passo 2), aprovado em 17/11/2026
+- [ ] Revisar e aprovar as [Regras de geração](#regras-de-geração-marco-3-passo-3--rascunho-de-17112026-para-revisão) (Marco 3, passo 3)
 - [ ] Listar todas as etapas, tarefas e subtarefas de cada fase
 - [ ] Definir as regras que ligam cada resposta do questionário às tarefas
 - [ ] Definir o formato do conteúdo (MDX no repositório) e o processo de tradução e revisão

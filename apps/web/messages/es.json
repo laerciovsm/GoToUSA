@@ -29,7 +29,8 @@
         "title": "Tus datos se quedan contigo",
         "body": "Tus respuestas se guardan solo en este navegador. Borrar los datos del navegador elimina todo, pero podrás descargar tu camino para guardarlo."
       }
-    }
+    },
+    "importLink": "¿Ya tienes un recorrido descargado? Impórtalo aquí"
   },
   "Disclaimer": {
     "title": "Aviso importante",
@@ -149,9 +150,9 @@
   "Nav": {
     "label": "Navegación principal",
     "journey": "Recorrido",
-    "questionnaire": "Cuestionario",
     "family": "Familia",
-    "today": "Hoy"
+    "today": "Hoy",
+    "more": "Más"
   },
   "Journey": {
     "loading": "Cargando tu recorrido…",
@@ -395,5 +396,49 @@
     "resume": "Retomar el recorrido",
     "showThemes": "Ver por tema",
     "hideThemes": "Ocultar los temas"
+  },
+  "More": {
+    "loading": "Cargando…",
+    "title": "Más",
+    "dataTitle": "Tus datos",
+    "dataIntro": "En el modo gratuito, tus respuestas y tu progreso quedan solo en este navegador, sin nada en nuestro servidor. Si borras los datos del navegador o cambias de dispositivo, se pierden. Por eso, descarga tu recorrido de vez en cuando.",
+    "unreadable": "Algunos datos de este navegador están en un formato que no podemos leer. No se borró nada. Puedes importar un archivo descargado antes.",
+    "downloadTitle": "Descargar el recorrido",
+    "downloadBody": "Genera un archivo con tus respuestas y tu progreso, para guardar o abrir en otro dispositivo.",
+    "download": "Descargar mi recorrido",
+    "nothingToDownload": "Todavía no hay respuestas para descargar.",
+    "downloaded": "Archivo descargado. Guárdalo en un lugar seguro.",
+    "privacy": "El archivo tiene tus respuestas, incluso sobre salud y dinero. Guárdalo en un lugar seguro y no lo compartas. No tiene documentos ni contraseñas.",
+    "importTitle": "Importar el recorrido",
+    "importBody": "Abre un archivo descargado de GoToUSA (de otro dispositivo o de antes) para seguir donde lo dejaste.",
+    "import": "Elegir el archivo",
+    "importError": {
+      "too_big": "Este archivo es demasiado grande para ser un recorrido de GoToUSA.",
+      "not_json": "Este archivo no es un recorrido de GoToUSA. Elige el archivo .json que descargaste.",
+      "not_gotousa": "Este archivo no es un recorrido de GoToUSA. Elige el archivo .json que descargaste.",
+      "invalid": "Este archivo parece ser de GoToUSA, pero está dañado o incompleto. No se cambió nada.",
+      "read": "No pudimos leer ni guardar el archivo. No se cambió nada. Inténtalo de nuevo."
+    },
+    "previewTitle": "Revisar antes de importar",
+    "previewDate": "Descargado el {date}",
+    "previewPeople": "{n, plural, one {# persona en la familia} other {# personas en la familia}}",
+    "previewDone": "{n, plural, =0 {Ninguna tarea completada} one {# tarea completada} other {# tareas completadas}}",
+    "previewReplace": "Importar reemplazará las respuestas y el progreso de este navegador.",
+    "previewNew": "Las respuestas y el progreso del archivo se guardarán en este navegador.",
+    "confirmImport": "Importar",
+    "cancel": "Cancelar",
+    "saveError": "No pudimos guardar en este navegador. Inténtalo de nuevo.",
+    "adjustTitle": "Ajustes del recorrido",
+    "goal": "Meta (fecha del viaje)",
+    "goalHint": "La fecha del viaje viene del cuestionario.",
+    "changeGoal": "Cambiar la fecha del viaje",
+    "arrival": "Fecha real de llegada",
+    "arrivalHint": "Cuando ya te hayas mudado, informa el día de llegada: los plazos de los primeros meses en EE. UU. empiezan a contar desde ahí.",
+    "discovery": "Plazo del Descubrimiento",
+    "discoveryHint": "Predeterminado: 1 mes desde el inicio del recorrido. Elige otra fecha si necesitas más tiempo.",
+    "questionnaireTitle": "Cuestionario",
+    "questionnaireBody": "Revisa o cambia tus respuestas. El recorrido se recalcula al instante.",
+    "questionnaireAction": "Revisar las respuestas",
+    "languageTitle": "Idioma"
   }
 }

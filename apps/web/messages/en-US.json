@@ -29,7 +29,8 @@
         "title": "Your data stays with you",
         "body": "Your answers are saved only in this browser. Clearing the browser deletes everything, but you will be able to download your journey to keep it."
       }
-    }
+    },
+    "importLink": "Already have a downloaded journey? Import it here"
   },
   "Disclaimer": {
     "title": "Important notice",
@@ -149,9 +150,9 @@
   "Nav": {
     "label": "Main navigation",
     "journey": "Journey",
-    "questionnaire": "Questionnaire",
     "family": "Family",
-    "today": "Today"
+    "today": "Today",
+    "more": "More"
   },
   "Journey": {
     "loading": "Loading your journey…",
@@ -395,5 +396,49 @@
     "resume": "Resume the journey",
     "showThemes": "See by theme",
     "hideThemes": "Hide themes"
+  },
+  "More": {
+    "loading": "Loading…",
+    "title": "More",
+    "dataTitle": "Your data",
+    "dataIntro": "In the free mode, your answers and progress stay only in this browser, with nothing on our server. If you clear your browser data or switch devices, they are lost. So download your journey from time to time.",
+    "unreadable": "Some data in this browser is in a format we can't read. Nothing was deleted. You can import a file you downloaded before.",
+    "downloadTitle": "Download the journey",
+    "downloadBody": "Creates a file with your answers and progress, to keep or open on another device.",
+    "download": "Download my journey",
+    "nothingToDownload": "There are no answers to download yet.",
+    "downloaded": "File downloaded. Keep it somewhere safe.",
+    "privacy": "The file contains your answers, including about health and money. Keep it somewhere safe and don't share it. It has no documents or passwords.",
+    "importTitle": "Import the journey",
+    "importBody": "Open a file downloaded from GoToUSA (from another device or from before) to pick up where you left off.",
+    "import": "Choose the file",
+    "importError": {
+      "too_big": "This file is too big to be a GoToUSA journey.",
+      "not_json": "This file isn't a GoToUSA journey. Choose the .json file you downloaded.",
+      "not_gotousa": "This file isn't a GoToUSA journey. Choose the .json file you downloaded.",
+      "invalid": "This file looks like it's from GoToUSA, but it's damaged or incomplete. Nothing was changed.",
+      "read": "We couldn't read or save the file. Nothing was changed. Try again."
+    },
+    "previewTitle": "Check before importing",
+    "previewDate": "Downloaded on {date}",
+    "previewPeople": "{n, plural, one {# person in the family} other {# people in the family}}",
+    "previewDone": "{n, plural, =0 {No tasks done} one {# task done} other {# tasks done}}",
+    "previewReplace": "Importing will replace the answers and progress in this browser.",
+    "previewNew": "The answers and progress in the file will be saved in this browser.",
+    "confirmImport": "Import",
+    "cancel": "Cancel",
+    "saveError": "We couldn't save in this browser. Try again.",
+    "adjustTitle": "Journey settings",
+    "goal": "Goal (departure date)",
+    "goalHint": "The departure date comes from the questionnaire.",
+    "changeGoal": "Change the departure date",
+    "arrival": "Actual arrival date",
+    "arrivalHint": "Once you've moved, enter your arrival day: deadlines for the first months in the U.S. start counting from it.",
+    "discovery": "Discovery deadline",
+    "discoveryHint": "Default: 1 month from the start of the journey. Pick another date if you need more time.",
+    "questionnaireTitle": "Questionnaire",
+    "questionnaireBody": "Review or change your answers. The journey is recalculated right away.",
+    "questionnaireAction": "Review answers",
+    "languageTitle": "Language"
   }
 }

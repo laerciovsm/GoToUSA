@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { DisclaimerGate } from "@/components/disclaimer-gate";
+import { Link } from "@/i18n/navigation";
 
 const POINTS = ["you", "whole", "decide", "data"] as const;
 
@@ -29,6 +30,10 @@ export default function WelcomePage() {
       </section>
 
       <DisclaimerGate />
+
+      <Link href="/more" className="flex min-h-11 items-center self-start font-bold text-primary underline underline-offset-4">
+        {t("importLink")}
+      </Link>
     </main>
   );
 }

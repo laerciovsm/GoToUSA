@@ -4,14 +4,14 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
 /**
- * Barra inferior (docs/telas.md). Por enquanto só com as telas que já existem;
- * Mais entra nas próximas partes do Marco 5.
+ * Barra inferior (docs/telas.md). As 4 abas: Hoje, Jornada, Família e Mais (o questionário fica em Mais).
+ *
  */
 const TABS = [
   { href: "/today", key: "today", icon: "☀️" },
   { href: "/journey", key: "journey", icon: "🧭" },
   { href: "/family", key: "family", icon: "👨‍👩‍👧" },
-  { href: "/questionnaire", key: "questionnaire", icon: "📝" },
+  { href: "/more", key: "more", icon: "☰" },
 ] as const;
 
 export function AppNav() {
@@ -24,7 +24,7 @@ export function AppNav() {
     >
       <ul className="mx-auto flex max-w-4xl">
         {TABS.map((tab) => {
-          const active = pathname.startsWith(tab.href);
+          const active = pathname.startsWith(tab.href) || (tab.key === "more" && pathname.startsWith("/questionnaire"));
           return (
             <li key={tab.key} className="flex-1">
               <Link

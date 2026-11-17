@@ -215,6 +215,16 @@ Cada parte é testada no celular pelo fundador antes da próxima.
 - **Carimbos do passaporte:** na Jornada, acima da trilha, um carimbo por fase concluída (com tarefas, todas concluídas ou "não se aplica") e os espaços das fases que faltam ("Carimbos: 1 de 7").
 - **Check-in de fase:** ao concluir a última tarefa de uma fase, a comemoração mostra o carimbo e "Fazer o check-in da fase". Na tela Hoje, a primeira fase concluída sem check-in mostra a pergunta "Depois do que você viu, ainda faz sentido para você?" com **Continuar · Ajustar o plano · Pausar · Encerrar**. Pausar e Encerrar ficam guardados e mostram um cartão respeitoso com **Retomar a jornada**; Encerrar mostra o resumo do que a pessoa construiu ("decidir com consciência também é sucesso").
 - **Formato salvo do progresso na versão 2** (`checkins`, `pausedAt`, `endedAt`), com migração automática da versão 1 (`parseProgress`).
+### Aba "Mais", baixar e importar (17/11/2026)
+
+- **Barra inferior com as 4 abas aprovadas:** Hoje · Jornada · Família · Mais. O questionário fica em Mais (a aba Mais fica marcada quando o questionário está aberto).
+- **Seus dados:** explica que, no modo gratuito, tudo fica só no navegador e que limpar o navegador ou trocar de aparelho apaga os dados.
+  - **Baixar a minha jornada:** arquivo `gotousa-jornada-AAAA-MM-DD.json` com as respostas e o progresso (nunca documentos nem senhas), com o aviso de guardar em lugar seguro (tem respostas de saúde e dinheiro).
+  - **Importar:** escolhe o arquivo, valida tudo (Zod e migrações de formato, limite de 2 MB, só JSON, nada é executado), mostra um resumo (data, pessoas, tarefas concluídas) e pede confirmação antes de substituir os dados do navegador. Depois abre a tela Hoje. A tela inicial tem o link "Já tem uma jornada baixada? Importe aqui", para quem abre o app num aparelho novo.
+  - Formato em `packages/shared/src/backup.ts` (`createBackup`, `parseBackup`), com testes.
+- **Ajustes da jornada:** meta (leva ao questionário), data de chegada real e prazo da Descoberta.
+- **Questionário** (rever respostas), **idioma** e **aviso legal** (com a data do aceite).
+
 ### Parte 6 implementada (17/11/2026): Marco 5 concluído
 
 - **Por fase · Por tema** na Jornada. Por tema: cada tema com a prontidão (percentual e barra) e as suas tarefas.

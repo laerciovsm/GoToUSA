@@ -29,7 +29,8 @@
         "title": "Seus dados ficam com você",
         "body": "Suas respostas ficam salvas só neste navegador. Limpar o navegador apaga tudo, mas você poderá baixar a sua jornada para guardar."
       }
-    }
+    },
+    "importLink": "Já tem uma jornada baixada? Importe aqui"
   },
   "Disclaimer": {
     "title": "Aviso importante",
@@ -149,9 +150,9 @@
   "Nav": {
     "label": "Navegação principal",
     "journey": "Jornada",
-    "questionnaire": "Questionário",
     "family": "Família",
-    "today": "Hoje"
+    "today": "Hoje",
+    "more": "Mais"
   },
   "Journey": {
     "loading": "Carregando a sua jornada…",
@@ -395,5 +396,49 @@
     "resume": "Retomar a jornada",
     "showThemes": "Ver por tema",
     "hideThemes": "Esconder os temas"
+  },
+  "More": {
+    "loading": "Carregando…",
+    "title": "Mais",
+    "dataTitle": "Seus dados",
+    "dataIntro": "No modo gratuito, as suas respostas e o seu progresso ficam só neste navegador, sem nada no nosso servidor. Se você limpar os dados do navegador ou trocar de aparelho, eles se perdem. Por isso, baixe a sua jornada de vez em quando.",
+    "unreadable": "Alguns dados deste navegador estão num formato que não conseguimos ler. Nada foi apagado. Você pode importar um arquivo baixado antes.",
+    "downloadTitle": "Baixar a jornada",
+    "downloadBody": "Gera um arquivo com as suas respostas e o seu progresso, para guardar ou abrir em outro aparelho.",
+    "download": "Baixar a minha jornada",
+    "nothingToDownload": "Ainda não há respostas para baixar.",
+    "downloaded": "Arquivo baixado. Guarde em um lugar seguro.",
+    "privacy": "O arquivo tem as suas respostas, inclusive sobre saúde e dinheiro. Guarde em lugar seguro e não compartilhe. Ele não tem documentos nem senhas.",
+    "importTitle": "Importar a jornada",
+    "importBody": "Abra um arquivo baixado do GoToUSA (de outro aparelho ou de antes) para continuar de onde parou.",
+    "import": "Escolher o arquivo",
+    "importError": {
+      "too_big": "Este arquivo é grande demais para ser uma jornada do GoToUSA.",
+      "not_json": "Este arquivo não é uma jornada do GoToUSA. Escolha o arquivo .json que você baixou.",
+      "not_gotousa": "Este arquivo não é uma jornada do GoToUSA. Escolha o arquivo .json que você baixou.",
+      "invalid": "Este arquivo parece ser do GoToUSA, mas está danificado ou incompleto. Nada foi alterado.",
+      "read": "Não conseguimos ler ou salvar o arquivo. Nada foi alterado. Tente de novo."
+    },
+    "previewTitle": "Conferir antes de importar",
+    "previewDate": "Baixado em {date}",
+    "previewPeople": "{n, plural, one {# pessoa na família} other {# pessoas na família}}",
+    "previewDone": "{n, plural, =0 {Nenhuma tarefa concluída} one {# tarefa concluída} other {# tarefas concluídas}}",
+    "previewReplace": "Importar vai substituir as respostas e o progresso que estão neste navegador.",
+    "previewNew": "As respostas e o progresso do arquivo serão salvos neste navegador.",
+    "confirmImport": "Importar",
+    "cancel": "Cancelar",
+    "saveError": "Não conseguimos salvar neste navegador. Tente de novo.",
+    "adjustTitle": "Ajustes da jornada",
+    "goal": "Meta (data de ida)",
+    "goalHint": "A data de ida vem do questionário.",
+    "changeGoal": "Mudar a data de ida",
+    "arrival": "Data de chegada real",
+    "arrivalHint": "Quando você já tiver se mudado, informe o dia da chegada: os prazos dos primeiros meses nos EUA passam a contar dele.",
+    "discovery": "Prazo da Descoberta",
+    "discoveryHint": "Padrão: 1 mês a partir do início da jornada. Escolha outra data se precisar de mais tempo.",
+    "questionnaireTitle": "Questionário",
+    "questionnaireBody": "Reveja ou mude as suas respostas. A jornada é recalculada na hora.",
+    "questionnaireAction": "Rever as respostas",
+    "languageTitle": "Idioma"
   }
 }

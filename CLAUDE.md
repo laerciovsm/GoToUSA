@@ -236,7 +236,8 @@ Na raiz do repositório:
 2. ~~Traduzir o questionário para en-US e es~~ (feito).
 3. **Marco 2:** questionário implementado. Primeiro teste do fundador feito em 16/11/2026, com estes ajustes:
    - opção **"Do lar"** na situação de trabalho (você e cônjuge); quem é do lar não vê perguntas de carreira;
-   - **sexo** (Masculino/Feminino) de todas as pessoas, **ano de nascimento** e **situação de trabalho** do cônjuge;
+   - **sexo** (Masculino/Feminino) de todas as pessoas, nascimento e **situação de trabalho** do cônjuge;
+   - **nascimento com mês e ano** para você e o cônjuge (`you.birth`, `partner.birth`, desde 17/11/2026), como já era para filhos e dependentes; quem respondeu só o ano vê o aviso "pergunta nova para responder" no bloco;
    - gravidez só para mulheres de 18 a 55 anos; inglês só para filhos a partir de 3 anos; etapa da escola conforme a idade;
    - opções que só aparecem quando fazem sentido (cônjuge e filho adulto na renda, moradia do empregador, intercâmbio de ensino médio, filial nos EUA);
    - textos que se ajustam ao sexo ("Filha 1", "área dela") nos 3 idiomas;

@@ -11,6 +11,7 @@ import {
   getBlock,
   isAnswered,
   markBlockCompleted,
+  pendingSteps,
   setAnswer,
   visibleSteps,
   type AnswerValue,
@@ -176,7 +177,9 @@ export function QuestionnaireApp() {
   const startBlock = (block: Block) => {
     const steps = visibleSteps(block, data);
     const firstOpen = steps.find((s) => !isAnswered(getAnswer(data, s.question.id, s.person)));
-    const target = data.completedBlocks.includes(block.id) ? steps[0] : (firstOpen ?? steps[0]);
+    // Bloco concluído com pergunta nova obrigatória: vai direto para ela.
+    const firstPending = pendingSteps(block, data)[0];
+    const target = data.completedBlocks.includes(block.id) ? (firstPending ?? steps[0]) : (firstOpen ?? steps[0]);
     if (target) goToStep(target);
   };
 
@@ -268,6 +271,7 @@ export function QuestionnaireApp() {
   const renderBlock = (block: Block) => {
     const progress = blockProgress(block, data);
     const started = progress.answered > 0;
+    const pending = progress.completed ? pendingSteps(block, data).length : 0;
     return (
       <li key={block.id} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
         <div className="flex items-start justify-between gap-3">
@@ -282,6 +286,9 @@ export function QuestionnaireApp() {
           )}
         </div>
         <p className="text-ink2">{tb(`${block.id}.intro`)}</p>
+        {pending > 0 && (
+          <p className="self-start rounded-full bg-celebrate-soft px-3 py-1 text-sm font-bold text-ink">✦ {t("newQuestions", { n: pending })}</p>
+        )}
         <p className="text-sm text-ink2">
           {t("minutes", { n: block.minutes })} · {t("progress", { answered: progress.answered, total: progress.total })}
         </p>
@@ -289,12 +296,12 @@ export function QuestionnaireApp() {
           type="button"
           onClick={() => startBlock(block)}
           className={
-            progress.completed
+            progress.completed && pending === 0
               ? "min-h-12 self-start rounded-full border-2 border-primary px-5 font-bold text-primary"
               : "min-h-12 self-start rounded-full bg-action px-6 font-bold text-on-action"
           }
         >
-          {progress.completed ? t("review") : started ? t("continue") : t("start")}
+          {progress.completed && pending === 0 ? t("review") : started ? t("continue") : t("start")}
         </button>
       </li>
     );

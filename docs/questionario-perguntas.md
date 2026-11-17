@@ -56,7 +56,7 @@
 |---|---|---|---|
 | `you.nationalities` | Qual é a sua nacionalidade? Se tiver mais de uma, marque todas. | países | Obrigatória |
 | `you.residence` | Em que país você mora hoje? | país | Pré-preenchida com a primeira nacionalidade |
-| `you.birthYear` | Em que ano você nasceu? | número | — |
+| `you.birth` | Mês e ano em que você nasceu | mês/ano (passado) | Substituiu `you.birthYear` em 17/11/2026, para a idade ficar exata (sem o dia, por privacidade). Respostas antigas só com o ano continuam valendo até a pessoa informar o mês |
 | `you.sex` | Qual é o seu sexo, como consta no passaporte? | única | `male` Masculino · `female` Feminino |
 | `you.languages` | Quais idiomas você fala? | múltipla com busca | Lista de idiomas |
 | `you.english` | Como está o seu inglês hoje? | única | `none` Não falo · `basic` Entendo palavras e frases simples · `intermediate` Consigo me virar no dia a dia (mercado, restaurante) · `advanced` Consigo conversar sobre quase tudo · `fluent` Consigo trabalhar e estudar em inglês |
@@ -91,7 +91,7 @@
 | `household.partner` | Você tem cônjuge ou companheiro(a)? | única | `none` Não · `going` Sim, e vai junto · `not_going` Sim, mas não vai · `undecided` Sim, mas ainda não sabemos se vai |
 | `household.partnerUnion` | Como é a união de vocês? | única | `civil_marriage` Casamento civil · `stable_union` União estável · `informal` Moramos juntos sem registro · `other` Outro. Condição: `household.partner` ∈ {`going`, `undecided`} |
 | `partner.sex` | Qual é o sexo do seu cônjuge, como consta no passaporte? | única | Mesmas opções de `you.sex`. Condição: `household.partner` ∈ {`going`, `undecided`} |
-| `partner.birthYear` | Em que ano o seu cônjuge nasceu? | número | Condição: `household.partner` ∈ {`going`, `undecided`} |
+| `partner.birth` | Mês e ano em que o seu cônjuge nasceu | mês/ano (passado) | Condição: `household.partner` ∈ {`going`, `undecided`}. Substituiu `partner.birthYear` em 17/11/2026 |
 | `partner.english` | Como está o inglês do seu cônjuge? | única (opcional) | Mesmas opções de `you.english`. Condição: `household.partner` ∈ {`going`, `undecided`} |
 | `partner.workStatus` | Qual é a situação de trabalho do seu cônjuge hoje? | única | Mesmas opções de `you.workStatus` (inclui `homemaker` Do lar). Condição: `household.partner` ∈ {`going`, `undecided`} |
 | `partner.occupation` | Qual é a profissão ou ocupação do seu cônjuge? | texto (opcional) | Condição: cônjuge vai (ou indeciso) e `partner.workStatus` ≠ `homemaker` |

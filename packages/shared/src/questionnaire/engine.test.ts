@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { BLOCKS, getBlock } from "./definition";
+import * as eng from "./engine";
 import {
   ageAt,
   blockApplies,
@@ -364,5 +365,32 @@ describe("filhos e dependentes adultos", () => {
     data = setAnswer(data, "adult.plan", "study", child, NOW);
     expect(stepIds("household", data)).toContain("adult.studyLevel@child");
     expect(stepIds("career", data)).not.toContain("career.sector@child");
+  });
+});
+
+describe("nascimento com mês e ano (você e cônjuge)", () => {
+  const now = new Date(2026, 10, 17);
+  const self = (d: ReturnType<typeof eng.createQuestionnaire>) => d.people.find((p) => p.kind === "self")!;
+
+  it("usa o mês: quem nasceu em dezembro ainda não fez aniversário em novembro", () => {
+    const d = eng.setAnswer(eng.createQuestionnaire(now), "you.birth", "1981-12", undefined, now);
+    expect(eng.personAge(d, self(d), now)).toBe(44);
+    expect(eng.personAge(d, self(d), new Date(2026, 11, 1))).toBe(45);
+  });
+
+  it("respostas antigas só com o ano continuam funcionando até a pessoa informar o mês", () => {
+    let d = eng.createQuestionnaire(now);
+    d = { ...d, answers: { ...d.answers, "you.birthYear": 1981 } };
+    expect(eng.personAge(d, self(d), now)).toBe(45);
+    d = eng.setAnswer(d, "you.birth", "1981-12", undefined, now);
+    expect(eng.personAge(d, self(d), now)).toBe(44);
+  });
+
+  it("bloco concluído com a pergunta nova aparece com pendência", () => {
+    const block = getBlock("you")!;
+    let d = eng.createQuestionnaire(now);
+    d = { ...d, answers: { ...d.answers, "you.birthYear": 1981 } };
+    d = eng.markBlockCompleted(d, "you");
+    expect(eng.pendingSteps(block, d, now).map((s) => s.question.id)).toContain("you.birth");
   });
 });

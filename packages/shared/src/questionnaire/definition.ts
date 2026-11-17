@@ -33,7 +33,6 @@ const WORK_STATUS = [
 ] as const;
 /** Situações em que a pessoa trabalha numa empresa (a própria ou de outros). */
 const COMPANY_STATUS = new Set(["employed", "business_owner", "remote_foreign"]);
-const CURRENT_YEAR = new Date().getFullYear();
 
 const hasSelection = (value: unknown, none: string) =>
   Array.isArray(value) && value.length > 0 && !value.includes(none);
@@ -107,7 +106,8 @@ const youBlock: Block = {
   items: [
     { id: "you.nationalities", type: "countries" },
     { id: "you.residence", type: "country", prefillFrom: "you.nationalities" },
-    { id: "you.birthYear", type: "number", min: 1900, maxValue: CURRENT_YEAR },
+    // Mês e ano (decisão de 17/11/2026: mais preciso, sem o dia, por privacidade). Substitui you.birthYear.
+    { id: "you.birth", type: "monthYear", range: "past" },
     { id: "you.sex", type: "single", options: SEX },
     { id: "you.languages", type: "languages", optional: true },
     { id: "you.english", type: "single", options: ENGLISH_LEVELS },
@@ -188,8 +188,10 @@ const goalBlock: Block = {
       optionWhen: {
         // Intercâmbio de ensino médio só faz sentido para quem ainda está nessa idade.
         exchange_hs: (ctx) => {
-          const year = a(ctx, "you.birthYear");
-          return typeof year !== "number" || ctx.now.getFullYear() - year < 21;
+          const birth = a(ctx, "you.birth");
+          const legacy = a(ctx, "you.birthYear"); // respostas antigas, só com o ano
+          const year = typeof birth === "string" ? Number(birth.slice(0, 4)) : typeof legacy === "number" ? legacy : undefined;
+          return year === undefined || ctx.now.getFullYear() - year < 21;
         },
       },
       when: (ctx) => a(ctx, "goal.purpose") === "study",
@@ -385,13 +387,8 @@ const householdBlock: Block = {
       optionsFrom: "you.sex",
       when: (ctx) => partnerIsGoing(ctx.record),
     },
-    {
-      id: "partner.birthYear",
-      type: "number",
-      min: 1900,
-      maxValue: CURRENT_YEAR,
-      when: (ctx) => partnerIsGoing(ctx.record),
-    },
+    // Mês e ano (substitui partner.birthYear em 17/11/2026).
+    { id: "partner.birth", type: "monthYear", range: "past", when: (ctx) => partnerIsGoing(ctx.record) },
     {
       id: "partner.english",
       type: "single",

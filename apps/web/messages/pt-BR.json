@@ -143,7 +143,8 @@
       "no": "Não",
       "dontKnow": "Não sei"
     },
-    "seeJourney": "Ver a minha jornada"
+    "seeJourney": "Ver a minha jornada",
+    "newQuestions": "{n, plural, one {# pergunta nova para responder} other {# perguntas novas para responder}}"
   },
   "Nav": {
     "label": "Navegação principal",

@@ -65,12 +65,13 @@ export function ageAt(birth: string | undefined, date: Date): number | undefined
 
 /** Idade de uma pessoa da família numa data (undefined se não informada). */
 export function personAge(data: QuestionnaireData, person: Person, date: Date): number | undefined {
-  if (person.kind === "self") {
-    const year = data.answers["you.birthYear"];
-    return typeof year === "number" ? date.getFullYear() - year : undefined;
-  }
-  if (person.kind === "partner") {
-    const year = data.answers["partner.birthYear"];
+  // Você e o cônjuge: mês e ano (you.birth, partner.birth). Quem respondeu antes de 17/11/2026
+  // tem só o ano (you.birthYear, partner.birthYear), usado até a pessoa informar o mês.
+  if (person.kind === "self" || person.kind === "partner") {
+    const prefix = person.kind === "self" ? "you" : "partner";
+    const exact = ageAt(stringAnswer(data, `${prefix}.birth`), date);
+    if (exact !== undefined) return exact;
+    const year = data.answers[`${prefix}.birthYear`];
     return typeof year === "number" ? date.getFullYear() - year : undefined;
   }
   if (person.kind === "child") return ageAt(stringAnswer(data, "child.birth", person), date);
@@ -310,6 +311,11 @@ export function blockProgress(block: Block, data: QuestionnaireData, now: Date =
   const steps = visibleSteps(block, data, now);
   const answered = steps.filter((s) => isAnswered(getAnswer(data, s.question.id, s.person))).length;
   return { answered, total: steps.length, completed: data.completedBlocks.includes(block.id) };
+}
+
+/** Passos obrigatórios ainda sem resposta (ex.: perguntas novas num bloco já concluído). */
+export function pendingSteps(block: Block, data: QuestionnaireData, now: Date = new Date()): Step[] {
+  return visibleSteps(block, data, now).filter((s) => !canAdvance(s, data));
 }
 
 /** Uma pergunta obrigatória sem resposta impede avançar. */

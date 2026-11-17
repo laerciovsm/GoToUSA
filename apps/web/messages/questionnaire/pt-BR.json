@@ -1,18 +1,57 @@
 {
   "QBlocks": {
-    "why": { "title": "O seu porquê", "intro": "A base da sua jornada. Nos momentos difíceis, vamos lembrar você do motivo que te trouxe até aqui." },
-    "you": { "title": "Sobre você", "intro": "Quem você é hoje: país, idade, idiomas, estudo e trabalho." },
-    "goal": { "title": "O seu objetivo", "intro": "Por que, por quanto tempo e quando você quer ir." },
-    "household": { "title": "Quem vai com você", "intro": "Cônjuge, filhos, outros dependentes e animais. É o bloco mais importante para os casos especiais." },
-    "health": { "title": "Saúde", "intro": "Condições, medicação e cuidados de cada pessoa, para incluir as tarefas certas e estimar custos." },
-    "money": { "title": "Dinheiro", "intro": "Renda da família, reserva, moradia, carro e compromissos. Alimenta o orçamento da mudança." },
-    "pref": { "title": "Preferências e estilo de vida", "intro": "Clima, tamanho de cidade, ritmo de vida. O que você gosta pesa tanto quanto os requisitos." },
-    "dest": { "title": "Destino", "intro": "Para onde você pensa em ir e o que mais pesa na escolha." },
-    "history": { "title": "Histórico com os EUA", "intro": "Visitas, vistos e pessoas que você conhece por lá." },
-    "docs": { "title": "Documentos", "intro": "Só sim ou não: nenhum arquivo é enviado." },
-    "career": { "title": "Perfil profissional", "intro": "Carreira de quem vai trabalhar: você, o cônjuge e os filhos ou dependentes adultos que pretendem trabalhar. É a base para indicar os caminhos de visto que vale a pena conhecer." },
-    "moment": { "title": "Seu momento", "intro": "Como está a sua vida agora, para a jornada começar no ritmo certo. Tudo é opcional." },
-    "rhythm": { "title": "Seu ritmo", "intro": "Com que frequência você quer acompanhar a jornada e o que te motiva." }
+    "why": {
+      "title": "O seu porquê",
+      "intro": "A base da sua jornada. Nos momentos difíceis, vamos lembrar você do motivo que te trouxe até aqui."
+    },
+    "you": {
+      "title": "Sobre você",
+      "intro": "Quem você é hoje: país, idade, idiomas, estudo e trabalho."
+    },
+    "goal": {
+      "title": "O seu objetivo",
+      "intro": "Por que, por quanto tempo e quando você quer ir."
+    },
+    "household": {
+      "title": "Quem vai com você",
+      "intro": "Cônjuge, filhos, outros dependentes e animais. É o bloco mais importante para os casos especiais."
+    },
+    "health": {
+      "title": "Saúde",
+      "intro": "Condições, medicação e cuidados de cada pessoa, para incluir as tarefas certas e estimar custos."
+    },
+    "money": {
+      "title": "Dinheiro",
+      "intro": "Renda da família, reserva, moradia, carro e compromissos. Alimenta o orçamento da mudança."
+    },
+    "pref": {
+      "title": "Preferências e estilo de vida",
+      "intro": "Clima, tamanho de cidade, ritmo de vida. O que você gosta pesa tanto quanto os requisitos."
+    },
+    "dest": {
+      "title": "Destino",
+      "intro": "Para onde você pensa em ir e o que mais pesa na escolha."
+    },
+    "history": {
+      "title": "Histórico com os EUA",
+      "intro": "Visitas, vistos e pessoas que você conhece por lá."
+    },
+    "docs": {
+      "title": "Documentos",
+      "intro": "Só sim ou não: nenhum arquivo é enviado."
+    },
+    "career": {
+      "title": "Perfil profissional",
+      "intro": "Carreira de quem vai trabalhar: você, o cônjuge e os filhos ou dependentes adultos que pretendem trabalhar. É a base para indicar os caminhos de visto que vale a pena conhecer."
+    },
+    "moment": {
+      "title": "Seu momento",
+      "intro": "Como está a sua vida agora, para a jornada começar no ritmo certo. Tudo é opcional."
+    },
+    "rhythm": {
+      "title": "Seu ritmo",
+      "intro": "Com que frequência você quer acompanhar a jornada e o que te motiva."
+    }
   },
   "Q": {
     "why": {
@@ -30,9 +69,19 @@
           "other": "Outro"
         }
       },
-      "reasonOther": { "label": "Qual é o outro motivo?", "why": "Para registrarmos o seu motivo com as suas palavras." },
-      "reasonText": { "label": "Escreva com as suas palavras por que você quer ir.", "why": "Ler o próprio motivo, escrito por você, ajuda a seguir em frente nos dias difíceis.", "placeholder": "Quero ir porque…" },
-      "expect": { "label": "O que você espera que mude na sua vida?", "why": "Ajuda a conferir, ao longo do caminho, se a jornada continua fazendo sentido para você." },
+      "reasonOther": {
+        "label": "Qual é o outro motivo?",
+        "why": "Para registrarmos o seu motivo com as suas palavras."
+      },
+      "reasonText": {
+        "label": "Escreva com as suas palavras por que você quer ir.",
+        "why": "Ler o próprio motivo, escrito por você, ajuda a seguir em frente nos dias difíceis.",
+        "placeholder": "Quero ir porque…"
+      },
+      "expect": {
+        "label": "O que você espera que mude na sua vida?",
+        "why": "Ajuda a conferir, ao longo do caminho, se a jornada continua fazendo sentido para você."
+      },
       "fears": {
         "label": "O que mais te preocupa nessa mudança?",
         "why": "Saber o que preocupa você ajuda a jornada a dar atenção a esses temas desde cedo.",
@@ -48,7 +97,10 @@
           "other": "Outro"
         }
       },
-      "fearsOther": { "label": "Qual é a outra preocupação?", "why": "Para registrarmos a sua preocupação com as suas palavras." },
+      "fearsOther": {
+        "label": "Qual é a outra preocupação?",
+        "why": "Para registrarmos a sua preocupação com as suas palavras."
+      },
       "giveUp": {
         "label": "Do que você está {sex, select, male {disposto} female {disposta} other {disposto(a)}} a abrir mão?",
         "why": "Toda mudança tem renúncias. Pensar nelas antes ajuda a decidir com consciência.",
@@ -63,15 +115,26 @@
       }
     },
     "you": {
-      "nationalities": { "label": "Qual é a sua nacionalidade? Se tiver mais de uma, marque todas.", "why": "A nacionalidade muda os tipos de visto, os acordos entre países e alguns programas disponíveis." },
-      "residence": { "label": "Em que país você mora hoje?", "why": "Define o consulado, os documentos locais e as tarefas de saída do país." },
-      "birthYear": { "label": "Em que ano você nasceu?", "why": "A idade influencia os tipos de visto, os planos de saúde e algumas tarefas.", "placeholder": "Ex.: 1985" },
+      "nationalities": {
+        "label": "Qual é a sua nacionalidade? Se tiver mais de uma, marque todas.",
+        "why": "A nacionalidade muda os tipos de visto, os acordos entre países e alguns programas disponíveis."
+      },
+      "residence": {
+        "label": "Em que país você mora hoje?",
+        "why": "Define o consulado, os documentos locais e as tarefas de saída do país."
+      },
       "sex": {
         "label": "Qual é o seu sexo, como consta no passaporte?",
         "why": "Usado só para mostrar as perguntas e tarefas que se aplicam a cada pessoa (por exemplo, gravidez).",
-        "options": { "male": "Masculino", "female": "Feminino" }
+        "options": {
+          "male": "Masculino",
+          "female": "Feminino"
+        }
       },
-      "languages": { "label": "Quais idiomas você fala?", "why": "Ajuda a pensar na adaptação e em comunidades que falam o seu idioma." },
+      "languages": {
+        "label": "Quais idiomas você fala?",
+        "why": "Ajuda a pensar na adaptação e em comunidades que falam o seu idioma."
+      },
       "english": {
         "label": "Como está o seu inglês hoje?",
         "why": "Define o plano de estudo de inglês e se testes de idioma podem ser necessários.",
@@ -96,13 +159,29 @@
           "doctorate": "Doutorado"
         }
       },
-      "field": { "label": "Qual é a sua área de formação?", "why": "Ajuda a encontrar as tarefas de validação de diploma da sua área.", "placeholder": "Ex.: Administração" },
-      "occupation": { "label": "Qual é a sua profissão ou ocupação atual?", "why": "A profissão influencia os caminhos de visto e o mercado de trabalho.", "placeholder": "Ex.: Analista de sistemas" },
-      "experienceYears": { "label": "Há quantos anos você trabalha nessa área?", "why": "A experiência conta em alguns tipos de visto de trabalho.", "placeholder": "Ex.: 10" },
+      "field": {
+        "label": "Qual é a sua área de formação?",
+        "why": "Ajuda a encontrar as tarefas de validação de diploma da sua área.",
+        "placeholder": "Ex.: Administração"
+      },
+      "occupation": {
+        "label": "Qual é a sua profissão ou ocupação atual?",
+        "why": "A profissão influencia os caminhos de visto e o mercado de trabalho.",
+        "placeholder": "Ex.: Analista de sistemas"
+      },
+      "experienceYears": {
+        "label": "Há quantos anos você trabalha nessa área?",
+        "why": "A experiência conta em alguns tipos de visto de trabalho.",
+        "placeholder": "Ex.: 10"
+      },
       "regulated": {
         "label": "A sua profissão exige registro ou licença para exercer? (ex.: medicina, enfermagem, direito, engenharia, contabilidade)",
         "why": "Profissões regulamentadas costumam exigir licença no estado de destino.",
-        "options": { "yes": "Sim", "no": "Não", "unsure": "Não sei" }
+        "options": {
+          "yes": "Sim",
+          "no": "Não",
+          "unsure": "Não sei"
+        }
       },
       "workStatus": {
         "label": "Qual é a sua situação de trabalho hoje?",
@@ -117,6 +196,10 @@
           "unemployed": "Sem trabalho no momento",
           "homemaker": "Do lar"
         }
+      },
+      "birth": {
+        "label": "Mês e ano em que você nasceu",
+        "why": "A idade influencia os tipos de visto, os planos de saúde e algumas tarefas. Com o mês, o app calcula a idade certa em cada momento do cronograma. O dia não é pedido, por privacidade."
       }
     },
     "goal": {
@@ -150,7 +233,10 @@
           "unsure": "Não sei"
         }
       },
-      "departure": { "label": "Quando você gostaria de ir?", "why": "É a base do cronograma: a jornada é montada de trás para frente a partir dessa data." },
+      "departure": {
+        "label": "Quando você gostaria de ir?",
+        "why": "É a base do cronograma: a jornada é montada de trás para frente a partir dessa data."
+      },
       "has": {
         "label": "O que você já tem hoje?",
         "why": "Mostra de onde a sua jornada começa.",
@@ -229,11 +315,18 @@
           "other": "Outro"
         }
       },
-      "children": { "label": "Quantos filhos vão com você? Conte todos, de qualquer idade, inclusive os adultos.", "why": "Cada filho pode precisar de tarefas próprias: escola, documentos, saúde.", "hint": "Digite 0 se nenhum filho vai." },
+      "children": {
+        "label": "Quantos filhos vão com você? Conte todos, de qualquer idade, inclusive os adultos.",
+        "why": "Cada filho pode precisar de tarefas próprias: escola, documentos, saúde.",
+        "hint": "Digite 0 se nenhum filho vai."
+      },
       "otherChildren": {
         "label": "Algum desses filhos é de outro relacionamento?",
         "why": "Pode ser preciso a autorização do outro pai ou mãe para a viagem.",
-        "options": { "yes": "Sim", "no": "Não" }
+        "options": {
+          "yes": "Sim",
+          "no": "Não"
+        }
       },
       "custody": {
         "label": "O outro pai ou mãe concorda com a viagem?",
@@ -245,31 +338,85 @@
           "sole": "Tenho a guarda exclusiva ou o outro genitor é falecido"
         }
       },
-      "dependents": { "label": "Além do cônjuge e dos filhos, alguém que depende de você vai junto? (ex.: pai, mãe, avó, irmão)", "why": "Outros dependentes costumam precisar de um caminho próprio e de planejamento de cuidados.", "hint": "Digite 0 se ninguém mais vai." },
+      "dependents": {
+        "label": "Além do cônjuge e dos filhos, alguém que depende de você vai junto? (ex.: pai, mãe, avó, irmão)",
+        "why": "Outros dependentes costumam precisar de um caminho próprio e de planejamento de cuidados.",
+        "hint": "Digite 0 se ninguém mais vai."
+      },
       "pets": {
         "label": "Vai levar animais de estimação?",
         "why": "Animais têm regras de transporte e de entrada no país.",
-        "options": { "none": "Não", "dog": "Cachorro", "cat": "Gato", "bird": "Ave", "other": "Outro" }
+        "options": {
+          "none": "Não",
+          "dog": "Cachorro",
+          "cat": "Gato",
+          "bird": "Ave",
+          "other": "Outro"
+        }
       },
-      "petsCount": { "label": "Quantos animais?", "why": "Ajuda a estimar os custos de transporte." },
+      "petsCount": {
+        "label": "Quantos animais?",
+        "why": "Ajuda a estimar os custos de transporte."
+      },
       "leftBehind": {
         "label": "Alguém que depende de você vai ficar no seu país?",
         "why": "Inclui tarefas de planejamento para quem fica: cuidados, procurações, envio de dinheiro.",
-        "options": { "yes": "Sim", "no": "Não" }
+        "options": {
+          "yes": "Sim",
+          "no": "Não"
+        }
       },
-      "leftBehindList": { "label": "Quem vai ficar no seu país?", "why": "Ajuda a planejar o apoio a quem fica.", "options": {"parent": "Pai ou mãe", "grandparent": "Avô ou avó", "child": "Filho ou filha", "sibling": "Irmão ou irmã", "partner": "Cônjuge", "in_law": "Sogro ou sogra", "other": "Outra pessoa"} }
+      "leftBehindList": {
+        "label": "Quem vai ficar no seu país?",
+        "why": "Ajuda a planejar o apoio a quem fica.",
+        "options": {
+          "parent": "Pai ou mãe",
+          "grandparent": "Avô ou avó",
+          "child": "Filho ou filha",
+          "sibling": "Irmão ou irmã",
+          "partner": "Cônjuge",
+          "in_law": "Sogro ou sogra",
+          "other": "Outra pessoa"
+        }
+      }
     },
     "partner": {
-      "sex": { "label": "Qual é o sexo do seu cônjuge, como consta no passaporte?", "why": "Usado só para mostrar as perguntas e tarefas que se aplicam a cada pessoa (por exemplo, gravidez)." },
-      "birthYear": { "label": "Em que ano o seu cônjuge nasceu?", "why": "A idade influencia os planos de saúde e algumas tarefas.", "placeholder": "Ex.: 1987" },
-      "workStatus": { "label": "Qual é a situação de trabalho do seu cônjuge hoje?", "why": "Mostra quais perguntas sobre carreira fazem sentido e ajuda a pensar na renda da família nos EUA." },
-      "english": { "label": "Como está o inglês do seu cônjuge?", "why": "Ajuda a planejar o inglês da família e quem pode trabalhar nos EUA." },
-      "occupation": { "label": "Qual é a profissão ou ocupação do seu cônjuge?", "why": "Ajuda a pensar na renda da família nos EUA.", "placeholder": "Ex.: Professora" }
+      "sex": {
+        "label": "Qual é o sexo do seu cônjuge, como consta no passaporte?",
+        "why": "Usado só para mostrar as perguntas e tarefas que se aplicam a cada pessoa (por exemplo, gravidez)."
+      },
+      "workStatus": {
+        "label": "Qual é a situação de trabalho do seu cônjuge hoje?",
+        "why": "Mostra quais perguntas sobre carreira fazem sentido e ajuda a pensar na renda da família nos EUA."
+      },
+      "english": {
+        "label": "Como está o inglês do seu cônjuge?",
+        "why": "Ajuda a planejar o inglês da família e quem pode trabalhar nos EUA."
+      },
+      "occupation": {
+        "label": "Qual é a profissão ou ocupação do seu cônjuge?",
+        "why": "Ajuda a pensar na renda da família nos EUA.",
+        "placeholder": "Ex.: Professora"
+      },
+      "birth": {
+        "label": "Mês e ano em que o seu cônjuge nasceu",
+        "why": "A idade influencia os planos de saúde e algumas tarefas. Com o mês, o app calcula a idade certa em cada momento do cronograma. O dia não é pedido, por privacidade."
+      }
     },
     "child": {
-      "nickname": { "label": "Como você quer chamar este filho ou filha no app?", "why": "Só para identificar na jornada. Pode ser um apelido ou deixar em branco.", "placeholder": "Ex.: Pedro" },
-      "birth": { "label": "Mês e ano de nascimento", "why": "A jornada dura anos. Com a data, o app calcula a idade em cada momento do cronograma, porque algumas regras dependem dela." },
-      "sex": { "label": "Qual é o sexo, como consta no documento?", "why": "Usado só para mostrar as perguntas e tarefas que se aplicam a cada pessoa (por exemplo, gravidez)." },
+      "nickname": {
+        "label": "Como você quer chamar este filho ou filha no app?",
+        "why": "Só para identificar na jornada. Pode ser um apelido ou deixar em branco.",
+        "placeholder": "Ex.: Pedro"
+      },
+      "birth": {
+        "label": "Mês e ano de nascimento",
+        "why": "A jornada dura anos. Com a data, o app calcula a idade em cada momento do cronograma, porque algumas regras dependem dela."
+      },
+      "sex": {
+        "label": "Qual é o sexo, como consta no documento?",
+        "why": "Usado só para mostrar as perguntas e tarefas que se aplicam a cada pessoa (por exemplo, gravidez)."
+      },
       "school": {
         "label": "Em que etapa da escola está?",
         "why": "Define as tarefas de escola e de documentos escolares.",
@@ -286,12 +433,23 @@
       "specialNeeds": {
         "label": "Tem alguma deficiência ou precisa de cuidados contínuos?",
         "why": "Inclui na jornada as tarefas de cuidados, serviços e custos. Os detalhes ficam no bloco Saúde.",
-        "options": { "yes": "Sim", "no": "Não", "skip": "Prefiro não responder" }
+        "options": {
+          "yes": "Sim",
+          "no": "Não",
+          "skip": "Prefiro não responder"
+        }
       },
-      "english": { "label": "Fala inglês?", "why": "Ajuda a planejar a adaptação na escola e no dia a dia." }
+      "english": {
+        "label": "Fala inglês?",
+        "why": "Ajuda a planejar a adaptação na escola e no dia a dia."
+      }
     },
     "dependent": {
-      "nickname": { "label": "Como você quer chamar esta pessoa no app?", "why": "Só para identificar na jornada. Pode ser um apelido ou deixar em branco.", "placeholder": "Ex.: Vó Maria" },
+      "nickname": {
+        "label": "Como você quer chamar esta pessoa no app?",
+        "why": "Só para identificar na jornada. Pode ser um apelido ou deixar em branco.",
+        "placeholder": "Ex.: Vó Maria"
+      },
       "relation": {
         "label": "Qual é a relação com você?",
         "why": "O parentesco muda os caminhos possíveis para essa pessoa.",
@@ -303,8 +461,14 @@
           "other": "Outro"
         }
       },
-      "birth": { "label": "Mês e ano de nascimento", "why": "Com a data, o app calcula a idade em cada momento do cronograma." },
-      "sex": { "label": "Qual é o sexo, como consta no documento?", "why": "Usado só para mostrar as perguntas e tarefas que se aplicam a cada pessoa (por exemplo, gravidez)." },
+      "birth": {
+        "label": "Mês e ano de nascimento",
+        "why": "Com a data, o app calcula a idade em cada momento do cronograma."
+      },
+      "sex": {
+        "label": "Qual é o sexo, como consta no documento?",
+        "why": "Usado só para mostrar as perguntas e tarefas que se aplicam a cada pessoa (por exemplo, gravidez)."
+      },
       "dependency": {
         "label": "Como é a dependência?",
         "why": "Ajuda a planejar cuidados e orçamento.",
@@ -336,12 +500,23 @@
       "autismLevel": {
         "label": "Nível de suporte do autismo",
         "why": "Ajuda a dimensionar os serviços e cuidados a pesquisar no destino.",
-        "options": { "1": "Nível 1", "2": "Nível 2", "3": "Nível 3", "unknown": "Não sei" }
+        "options": {
+          "1": "Nível 1",
+          "2": "Nível 2",
+          "3": "Nível 3",
+          "unknown": "Não sei"
+        }
       },
       "intellectualDegree": {
         "label": "Grau da deficiência intelectual",
         "why": "Ajuda a dimensionar os serviços e cuidados a pesquisar no destino.",
-        "options": { "mild": "Leve", "moderate": "Moderado", "severe": "Grave", "profound": "Profundo", "unknown": "Não sei" }
+        "options": {
+          "mild": "Leve",
+          "moderate": "Moderado",
+          "severe": "Grave",
+          "profound": "Profundo",
+          "unknown": "Não sei"
+        }
       },
       "autonomy": {
         "label": "No dia a dia, essa pessoa…",
@@ -356,9 +531,16 @@
       "caregiver": {
         "label": "Quem é o cuidador principal?",
         "why": "O cuidado ocupa o tempo de alguém da família, e isso entra no orçamento e no planejamento do trabalho.",
-        "options": { "external": "Cuidador contratado", "other": "Outra pessoa" }
+        "options": {
+          "external": "Cuidador contratado",
+          "other": "Outra pessoa"
+        }
       },
-      "medications": { "label": "Toma medicação contínua?", "why": "Remédios contínuos geram tarefas: estoque inicial, receitas, regras de entrada e médico nos EUA.", "hint": "Adicione cada remédio. Se não toma nenhum, pode pular." },
+      "medications": {
+        "label": "Toma medicação contínua?",
+        "why": "Remédios contínuos geram tarefas: estoque inicial, receitas, regras de entrada e médico nos EUA.",
+        "hint": "Adicione cada remédio. Se não toma nenhum, pode pular."
+      },
       "therapies": {
         "label": "Faz algum tratamento ou terapia regular?",
         "why": "Ajuda a pesquisar a disponibilidade e o custo no destino.",
@@ -373,19 +555,74 @@
           "other": "Outro"
         }
       },
-      "equipmentList": { "label": "Usa algum destes equipamentos?", "why": "Equipamentos podem ter regras de transporte e custos no destino.", "options": {"none": "Nenhum", "wheelchair": "Cadeira de rodas", "walker": "Andador ou muletas", "hearing_aid": "Aparelho auditivo", "glasses_special": "Óculos ou lentes especiais (baixa visão)", "cpap": "CPAP ou aparelho para apneia", "oxygen": "Oxigênio", "insulin_pump": "Bomba de insulina", "glucose_monitor": "Sensor de glicose", "prosthesis": "Prótese ou órtese", "feeding_tube": "Sonda de alimentação", "communication_device": "Comunicação alternativa (ex.: prancha, tablet)", "other": "Outro"} },
-      "equipmentOther": { "label": "Qual outro equipamento?", "why": "Só para incluir na jornada.", "placeholder": "Ex.: cama hospitalar" },
-      "specialistsList": { "label": "É {sex, select, male {acompanhado} female {acompanhada} other {acompanhado(a)}} por algum destes especialistas?", "why": "Ajuda a planejar a continuidade do acompanhamento nos EUA.", "options": {"none": "Nenhum", "neurologist": "Neurologista", "psychiatrist": "Psiquiatra", "developmental_pediatrician": "Neuropediatra ou pediatra do desenvolvimento", "cardiologist": "Cardiologista", "endocrinologist": "Endocrinologista", "pulmonologist": "Pneumologista", "nephrologist": "Nefrologista", "oncologist": "Oncologista", "rheumatologist": "Reumatologista", "gastroenterologist": "Gastroenterologista", "orthopedist": "Ortopedista", "ophthalmologist": "Oftalmologista", "otolaryngologist": "Otorrinolaringologista", "geriatrician": "Geriatra", "other": "Outro"} },
-      "specialistsOther": { "label": "Qual outro especialista?", "why": "Só para incluir na jornada.", "placeholder": "Ex.: hematologista" },
+      "equipmentList": {
+        "label": "Usa algum destes equipamentos?",
+        "why": "Equipamentos podem ter regras de transporte e custos no destino.",
+        "options": {
+          "none": "Nenhum",
+          "wheelchair": "Cadeira de rodas",
+          "walker": "Andador ou muletas",
+          "hearing_aid": "Aparelho auditivo",
+          "glasses_special": "Óculos ou lentes especiais (baixa visão)",
+          "cpap": "CPAP ou aparelho para apneia",
+          "oxygen": "Oxigênio",
+          "insulin_pump": "Bomba de insulina",
+          "glucose_monitor": "Sensor de glicose",
+          "prosthesis": "Prótese ou órtese",
+          "feeding_tube": "Sonda de alimentação",
+          "communication_device": "Comunicação alternativa (ex.: prancha, tablet)",
+          "other": "Outro"
+        }
+      },
+      "equipmentOther": {
+        "label": "Qual outro equipamento?",
+        "why": "Só para incluir na jornada.",
+        "placeholder": "Ex.: cama hospitalar"
+      },
+      "specialistsList": {
+        "label": "É {sex, select, male {acompanhado} female {acompanhada} other {acompanhado(a)}} por algum destes especialistas?",
+        "why": "Ajuda a planejar a continuidade do acompanhamento nos EUA.",
+        "options": {
+          "none": "Nenhum",
+          "neurologist": "Neurologista",
+          "psychiatrist": "Psiquiatra",
+          "developmental_pediatrician": "Neuropediatra ou pediatra do desenvolvimento",
+          "cardiologist": "Cardiologista",
+          "endocrinologist": "Endocrinologista",
+          "pulmonologist": "Pneumologista",
+          "nephrologist": "Nefrologista",
+          "oncologist": "Oncologista",
+          "rheumatologist": "Reumatologista",
+          "gastroenterologist": "Gastroenterologista",
+          "orthopedist": "Ortopedista",
+          "ophthalmologist": "Oftalmologista",
+          "otolaryngologist": "Otorrinolaringologista",
+          "geriatrician": "Geriatra",
+          "other": "Outro"
+        }
+      },
+      "specialistsOther": {
+        "label": "Qual outro especialista?",
+        "why": "Só para incluir na jornada.",
+        "placeholder": "Ex.: hematologista"
+      },
       "pregnancy": {
         "label": "Gravidez atual ou planejada para os próximos 2 anos?",
         "why": "Influencia o plano de saúde, os custos e o cronograma.",
-        "options": { "current": "Grávida agora", "planned": "Planejada", "no": "Não" }
+        "options": {
+          "current": "Grávida agora",
+          "planned": "Planejada",
+          "no": "Não"
+        }
       },
       "vaccines": {
         "label": "As vacinas estão em dia?",
         "why": "Alguns processos de visto exigem vacinas e exame médico.",
-        "options": { "yes": "Sim", "no": "Não", "unsure": "Não sei" }
+        "options": {
+          "yes": "Sim",
+          "no": "Não",
+          "unsure": "Não sei"
+        }
       }
     },
     "money": {
@@ -403,7 +640,12 @@
       "earnersUS": {
         "label": "Quem pretende trabalhar nos EUA?",
         "why": "A autorização de trabalho de cada pessoa depende do tipo de visto. A jornada mostra a regra geral com fonte oficial.",
-        "options": { "me": "Eu", "partner": "Cônjuge", "adult_child": "{adultChildSex, select, male {Filho adulto} female {Filha adulta} other {Filho(a) adulto(a)}}", "unsure": "Ainda não sei" }
+        "options": {
+          "me": "Eu",
+          "partner": "Cônjuge",
+          "adult_child": "{adultChildSex, select, male {Filho adulto} female {Filha adulta} other {Filho(a) adulto(a)}}",
+          "unsure": "Ainda não sei"
+        }
       },
       "partnerAvailability": {
         "label": "O seu cônjuge teria disponibilidade para trabalhar?",
@@ -428,10 +670,22 @@
           "unsure": "Gostaria de ideias"
         }
       },
-      "saved": { "label": "Quanto você já tem guardado para a mudança?", "why": "Com esse valor, o app calcula quanto falta para a meta." },
-      "monthlySaving": { "label": "Quanto você consegue guardar por mês?", "why": "Com esse valor, o app calcula em quanto tempo você chega à meta." },
-      "bring": { "label": "Quanto você pretende levar? (em USD)", "why": "O app compara com a meta sugerida pelo orçamento da mudança." },
-      "expectedIncomeUS": { "label": "Qual é o salário anual oferecido? (em USD, antes dos impostos)", "why": "É a base para calcular se a renda cobre as despesas nos EUA." },
+      "saved": {
+        "label": "Quanto você já tem guardado para a mudança?",
+        "why": "Com esse valor, o app calcula quanto falta para a meta."
+      },
+      "monthlySaving": {
+        "label": "Quanto você consegue guardar por mês?",
+        "why": "Com esse valor, o app calcula em quanto tempo você chega à meta."
+      },
+      "bring": {
+        "label": "Quanto você pretende levar? (em USD)",
+        "why": "O app compara com a meta sugerida pelo orçamento da mudança."
+      },
+      "expectedIncomeUS": {
+        "label": "Qual é o salário anual oferecido? (em USD, antes dos impostos)",
+        "why": "É a base para calcular se a renda cobre as despesas nos EUA."
+      },
       "employerBenefits": {
         "label": "O que o empregador oferece além do salário?",
         "why": "Benefícios mudam bastante o orçamento, principalmente o plano de saúde.",
@@ -456,7 +710,10 @@
           "other": "Outra"
         }
       },
-      "incomeMonthly": { "label": "Quanto, por mês, aproximadamente? (em USD)", "why": "Entra no cálculo de renda × despesas." },
+      "incomeMonthly": {
+        "label": "Quanto, por mês, aproximadamente? (em USD)",
+        "why": "Entra no cálculo de renda × despesas."
+      },
       "housingPlan": {
         "label": "Como pretende morar nos EUA no começo?",
         "why": "Alugar ou comprar muda bastante os custos iniciais e os mensais.",
@@ -480,13 +737,24 @@
           "unsure": "Não sei"
         }
       },
-      "carCount": { "label": "Quantos carros?", "why": "Cada carro entra no orçamento." },
+      "carCount": {
+        "label": "Quantos carros?",
+        "why": "Cada carro entra no orçamento."
+      },
       "scoutingTrips": {
         "label": "Pretende visitar os EUA antes da mudança, para conhecer o destino?",
         "why": "As viagens antes da mudança entram nos custos até a mudança.",
-        "options": { "none": "Não", "one": "Uma vez", "two_plus": "Duas vezes ou mais", "unsure": "Não sei" }
+        "options": {
+          "none": "Não",
+          "one": "Uma vez",
+          "two_plus": "Duas vezes ou mais",
+          "unsure": "Não sei"
+        }
       },
-      "scoutingPeople": { "label": "Quem vai nessas viagens?", "why": "Ajuda a estimar passagens e hospedagem." },
+      "scoutingPeople": {
+        "label": "Quem vai nessas viagens?",
+        "why": "Ajuda a estimar passagens e hospedagem."
+      },
       "moveBelongings": {
         "label": "O que pretende levar na mudança?",
         "why": "Ajuda a estimar o custo da mudança.",
@@ -511,14 +779,25 @@
       "debts": {
         "label": "Tem dívidas ou financiamentos ativos?",
         "why": "Compromissos que continuam entram no orçamento mensal.",
-        "options": { "yes": "Sim", "no": "Não", "skip": "Prefiro não responder" }
+        "options": {
+          "yes": "Sim",
+          "no": "Não",
+          "skip": "Prefiro não responder"
+        }
       },
       "debtsContinue": {
         "label": "Elas vão continuar sendo pagas depois da mudança?",
         "why": "Se continuarem, a parcela entra nas despesas mensais.",
-        "options": { "yes": "Sim", "no": "Vou quitar antes", "unsure": "Não sei" }
+        "options": {
+          "yes": "Sim",
+          "no": "Vou quitar antes",
+          "unsure": "Não sei"
+        }
       },
-      "debtsMonthly": { "label": "Quanto, por mês, aproximadamente?", "why": "Entra nas despesas mensais, como compromisso no país de origem." },
+      "debtsMonthly": {
+        "label": "Quanto, por mês, aproximadamente?",
+        "why": "Entra nas despesas mensais, como compromisso no país de origem."
+      },
       "runway": {
         "label": "Por quantos meses o dinheiro precisa durar até você ter renda nos EUA?",
         "why": "Ajuda a dimensionar a reserva de emergência.",
@@ -535,17 +814,31 @@
       "climate": {
         "label": "Que clima você prefere?",
         "why": "O clima pesa muito no bem-estar. A comparação de destinos leva isso em conta.",
-        "options": { "cold": "Frio", "mild": "Ameno, sem extremos", "hot": "Quente", "seasons": "Quatro estações bem definidas", "any": "Tanto faz" }
+        "options": {
+          "cold": "Frio",
+          "mild": "Ameno, sem extremos",
+          "hot": "Quente",
+          "seasons": "Quatro estações bem definidas",
+          "any": "Tanto faz"
+        }
       },
       "heat": {
         "label": "Como você lida com calor forte e úmido?",
         "why": "Quem não suporta calor não deve receber como sugestão principal um lugar de verão longo e úmido.",
-        "options": { "love": "Adoro", "ok": "Tolero", "hate": "Não suporto" }
+        "options": {
+          "love": "Adoro",
+          "ok": "Tolero",
+          "hate": "Não suporto"
+        }
       },
       "snow": {
         "label": "E com neve e frio intenso?",
         "why": "Ajuda a apontar conflitos entre o destino e o que você gosta.",
-        "options": { "love": "Adoro", "ok": "Tolero", "hate": "Não suporto" }
+        "options": {
+          "love": "Adoro",
+          "ok": "Tolero",
+          "hate": "Não suporto"
+        }
       },
       "placeSize": {
         "label": "Onde você se imagina morando?",
@@ -574,22 +867,95 @@
       "car": {
         "label": "Pretende viver sem carro?",
         "why": "Em muitos lugares dos EUA o carro é quase indispensável. Isso muda a escolha do destino.",
-        "options": { "yes": "Sim, quero transporte público", "no": "Não, vou ter carro", "unsure": "Não sei" }
+        "options": {
+          "yes": "Sim, quero transporte público",
+          "no": "Não, vou ter carro",
+          "unsure": "Não sei"
+        }
       },
       "pace": {
         "label": "Que ritmo de vida combina com você?",
         "why": "Ajuda a comparar destinos com o seu estilo de vida.",
-        "options": { "fast": "Agitado", "balanced": "Equilibrado", "calm": "Tranquilo" }
+        "options": {
+          "fast": "Agitado",
+          "balanced": "Equilibrado",
+          "calm": "Tranquilo"
+        }
       },
       "community": {
         "label": "Quer morar perto de pessoas do seu país ou que falam o seu idioma?",
         "why": "Uma comunidade por perto pode facilitar a adaptação.",
-        "options": { "yes": "Sim, é importante", "some": "Seria bom, mas não é essencial", "immersion": "Prefiro imersão total" }
+        "options": {
+          "yes": "Sim, é importante",
+          "some": "Seria bom, mas não é essencial",
+          "immersion": "Prefiro imersão total"
+        }
       },
-      "hobbies": { "label": "O que você gosta de fazer no tempo livre?", "why": "Hobbies ajudam a escolher o lugar e são o jeito mais natural de fazer amigos e criar rotina num país novo.", "options": {"walking_running": "Caminhar ou correr", "gym": "Academia", "team_sports": "Esportes em grupo", "hiking": "Trilhas e natureza", "water": "Praia, piscina ou esportes na água", "cycling": "Pedalar", "fishing": "Pescar", "music": "Música (tocar, cantar, ouvir ao vivo)", "arts_crafts": "Artes e trabalhos manuais", "reading": "Ler", "cooking": "Cozinhar", "gardening": "Jardinagem", "games": "Jogos e videogame", "volunteering": "Trabalho voluntário", "pets": "Cuidar de animais", "tech": "Tecnologia e projetos pessoais", "other": "Outro"} },
-      "feelGood": { "label": "O que faz você se sentir bem quando está {sex, select, male {cansado ou desanimado} female {cansada ou desanimada} other {cansado(a) ou desanimado(a)}}?", "why": "Nos dias difíceis da jornada, o app lembra você do que te faz bem e sugere isso como recompensa.", "options": {"family_time": "Tempo com a família", "friends": "Encontrar amigos", "nature": "Estar na natureza", "exercise": "Fazer exercício", "quiet_home": "Ficar em casa, no sossego", "hobby": "Dedicar tempo a um hobby", "travel": "Viajar ou passear", "learning": "Aprender algo novo", "food": "Uma boa refeição", "other": "Outro"} },
-      "outings": { "label": "Que passeios você mais gosta?", "why": "Ajuda a comparar cidades e a pensar no lazer da família no orçamento.", "options": {"parks": "Parques", "museums": "Museus e exposições", "shows": "Shows, teatro e cinema", "restaurants": "Restaurantes e cafés", "shopping": "Compras", "sports_events": "Eventos esportivos", "theme_parks": "Parques temáticos", "road_trips": "Viagens de carro", "historic": "Lugares históricos", "nightlife": "Vida noturna"} },
-      "domesticTravel": { "label": "Você gosta de viajar dentro do seu país para conhecer lugares novos?", "why": "Conhecer o novo país também faz parte da adaptação, e viagens entram no orçamento.", "options": {"often": "Sim, viajo sempre que posso", "sometimes": "De vez em quando", "rarely": "Raramente", "not_interested": "Não é algo que eu procure"} },
+      "hobbies": {
+        "label": "O que você gosta de fazer no tempo livre?",
+        "why": "Hobbies ajudam a escolher o lugar e são o jeito mais natural de fazer amigos e criar rotina num país novo.",
+        "options": {
+          "walking_running": "Caminhar ou correr",
+          "gym": "Academia",
+          "team_sports": "Esportes em grupo",
+          "hiking": "Trilhas e natureza",
+          "water": "Praia, piscina ou esportes na água",
+          "cycling": "Pedalar",
+          "fishing": "Pescar",
+          "music": "Música (tocar, cantar, ouvir ao vivo)",
+          "arts_crafts": "Artes e trabalhos manuais",
+          "reading": "Ler",
+          "cooking": "Cozinhar",
+          "gardening": "Jardinagem",
+          "games": "Jogos e videogame",
+          "volunteering": "Trabalho voluntário",
+          "pets": "Cuidar de animais",
+          "tech": "Tecnologia e projetos pessoais",
+          "other": "Outro"
+        }
+      },
+      "feelGood": {
+        "label": "O que faz você se sentir bem quando está {sex, select, male {cansado ou desanimado} female {cansada ou desanimada} other {cansado(a) ou desanimado(a)}}?",
+        "why": "Nos dias difíceis da jornada, o app lembra você do que te faz bem e sugere isso como recompensa.",
+        "options": {
+          "family_time": "Tempo com a família",
+          "friends": "Encontrar amigos",
+          "nature": "Estar na natureza",
+          "exercise": "Fazer exercício",
+          "quiet_home": "Ficar em casa, no sossego",
+          "hobby": "Dedicar tempo a um hobby",
+          "travel": "Viajar ou passear",
+          "learning": "Aprender algo novo",
+          "food": "Uma boa refeição",
+          "other": "Outro"
+        }
+      },
+      "outings": {
+        "label": "Que passeios você mais gosta?",
+        "why": "Ajuda a comparar cidades e a pensar no lazer da família no orçamento.",
+        "options": {
+          "parks": "Parques",
+          "museums": "Museus e exposições",
+          "shows": "Shows, teatro e cinema",
+          "restaurants": "Restaurantes e cafés",
+          "shopping": "Compras",
+          "sports_events": "Eventos esportivos",
+          "theme_parks": "Parques temáticos",
+          "road_trips": "Viagens de carro",
+          "historic": "Lugares históricos",
+          "nightlife": "Vida noturna"
+        }
+      },
+      "domesticTravel": {
+        "label": "Você gosta de viajar dentro do seu país para conhecer lugares novos?",
+        "why": "Conhecer o novo país também faz parte da adaptação, e viagens entram no orçamento.",
+        "options": {
+          "often": "Sim, viajo sempre que posso",
+          "sometimes": "De vez em quando",
+          "rarely": "Raramente",
+          "not_interested": "Não é algo que eu procure"
+        }
+      },
       "familyPriorities": {
         "label": "Para a sua família, o que é prioridade?",
         "why": "As prioridades da família pesam na comparação de destinos.",
@@ -608,11 +974,24 @@
       "known": {
         "label": "Você já sabe para onde quer ir?",
         "why": "Se ainda não sabe, a jornada ajuda a comparar estados com as suas preferências.",
-        "options": { "yes": "Sim", "some": "Tenho algumas opções", "no": "Ainda não" }
+        "options": {
+          "yes": "Sim",
+          "some": "Tenho algumas opções",
+          "no": "Ainda não"
+        }
       },
-      "places": { "label": "Quais estados?", "why": "O estado define impostos, custo de vida, clima e serviços." },
-      "cityList": { "label": "Alguma cidade em mente?", "why": "Ajuda a deixar as comparações de custo, clima e impostos mais precisas." },
-      "why": { "label": "Por que esse lugar?", "why": "Ajuda a comparar o destino com o que é importante para você." },
+      "places": {
+        "label": "Quais estados?",
+        "why": "O estado define impostos, custo de vida, clima e serviços."
+      },
+      "cityList": {
+        "label": "Alguma cidade em mente?",
+        "why": "Ajuda a deixar as comparações de custo, clima e impostos mais precisas."
+      },
+      "why": {
+        "label": "Por que esse lugar?",
+        "why": "Ajuda a comparar o destino com o que é importante para você."
+      },
       "criteria": {
         "label": "O que mais pesa na escolha? (escolha até 3)",
         "why": "Define o que a comparação de destinos vai destacar.",
@@ -634,22 +1013,39 @@
       "visited": {
         "label": "Você já esteve nos EUA?",
         "why": "Ajuda a planejar visitas e a adaptação.",
-        "options": { "never": "Nunca", "once": "Uma vez", "several": "Várias vezes" }
+        "options": {
+          "never": "Nunca",
+          "once": "Uma vez",
+          "several": "Várias vezes"
+        }
       },
       "visa": {
         "label": "Você tem ou já teve visto americano?",
         "why": "Ajuda a montar as primeiras tarefas de documentos.",
-        "options": { "valid": "Tenho um válido", "expired": "Já tive, está vencido", "never": "Nunca tive" }
+        "options": {
+          "valid": "Tenho um válido",
+          "expired": "Já tive, está vencido",
+          "never": "Nunca tive"
+        }
       },
       "network": {
         "label": "Você conhece alguém que mora nos EUA?",
         "why": "Uma rede de apoio faz diferença na chegada.",
-        "options": { "family": "Família", "friends": "Amigos", "colleagues": "Colegas de trabalho", "nobody": "Ninguém" }
+        "options": {
+          "family": "Família",
+          "friends": "Amigos",
+          "colleagues": "Colegas de trabalho",
+          "nobody": "Ninguém"
+        }
       },
       "complication": {
         "label": "Existe algo no histórico de você ou de alguém da família que vai que possa complicar? (ex.: visto negado, ter ficado além do prazo permitido, antecedentes criminais)",
         "why": "Não pedimos detalhes. Se a resposta for sim, a jornada recomenda procurar um advogado de imigração logo no início.",
-        "options": { "no": "Não", "yes": "Sim", "skip": "Prefiro não dizer" }
+        "options": {
+          "no": "Não",
+          "yes": "Sim",
+          "skip": "Prefiro não dizer"
+        }
       }
     },
     "docs": {
@@ -679,26 +1075,109 @@
       "driverLicense": {
         "label": "Você tem carteira de motorista?",
         "why": "Ajuda a planejar a carteira de motorista no estado de destino.",
-        "options": { "yes": "Sim", "no": "Não" }
+        "options": {
+          "yes": "Sim",
+          "no": "Não"
+        }
       }
     },
     "moment": {
-      "life": { "label": "Como está a sua vida neste momento?", "why": "Ninguém precisa estar perfeito para começar. A resposta só ajusta o ritmo: numa fase difícil, a jornada começa mais leve.", "options": {"calm": "Tranquila", "busy": "Corrida, mas sob controle", "hard": "Passando por uma fase difícil", "skip": "Prefiro não responder"} },
-      "events": { "label": "Aconteceu algo marcante na sua vida nos últimos 12 meses?", "why": "Mudanças grandes pesam na energia. Saber disso ajuda a jornada a respeitar o seu momento.", "options": {"none": "Nada disso", "grief": "Perda de alguém próximo", "separation": "Separação ou divórcio", "job_loss": "Perda de emprego", "family_illness": "Doença na família", "own_health": "Um problema de saúde meu", "new_baby": "Nascimento ou chegada de um filho", "financial": "Aperto financeiro", "other": "Outra mudança importante", "skip": "Prefiro não responder"} },
-      "decision": { "label": "Como está a sua decisão de morar nos EUA?", "why": "Quem ainda está conhecendo a ideia começa explorando antes de decidir. Concluir que não é para você também é um bom resultado.", "options": {"exploring": "Ainda estou conhecendo a ideia", "leaning": "Estou {sex, select, male {inclinado} female {inclinada} other {inclinado(a)}} a ir", "decided": "Já decidi que quero ir"} },
-      "partnerSupport": { "label": "Como o seu cônjuge vê a mudança?", "why": "Uma mudança dessas funciona melhor com o casal alinhado. Se ainda não estiver, a jornada traz essas conversas logo no começo.", "options": {"aligned": "Quer tanto quanto eu", "mostly": "Apoia, com algumas dúvidas", "unsure": "Ainda está em dúvida", "against": "Não quer ir", "not_talked": "Ainda não conversamos"} },
-      "familySupport": { "label": "As pessoas próximas apoiam a sua ideia?", "why": "Apoio faz diferença nos dias difíceis. A resposta ajuda a jornada a lembrar você de onde buscar força.", "options": {"yes": "Sim, apoiam", "partial": "Algumas pessoas apoiam", "no": "Não apoiam", "skip": "Prefiro não responder"} }
+      "life": {
+        "label": "Como está a sua vida neste momento?",
+        "why": "Ninguém precisa estar perfeito para começar. A resposta só ajusta o ritmo: numa fase difícil, a jornada começa mais leve.",
+        "options": {
+          "calm": "Tranquila",
+          "busy": "Corrida, mas sob controle",
+          "hard": "Passando por uma fase difícil",
+          "skip": "Prefiro não responder"
+        }
+      },
+      "events": {
+        "label": "Aconteceu algo marcante na sua vida nos últimos 12 meses?",
+        "why": "Mudanças grandes pesam na energia. Saber disso ajuda a jornada a respeitar o seu momento.",
+        "options": {
+          "none": "Nada disso",
+          "grief": "Perda de alguém próximo",
+          "separation": "Separação ou divórcio",
+          "job_loss": "Perda de emprego",
+          "family_illness": "Doença na família",
+          "own_health": "Um problema de saúde meu",
+          "new_baby": "Nascimento ou chegada de um filho",
+          "financial": "Aperto financeiro",
+          "other": "Outra mudança importante",
+          "skip": "Prefiro não responder"
+        }
+      },
+      "decision": {
+        "label": "Como está a sua decisão de morar nos EUA?",
+        "why": "Quem ainda está conhecendo a ideia começa explorando antes de decidir. Concluir que não é para você também é um bom resultado.",
+        "options": {
+          "exploring": "Ainda estou conhecendo a ideia",
+          "leaning": "Estou {sex, select, male {inclinado} female {inclinada} other {inclinado(a)}} a ir",
+          "decided": "Já decidi que quero ir"
+        }
+      },
+      "partnerSupport": {
+        "label": "Como o seu cônjuge vê a mudança?",
+        "why": "Uma mudança dessas funciona melhor com o casal alinhado. Se ainda não estiver, a jornada traz essas conversas logo no começo.",
+        "options": {
+          "aligned": "Quer tanto quanto eu",
+          "mostly": "Apoia, com algumas dúvidas",
+          "unsure": "Ainda está em dúvida",
+          "against": "Não quer ir",
+          "not_talked": "Ainda não conversamos"
+        }
+      },
+      "familySupport": {
+        "label": "As pessoas próximas apoiam a sua ideia?",
+        "why": "Apoio faz diferença nos dias difíceis. A resposta ajuda a jornada a lembrar você de onde buscar força.",
+        "options": {
+          "yes": "Sim, apoiam",
+          "partial": "Algumas pessoas apoiam",
+          "no": "Não apoiam",
+          "skip": "Prefiro não responder"
+        }
+      }
     },
     "adult": {
-      "plan": { "label": "Essa pessoa pretende trabalhar ou estudar nos EUA?", "why": "Um filho ou dependente adulto pode precisar do próprio caminho de visto. Saber o plano dele ajuda a jornada a mostrar o que vale a pena conhecer.", "options": {"work": "Trabalhar", "study": "Estudar", "both": "As duas coisas", "no": "Nem trabalhar nem estudar", "unsure": "Ainda não sei"} },
-      "studyLevel": { "label": "O que essa pessoa pretende estudar?", "why": "Ajuda a indicar os caminhos de estudo que vale a pena conhecer." }
+      "plan": {
+        "label": "Essa pessoa pretende trabalhar ou estudar nos EUA?",
+        "why": "Um filho ou dependente adulto pode precisar do próprio caminho de visto. Saber o plano dele ajuda a jornada a mostrar o que vale a pena conhecer.",
+        "options": {
+          "work": "Trabalhar",
+          "study": "Estudar",
+          "both": "As duas coisas",
+          "no": "Nem trabalhar nem estudar",
+          "unsure": "Ainda não sei"
+        }
+      },
+      "studyLevel": {
+        "label": "O que essa pessoa pretende estudar?",
+        "why": "Ajuda a indicar os caminhos de estudo que vale a pena conhecer."
+      }
     },
     "career": {
-      "nationalities": { "label": "{personKind, select, partner {Qual é a nacionalidade do seu cônjuge? Se tiver mais de uma, marque todas.} other {Qual é a nacionalidade desta pessoa? Se tiver mais de uma, marque todas.}}", "why": "A nacionalidade de cada adulto pode abrir ou fechar caminhos de visto diferentes. Às vezes, o melhor caminho é pelo cônjuge." },
-      "education": { "label": "{personKind, select, partner {Qual é a escolaridade mais alta (concluída) do seu cônjuge?} other {Qual é a escolaridade mais alta (concluída) desta pessoa?}}", "why": "A formação de cada adulto ajuda a indicar quais caminhos de visto vale a pena conhecer." },
-      "field": { "label": "{personKind, select, partner {Qual é a área de formação do seu cônjuge?} other {Qual é a área de formação desta pessoa?}}", "why": "Ajuda a relacionar a formação com a profissão e com o mercado nos EUA." },
-      "experienceYears": { "label": "{personKind, select, partner {Há quantos anos o seu cônjuge trabalha} other {Há quantos anos esta pessoa trabalha}} na área {sex, select, male {dele} female {dela} other {dele(a)}}?", "why": "O tempo de experiência ajuda a indicar caminhos de visto e a planejar a busca de emprego.", "placeholder": "Ex.: 8" },
-      "regulated": { "label": "{personKind, select, partner {A profissão do seu cônjuge exige registro ou licença para exercer?} other {A profissão desta pessoa exige registro ou licença para exercer?}}", "why": "Profissões com licença costumam exigir validação do diploma e da licença no estado de destino." },
+      "nationalities": {
+        "label": "{personKind, select, partner {Qual é a nacionalidade do seu cônjuge? Se tiver mais de uma, marque todas.} other {Qual é a nacionalidade desta pessoa? Se tiver mais de uma, marque todas.}}",
+        "why": "A nacionalidade de cada adulto pode abrir ou fechar caminhos de visto diferentes. Às vezes, o melhor caminho é pelo cônjuge."
+      },
+      "education": {
+        "label": "{personKind, select, partner {Qual é a escolaridade mais alta (concluída) do seu cônjuge?} other {Qual é a escolaridade mais alta (concluída) desta pessoa?}}",
+        "why": "A formação de cada adulto ajuda a indicar quais caminhos de visto vale a pena conhecer."
+      },
+      "field": {
+        "label": "{personKind, select, partner {Qual é a área de formação do seu cônjuge?} other {Qual é a área de formação desta pessoa?}}",
+        "why": "Ajuda a relacionar a formação com a profissão e com o mercado nos EUA."
+      },
+      "experienceYears": {
+        "label": "{personKind, select, partner {Há quantos anos o seu cônjuge trabalha} other {Há quantos anos esta pessoa trabalha}} na área {sex, select, male {dele} female {dela} other {dele(a)}}?",
+        "why": "O tempo de experiência ajuda a indicar caminhos de visto e a planejar a busca de emprego.",
+        "placeholder": "Ex.: 8"
+      },
+      "regulated": {
+        "label": "{personKind, select, partner {A profissão do seu cônjuge exige registro ou licença para exercer?} other {A profissão desta pessoa exige registro ou licença para exercer?}}",
+        "why": "Profissões com licença costumam exigir validação do diploma e da licença no estado de destino."
+      },
       "sector": {
         "label": "Em que área é o trabalho?",
         "why": "A área ajuda a indicar caminhos de visto e o mercado de trabalho de cada estado.",
@@ -720,7 +1199,11 @@
           "other": "Outra"
         }
       },
-      "role": { "label": "Qual é o cargo ou a função atual?", "why": "O cargo mostra o tipo de trabalho feito hoje e ajuda a comparar com vagas nos EUA.", "placeholder": "Ex.: Analista de sistemas sênior" },
+      "role": {
+        "label": "Qual é o cargo ou a função atual?",
+        "why": "O cargo mostra o tipo de trabalho feito hoje e ajuda a comparar com vagas nos EUA.",
+        "placeholder": "Ex.: Analista de sistemas sênior"
+      },
       "level": {
         "label": "Em que nível da carreira está hoje?",
         "why": "Nível, liderança e responsabilidades contam para alguns caminhos de visto por trabalho.",
@@ -736,12 +1219,20 @@
       "multinational": {
         "label": "A empresa onde trabalha tem filial, sede ou empresa ligada nos EUA?",
         "why": "Algumas empresas transferem funcionários para os EUA. Saber disso ajuda a indicar esse caminho.",
-        "options": { "yes": "Sim", "no": "Não", "unsure": "Não sei" }
+        "options": {
+          "yes": "Sim",
+          "no": "Não",
+          "unsure": "Não sei"
+        }
       },
       "companyTime": {
         "label": "Há quanto tempo trabalha nessa empresa?",
         "why": "O tempo de empresa ajuda a ver se o caminho da transferência vale a pena ser estudado.",
-        "options": { "lt1y": "Menos de 1 ano", "1to3y": "De 1 a 3 anos", "gt3y": "Mais de 3 anos" }
+        "options": {
+          "lt1y": "Menos de 1 ano",
+          "1to3y": "De 1 a 3 anos",
+          "gt3y": "Mais de 3 anos"
+        }
       },
       "achievements": {
         "label": "Quais destas conquistas fazem parte da carreira? Marque só o que dá para comprovar.",
@@ -783,7 +1274,12 @@
       "principal": {
         "label": "Quem da família tem o perfil profissional mais forte para liderar o pedido de visto?",
         "why": "Às vezes o melhor caminho é pelo cônjuge, e a família vai junto. A jornada pode mostrar os dois caminhos.",
-        "options": { "me": "Eu", "partner": "Meu cônjuge", "both": "Os dois", "unsure": "Não sei" }
+        "options": {
+          "me": "Eu",
+          "partner": "Meu cônjuge",
+          "both": "Os dois",
+          "unsure": "Não sei"
+        }
       }
     },
     "rhythm": {
@@ -800,7 +1296,12 @@
       "weeklyTime": {
         "label": "Quanto tempo por semana você consegue dedicar?",
         "why": "Define o tamanho das tarefas sugeridas para cada semana.",
-        "options": { "lt1h": "Menos de 1 hora", "1to3h": "De 1 a 3 horas", "3to5h": "De 3 a 5 horas", "gt5h": "Mais de 5 horas" }
+        "options": {
+          "lt1h": "Menos de 1 hora",
+          "1to3h": "De 1 a 3 horas",
+          "3to5h": "De 3 a 5 horas",
+          "gt5h": "Mais de 5 horas"
+        }
       },
       "rewards": {
         "label": "Que pequenas recompensas te motivam?",
@@ -815,7 +1316,10 @@
           "other": "Outra"
         }
       },
-      "rewardsOther": { "label": "Qual é a sua recompensa?", "why": "Para sugerirmos a sua recompensa ao concluir tarefas." }
+      "rewardsOther": {
+        "label": "Qual é a sua recompensa?",
+        "why": "Para sugerirmos a sua recompensa ao concluir tarefas."
+      }
     }
   }
 }

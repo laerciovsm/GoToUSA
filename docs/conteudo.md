@@ -6,7 +6,7 @@
 
 - **Arquivos no repositório**, numa pasta `content/` (MDX para textos, JSON/YAML para dados estruturados), versionados no Git.
 - Cada item de conteúdo (tarefa, artigo, perfil de estado) tem um **ID estável** que nunca muda, para não quebrar o progresso salvo das pessoas.
-- Conteúdo traduzível: um arquivo por idioma (pt-BR primeiro; en-US e es antes do lançamento público).
+- Conteúdo traduzível: um arquivo por idioma, **com pt-BR, en-US e es completos desde já** (decisão de 17/11/2026; o teste bloqueia a publicação se faltar algum).
 - **Por que arquivos no Git:**
   - **Histórico completo** do que mudou, quando e por quê, o que funciona como auditoria das mudanças legais.
   - **Revisão antes de publicar.**

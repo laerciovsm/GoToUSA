@@ -354,7 +354,7 @@ Como no questionário, um teste falha se algo estiver errado, antes de qualquer 
 
 1. **Uma pasta por tarefa** (estrutura + um texto por idioma) está bom?
 2. **Markdown simples** em vez de MDX?
-3. **Idiomas:** durante o desenvolvimento, permitir tarefas só em pt-BR (como já previsto em [conteudo.md](conteudo.md#onde-o-conteúdo-fica)) e exigir os 3 idiomas antes do lançamento público? Ou exigir os 3 desde já (o teste bloqueia)?
+3. ✅ **Idiomas (decidido em 17/11/2026): os 3 idiomas desde já.** Nenhuma tarefa é publicada sem pt-BR, en-US e es completos; o teste bloqueia. (Isso substitui, para a jornada, a ideia de "pt-BR primeiro" de [conteudo.md](conteudo.md#onde-o-conteúdo-fica).)
 
 ## Gratuito × pago (proposta)
 

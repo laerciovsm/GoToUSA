@@ -420,15 +420,23 @@ Além de "entra ou não entra", uma tarefa pode ter `highlightWhen`: quando a co
 - "Conversar em família sobre a mudança" em destaque quando `moment.partnerSupport` ∈ {`unsure`, `against`, `not_talked`}.
 - Tarefas de "conhecer antes de decidir" em destaque quando `moment.decision` = `exploring`.
 
-### Pergunta sem resposta
+### Tarefas essenciais e pergunta sem resposta (decidido em 17/11/2026)
 
-Muitas perguntas são opcionais. Regra: **se a condição depende de uma pergunta sem resposta, a tarefa não entra**. A exceção é marcada no próprio conteúdo com `"ifUnanswered": true`: a tarefa entra mesmo sem a resposta, quando é importante não deixar passar. Exemplo: "conferir a validade dos passaportes" entra se a pessoa não respondeu sobre passaportes.
+Toda tarefa do catálogo é de um destes dois tipos:
+
+| Tipo | Quando entra | Exemplos |
+|---|---|---|
+| **Essencial** (`"essential": true`) | **Entra automaticamente para todos.** Só sai se uma resposta mostrar com clareza que não se aplica. **Sem resposta, entra** (na dúvida, a tarefa importante fica) | Passaportes, orçamento da mudança, conversar em família, conhecer os caminhos de visto |
+| **Conforme o caso** | Entra só quando as respostas mostram que se aplica. Sem resposta, não entra | Tarefas de filho com deficiência, de animais de estimação, de medicação controlada |
+
+- Exemplo: "conferir a validade dos passaportes" é essencial. Entra para todos, inclusive quem não respondeu sobre passaportes, e só sai para quem marcou que todos têm passaporte válido por muito tempo.
+- **Nada importante ou imprescindível fica de fora por falta de resposta.** O teste automático confere que toda tarefa de alerta legal é essencial ou tem uma condição que não depende de pergunta opcional.
 
 Quando um bloco ainda não respondido poderia acrescentar tarefas, o app avisa de forma positiva: "Responda o bloco Saúde para incluir as tarefas de medicação e cuidados".
 
 ### Dependências
 
-- Se a tarefa da qual outra depende **não se aplica** a esta família, a dependência é ignorada (conta como resolvida).
+- Se a tarefa da qual outra depende **não se aplica** a esta família (ou a pessoa marcou "não se aplica"), ela **não trava nada**: a dependência conta como resolvida (decidido em 17/11/2026).
 - Em tarefas por pessoa, a dependência é da mesma pessoa quando as duas são por pessoa (ex.: "visto do Pedro" depende do "passaporte do Pedro").
 - A tarefa fica "aguardando" até a outra ser concluída ou marcada "não se aplica".
 
@@ -446,11 +454,11 @@ Quando um bloco ainda não respondido poderia acrescentar tarefas, o app avisa d
 3. A mesma resposta gera **sempre a mesma jornada** (o motor não depende de sorte nem de hora do dia, só da data de hoje para idades e prazos).
 4. Cenários de teste com famílias de exemplo, começando pelo [cenário inicial](mvp.md#cenário-inicial-de-validação): casal + filho adulto com deficiência.
 
-### Decisões para o fundador
+### Decisões
 
-1. **Condições como dados simples** no conteúdo, e contas difíceis como **fatos calculados** em código testado: está bom?
-2. **Pergunta sem resposta:** a tarefa não entra, a não ser que o conteúdo a marque como importante mesmo sem resposta?
-3. **Dependência de uma tarefa que não se aplica** conta como resolvida?
+1. **Condições como dados simples** no conteúdo, e contas difíceis como **fatos calculados** em código testado: aguardando o fundador.
+2. ✅ **Tarefas essenciais entram automaticamente para todos**, inclusive sem resposta; só as "conforme o caso" dependem das respostas (17/11/2026).
+3. ✅ **O que não se aplica não trava nada** (17/11/2026).
 
 ## Gratuito × pago (proposta)
 

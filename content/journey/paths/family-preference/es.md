@@ -16,6 +16,10 @@ reasons:
 - **F4:** hermanos y hermanas de ciudadanos estadounidenses (si el ciudadano tiene 21 años o más) [[fonte:uscis-family-preference]].
 - La petición usa el Formulario I-130. La disponibilidad de visas se sigue en el Visa Bulletin, publicado por el Departamento de Estado [[fonte:uscis-family-preference]].
 
+## Enlaces oficiales para consultar
+Páginas del gobierno de EE. UU. indicadas por el propio USCIS. Ábrelas en tu navegador y revisa las reglas actuales:
+- [Visa Bulletin (Departamento de Estado)](https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html): publicación mensual que muestra la disponibilidad de visas en cada categoría.
+
 ## Qué puedes hacer ahora
 - Hablar con tu familiar en EE. UU. sobre el proceso y seguir el Visa Bulletin.
 - Lleva tus dudas a un **abogado de inmigración** con licencia: él evalúa tu caso y conduce el proceso.

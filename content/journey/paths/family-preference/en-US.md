@@ -16,6 +16,10 @@ reasons:
 - **F4:** brothers and sisters of U.S. citizens (if the citizen is 21 or older) [[fonte:uscis-family-preference]].
 - The petition uses Form I-130. Visa availability is tracked in the Visa Bulletin, published by the Department of State [[fonte:uscis-family-preference]].
 
+## Official links to check
+U.S. government pages that USCIS itself points to. Open them in your browser and check the current rules:
+- [Visa Bulletin (Department of State)](https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html): a monthly publication showing visa availability in each category.
+
 ## What you can do now
 - Talk to your relative in the U.S. about the process and follow the Visa Bulletin.
 - Take your questions to a licensed **immigration attorney**: they evaluate your case and handle the process.

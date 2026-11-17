@@ -244,7 +244,10 @@
       },
       "validUntil": "Válido até (mês e ano)",
       "docNote": "Observação"
-    }
+    },
+    "pathsCardTitle": "Caminhos de visto para conhecer",
+    "pathsCardCount": "{n, plural, one {# caminho apareceu pelas suas respostas} other {# caminhos apareceram pelas suas respostas}}",
+    "pathsCardNone": "Veja por que nenhum apareceu ainda e o que responder"
   },
   "Family": {
     "title": "Sua família",

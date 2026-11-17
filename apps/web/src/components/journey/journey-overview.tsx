@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { JourneyTask, PhaseId } from "@gotousa/shared";
+import { Link } from "@/i18n/navigation";
 import type { JourneyContent } from "@/lib/journey/content";
 import type { JourneyState } from "./use-journey";
 import { useJourneyText } from "./use-journey-text";
@@ -49,6 +50,17 @@ export function JourneyOverview({ content, state, selectedPhase, onSelectPhase, 
         <h1 className="text-3xl font-semibold">{t("title")}</h1>
         <p className="text-ink2">{t("intro")}</p>
       </section>
+
+      {/* Atalho para os caminhos de visto (ficam na aba Família). */}
+      <Link href="/family" className="flex min-h-14 items-center justify-between gap-3 rounded-2xl border border-primary bg-primary-soft p-4">
+        <span className="flex flex-col gap-0.5">
+          <span className="font-semibold">🛂 {t("pathsCardTitle")}</span>
+          <span className="text-sm text-ink2">
+            {journey.paths.length > 0 ? t("pathsCardCount", { n: journey.paths.length }) : t("pathsCardNone")}
+          </span>
+        </span>
+        <span aria-hidden="true" className="text-xl text-primary rtl:-scale-x-100">→</span>
+      </Link>
 
       {/* Trilha simples: as fases como paradas (todas aparecem desde o início, para ver o todo). */}
       <nav aria-label={t("trailLabel")} className="rounded-2xl border border-line bg-surface p-4">

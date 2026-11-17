@@ -16,6 +16,10 @@ reasons:
 ## Familia
 El cónyuge y los hijos solteros menores de 21 años pueden tener el estatus J-2 y pueden solicitar permiso de trabajo (I-765), pero los ingresos del J-1 no pueden depender de ese trabajo [[fonte:uscis-exchange-visitors]].
 
+## Enlaces oficiales para consultar
+Páginas del gobierno de EE. UU. indicadas por el propio USCIS. Ábrelas en tu navegador y revisa las reglas actuales:
+- [Visa de intercambio J (Departamento de Estado)](https://travel.state.gov/content/travel/en/us-visas/study/exchange.html): las reglas de la visa J-1 y cómo funciona la solicitud en el consulado.
+
 ## Qué puedes hacer ahora
 - Buscar programas con patrocinador designado por el Departamento de Estado.
 - Lleva tus dudas a un **abogado de inmigración** con licencia: él evalúa tu caso y conduce el proceso.

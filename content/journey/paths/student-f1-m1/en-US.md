@@ -15,6 +15,10 @@ reasons:
 ## Family
 The spouse and children may hold F-2 or M-2 status [[fonte:uscis-students]].
 
+## Official links to check
+U.S. government pages that USCIS itself points to. Open them in your browser and check the current rules:
+- [Student and Exchange Visitor Program, SEVP (ICE)](https://www.ice.gov/sevis): the agency that oversees F and M schools and students.
+
 ## What you can do now
 - Research schools and their admission requirements, including English.
 - Plan how to pay for school and housing without relying on work.

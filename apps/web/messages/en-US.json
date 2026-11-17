@@ -244,7 +244,10 @@
       },
       "validUntil": "Valid until (month and year)",
       "docNote": "Note"
-    }
+    },
+    "pathsCardTitle": "Visa paths worth exploring",
+    "pathsCardCount": "{n, plural, one {# path showed up from your answers} other {# paths showed up from your answers}}",
+    "pathsCardNone": "See why none showed up yet and what to answer"
   },
   "Family": {
     "title": "Your family",

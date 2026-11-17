@@ -16,6 +16,10 @@ reasons:
 ## Family
 The spouse and unmarried children under 21 may hold J-2 status and may apply for work authorization (Form I-765), but the J-1's income cannot depend on that work [[fonte:uscis-exchange-visitors]].
 
+## Official links to check
+U.S. government pages that USCIS itself points to. Open them in your browser and check the current rules:
+- [Exchange Visitor Visa (Department of State)](https://travel.state.gov/content/travel/en/us-visas/study/exchange.html): the J-1 visa rules and how the consular application works.
+
 ## What you can do now
 - Look for programs with a sponsor designated by the Department of State.
 - Take your questions to a licensed **immigration attorney**: they evaluate your case and handle the process.

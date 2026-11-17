@@ -16,6 +16,10 @@ reasons:
 - **F4:** irmãos e irmãs de cidadãos americanos (se o cidadão tiver 21 anos ou mais) [[fonte:uscis-family-preference]].
 - O pedido usa o Formulário I-130. A disponibilidade de vistos é acompanhada no Visa Bulletin, publicado pelo Departamento de Estado [[fonte:uscis-family-preference]].
 
+## Links oficiais para consultar
+Páginas do governo americano indicadas pelo próprio USCIS. Abra no seu navegador e confira as regras atuais:
+- [Visa Bulletin (Departamento de Estado)](https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html): publicação mensal que mostra a disponibilidade de vistos em cada categoria.
+
 ## O que você pode fazer agora
 - Conversar com o seu parente nos EUA sobre o processo e acompanhar o Visa Bulletin.
 - Levar as suas dúvidas a um **advogado de imigração** licenciado: é ele quem avalia o seu caso e conduz o processo.

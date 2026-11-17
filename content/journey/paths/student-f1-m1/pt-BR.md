@@ -15,6 +15,10 @@ reasons:
 ## Família
 Cônjuge e filhos podem ter o status F-2 ou M-2 [[fonte:uscis-students]].
 
+## Links oficiais para consultar
+Páginas do governo americano indicadas pelo próprio USCIS. Abra no seu navegador e confira as regras atuais:
+- [Programa de estudantes e intercambistas, SEVP (ICE)](https://www.ice.gov/sevis): o órgão que acompanha as escolas e os estudantes F e M.
+
 ## O que você pode fazer agora
 - Pesquisar escolas e as exigências de admissão, inclusive de inglês.
 - Planejar como pagar estudos e moradia sem depender de trabalho.

@@ -12,6 +12,12 @@ reasons:
 - The visa must be completed by September 30 of the fiscal year of the lottery; unused visas do not carry over [[fonte:uscis-dv]].
 - Watch out for scams: the Department of State keeps a fraud warning page [[fonte:uscis-dv]].
 
+## Official links to check
+U.S. government pages that USCIS itself points to. Open them in your browser and check the current rules:
+- [Diversity Visa entry (Department of State)](https://travel.state.gov/content/travel/en/us-visas/immigrate/diversity-visa-program-entry/diversity-visa-submit-entry1.html): the year's official instructions, including eligible countries and the education or work experience requirements.
+- [Fraud warning (Department of State)](https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/fraud.html): how to protect yourself from scams.
+- [Visa Bulletin (Department of State)](https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html): a monthly publication showing visa availability in each category.
+
 ## What you can do now
 - Read the year's official instructions on the Department of State website (travel.state.gov).
 - Have a plan that does not depend only on the lottery.

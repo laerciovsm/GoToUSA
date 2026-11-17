@@ -12,6 +12,12 @@ reasons:
 - La visa debe completarse antes del 30 de septiembre del año fiscal del sorteo; las visas no usadas no pasan al año siguiente [[fonte:uscis-dv]].
 - Cuidado con las estafas: el Departamento de Estado tiene una página de alerta sobre fraudes [[fonte:uscis-dv]].
 
+## Enlaces oficiales para consultar
+Páginas del gobierno de EE. UU. indicadas por el propio USCIS. Ábrelas en tu navegador y revisa las reglas actuales:
+- [Inscripción en la lotería (Departamento de Estado)](https://travel.state.gov/content/travel/en/us-visas/immigrate/diversity-visa-program-entry/diversity-visa-submit-entry1.html): las instrucciones oficiales del año, incluidos los países que pueden participar y los requisitos de estudios o experiencia.
+- [Alerta de fraudes (Departamento de Estado)](https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/fraud.html): cómo protegerte de estafas.
+- [Visa Bulletin (Departamento de Estado)](https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html): publicación mensual que muestra la disponibilidad de visas en cada categoría.
+
 ## Qué puedes hacer ahora
 - Leer las instrucciones oficiales del año en el sitio del Departamento de Estado (travel.state.gov).
 - Tener un plan que no dependa solo del sorteo.

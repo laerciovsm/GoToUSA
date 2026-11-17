@@ -4,11 +4,20 @@ import type { Source } from "@gotousa/shared";
 /**
  * Leitor simples e seguro do passo a passo (docs/telas.md): parágrafos, títulos (##, ###),
  * listas (- e 1.), **negrito**, links https e marcas de fonte [[fonte:id]].
+ * Lê linha a linha: um título ou uma lista podem vir logo depois de outra linha, sem linha em branco.
  * Não aceita HTML: tudo vira texto do React, para um erro no conteúdo nunca quebrar a página.
  */
 type Props = { text: string; sources: Source[] };
 
+type Block =
+  | { kind: "heading"; text: string }
+  | { kind: "ul" | "ol"; items: string[] }
+  | { kind: "p"; lines: string[] };
+
 const INLINE = /\*\*([^*]+)\*\*|\[\[fonte:([a-z0-9][a-z0-9.-]*)\]\]|\[([^\]]+)\]\((https:\/\/[^\s)]+)\)/g;
+const BULLET = /^[-*]\s+/;
+const NUMBERED = /^\d+\.\s+/;
+const HEADING = /^#{2,3}\s+(.+)$/;
 
 function inline(text: string, sources: Source[]): ReactNode[] {
   const nodes: ReactNode[] = [];
@@ -20,13 +29,13 @@ function inline(text: string, sources: Source[]): ReactNode[] {
     if (bold) nodes.push(<strong key={index}>{bold}</strong>);
     else if (sourceId) {
       const source = sources.find((s) => s.id === sourceId);
-      nodes.push(
-        source ? (
+      if (source) {
+        nodes.push(
           <a key={index} href={source.url} target="_blank" rel="noopener noreferrer" className="font-bold text-primary underline underline-offset-2">
             [{source.agency}]
-          </a>
-        ) : null,
-      );
+          </a>,
+        );
+      }
     } else if (linkText && linkUrl) {
       nodes.push(
         <a key={index} href={linkUrl} target="_blank" rel="noopener noreferrer" className="font-bold text-primary underline underline-offset-2">
@@ -40,33 +49,46 @@ function inline(text: string, sources: Source[]): ReactNode[] {
   return nodes;
 }
 
+export function parseBlocks(text: string): Block[] {
+  const blocks: Block[] = [];
+  for (const raw of text.replace(/\r\n/g, "\n").split("\n")) {
+    const line = raw.trim();
+    const current = blocks[blocks.length - 1];
+    if (line === "") {
+      blocks.push({ kind: "p", lines: [] }); // separador: o próximo texto começa um parágrafo novo
+      continue;
+    }
+    const heading = HEADING.exec(line);
+    if (heading) blocks.push({ kind: "heading", text: heading[1]! });
+    else if (BULLET.test(line) || NUMBERED.test(line)) {
+      const kind = BULLET.test(line) ? "ul" : "ol";
+      const item = line.replace(kind === "ul" ? BULLET : NUMBERED, "");
+      if (current?.kind === kind) current.items.push(item);
+      else blocks.push({ kind, items: [item] });
+    } else if (current?.kind === "p") current.lines.push(line);
+    else blocks.push({ kind: "p", lines: [line] });
+  }
+  return blocks.filter((b) => b.kind !== "p" || b.lines.length > 0);
+}
+
 export function SimpleMarkdown({ text, sources }: Props) {
-  const blocks = text.replace(/\r\n/g, "\n").split(/\n\s*\n/).map((b) => b.trim()).filter(Boolean);
   return (
     <div className="flex flex-col gap-3 text-ink2">
-      {blocks.map((block, i) => {
-        const lines = block.split("\n").map((l) => l.trim());
-        if (lines.every((l) => /^[-*]\s+/.test(l))) {
-          return (
-            <ul key={i} className="flex list-disc flex-col gap-1 ps-6">
-              {lines.map((l, j) => <li key={j}>{inline(l.replace(/^[-*]\s+/, ""), sources)}</li>)}
-            </ul>
-          );
+      {parseBlocks(text).map((block, i) => {
+        if (block.kind === "heading") {
+          return <h3 key={i} className="pt-2 text-lg font-semibold text-ink">{inline(block.text, sources)}</h3>;
         }
-        if (lines.every((l) => /^\d+\.\s+/.test(l))) {
+        if (block.kind !== "p") {
+          const List = block.kind;
           return (
-            <ol key={i} className="flex list-decimal flex-col gap-1 ps-6">
-              {lines.map((l, j) => <li key={j}>{inline(l.replace(/^\d+\.\s+/, ""), sources)}</li>)}
-            </ol>
+            <List key={i} className={`flex flex-col gap-1.5 ps-6 ${block.kind === "ul" ? "list-disc" : "list-decimal"}`}>
+              {block.items.map((item, j) => <li key={j}>{inline(item, sources)}</li>)}
+            </List>
           );
-        }
-        const heading = /^#{2,3}\s+(.+)$/.exec(lines[0]!);
-        if (heading && lines.length === 1) {
-          return <h3 key={i} className="pt-1 text-lg font-semibold text-ink">{inline(heading[1]!, sources)}</h3>;
         }
         return (
           <p key={i}>
-            {lines.map((l, j) => (
+            {block.lines.map((l, j) => (
               <Fragment key={j}>
                 {j > 0 && " "}
                 {inline(l, sources)}

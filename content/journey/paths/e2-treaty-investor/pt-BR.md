@@ -15,6 +15,10 @@ reasons:
 ## Família
 Cônjuge e filhos solteiros com menos de 21 anos podem ir como dependentes, qualquer que seja a nacionalidade. Cônjuges em E-2 ou E-2S em geral têm autorização de trabalho [[fonte:uscis-e2]].
 
+## Links oficiais para consultar
+Páginas do governo americano indicadas pelo próprio USCIS. Abra no seu navegador e confira as regras atuais:
+- [Países com tratado (Departamento de Estado)](https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/fees/treaty.html): a lista oficial de países com tratado para os vistos E-1 e E-2. Confira se alguma das suas nacionalidades está nela.
+
 ## O que você pode fazer agora
 - Conferir se alguma das suas nacionalidades está na lista oficial de países com tratado.
 - Levar as suas dúvidas a um **advogado de imigração** licenciado: é ele quem avalia o seu caso e conduz o processo.

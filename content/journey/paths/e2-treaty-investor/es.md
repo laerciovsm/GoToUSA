@@ -15,6 +15,10 @@ reasons:
 ## Familia
 El cónyuge y los hijos solteros menores de 21 años pueden ir como dependientes, sin importar su nacionalidad. Los cónyuges en E-2 o E-2S en general tienen permiso de trabajo [[fonte:uscis-e2]].
 
+## Enlaces oficiales para consultar
+Páginas del gobierno de EE. UU. indicadas por el propio USCIS. Ábrelas en tu navegador y revisa las reglas actuales:
+- [Países con tratado (Departamento de Estado)](https://travel.state.gov/content/travel/en/us-visas/visa-information-resources/fees/treaty.html): la lista oficial de países con tratado para las visas E-1 y E-2. Revisa si alguna de tus nacionalidades está en ella.
+
 ## Qué puedes hacer ahora
 - Revisar si alguna de tus nacionalidades está en la lista oficial de países con tratado.
 - Lleva tus dudas a un **abogado de inmigración** con licencia: él evalúa tu caso y conduce el proceso.

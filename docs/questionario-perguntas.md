@@ -184,7 +184,7 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `pref.community` | Quer morar perto de pessoas do seu país ou que falam seu idioma? | única | `yes` Sim, é importante · `some` Seria bom, mas não essencial · `immersion` Prefiro imersão total |
 | `pref.familyPriorities` | Para a sua família, o que é prioridade? | múltipla | `schools` Boas escolas · `special_ed` Educação especial · `safety` Segurança · `hospitals` Hospitais e especialistas por perto · `disability_services` Serviços para pessoas com deficiência · `elder_care` Cuidados para idosos · `none` Nenhuma em especial |
 
-### Proposta: hobbies, bem-estar e passeios *(documentada em 17/11/2026, ainda não implementada)*
+### Hobbies, bem-estar e passeios *(implementado em 17/11/2026)*
 
 > Pedido do fundador: saber os hobbies da pessoa, o que a faz se sentir bem, os lugares e passeios de que gosta e se gosta de viajar pelo próprio país. **Para que serve:**
 > 1. **Escolha do lugar:** quem ama trilha, praia ou vida cultural tem um estado e uma cidade que combinam melhor (soma a `pref.leisure`, `pref.climate` e `pref.placeSize`).
@@ -209,7 +209,7 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 | `pref.feelGood` | Vira sugestão de recompensa e lembrete nos dias difíceis e nos check-ins |
 | `pref.domesticTravel` = `often` ou `sometimes` | Sugere conhecer os EUA como parte da adaptação e entra na linha de lazer do orçamento |
 
-**Quando implementar:** junto com os ajustes que saírem do teste do fundador no celular, antes ou no começo do Marco 3. Acrescentar perguntas é barato (não quebra nada), e o motor da jornada já nasce sabendo usar esses dados.
+**Implementação:** `pref.hobbies` é perguntada para você e para o cônjuge (grupo "workers"); as outras três, uma vez para a família. Todas opcionais.
 
 ---
 

@@ -236,8 +236,8 @@ Na raiz do repositório:
    - textos que se ajustam ao sexo ("Filha 1", "área dela") nos 3 idiomas;
    - botão para recomeçar o questionário do zero.
    Em 17/11/2026, também implementados: bloco **Seu momento**, **remédios padronizados** (quantidade, unidade e frequência; formato salvo na versão 2, com migração), **equipamentos, especialistas e quem fica no país** como opções e **cidades por estado** (Census Bureau, Vintage 2025).
-   **Próximo:** o fundador recomeça o questionário no celular, testa de novo e aprova. Depois disso: commit e push.
-   **Proposta documentada (17/11/2026), a implementar junto com os ajustes do teste no celular:** perguntas de hobbies, bem-estar, passeios e viagens pelo próprio país ([docs/questionario-perguntas.md](docs/questionario-perguntas.md#proposta-hobbies-bem-estar-e-passeios-documentada-em-17112026-ainda-não-implementada)).
+   Também em 17/11/2026: perguntas de **hobbies, bem-estar, passeios e viagens pelo próprio país** no Bloco 6 ([docs/questionario-perguntas.md](docs/questionario-perguntas.md#hobbies-bem-estar-e-passeios-implementado-em-17112026)).
+   Tudo já está no GitHub. **Falta:** o fundador recomeçar o questionário no celular e testar de novo (inclusive se o zoom ao digitar parou); os ajustes entram em novos commits.
    **Pendências do questionário:** capital de cada estado com fonte oficial (.gov de cada estado); profissão e cargo como lista padronizada (avaliar O\*NET).
 4. **Marco 3:** motor da jornada (formato do conteúdo, regras de geração, cálculo de prazos), incluindo o **perfil da família** e os **caminhos de visto para conhecer**, gerados do questionário. Ver [docs/mvp.md](docs/mvp.md) e [docs/caminhos-visto.md](docs/caminhos-visto.md).
 5. **Anotado para o momento certo:** custos personalizados e custo total aproximado da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).

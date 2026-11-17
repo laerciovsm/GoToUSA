@@ -317,3 +317,16 @@ describe("seu momento, padronização e migração (17/11/2026)", () => {
     expect(visibleOptions(question, { record: data, person: self, now: NOW })).toContain("geriatrician");
   });
 });
+
+describe("hobbies, bem-estar e passeios", () => {
+  it("hobbies por adulto (você e cônjuge) e as demais perguntas uma vez só", () => {
+    let data = setAnswer(createQuestionnaire(NOW), "household.partner", "going", undefined, NOW);
+    data = setAnswer(data, "household.children", 1, undefined, NOW);
+    const ids = stepIds("pref", data);
+    expect(ids.filter((id) => id.startsWith("pref.hobbies@"))).toEqual(["pref.hobbies@self", "pref.hobbies@partner"]);
+    expect(ids).toContain("pref.feelGood");
+    expect(ids).toContain("pref.outings");
+    expect(ids).toContain("pref.domesticTravel");
+    expect(getBlock("pref")!.items.every((i) => ("group" in i ? i.questions.every((q) => q.optional) : i.optional))).toBe(true);
+  });
+});

@@ -7,4 +7,5 @@ export * from "./generate";
 export * from "./readiness";
 export * from "./profile";
 export * from "./frontmatter";
+export * from "./progress";
 // load-node.ts fica de fora de propósito: usa o sistema de arquivos (só testes e scripts).

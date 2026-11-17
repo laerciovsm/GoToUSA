@@ -193,6 +193,14 @@ Formulário curto: **título** (obrigatório) e, opcionalmente, etapa, tema, pes
 
 Cada parte é testada no celular pelo fundador antes da próxima.
 
+### Partes 1 e 2 implementadas (17/11/2026)
+
+- **Dados:** `apps/web/src/lib/storage/journey-repository.ts` salva o progresso no navegador (IndexedDB, validado por `parseProgress`). O conteúdo é lido e validado **no build** por `apps/web/src/lib/journey/content.ts` (usa `@gotousa/shared/node`): cada página leva só o idioma dela, e conteúdo com erro faz o build falhar. As alterações no progresso são funções puras e testadas em `packages/shared/src/journey/progress.ts` (marcar a primeira subtarefa já coloca a tarefa "em andamento").
+- **Tela Jornada** (`/journey`): trilha simples com as fases (ícone, ✓ nas concluídas, "você está aqui"), etapas que abrem e fecham com "x de y", cartões com prazo, selos **Prioridade**, **Destaque** e **Aguardando**.
+- **Tela Tarefa** (`/journey?task=chave`): fase e etapa, para quem, peso, tempo e prazo; por que importa; subtarefas; passo a passo (leitor de Markdown seguro em `simple-markdown.tsx`, sem HTML); fontes oficiais com o aviso padrão (quando houver); "Quando e onde?"; **Registro** (combinado, documentos ou anotações); anotação pessoal; botões Comecei, Concluí e Não se aplica, todos com desfazer; tarefa aguardando mostra o que vem antes; comemoração só ao concluir a tarefa inteira, com a recompensa escolhida pela pessoa e o próximo passo.
+- **Barra inferior** por enquanto com **Jornada** e **Questionário**; Hoje, Família e Mais entram nas próximas partes. O questionário mostra "Ver a minha jornada" depois que a parte essencial é concluída.
+- **Ainda não:** tela Hoje (parte 3), Família e Caminho (4), mala da prontidão, carimbos e check-in (5), por tema, filtro por pessoa e tarefa própria (6), progresso no arquivo de baixar e importar (quando essa função existir).
+
 ## Decisões tomadas (17/11/2026)
 
 1. ✅ **Barra inferior com 4 abas:** Hoje · Jornada · Família · Mais.

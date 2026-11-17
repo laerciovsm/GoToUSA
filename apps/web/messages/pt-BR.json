@@ -103,8 +103,31 @@
       "medName": "Nome do remédio",
       "medAmount": "Quantidade",
       "medUnit": "Unidade",
-      "medUnits": { "mg": "mg (miligrama)", "mcg": "mcg (micrograma)", "g": "g (grama)", "ml": "ml (mililitro)", "drops": "gotas", "tablet": "comprimido(s)", "capsule": "cápsula(s)", "iu": "UI (unidades internacionais)", "puff": "jato(s)", "patch": "adesivo(s)", "application": "aplicação(ões)", "other": "outra" },
-      "medFrequencies": { "daily_1": "1 vez ao dia", "daily_2": "2 vezes ao dia", "daily_3": "3 vezes ao dia", "daily_4": "4 vezes ao dia", "daily_more": "Mais de 4 vezes ao dia", "weekly": "Uma vez por semana", "monthly": "Uma vez por mês", "as_needed": "Só quando precisa", "other": "Outra" },
+      "medUnits": {
+        "mg": "mg (miligrama)",
+        "mcg": "mcg (micrograma)",
+        "g": "g (grama)",
+        "ml": "ml (mililitro)",
+        "drops": "gotas",
+        "tablet": "comprimido(s)",
+        "capsule": "cápsula(s)",
+        "iu": "UI (unidades internacionais)",
+        "puff": "jato(s)",
+        "patch": "adesivo(s)",
+        "application": "aplicação(ões)",
+        "other": "outra"
+      },
+      "medFrequencies": {
+        "daily_1": "1 vez ao dia",
+        "daily_2": "2 vezes ao dia",
+        "daily_3": "3 vezes ao dia",
+        "daily_4": "4 vezes ao dia",
+        "daily_more": "Mais de 4 vezes ao dia",
+        "weekly": "Uma vez por semana",
+        "monthly": "Uma vez por mês",
+        "as_needed": "Só quando precisa",
+        "other": "Outra"
+      },
       "citiesSource": "Cidades e população: U.S. Census Bureau, estimativa de 2025.",
       "cityPopulation": "{n, number} habitantes (estimativa)",
       "citiesLoading": "Carregando as cidades…",
@@ -119,6 +142,107 @@
       "yes": "Sim",
       "no": "Não",
       "dontKnow": "Não sei"
+    },
+    "seeJourney": "Ver a minha jornada"
+  },
+  "Nav": {
+    "label": "Navegação principal",
+    "journey": "Jornada",
+    "questionnaire": "Questionário"
+  },
+  "Journey": {
+    "loading": "Carregando a sua jornada…",
+    "loadError": "Não foi possível abrir os dados salvos neste navegador. Tente recarregar a página.",
+    "invalidData": "Os dados salvos neste navegador estão num formato que não conseguimos ler. Nada foi apagado.",
+    "saveError": "Não conseguimos salvar a última alteração neste navegador. Confira se o navegador permite salvar dados.",
+    "needsQuestionnaireTitle": "Primeiro, conte um pouco sobre você",
+    "needsQuestionnaireBody": "A sua jornada é montada a partir das suas respostas. Conclua a parte essencial do questionário para vê-la.",
+    "toQuestionnaire": "Ir para o questionário",
+    "taskNotFound": "Esta tarefa não faz parte da sua jornada agora (talvez uma resposta tenha mudado).",
+    "backToJourney": "Voltar para a jornada",
+    "title": "Sua jornada",
+    "intro": "Todas as fases, do começo ao fim. Uma tarefa de cada vez.",
+    "trailLabel": "Fases da jornada",
+    "phaseStop": "Fase {n}: {phase} ({status})",
+    "phaseDone": "concluída",
+    "phaseCurrent": "você está aqui",
+    "phaseFuture": "próxima",
+    "phaseNumber": "Fase {n} de {total}",
+    "youAreHere": "você está aqui",
+    "phaseComingSoon": "As tarefas desta fase ainda estão sendo preparadas, sempre a partir de fontes oficiais. Elas vão aparecer aqui.",
+    "stageCount": "{done} de {total}",
+    "dueUntil": "até {date}",
+    "dueRelative": "{amount, plural, one {# {unit, select, months {mês} weeks {semana} other {dia}}} other {# {unit, select, months {meses} weeks {semanas} other {dias}}}} {direction, select, before {antes} other {depois}} {ref, select, departure {da ida} arrival {da chegada} other {do início}}",
+    "hoursOne": "{n, plural, one {# hora} other {# horas}}",
+    "hoursRange": "{min} a {max} horas",
+    "weight": {
+      "low": "Peso baixo",
+      "medium": "Peso médio",
+      "high": "Peso alto"
+    },
+    "status": {
+      "todo": "A fazer",
+      "doing": "Em andamento",
+      "done": "Concluída",
+      "na": "Não se aplica",
+      "waiting": "Aguardando outra tarefa"
+    },
+    "badge": {
+      "priority": "Prioridade",
+      "highlight": "Destaque",
+      "waiting": "Antes: {task}"
+    },
+    "priorityHint": "O prazo sugerido já passou. Sem problema: vamos fazer agora e reorganizar o que vem depois.",
+    "forPerson": "Para: {person}",
+    "waitingTitle": "Antes desta, conclua:",
+    "waitingButtons": "Você já pode ler esta tarefa. Os botões de concluir aparecem quando a tarefa anterior estiver pronta.",
+    "why": "Por que importa",
+    "subtasks": "Passos",
+    "stepByStep": "Passo a passo",
+    "aboutInfo": "Sobre esta informação",
+    "aboutInfoBody": "Este conteúdo foi compilado a partir de fontes oficiais, mas erros ao resumir podem acontecer. A fonte oficial na íntegra está em:",
+    "aboutInfoLegal": "O GoToUSA é um apoio à sua jornada, não uma consultoria jurídica. Para informações detalhadas, consulte a fonte oficial acima ou procure um advogado de imigração ou um especialista.",
+    "verifiedOn": "verificado em {date}",
+    "plan": "Quando e onde?",
+    "planHint": "Opcional. Decidir quando e onde vai fazer ajuda muito a sair do papel.",
+    "planPlaceholder": "Ex.: terça, às 20h, na sala",
+    "note": "Anotação pessoal",
+    "noSensitive": "Fica só neste navegador. Não anote números de documentos nem senhas.",
+    "markDone": "Concluí",
+    "markDoing": "Comecei",
+    "markNa": "Não se aplica a mim",
+    "undoDone": "Desfazer a conclusão",
+    "undoNa": "Voltar a considerar esta tarefa",
+    "doneOn": "Você concluiu em {date}",
+    "celebrateTitle": "Você concluiu! Mais um passo da sua jornada.",
+    "celebrateBody": "Cada tarefa concluída deixa a mudança mais perto. Aproveite este momento.",
+    "celebrateReward": "Que tal comemorar com: {reward}?",
+    "nextStep": "Próximo passo: {task}",
+    "record": {
+      "title": "Registro",
+      "intro": {
+        "agreement": "Anote o que ficou combinado, para todos lembrarem depois.",
+        "documents": "Anote a situação de cada documento. Nada de arquivos: só a situação e a validade.",
+        "notes": "Anote o que for importante desta tarefa."
+      },
+      "date": "Data da conversa",
+      "people": "Quem participou",
+      "decided": "O que foi decidido",
+      "nextSteps": "Próximos passos",
+      "agreed": "Todos de acordo?",
+      "agreedOptions": {
+        "yes": "Sim",
+        "partly": "Em parte",
+        "not_yet": "Ainda não"
+      },
+      "noNumbers": "Não anote números de documentos nem senhas. Aqui vai só a situação.",
+      "docState": {
+        "have": "Tenho",
+        "requested": "Pedi",
+        "missing": "Falta"
+      },
+      "validUntil": "Válido até (mês e ano)",
+      "docNote": "Observação"
     }
   }
 }

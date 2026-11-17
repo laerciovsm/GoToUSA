@@ -219,11 +219,20 @@ export function QuestionnaireApp() {
           <h1 className="text-2xl font-semibold">{justFinishedEssential ? t("essentialDoneTitle") : t("blockDoneTitle")}</h1>
           <p className="text-ink2">{justFinishedEssential ? t("essentialDoneBody") : t("blockDoneBody")}</p>
           <div className="flex flex-wrap gap-3">
+            {essentialDone && (
+              <Link href="/journey" className="flex min-h-12 items-center rounded-full bg-action px-6 font-bold text-on-action">
+                {t("seeJourney")}
+              </Link>
+            )}
             {nextBlock && (
               <button
                 type="button"
                 onClick={() => startBlock(nextBlock)}
-                className="min-h-12 rounded-full bg-action px-6 font-bold text-on-action"
+                className={
+                  essentialDone
+                    ? "min-h-12 rounded-full border-2 border-primary px-5 font-bold text-primary"
+                    : "min-h-12 rounded-full bg-action px-6 font-bold text-on-action"
+                }
               >
                 {t("nextBlock", { block: tb(`${nextBlock.id}.title`) })}
               </button>
@@ -294,6 +303,9 @@ export function QuestionnaireApp() {
         <section className="flex flex-col gap-2 rounded-2xl border border-celebrate bg-celebrate-soft p-5">
           <h2 className="text-xl font-semibold">{t("essentialDoneTitle")}</h2>
           <p className="text-ink2">{t("essentialDoneBody")}</p>
+          <Link href="/journey" className="mt-2 flex min-h-12 items-center self-start rounded-full bg-action px-6 font-bold text-on-action">
+            {t("seeJourney")}
+          </Link>
         </section>
       )}
 

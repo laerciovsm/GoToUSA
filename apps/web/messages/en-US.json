@@ -103,8 +103,31 @@
       "medName": "Medication name",
       "medAmount": "Amount",
       "medUnit": "Unit",
-      "medUnits": { "mg": "mg (milligram)", "mcg": "mcg (microgram)", "g": "g (gram)", "ml": "ml (milliliter)", "drops": "drops", "tablet": "tablet(s)", "capsule": "capsule(s)", "iu": "IU (international units)", "puff": "puff(s)", "patch": "patch(es)", "application": "application(s)", "other": "other" },
-      "medFrequencies": { "daily_1": "Once a day", "daily_2": "Twice a day", "daily_3": "3 times a day", "daily_4": "4 times a day", "daily_more": "More than 4 times a day", "weekly": "Once a week", "monthly": "Once a month", "as_needed": "Only as needed", "other": "Other" },
+      "medUnits": {
+        "mg": "mg (milligram)",
+        "mcg": "mcg (microgram)",
+        "g": "g (gram)",
+        "ml": "ml (milliliter)",
+        "drops": "drops",
+        "tablet": "tablet(s)",
+        "capsule": "capsule(s)",
+        "iu": "IU (international units)",
+        "puff": "puff(s)",
+        "patch": "patch(es)",
+        "application": "application(s)",
+        "other": "other"
+      },
+      "medFrequencies": {
+        "daily_1": "Once a day",
+        "daily_2": "Twice a day",
+        "daily_3": "3 times a day",
+        "daily_4": "4 times a day",
+        "daily_more": "More than 4 times a day",
+        "weekly": "Once a week",
+        "monthly": "Once a month",
+        "as_needed": "Only as needed",
+        "other": "Other"
+      },
       "citiesSource": "Cities and population: U.S. Census Bureau, 2025 estimates.",
       "cityPopulation": "{n, number} residents (estimate)",
       "citiesLoading": "Loading cities…",
@@ -119,6 +142,107 @@
       "yes": "Yes",
       "no": "No",
       "dontKnow": "I don't know"
+    },
+    "seeJourney": "See my journey"
+  },
+  "Nav": {
+    "label": "Main navigation",
+    "journey": "Journey",
+    "questionnaire": "Questionnaire"
+  },
+  "Journey": {
+    "loading": "Loading your journey…",
+    "loadError": "We couldn't open the data saved in this browser. Try reloading the page.",
+    "invalidData": "The data saved in this browser is in a format we can't read. Nothing was deleted.",
+    "saveError": "We couldn't save your last change in this browser. Check that your browser allows saving data.",
+    "needsQuestionnaireTitle": "First, tell us a little about yourself",
+    "needsQuestionnaireBody": "Your journey is built from your answers. Finish the essential part of the questionnaire to see it.",
+    "toQuestionnaire": "Go to the questionnaire",
+    "taskNotFound": "This task isn't part of your journey right now (maybe an answer changed).",
+    "backToJourney": "Back to the journey",
+    "title": "Your journey",
+    "intro": "Every phase, from start to finish. One task at a time.",
+    "trailLabel": "Journey phases",
+    "phaseStop": "Phase {n}: {phase} ({status})",
+    "phaseDone": "done",
+    "phaseCurrent": "you are here",
+    "phaseFuture": "upcoming",
+    "phaseNumber": "Phase {n} of {total}",
+    "youAreHere": "you are here",
+    "phaseComingSoon": "The tasks for this phase are still being prepared, always from official sources. They will show up here.",
+    "stageCount": "{done} of {total}",
+    "dueUntil": "by {date}",
+    "dueRelative": "{amount, plural, one {# {unit, select, months {month} weeks {week} other {day}}} other {# {unit, select, months {months} weeks {weeks} other {days}}}} {direction, select, before {before} other {after}} {ref, select, departure {departure} arrival {arrival} other {the start}}",
+    "hoursOne": "{n, plural, one {# hour} other {# hours}}",
+    "hoursRange": "{min} to {max} hours",
+    "weight": {
+      "low": "Low weight",
+      "medium": "Medium weight",
+      "high": "High weight"
+    },
+    "status": {
+      "todo": "To do",
+      "doing": "In progress",
+      "done": "Done",
+      "na": "Doesn't apply",
+      "waiting": "Waiting for another task"
+    },
+    "badge": {
+      "priority": "Priority",
+      "highlight": "Highlight",
+      "waiting": "First: {task}"
+    },
+    "priorityHint": "The suggested deadline has passed. That's okay: let's do it now and reorganize what comes next.",
+    "forPerson": "For: {person}",
+    "waitingTitle": "Before this one, finish:",
+    "waitingButtons": "You can already read this task. The buttons to finish it appear when the previous task is done.",
+    "why": "Why it matters",
+    "subtasks": "Steps",
+    "stepByStep": "Step by step",
+    "aboutInfo": "About this information",
+    "aboutInfoBody": "This content was compiled from official sources, but mistakes can happen when summarizing. The full official source is at:",
+    "aboutInfoLegal": "GoToUSA supports your journey; it is not legal advice. For detailed information, check the official source above or talk to an immigration attorney or a specialist.",
+    "verifiedOn": "verified on {date}",
+    "plan": "When and where?",
+    "planHint": "Optional. Deciding when and where you'll do it really helps you get it done.",
+    "planPlaceholder": "E.g.: Tuesday, 8 pm, in the living room",
+    "note": "Personal note",
+    "noSensitive": "Stays only in this browser. Don't write down document numbers or passwords.",
+    "markDone": "I did it",
+    "markDoing": "I started",
+    "markNa": "Doesn't apply to me",
+    "undoDone": "Undo completion",
+    "undoNa": "Consider this task again",
+    "doneOn": "You finished on {date}",
+    "celebrateTitle": "You did it! One more step on your journey.",
+    "celebrateBody": "Every finished task brings the move closer. Enjoy this moment.",
+    "celebrateReward": "How about celebrating with: {reward}?",
+    "nextStep": "Next step: {task}",
+    "record": {
+      "title": "Record",
+      "intro": {
+        "agreement": "Write down what was agreed, so everyone remembers later.",
+        "documents": "Write down the status of each document. No files: just the status and expiration.",
+        "notes": "Write down what matters for this task."
+      },
+      "date": "Date of the conversation",
+      "people": "Who took part",
+      "decided": "What was decided",
+      "nextSteps": "Next steps",
+      "agreed": "Does everyone agree?",
+      "agreedOptions": {
+        "yes": "Yes",
+        "partly": "Partly",
+        "not_yet": "Not yet"
+      },
+      "noNumbers": "Don't write down document numbers or passwords. Only the status goes here.",
+      "docState": {
+        "have": "I have it",
+        "requested": "Requested",
+        "missing": "Missing"
+      },
+      "validUntil": "Valid until (month and year)",
+      "docNote": "Note"
     }
   }
 }

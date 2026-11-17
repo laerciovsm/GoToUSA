@@ -5,7 +5,8 @@
   "description": "Tipos, validações e motor da jornada compartilhados entre o frontend e o futuro backend.",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./node": "./src/journey/load-node.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

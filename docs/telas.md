@@ -1,8 +1,10 @@
-# Telas da jornada (Marco 5 · rascunho de 17/11/2026, para revisão)
+# Telas da jornada (Marco 5 · aprovado em 17/11/2026)
 
 > Como a pessoa vê e usa a jornada gerada pelo motor ([jornada.md](jornada.md#implementação-do-motor-marco-3--17112026)). Segue as premissas do projeto: **celular primeiro**, **fácil de usar**, **positivo, mas baseado em fatos**, **sem culpa**, **quem executa é a pessoa**, **nenhum texto fixo no código** (3 idiomas, inclusive da direita para a esquerda) e a identidade visual de [design.md](design.md) (paleta, trilha da família, mala da prontidão, carimbos).
 >
-> Os desenhos abaixo são esboços em texto, só para mostrar a organização. O visual final segue a [prévia visual](design.md#prévia-visual).
+> Os desenhos abaixo são esboços em texto, só para mostrar a organização. O visual final segue a [prévia visual](design.md#prévia-visual), que o fundador aprovou ("gostei muito do design para o celular, cores etc.").
+>
+> **Funcionalidade primeiro, perfumaria depois** (decisão do fundador em 17/11/2026): no Marco 5 entra só o que é necessário para a jornada funcionar. O que não é necessário agora (avatares personalizados, animações elaboradas, ilustrações por fase) fica para depois. O design atual (cores, fontes, layout do celular) continua como está.
 
 ## Mapa das telas
 
@@ -80,7 +82,7 @@ Depois de concluir a parte essencial do questionário, o app passa a abrir aqui.
 └──────────────────────────────────┘
 ```
 
-- **Por fase** (padrão): a **trilha da família** no topo, com as 7 fases como paradas (feitas, atual e futuras). Tocar numa parada mostra a fase. **Todas as fases aparecem desde o início**, para a pessoa ver o todo, inclusive as futuras.
+- **Por fase** (padrão): a **trilha** no topo, em versão simples: as 7 fases como paradas com ícone e nome (feitas, atual e futuras). Os avatares da família ficam para depois (perfumaria). Tocar numa parada mostra a fase. **Todas as fases aparecem desde o início**, para a pessoa ver o todo, inclusive as futuras.
 - Dentro da fase, as **etapas** abrem e fecham, cada uma com "x de y concluídas".
 - **Cartão de tarefa (compacto):** título · para quem (quando é por pessoa: "Pedro") · prazo em mês e ano ("até mar/2027") · ícone de situação.
 - **Selos positivos:** **Prioridade** (prazo vencido), **Destaque** (o motor destacou), **Aguardando** (com o nome da tarefa que vem antes). Nunca "atrasada".
@@ -130,7 +132,7 @@ Depois de concluir a parte essencial do questionário, o app passa a abrir aqui.
 - **Anotação pessoal** (texto livre, só da pessoa).
 - **Botões:** **Comecei** (vira "em andamento"), **Concluí** e **Não se aplica** (um toque, sem pedir motivo). Tudo pode ser desfeito.
 - **Tarefa aguardando:** mostra "Antes desta, conclua: [tarefa]", com o atalho. Ela pode ser lida, mas os botões de concluir ficam para depois.
-- **Ao concluir:** uma comemoração curta e discreta, com uma sugestão de recompensa escolhida pela própria pessoa (`rhythm.rewards`, `pref.feelGood`).
+- **Ao concluir a tarefa inteira:** uma comemoração curta e discreta, com uma sugestão de recompensa escolhida pela própria pessoa (`rhythm.rewards`, `pref.feelGood`). **Marcar subtarefas não dá recompensa**: só a tarefa completa (decisão de 17/11/2026).
 
 ## 4. Família (perfil)
 
@@ -150,7 +152,7 @@ As seções do [perfil da família](caminhos-visto.md#perfil-da-família): quem 
 
 ## 6. Fim de fase (check-in)
 
-Ao concluir a última tarefa de uma fase: a comemoração maior, o **carimbo** da fase e o check-in ([jornada.md](jornada.md#pontos-de-reflexão)):
+Ao concluir a última tarefa de uma fase: o **carimbo** da fase e o check-in ([jornada.md](jornada.md#pontos-de-reflexão)):
 
 > "Depois do que você viu, ainda faz sentido para você?"
 > **Continuar** · **Pausar** (a jornada fica salva) · **Ajustar o plano** (rever respostas) · **Encerrar** (decisão consciente, com o resumo do que você aprendeu).
@@ -191,9 +193,9 @@ Formulário curto: **título** (obrigatório) e, opcionalmente, etapa, tema, pes
 
 Cada parte é testada no celular pelo fundador antes da próxima.
 
-## Decisões para o fundador
+## Decisões tomadas (17/11/2026)
 
-1. **Barra inferior com 4 abas** (Hoje · Jornada · Família · Mais)?
-2. **Depois do essencial, o app abre direto em "Hoje"** (o questionário continua em "Mais" e nos convites)?
-3. **Trilha da família em versão simples no MVP:** fases como paradas com ícones. Os avatares da família, personalizados e inclusivos ([design.md](design.md#escolhido)), ficam para depois do MVP.
-4. **Comemoração:** discreta em toda tarefa concluída e maior no fim de cada fase, com a sugestão de recompensa nas duas?
+1. ✅ **Barra inferior com 4 abas:** Hoje · Jornada · Família · Mais.
+2. ✅ **Tela de abertura:** enquanto a parte essencial do questionário não estiver concluída, o app abre no questionário. Depois de concluída, abre direto em **Hoje** (o questionário continua em "Mais" e nos convites). O fundador deixou a escolha com o desenvolvimento.
+3. ✅ **Funcionalidade primeiro:** trilha simples (fases como paradas com ícone); avatares, animações elaboradas e ilustrações ficam para depois. O design atual continua como está.
+4. ✅ **Recompensa só na tarefa completa:** subtarefas não dão recompensa. No fim de fase, carimbo e check-in.

@@ -101,7 +101,7 @@ Medição: conversas com os validadores ao fim de cada mês (no MVP não há col
 2. 🧪 **Questionário:** blocos, ramificação, salvamento no IndexedDB, edição. *Implementado em 16/11/2026, aguardando o teste do fundador no celular.* Regras em `packages/shared/src/questionnaire/`, telas em `apps/web/src/components/questionnaire/`, textos em `apps/web/messages/questionnaire/`.
 3. **Motor da jornada:** formato do conteúdo, regras de geração, cálculo de prazos, **perfil da família** e **caminhos de visto para conhecer** (ver [caminhos-visto.md](caminhos-visto.md)). Tudo gerado a partir do questionário.
 4. **Conteúdo da Fase 0** (escrito em paralelo aos marcos 2 e 3).
-5. **Telas da jornada:** por fase e por tema, tarefas, prontidão, tela "Hoje".
+5. **Telas da jornada:** por fase e por tema, tarefas, prontidão, tela "Hoje". Ver [telas.md](telas.md).
 6. **Baixar e importar.** ➜ **Primeira versão usável pelo fundador.**
 7. **Conteúdo das Fases 1 e 2** e funcionalidades "importantes".
 8. **Testes com os validadores** e ajustes.

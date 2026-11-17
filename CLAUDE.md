@@ -61,6 +61,7 @@ O GoToUSA ajuda a pessoa a **criar a própria jornada** e a evoluir nela, com tu
 - Escopo da primeira versão: [docs/mvp.md](docs/mvp.md).
 - Orçamento da mudança (custos até a mudança, custo mensal nos EUA com impostos e taxas do estado, renda × despesas): [docs/orcamento.md](docs/orcamento.md).
 - Identidade visual, paleta e lúdico (trilha da família, mala da prontidão, carimbos): [docs/design.md](docs/design.md).
+- Telas da jornada (Marco 5): [docs/telas.md](docs/telas.md).
 - Checklist para quando for comercializar (custos, simulação de custo da IA, empresa, jurídico): [docs/comercializacao.md](docs/comercializacao.md).
 
 ### Funcionalidades decididas
@@ -251,7 +252,7 @@ Na raiz do repositório:
    5. ✅ **Perfil da família e caminhos de visto:** aprovado em 17/11/2026 em [docs/caminhos-visto.md](docs/caminhos-visto.md#como-o-motor-gera-o-perfil-e-os-caminhos-marco-3-passo-5--aprovado-em-17112026) (perfil calculado na hora; pontos de atenção = alertas da jornada; caminhos em `content/journey/paths/` com fonte oficial obrigatória; agrupados, sem ranking; avaliação de **cada adulto que vai**; asilo e refúgio fora). Premissa reforçada: todo fato sobre visto vem de fonte oficial, sempre.
    - **Registro nas tarefas** de alinhamento e documentação (anotar o combinado e a situação dos documentos, sem enviar arquivos): [docs/jornada.md](docs/jornada.md#registro-da-tarefa-decisão-do-fundador-em-17112026).
    - ✅ **Implementado em 17/11/2026:** motor em `packages/shared/src/journey/` (ver [docs/jornada.md](docs/jornada.md#implementação-do-motor-marco-3--17112026)), conteúdo de exemplo em `content/journey/` (7 tarefas, 3 idiomas, sem fatos legais) e a pergunta **"pretende trabalhar ou estudar nos EUA?"** para filhos e dependentes adultos (quem vai trabalhar entra no Bloco 11).
-   **Próximo:** Marco 5, as telas da jornada (por fase e por tema, tarefas com registro, prontidão, tela "Hoje", perfil da família), com o salvamento do progresso no navegador. Em paralelo: conteúdo real da Fase 0 e dos caminhos de visto, sempre a partir de fonte oficial.
+   **Próximo:** Marco 5, as telas da jornada. **Rascunho documentado em 17/11/2026 em [docs/telas.md](docs/telas.md)** (Hoje, Jornada, Tarefa, Família, Caminho, fim de fase, tarefa própria; barra inferior; ordem de construção). **Aguardando a revisão do fundador e 4 decisões.** Em paralelo: conteúdo real da Fase 0 e dos caminhos de visto, sempre a partir de fonte oficial.
 5. **Anotado para o momento certo:** custos personalizados e custo total aproximado da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
 6. Em paralelo: conteúdo da Fase 0 para o cenário inicial e levantamento das taxas oficiais do orçamento (passaporte no Brasil, vistos, USCIS, impostos e DMV dos estados da lista curta), sempre a partir de fontes oficiais.
 

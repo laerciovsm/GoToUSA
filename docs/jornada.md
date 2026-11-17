@@ -501,6 +501,7 @@ Quando um prazo vem de uma regra ou de um tempo oficial (ex.: validade mínima d
 
 ### Como o prazo aparece na tela
 
+- **A data de ida é a meta:** aparece como "Meta: março de 2027" (decidido em 17/11/2026).
 - **Mês e ano**, não o dia exato: "até março de 2027". Como a data de ida é só mês e ano, mostrar um dia exato daria uma falsa precisão.
 - Com a distância: "faltam 4 meses".
 - Datas formatadas no idioma e no país da pessoa.
@@ -533,11 +534,11 @@ Quando um prazo vem de uma regra ou de um tempo oficial (ex.: validade mínima d
 2. Todo prazo baseado em fato oficial tem fonte.
 3. Casos testados: ida conhecida, "ainda não sei", ida em menos de 3 meses, ida que já passou, mudança da data de ida mantendo o progresso.
 
-### Decisões para o fundador
+### Decisões
 
-1. **Prazo mostrado em mês e ano** ("até março de 2027"), sem o dia exato?
+1. ✅ **O mês da ida é a meta** (17/11/2026): a data de ida aparece como **meta** ("Meta: março de 2027"), e os prazos das tarefas em mês e ano ("até março de 2027"), sem dia exato.
 2. **Fase 0 com prazo contado do início da jornada** (padrão: 1 mês), para a pessoa começar com ritmo? Ou a Fase 0 sem prazo?
-3. **Conferência de realidade** pelo tempo estimado × tempo por semana, sugerindo rever a data de ida quando não couber?
+3. ✅ **Conferência de realidade** pelo tempo estimado × tempo por semana, sugerindo rever a data de ida ou reservar mais tempo quando não couber (17/11/2026).
 
 ## Gratuito × pago (proposta)
 

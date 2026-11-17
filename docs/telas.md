@@ -215,7 +215,12 @@ Cada parte é testada no celular pelo fundador antes da próxima.
 - **Carimbos do passaporte:** na Jornada, acima da trilha, um carimbo por fase concluída (com tarefas, todas concluídas ou "não se aplica") e os espaços das fases que faltam ("Carimbos: 1 de 7").
 - **Check-in de fase:** ao concluir a última tarefa de uma fase, a comemoração mostra o carimbo e "Fazer o check-in da fase". Na tela Hoje, a primeira fase concluída sem check-in mostra a pergunta "Depois do que você viu, ainda faz sentido para você?" com **Continuar · Ajustar o plano · Pausar · Encerrar**. Pausar e Encerrar ficam guardados e mostram um cartão respeitoso com **Retomar a jornada**; Encerrar mostra o resumo do que a pessoa construiu ("decidir com consciência também é sucesso").
 - **Formato salvo do progresso na versão 2** (`checkins`, `pausedAt`, `endedAt`), com migração automática da versão 1 (`parseProgress`).
-- **Ainda não:** por tema, filtro por pessoa e tarefa própria (6), progresso no arquivo de baixar e importar (quando essa função existir).
+### Parte 6 implementada (17/11/2026): Marco 5 concluído
+
+- **Por fase · Por tema** na Jornada. Por tema: cada tema com a prontidão (percentual e barra) e as suas tarefas.
+- **Filtro por pessoa:** "Ver as tarefas de: Todos · Você · Cônjuge · Filha 1…" (só aparecem as pessoas que têm tarefas). Mostra as tarefas daquela pessoa e as tarefas próprias marcadas para ela.
+- **Tarefa própria** (`?new=1` para criar, `?own=<id>` para editar): título obrigatório; fase, etapa, tema, pessoas, peso (padrão baixo) e prazo (mês e ano) opcionais. Aparece na etapa escolhida (ou em "Suas tarefas"), conclui com um toque, pode ser marcada "não se aplica" e excluída (com confirmação). Conta na prontidão geral, da etapa e do tema. Funções em `packages/shared/src/journey/progress.ts` (`addOwnTask`, `updateOwnTask`, `setOwnTaskStatus`, `removeOwnTask`).
+- **Ainda não:** progresso no arquivo de baixar e importar (quando essa função existir).
 
 ## Decisões tomadas (17/11/2026)
 

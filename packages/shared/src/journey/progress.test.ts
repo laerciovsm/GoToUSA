@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { emptyRecord, setTaskStatus, splitTaskKey, taskProgress, toggleSubtask, updateTask } from "./progress";
+import { addOwnTask, emptyRecord, removeOwnTask, setOwnTaskStatus, setTaskStatus, splitTaskKey, taskProgress, toggleSubtask, updateOwnTask, updateTask } from "./progress";
 import { createProgress, parseProgress } from "./schema";
 
 const NOW = new Date(2026, 10, 17, 10, 0, 0);
@@ -49,5 +49,21 @@ describe("progresso da jornada", () => {
   it("chave da tarefa separa o ID da pessoa", () => {
     expect(splitTaskKey("family-talk")).toEqual({ taskId: "family-talk", personId: null });
     expect(splitTaskKey("care-plan@abc")).toEqual({ taskId: "care-plan", personId: "abc" });
+  });
+});
+
+describe("tarefas próprias", () => {
+  const id = "3f1c2b4a-5d6e-4f70-8a9b-0c1d2e3f4a5b";
+  const input = { title: "  Vender o carro  ", phase: "move" as const, stage: null, theme: "assets" as const, people: [], weight: "medium" as const, due: "2027-05" };
+
+  it("cria, edita, conclui e exclui; o título é obrigatório", () => {
+    expect(addOwnTask(createProgress(NOW), { ...input, title: "   " }, id, NOW).ownTasks).toEqual([]);
+    let p = addOwnTask(createProgress(NOW), input, id, NOW);
+    expect(p.ownTasks[0]).toMatchObject({ id, title: "Vender o carro", status: "todo" });
+    p = updateOwnTask(p, id, { title: "Vender o carro e a moto", weight: "high" });
+    p = setOwnTaskStatus(p, id, "done");
+    expect(p.ownTasks[0]).toMatchObject({ title: "Vender o carro e a moto", weight: "high", status: "done" });
+    expect(parseProgress(JSON.parse(JSON.stringify(p)))).toEqual(p);
+    expect(removeOwnTask(p, id).ownTasks).toEqual([]);
   });
 });

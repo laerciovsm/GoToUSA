@@ -255,7 +255,39 @@
     "stampDone": "Carimbo da fase {phase}",
     "stampEmpty": "Fase {phase}: carimbo ainda por conquistar",
     "phaseStamped": "Fase {phase} concluída: você ganhou o carimbo!",
-    "doCheckin": "Fazer o check-in da fase"
+    "doCheckin": "Fazer o check-in da fase",
+    "viewLabel": "Como ver a jornada",
+    "view": {
+      "phase": "Por fase",
+      "theme": "Por tema"
+    },
+    "filterLabel": "Ver as tarefas de:",
+    "filterAll": "Todos",
+    "filterEmpty": "Nenhuma tarefa aqui para essa escolha.",
+    "newTask": "Nova tarefa",
+    "ownTasks": "Suas tarefas",
+    "ownNoTheme": "Suas tarefas sem tema",
+    "ownBadge": "Sua tarefa",
+    "themeReadiness": "{pct}% pronto",
+    "own": {
+      "newTitle": "Nova tarefa",
+      "editTitle": "Editar tarefa",
+      "intro": "Crie tarefas suas, do seu jeito. Só o título é obrigatório; elas contam no seu progresso.",
+      "title": "Título",
+      "titlePlaceholder": "Ex.: Vender o carro",
+      "phase": "Fase",
+      "stage": "Etapa",
+      "theme": "Tema",
+      "due": "Prazo (mês e ano)",
+      "people": "Para quem (opcional)",
+      "weight": "Peso",
+      "none": "Nenhuma",
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "delete": "Excluir esta tarefa",
+      "deleteConfirm": "Excluir esta tarefa? Isso não pode ser desfeito.",
+      "deleteYes": "Sim, excluir"
+    }
   },
   "Family": {
     "title": "Sua família",

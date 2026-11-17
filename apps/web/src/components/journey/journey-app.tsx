@@ -3,37 +3,79 @@
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import type { PhaseId } from "@gotousa/shared";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { JourneyContent } from "@/lib/journey/content";
 import { JourneyGate } from "./journey-gate";
-import { JourneyOverview } from "./journey-overview";
+import { JourneyOverview, type JourneyView } from "./journey-overview";
+import { OwnTaskForm } from "./own-task-form";
 import { TaskDetail } from "./task-detail";
 
-/** Tela da jornada (Marco 5, partes 1 e 2): visão por fase e detalhe da tarefa (?task=chave). */
+/**
+ * Tela da jornada (Marco 5): por fase ou por tema, filtro por pessoa, detalhe da tarefa (?task=chave)
+ * e tarefa própria (?new=1 para criar, ?own=id para editar). Tudo na URL, para o "voltar" do celular funcionar.
+ */
 export function JourneyApp({ content }: { content: JourneyContent }) {
   const t = useTranslations("Journey");
   const router = useRouter();
   const params = useSearchParams();
   const taskKey = params.get("task");
   const phaseParam = params.get("phase");
+  const view: JourneyView = params.get("view") === "theme" ? "theme" : "phase";
+  const person = params.get("person");
+  const ownId = params.get("own");
+  const isNew = params.get("new") === "1";
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
-  }, [taskKey]);
+  }, [taskKey, ownId, isNew]);
 
+  /** Monta a URL da lista mantendo visão, fase e pessoa. */
+  const listUrl = (changes: { view?: JourneyView; phase?: string | null; person?: string | null } = {}) => {
+    const q = new URLSearchParams();
+    const v = changes.view ?? view;
+    const ph = changes.phase === undefined ? phaseParam : changes.phase;
+    const pe = changes.person === undefined ? person : changes.person;
+    if (v === "theme") q.set("view", "theme");
+    if (ph) q.set("phase", ph);
+    if (pe) q.set("person", pe);
+    const s = q.toString();
+    return s ? `/journey?${s}` : "/journey";
+  };
   const goTask = (key: string) => router.push(`/journey?task=${encodeURIComponent(key)}`);
 
   return (
     <JourneyGate content={content}>
       {(state, update) => {
+        if (isNew || ownId) {
+          const editing = ownId ? state.progress.ownTasks.find((o) => o.id === ownId) : undefined;
+          return (
+            <OwnTaskForm
+              key={ownId ?? "new"}
+              content={content}
+              state={state}
+              update={update}
+              editing={editing}
+              defaultPhase={(phaseParam as PhaseId | null) ?? null}
+              onDone={() => router.push(listUrl())}
+            />
+          );
+        }
         if (!taskKey) {
           return (
             <JourneyOverview
               content={content}
               state={state}
+              update={update}
+              view={view}
               selectedPhase={phaseParam}
-              onSelectPhase={(phase) => router.replace(`/journey?phase=${phase}`, { scroll: false })}
+              person={person}
+              onSelectPhase={(phase) => router.replace(listUrl({ phase }), { scroll: false })}
+              onChangeView={(v) => router.replace(listUrl({ view: v }), { scroll: false })}
+              onChangePerson={(p) => router.replace(listUrl({ person: p }), { scroll: false })}
               onOpenTask={goTask}
+              onNewTask={() => router.push(`${listUrl()}${listUrl().includes("?") ? "&" : "?"}new=1`)}
+              onEditOwn={(id) => router.push(`${listUrl()}${listUrl().includes("?") ? "&" : "?"}own=${id}`)}
             />
           );
         }

@@ -255,7 +255,39 @@
     "stampDone": "{phase} phase stamp",
     "stampEmpty": "{phase} phase: stamp still to earn",
     "phaseStamped": "{phase} phase complete: you earned the stamp!",
-    "doCheckin": "Do the phase check-in"
+    "doCheckin": "Do the phase check-in",
+    "viewLabel": "How to see the journey",
+    "view": {
+      "phase": "By phase",
+      "theme": "By theme"
+    },
+    "filterLabel": "See tasks for:",
+    "filterAll": "Everyone",
+    "filterEmpty": "No tasks here for this choice.",
+    "newTask": "New task",
+    "ownTasks": "Your tasks",
+    "ownNoTheme": "Your tasks without a theme",
+    "ownBadge": "Your task",
+    "themeReadiness": "{pct}% ready",
+    "own": {
+      "newTitle": "New task",
+      "editTitle": "Edit task",
+      "intro": "Create your own tasks, your way. Only the title is required; they count toward your progress.",
+      "title": "Title",
+      "titlePlaceholder": "E.g.: Sell the car",
+      "phase": "Phase",
+      "stage": "Stage",
+      "theme": "Theme",
+      "due": "Deadline (month and year)",
+      "people": "For whom (optional)",
+      "weight": "Weight",
+      "none": "None",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete this task",
+      "deleteConfirm": "Delete this task? This can't be undone.",
+      "deleteYes": "Yes, delete"
+    }
   },
   "Family": {
     "title": "Your family",

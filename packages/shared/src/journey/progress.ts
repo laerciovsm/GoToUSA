@@ -3,7 +3,7 @@
  * sem mudar o anterior, para a tela salvar e recalcular a jornada.
  * Nada é apagado no recálculo: o progresso de uma tarefa que deixou de se aplicar continua guardado.
  */
-import type { CheckinAnswer, JourneyProgress, PhaseId, RecordSpec, TaskProgress, TaskRecord, TaskStatus } from "./types";
+import type { CheckinAnswer, JourneyProgress, OwnTask, PhaseId, RecordSpec, TaskProgress, TaskRecord, TaskStatus } from "./types";
 
 export function emptyTaskProgress(): TaskProgress {
   return { status: "todo", subtasks: [], doneAt: null, plan: "", note: "", record: null };
@@ -80,4 +80,33 @@ export function resumeJourney(progress: JourneyProgress): JourneyProgress {
 /** Chave de um documento no registro: "passport@<idDaPessoa>". */
 export function documentKey(documentId: string, personId: string): string {
   return `${documentId}@${personId}`;
+}
+
+// ---------------------------------------------------------------------------
+// Tarefas próprias (docs/telas.md, seção 7): contam no progresso geral e no da etapa e do tema escolhidos.
+// ---------------------------------------------------------------------------
+
+export type OwnTaskInput = Pick<OwnTask, "title" | "phase" | "stage" | "theme" | "people" | "weight" | "due">;
+
+/** Cria uma tarefa própria (título obrigatório; o resto é opcional). */
+export function addOwnTask(progress: JourneyProgress, input: OwnTaskInput, id: string, now: Date = new Date()): JourneyProgress {
+  const title = input.title.trim();
+  if (!title) return progress;
+  const task: OwnTask = { ...input, title, id, status: "todo", createdAt: now.toISOString() };
+  return { ...progress, ownTasks: [...progress.ownTasks, task] };
+}
+
+export function updateOwnTask(progress: JourneyProgress, id: string, input: Partial<OwnTaskInput>): JourneyProgress {
+  return {
+    ...progress,
+    ownTasks: progress.ownTasks.map((t) => (t.id === id ? { ...t, ...input, title: (input.title ?? t.title).trim() || t.title } : t)),
+  };
+}
+
+export function setOwnTaskStatus(progress: JourneyProgress, id: string, status: TaskStatus): JourneyProgress {
+  return { ...progress, ownTasks: progress.ownTasks.map((t) => (t.id === id ? { ...t, status } : t)) };
+}
+
+export function removeOwnTask(progress: JourneyProgress, id: string): JourneyProgress {
+  return { ...progress, ownTasks: progress.ownTasks.filter((t) => t.id !== id) };
 }

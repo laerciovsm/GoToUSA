@@ -255,7 +255,39 @@
     "stampDone": "Sello de la fase {phase}",
     "stampEmpty": "Fase {phase}: sello por conquistar",
     "phaseStamped": "Fase {phase} completada: ¡ganaste el sello!",
-    "doCheckin": "Hacer el check-in de la fase"
+    "doCheckin": "Hacer el check-in de la fase",
+    "viewLabel": "Cómo ver el recorrido",
+    "view": {
+      "phase": "Por fase",
+      "theme": "Por tema"
+    },
+    "filterLabel": "Ver las tareas de:",
+    "filterAll": "Todos",
+    "filterEmpty": "No hay tareas aquí para esta elección.",
+    "newTask": "Nueva tarea",
+    "ownTasks": "Tus tareas",
+    "ownNoTheme": "Tus tareas sin tema",
+    "ownBadge": "Tu tarea",
+    "themeReadiness": "{pct}% listo",
+    "own": {
+      "newTitle": "Nueva tarea",
+      "editTitle": "Editar tarea",
+      "intro": "Crea tus propias tareas, a tu manera. Solo el título es obligatorio; cuentan en tu progreso.",
+      "title": "Título",
+      "titlePlaceholder": "Ej.: Vender el auto",
+      "phase": "Fase",
+      "stage": "Etapa",
+      "theme": "Tema",
+      "due": "Plazo (mes y año)",
+      "people": "Para quién (opcional)",
+      "weight": "Peso",
+      "none": "Ninguna",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar esta tarea",
+      "deleteConfirm": "¿Eliminar esta tarea? No se puede deshacer.",
+      "deleteYes": "Sí, eliminar"
+    }
   },
   "Family": {
     "title": "Tu familia",

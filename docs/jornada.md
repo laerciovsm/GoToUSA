@@ -30,6 +30,8 @@ Princípios aprovados que orientam todo o design da jornada:
 3. **Planos com "quando e onde":** o app incentiva a pessoa a transformar tarefas em planos concretos ("estudar inglês às terças e quintas, às 20h") em vez de intenções vagas ("estudar inglês").
 4. **Carta para o eu do futuro:** a pessoa escreve uma mensagem para si mesma, que o app mostra num momento difícil ou num grande marco.
 5. **Sem culpa:** nada de sequências de dias seguidos que, ao serem quebradas, fazem a pessoa se sentir fracassada. Pausar faz parte da jornada. As mensagens nunca culpam ou pressionam.
+6. **Positivo, mas sempre baseado em fatos** (premissa do fundador, 17/11/2026): nada negativo na jornada. Sem vermelho de erro e sem palavras como "atrasada" ou "falhou". O que precisa de atenção aparece de forma positiva, com ajuda para a pessoa se reorganizar (novo plano, juntar tarefas, rever a data de ida). **Mas positivo nunca esconde risco:** o app se baseia nos fatos e deixa claro quando algo não vai bem, explicando as consequências e citando a fonte oficial. Não "passa a mão na cabeça" de quem não faz a sua parte: a jornada é da pessoa, e o app mostra a realidade com respeito.
+7. **Fácil de usar (user friendly)** (premissa do fundador, 17/11/2026): toda tela, texto e escolha pensados para serem simples e visuais. Nomes fáceis de entender (ex.: peso **baixo, médio, alto**), poucas decisões por vez, botões grandes, linguagem do dia a dia.
 
 ## Elemento lúdico (proposta)
 
@@ -124,7 +126,7 @@ Ao fim de cada fase, a jornada faz um **check-in**:
 - **Não é aconselhamento jurídico:** todo conteúdo legal cita fontes oficiais e mostra a data da última revisão.
 - **Recalcular:** se a pessoa editar o questionário, a jornada é recalculada sem perder o progresso das tarefas que continuam válidas.
 
-## Modelo da jornada (Marco 3, passo 1 · rascunho de 17/11/2026, para revisão)
+## Modelo da jornada (Marco 3, passo 1 · aprovado em 17/11/2026)
 
 > Define **o que existe** na jornada e **o que cada parte guarda**. O formato dos arquivos (passo 2), as regras de geração (passo 3) e o cálculo de prazos em detalhe (passo 4) vêm depois e seguem este modelo.
 
@@ -174,7 +176,7 @@ Uma etapa sem nenhuma tarefa que se aplique à família **não aparece**.
 | **Quando se aplica** | condição sobre as respostas do questionário | Formato definido no passo 3. Sem condição, vale para todos |
 | **Prazo** | relativo à data de ida (ex.: "12 meses antes") ou à chegada (ex.: "nos primeiros 30 dias") ou "sem prazo" | Sem prazo próprio, usa a janela da fase |
 | **Depende de** | IDs de outras tarefas | Ex.: "só depois do passaporte pronto". A tarefa aparece como "aguardando" até a outra ser concluída |
-| **Peso** | `light` leve · `medium` médio · `heavy` grande | Para a prontidão ([Prontidão](#prontidão-cálculo)) |
+| **Peso** | `low` baixo · `medium` médio · `high` alto | Para a prontidão ([Prontidão](#prontidão-cálculo)) |
 | **Tempo estimado** | ex.: 1 a 2 horas | Ajuda a pessoa a planejar o "quando e onde" |
 | **Custo estimado** | valor, moeda e fonte, ou "estimativa, fonte não oficial" | Liga ao [orçamento](orcamento.md) |
 | **Fontes oficiais** | link, órgão e **data de verificação** de cada fato | Obrigatório quando a tarefa tem fato legal, prazo, taxa ou requisito ([conteudo.md](conteudo.md#premissa-só-informação-oficial-e-verificada)) |
@@ -203,15 +205,16 @@ Uma etapa sem nenhuma tarefa que se aplique à família **não aparece**.
 | Data de conclusão | Para o resumo do período e as celebrações |
 | Plano "quando e onde" | Opcional (premissa 3): ex.: "terças e quintas, às 20h" |
 | Anotação | Texto livre da pessoa, só para ela |
-| Motivo do "não se aplica" | Opcional, escolhido numa lista curta (ex.: "já resolvi antes", "não vale para o meu caso") |
 
-**Tarefas próprias:** a pessoa cria com título, e opcionalmente fase, tema, pessoa(s) e prazo. Contam no progresso com peso leve, mas **não** na prontidão por tema, para a pessoa não "inflar" a própria prontidão sem querer.
+Marcar **"não se aplica"** não pede motivo: um toque e pronto.
+
+**Tarefas próprias:** a pessoa cria com título, e opcionalmente fase, etapa, tema, pessoa(s), peso e prazo (peso padrão: baixo). Contam no **progresso geral** e no progresso da **etapa e do tema** que a pessoa escolher. Sem etapa ou tema, contam só no progresso geral.
 
 O progresso fica num registro próprio no navegador, separado das respostas, com **versão do formato** e migração, como no questionário.
 
 ### Prontidão (cálculo)
 
-- **Pesos:** leve = 1, médio = 3, grande = 5.
+- **Pesos:** baixo = 1, médio = 3, alto = 5. Na tela aparecem só as palavras (baixo, médio, alto), nunca os números.
 - **Prontidão** = soma dos pesos das tarefas concluídas ÷ soma dos pesos das tarefas que se aplicam. Tarefas "não se aplica" saem da conta.
 - **Crédito parcial:** uma tarefa em andamento com subtarefas conta pela fração das subtarefas marcadas.
 - **Por tema e no total.** Nunca apresentada como chance de visto ([Indicador de progresso](#indicador-de-progresso)).
@@ -219,10 +222,11 @@ O progresso fica num registro próprio no navegador, separado das respostas, com
 
 ### Prazos (visão geral, detalhada no passo 4)
 
-- **Base:** a data de ida (`goal.departure`, mês e ano). Para calcular, considera o **dia 1º do mês** escolhido.
+- **Base:** a data de ida (`goal.departure`, mês e ano). Para calcular, considera o **dia 1º do mês** escolhido (decidido em 17/11/2026).
 - **Fases 0 a 3:** prazos para trás, a partir da ida. **Fases 4 a 6:** prazos para frente, a partir da chegada (a mesma data, até a pessoa informar a chegada real).
 - **Data de ida "ainda não sei":** sem datas, só a ordem e o texto relativo. A jornada sugere definir uma data como tarefa da Fase 1.
-- **Começou tarde** (o prazo já passou): a tarefa aparece como **"prioridade"**, nunca como "atrasada". Sem culpa, e o app sugere rever a data de ida se houver muitas nessa situação.
+- **Começou tarde** (o prazo já passou): a tarefa aparece como **"prioridade"**, nunca como "atrasada". O app ajuda a reorganizar (o que fazer primeiro, o que dá para fazer junto) e, se houver muitas prioridades, mostra com clareza que a data de ida pode não ser realista e sugere revê-la (premissa 6: positivo, mas baseado em fatos).
+- **Idades:** as datas de nascimento continuam com **mês e ano** (coletar o mínimo de dados, LGPD e GDPR; decidido em 17/11/2026). Quando uma pessoa estiver perto de uma idade que muda regras (ex.: um filho perto dos 21 anos), a jornada mostra isso como prioridade, com a regra geral, a fonte oficial e a recomendação de confirmar com um advogado de imigração.
 
 ### Recalcular
 
@@ -247,13 +251,110 @@ Quando a pessoa muda uma resposta:
 > - Subtarefas: marcar um momento sem pressa · contar o seu porquê · ouvir as dúvidas de cada um · anotar o que ficou combinado.
 > - Aparece com destaque quando `moment.partnerSupport` ∈ {`unsure`, `against`, `not_talked`}.
 
+### Decisões tomadas (17/11/2026)
+
+1. **Pesos:** baixo, médio e alto (1, 3 e 5 por dentro; na tela, só as palavras).
+2. **Data de ida só com mês e ano:** conta a partir do dia 1º do mês.
+3. **"Não se aplica":** não pede motivo.
+4. **Prazo que já passou:** aparece como "prioridade", com ajuda para reorganizar. Nada negativo, mas sem esconder riscos (premissa 6).
+5. **Tarefas próprias:** contam no progresso geral e no da etapa e do tema escolhidos.
+6. **Data de nascimento:** continua com mês e ano, com alertas perto de idades que mudam regras.
+
+## Formato do conteúdo (Marco 3, passo 2 · rascunho de 17/11/2026, para revisão)
+
+> Como as fases, etapas e tarefas ficam guardadas em `content/`. Segue o [modelo da jornada](#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) e as regras de [conteudo.md](conteudo.md).
+
+### Organização das pastas
+
+```
+content/journey/
+├── structure.json            ← fases e etapas (IDs, ordem, janelas de prazo)
+├── messages/
+│   ├── pt-BR.json            ← títulos e resumos das fases e etapas
+│   ├── en-US.json
+│   └── es.json
+└── tasks/
+    └── family-talk/          ← uma pasta por tarefa, com o ID estável no nome
+        ├── task.json         ← estrutura (não traduzível)
+        ├── pt-BR.md          ← textos em português
+        ├── en-US.md          ← textos em inglês
+        └── es.md             ← textos em espanhol
+```
+
+**Por que uma pasta por tarefa:** tudo de uma tarefa fica junto (estrutura, textos e fontes), fácil de achar, revisar no Git e atualizar pela [atualização automática](conteudo.md#atualização-automática-do-conteúdo).
+
+### `task.json`: a estrutura
+
+Tudo que **não** muda com o idioma: fase, etapa, temas, tipo, para quem, quando se aplica, prazo, dependências, peso, tempo e custo, fontes e os IDs das subtarefas.
+
+```json
+{
+  "id": "family-talk",
+  "status": "published",
+  "phase": "discovery",
+  "stage": "discovery.family",
+  "themes": ["family"],
+  "type": "reflect",
+  "who": { "scope": "family" },
+  "appliesWhen": null,
+  "deadline": null,
+  "dependsOn": [],
+  "weight": "medium",
+  "time": { "minHours": 1, "maxHours": 2 },
+  "cost": null,
+  "subtasks": ["pick-moment", "share-why", "hear-doubts", "write-agreements"],
+  "sources": []
+}
+```
+
+- `status`: `draft` (rascunho, não aparece para ninguém) ou `published` (publicada).
+- `appliesWhen`: a condição sobre as respostas. O formato é definido no passo 3; `null` = vale para todos.
+- `deadline`: ex.: `{ "from": "departure", "monthsBefore": 12 }` ou `{ "from": "arrival", "daysAfter": 30 }`; `null` = janela da fase. Detalhes no passo 4.
+- `sources`: cada fonte tem `id`, `url`, `agency` (órgão), `title` e `verifiedAt` (data da verificação).
+
+### `<idioma>.md`: os textos
+
+Markdown simples (sem MDX: mais leve, mais seguro e mais fácil para a atualização automática). Um cabeçalho com os textos curtos e, abaixo, o passo a passo:
+
+```markdown
+---
+title: Conversar em família sobre a mudança
+why: Decidir juntos evita surpresas e dá força nos dias difíceis.
+subtasks:
+  pick-moment: Marcar um momento sem pressa
+  share-why: Contar o seu porquê
+  hear-doubts: Ouvir as dúvidas de cada um
+  write-agreements: Anotar o que ficou combinado
+---
+
+Escolha um momento tranquilo, sem celular por perto...
+```
+
+- **Fatos citam a fonte** com uma marca no texto: `[[fonte:uscis-family]]`. A tela transforma a marca num link com o órgão e a data de verificação, e o [aviso padrão](conteudo.md#aviso-ao-final-de-cada-conteúdo-oficial) entra automaticamente no fim.
+- **Termos oficiais em inglês**, com explicação no idioma da pessoa.
+- **Variações** por país de origem ou estado (ex.: passaporte no Brasil) ficam em seções marcadas no mesmo arquivo; o formato exato entra junto com o primeiro caso real.
+
+### Verificações automáticas (testes)
+
+Como no questionário, um teste falha se algo estiver errado, antes de qualquer publicação:
+1. Toda tarefa publicada tem `task.json` válido e o texto **nos 3 idiomas**, com as mesmas subtarefas.
+2. Toda marca `[[fonte:...]]` aponta para uma fonte que existe em `sources`.
+3. Toda tarefa do tipo **alerta legal** tem pelo menos uma fonte oficial.
+4. Fases, etapas e dependências citadas existem, e não há dependência circular.
+5. IDs únicos e nunca reaproveitados.
+6. Fonte com verificação antiga (prazo a definir) fica marcada para reconferir, e a tela mostra o aviso de "verificação vencida" ([conteudo.md](conteudo.md#premissa-só-informação-oficial-e-verificada)).
+
+### Do arquivo para a tela
+
+- Um script junta o conteúdo publicado num pacote por idioma, no build. A tela só baixa o idioma da pessoa.
+- Tudo é validado com Zod em `packages/shared`, como as respostas do questionário.
+- Tarefas em rascunho nunca entram no pacote.
+
 ### Decisões para o fundador
 
-1. **Escala de pesos** 1, 3 e 5 (leve, médio, grande) está boa?
-2. **Dia 1º do mês** como referência quando só se sabe o mês e o ano da ida?
-3. **"Não se aplica"** com motivo opcional, ou sem perguntar nada?
-4. **Prazo que já passou** aparece como "prioridade" (sem a palavra "atrasada")?
-5. **Tarefas próprias** fora da prontidão por tema (contam só no progresso geral)?
+1. **Uma pasta por tarefa** (estrutura + um texto por idioma) está bom?
+2. **Markdown simples** em vez de MDX?
+3. **Idiomas:** durante o desenvolvimento, permitir tarefas só em pt-BR (como já previsto em [conteudo.md](conteudo.md#onde-o-conteúdo-fica)) e exigir os 3 idiomas antes do lançamento público? Ou exigir os 3 desde já (o teste bloqueia)?
 
 ## Gratuito × pago (proposta)
 
@@ -261,7 +362,8 @@ Quando a pessoa muda uma resposta:
 - **Pago (plano anual):** fases detalhadas com todas as tarefas e subtarefas, lembretes e acesso em vários aparelhos.
 
 ## Pendências
-- [ ] Revisar e aprovar o [Modelo da jornada](#modelo-da-jornada-marco-3-passo-1--rascunho-de-17112026-para-revisão) (Marco 3, passo 1), incluindo as 5 decisões
+- [x] Revisar e aprovar o [Modelo da jornada](#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) (Marco 3, passo 1), aprovado em 17/11/2026
+- [ ] Revisar e aprovar o [Formato do conteúdo](#formato-do-conteúdo-marco-3-passo-2--rascunho-de-17112026-para-revisão) (Marco 3, passo 2)
 - [ ] Listar todas as etapas, tarefas e subtarefas de cada fase
 - [ ] Definir as regras que ligam cada resposta do questionário às tarefas
 - [ ] Definir o formato do conteúdo (MDX no repositório) e o processo de tradução e revisão

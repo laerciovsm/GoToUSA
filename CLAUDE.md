@@ -105,6 +105,8 @@ A ferramenta deve estar preparada para **qualquer idioma** desde o primeiro dia:
 - **Atualização automática do conteúdo, sem revisão humana:** detecção de mudanças nas fontes, resumo por IA, verificações automáticas e publicação com aviso padrão e link da fonte na íntegra. O projeto não depende de pessoas revisando nem da assinatura do Claude Code.
 - **O preço de venda precisa pagar os custos de operação (incluindo a IA por uso) e dar margem.**
 - **Somente dentro da lei americana (premissa inegociável):** toda e qualquer sugestão, tarefa, dica ou conteúdo do app precisa estar **dentro da lei dos EUA**. Nada de trabalho sem autorização ("bico" ilegal), atalhos ou jeitinhos. Quando um tema tem risco legal (ex.: trabalho, permanência, status), o app explica a regra geral com fonte oficial e alerta para as consequências de descumpri-la.
+- **Positivo, mas sempre baseado em fatos (premissa):** nada negativo na jornada (sem "atrasada", "falhou" ou vermelho de erro). O que precisa de atenção aparece de forma positiva, com ajuda para se reorganizar. **Mas positivo nunca esconde risco:** o app se baseia nos fatos, deixa claro quando algo não vai bem e explica as consequências, com fonte oficial. Não "passa a mão na cabeça" de quem não faz a sua parte. Detalhes em [docs/jornada.md](docs/jornada.md#premissas-psicológicas).
+- **Fácil de usar, user friendly (premissa):** tudo simples e visual: nomes fáceis (ex.: peso baixo, médio, alto), poucas decisões por vez, botões grandes, linguagem do dia a dia.
 - **Legalidade:** orientar apenas caminhos legais. Deixar claro que o conteúdo é informativo, **não é aconselhamento jurídico**, e citar fontes oficiais (USCIS, Departamento de Estado etc.) com data da última revisão.
 - **Global e multilíngue:** pensado para pessoas de qualquer país, com suporte a vários idiomas desde o início.
 - **Privacidade:** coletar o mínimo de dados possível e respeitar a LGPD, o GDPR e a CCPA.
@@ -240,8 +242,8 @@ Na raiz do repositório:
    Tudo já está no GitHub. **Falta:** o fundador recomeçar o questionário no celular e testar de novo (inclusive se o zoom ao digitar parou); os ajustes entram em novos commits.
    **Pendências do questionário:** capital de cada estado com fonte oficial (.gov de cada estado); profissão e cargo como lista padronizada (avaliar O\*NET).
 4. **Marco 3: motor da jornada**, em 5 passos, documentando antes de implementar:
-   1. **Modelo da jornada:** rascunho escrito em 17/11/2026 em [docs/jornada.md](docs/jornada.md#modelo-da-jornada-marco-3-passo-1--rascunho-de-17112026-para-revisão) (três camadas: conteúdo, jornada gerada e progresso). **Aguardando a revisão do fundador e as 5 decisões listadas no fim da seção.**
-   2. Formato do conteúdo em `content/` (traduzível, com fonte e data de verificação).
+   1. ✅ **Modelo da jornada:** aprovado em 17/11/2026 em [docs/jornada.md](docs/jornada.md#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) (três camadas: conteúdo, jornada gerada e progresso; pesos baixo, médio e alto; data de ida conta do dia 1º; prazo vencido vira "prioridade"; nascimento continua com mês e ano).
+   2. **Formato do conteúdo:** rascunho em [docs/jornada.md](docs/jornada.md#formato-do-conteúdo-marco-3-passo-2--rascunho-de-17112026-para-revisão) (uma pasta por tarefa em `content/journey/tasks/`, `task.json` + um Markdown por idioma, testes automáticos). **Aguardando a revisão do fundador e 3 decisões.**
    3. Regras de geração (resposta → tarefas e para quem).
    4. Cálculo de prazos a partir da data de ida.
    5. Perfil da família e caminhos de visto para conhecer ([docs/caminhos-visto.md](docs/caminhos-visto.md)).

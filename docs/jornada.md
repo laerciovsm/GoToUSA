@@ -356,7 +356,7 @@ Como no questionário, um teste falha se algo estiver errado, antes de qualquer 
 2. ✅ **Markdown simples**, sem MDX: o texto nunca vira código, então um erro no conteúdo não quebra a página, e a atualização automática por IA mexe só em texto. As partes interativas a tela monta a partir do `task.json`.
 3. ✅ **Idiomas (decidido em 17/11/2026): os 3 idiomas desde já.** Nenhuma tarefa é publicada sem pt-BR, en-US e es completos; o teste bloqueia. (Isso substitui, para a jornada, a ideia de "pt-BR primeiro" de [conteudo.md](conteudo.md#onde-o-conteúdo-fica).)
 
-## Regras de geração (Marco 3, passo 3 · rascunho de 17/11/2026, para revisão)
+## Regras de geração (Marco 3, passo 3 · aprovado em 17/11/2026)
 
 > Como o motor decide **quais tarefas entram**, **para quem** e **em que ordem**, a partir das respostas do questionário. Segue o [modelo](#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) e o [formato](#formato-do-conteúdo-marco-3-passo-2--aprovado-em-17112026) aprovados.
 
@@ -456,9 +456,88 @@ Quando um bloco ainda não respondido poderia acrescentar tarefas, o app avisa d
 
 ### Decisões
 
-1. **Condições como dados simples** no conteúdo, e contas difíceis como **fatos calculados** em código testado: aguardando o fundador.
+1. ✅ **Condições como dados simples** no conteúdo, e contas difíceis como **fatos calculados** em código testado (17/11/2026).
 2. ✅ **Tarefas essenciais entram automaticamente para todos**, inclusive sem resposta; só as "conforme o caso" dependem das respostas (17/11/2026).
 3. ✅ **O que não se aplica não trava nada** (17/11/2026).
+
+## Cálculo de prazos (Marco 3, passo 4 · rascunho de 17/11/2026, para revisão)
+
+> Como cada tarefa ganha a sua data. Detalha a [visão geral de prazos](#prazos-visão-geral-detalhada-no-passo-4) do modelo aprovado.
+
+### As três datas de referência
+
+| Data | De onde vem | Observação |
+|---|---|---|
+| **Início da jornada** | O dia em que a pessoa começou (fica guardado no progresso) | Base das tarefas da Fase 0 |
+| **Data de ida** | `goal.departure` (mês e ano), contando do **dia 1º do mês** | Base das Fases 1 a 3 (para trás) |
+| **Data de chegada** | Igual à data de ida, até a pessoa informar a chegada real | Base das Fases 4 a 6 (para frente) |
+
+### Como a tarefa diz o seu prazo (`deadline` no `task.json`)
+
+| Forma | Exemplo | Significa |
+|---|---|---|
+| Antes da ida | `{ "from": "departure", "monthsBefore": 12 }` | 12 meses antes da ida (também `weeksBefore`, `daysBefore`) |
+| Depois da chegada | `{ "from": "arrival", "daysAfter": 30 }` | Nos primeiros 30 dias nos EUA (também `weeksAfter`, `monthsAfter`) |
+| Depois do início | `{ "from": "start", "weeksAfter": 2 }` | Nas 2 primeiras semanas da jornada (Fase 0) |
+| Sem prazo próprio | `null` | Usa o **fim da janela da fase** |
+
+### Janelas das fases
+
+| Fase | Janela | Prazo padrão (fim da janela) |
+|---|---|---|
+| 0. Descoberta | do início da jornada | 1 mês depois do início |
+| 1. Planejamento | 18 a 12 meses antes da ida | 12 meses antes da ida |
+| 2. Preparação | 12 a 3 meses antes | 3 meses antes da ida |
+| 3. Mudança | últimos 90 dias | a data de ida |
+| 4. Chegada | primeiros 90 dias | 90 dias depois da chegada |
+| 5. Estabelecimento | do 3º ao 12º mês | 12 meses depois da chegada |
+| 6. Futuro | depois do 1º ano | sem prazo |
+
+As janelas vêm da tabela [Fases](#fases). Elas são uma **sugestão de organização do app**, não um fato legal.
+
+### Prazos que dependem de fatos oficiais
+
+Quando um prazo vem de uma regra ou de um tempo oficial (ex.: validade mínima de passaporte, tempo de emissão divulgado pelo órgão), ele **precisa de fonte oficial** no `task.json`, como qualquer fato. Sem fonte, o prazo é só sugestão do app e aparece assim ("sugerimos fazer até…").
+
+### Como o prazo aparece na tela
+
+- **Mês e ano**, não o dia exato: "até março de 2027". Como a data de ida é só mês e ano, mostrar um dia exato daria uma falsa precisão.
+- Com a distância: "faltam 4 meses".
+- Datas formatadas no idioma e no país da pessoa.
+
+### Quando o tempo é curto (começou tarde)
+
+1. Tarefa com prazo que já passou aparece como **"prioridade"**, nunca "atrasada" (decisão do passo 1).
+2. **Conferência de realidade:** o app soma o **tempo estimado** das tarefas que faltam até a ida e compara com o **tempo por semana** que a pessoa disse ter (`rhythm.weeklyTime`) multiplicado pelas semanas até a ida.
+   - Se cabe: tudo certo, a jornada segue.
+   - Se não cabe: o app mostra com clareza e de forma positiva, por exemplo: "Para chegar pronto em março de 2027, você precisaria de cerca de 6 horas por semana, e hoje tem de 1 a 3. Que tal rever a data de ida ou reservar mais tempo?" (premissa 6: positivo, mas baseado em fatos).
+   - Para isso, **toda tarefa precisa ter tempo estimado** (o teste confere).
+3. A pessoa pode **mudar a data de ida** a qualquer momento. Todos os prazos são recalculados, e o progresso fica.
+
+### Data de ida "ainda não sei"
+
+- Fases 1 a 6 ficam **sem datas**: aparece só a ordem e o texto relativo ("cerca de 12 meses antes da ida").
+- A Fase 0 continua com datas (conta do início da jornada).
+- Entra a tarefa essencial **"Definir a data de ida"** na Fase 1, com destaque.
+- Fatos que dependem da data de ida (ex.: idade do filho na ida) usam a idade de hoje, e os alertas de idade avisam que a data de ida pode mudar a situação.
+
+### Casos especiais
+
+- **Data de ida que já passou:** o app pergunta, de forma positiva, se a pessoa já se mudou (e então informa a data de chegada) ou se quer escolher uma nova data.
+- **Ida em menos de 3 meses:** a jornada começa direto pelas tarefas essenciais de Mudança, com as anteriores essenciais como prioridade, e a conferência de realidade aparece logo.
+- **Datas sem horário:** tudo é calculado em dias do calendário, no fuso do aparelho, para não mudar de dia por causa do horário.
+
+### Garantias (testes automáticos)
+
+1. Toda tarefa publicada tem tempo estimado.
+2. Todo prazo baseado em fato oficial tem fonte.
+3. Casos testados: ida conhecida, "ainda não sei", ida em menos de 3 meses, ida que já passou, mudança da data de ida mantendo o progresso.
+
+### Decisões para o fundador
+
+1. **Prazo mostrado em mês e ano** ("até março de 2027"), sem o dia exato?
+2. **Fase 0 com prazo contado do início da jornada** (padrão: 1 mês), para a pessoa começar com ritmo? Ou a Fase 0 sem prazo?
+3. **Conferência de realidade** pelo tempo estimado × tempo por semana, sugerindo rever a data de ida quando não couber?
 
 ## Gratuito × pago (proposta)
 
@@ -468,7 +547,8 @@ Quando um bloco ainda não respondido poderia acrescentar tarefas, o app avisa d
 ## Pendências
 - [x] Revisar e aprovar o [Modelo da jornada](#modelo-da-jornada-marco-3-passo-1--aprovado-em-17112026) (Marco 3, passo 1), aprovado em 17/11/2026
 - [x] Revisar e aprovar o [Formato do conteúdo](#formato-do-conteúdo-marco-3-passo-2--aprovado-em-17112026) (Marco 3, passo 2), aprovado em 17/11/2026
-- [ ] Revisar e aprovar as [Regras de geração](#regras-de-geração-marco-3-passo-3--rascunho-de-17112026-para-revisão) (Marco 3, passo 3)
+- [x] Revisar e aprovar as [Regras de geração](#regras-de-geração-marco-3-passo-3--aprovado-em-17112026) (Marco 3, passo 3), aprovadas em 17/11/2026
+- [ ] Revisar e aprovar o [Cálculo de prazos](#cálculo-de-prazos-marco-3-passo-4--rascunho-de-17112026-para-revisão) (Marco 3, passo 4)
 - [ ] Listar todas as etapas, tarefas e subtarefas de cada fase
 - [ ] Definir as regras que ligam cada resposta do questionário às tarefas
 - [ ] Definir o formato do conteúdo (MDX no repositório) e o processo de tradução e revisão

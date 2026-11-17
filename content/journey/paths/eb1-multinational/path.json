@@ -1,0 +1,78 @@
+{
+  "id": "eb1-multinational",
+  "status": "published",
+  "kind": "permanent",
+  "group": "transfer",
+  "byWorker": true,
+  "showWhen": {
+    "all": [
+      {
+        "all": [
+          {
+            "p": "career.multinational",
+            "is": "yes"
+          },
+          {
+            "p": "career.companyTime",
+            "in": [
+              "1to3y",
+              "gt3y"
+            ]
+          }
+        ]
+      },
+      {
+        "p": "career.level",
+        "in": [
+          "manager",
+          "executive",
+          "owner"
+        ]
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "multinational",
+      "when": {
+        "all": [
+          {
+            "p": "career.multinational",
+            "is": "yes"
+          },
+          {
+            "p": "career.companyTime",
+            "in": [
+              "1to3y",
+              "gt3y"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "level",
+      "when": {
+        "p": "career.level",
+        "in": [
+          "manager",
+          "executive",
+          "owner"
+        ]
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-eb1",
+      "url": "https://www.uscis.gov/working-in-the-united-states/permanent-workers/employment-based-immigration-first-preference-eb-1",
+      "agency": "USCIS",
+      "title": "Employment-Based Immigration: First Preference EB-1",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

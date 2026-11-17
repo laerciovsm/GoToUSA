@@ -1,0 +1,120 @@
+{
+  "id": "student-f1-m1",
+  "status": "published",
+  "kind": "temporary",
+  "group": "study",
+  "byWorker": true,
+  "showWhen": {
+    "any": [
+      {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.purpose",
+            "is": "study"
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.has",
+            "has": "school_admission"
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "kind": [
+              "child",
+              "dependent"
+            ]
+          },
+          {
+            "p": "adult.plan",
+            "in": [
+              "study",
+              "both"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "study",
+      "when": {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.purpose",
+            "is": "study"
+          }
+        ]
+      }
+    },
+    {
+      "id": "admission",
+      "when": {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.has",
+            "has": "school_admission"
+          }
+        ]
+      }
+    },
+    {
+      "id": "adult-study",
+      "when": {
+        "all": [
+          {
+            "kind": [
+              "child",
+              "dependent"
+            ]
+          },
+          {
+            "p": "adult.plan",
+            "in": [
+              "study",
+              "both"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-students",
+      "url": "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors",
+      "agency": "USCIS",
+      "title": "Students and Exchange Visitors",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "uscis-students-employment",
+      "url": "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/students-and-employment",
+      "agency": "USCIS",
+      "title": "Students and Employment",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

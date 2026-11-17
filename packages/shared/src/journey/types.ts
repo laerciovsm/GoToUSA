@@ -44,6 +44,11 @@ export type Condition =
   | ({ q: string; is?: string; in?: string[]; has?: string } & NumberCompare)
   /** Resposta da pessoa da vez (tarefas por pessoa e caminhos por adulto). */
   | ({ p: string; is?: string; in?: string[]; has?: string } & NumberCompare)
+  /**
+   * Resposta de carreira do adulto da vez: "you.<w>" para você e "career.<w>" para os outros
+   * (ex.: { "w": "education", "in": ["master"] }). Em listas (várias escolhas), gte/lte contam os itens marcados.
+   */
+  | ({ w: string; is?: string; in?: string[]; has?: string } & NumberCompare)
   /** Fato calculado em código testado (ver facts.ts). */
   | ({ fact: string; is?: string | boolean } & NumberCompare)
   | { kind: PersonKind | PersonKind[] }

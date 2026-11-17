@@ -1,0 +1,14 @@
+{
+  "id": "h1b1-nationalities",
+  "codes": [
+    "CL",
+    "SG"
+  ],
+  "source": {
+    "id": "uscis-temporary-workers",
+    "url": "https://www.uscis.gov/working-in-the-united-states/temporary-nonimmigrant-workers",
+    "agency": "USCIS",
+    "title": "Temporary (Nonimmigrant) Workers",
+    "verifiedAt": "2026-11-17"
+  }
+}

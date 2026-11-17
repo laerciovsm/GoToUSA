@@ -60,6 +60,43 @@ Conferido nas páginas acima em 16/11/2026:
 | `career.sameField` = `change` | Avisa que mudar de área pode mudar os caminhos e inclui tarefas de requalificação |
 | Qualquer caminho | Recomenda conversar com um advogado de imigração antes de decidir, e a pessoa informa esse custo no orçamento ([orcamento.md](orcamento.md#custos-personalizados)) |
 
+## Caminhos publicados (levantamento de 17/11/2026)
+
+> **Decisão do fundador (17/11/2026):** dar toda a informação possível das fontes oficiais do governo americano, sem revisão caminho a caminho, mas **sempre** citando a fonte e deixando claro que o GoToUSA é um **apoio à jornada** e que a condução do processo legal é feita por **advogado de imigração ou profissional especializado**. Cada caminho termina com essa recomendação, e a tarefa essencial **"Conversar com um advogado de imigração"** entra na Fase 0 para todos (fonte: USCIS, Find Legal Services).
+
+Os 20 caminhos ficam em `content/journey/paths/<id>/` (`path.json` + 3 idiomas). Todos foram resumidos das páginas do USCIS abaixo, conferidas em 17/11/2026; nenhum fato foi escrito de memória.
+
+| Caminho (`id`) | Tipo · grupo | Aparece quando (resumo) | Fonte oficial (última atualização na página) |
+|---|---|---|---|
+| `eb1-extraordinary` | permanente · mérito | 3+ conquistas marcadas, ou propósito "talento" | USCIS EB-1 (24/01/2025) |
+| `eb1-researcher` | permanente · mérito | propósito acadêmico, ou publicações + mestrado/doutorado | USCIS EB-1 |
+| `eb1-multinational` | permanente · transferência | multinacional há 1 ano+ e cargo de gerência, executivo ou dono | USCIS EB-1 |
+| `eb2-professional` | permanente · trabalho | mestrado/doutorado, graduação + 5 anos de experiência, ou 3+ conquistas | USCIS EB-2 (15/01/2025) · Permanent Workers (20/08/2026) |
+| `eb2-niw` | permanente · mérito | base do EB-2 e alguma conquista marcada (ou propósito talento/acadêmico) | USCIS EB-2 |
+| `eb3-workers` | permanente · trabalho | oferta de emprego, ou preferência por Green Card | USCIS EB-3 (20/08/2026) · Permanent Workers |
+| `h1b-specialty` | temporário · trabalho | curso superior e oferta, busca de emprego ou propósito trabalho | USCIS H-1B (21/09/2026) |
+| `l1-intracompany` | temporário · transferência | multinacional há 1 ano+, propósito transferência ou empresa com filial | USCIS L-1A e L-1B (31/08/2026) |
+| `o1-extraordinary` | temporário · mérito | 3+ conquistas, ou propósito talento | USCIS O-1 (03/03/2023) |
+| `eb5-investor` | permanente · investimento | propósito empreender/investir ou dinheiro para investir | USCIS Permanent Workers (valores) · EB-5 (01/03/2023) |
+| `e2-treaty-investor` | temporário · investimento | idem | USCIS E-2 (20/08/2026) |
+| `tn-usmca` | temporário · trabalho | nacionalidade Canadá ou México (lista `tn-nationalities`) | USCIS TN (04/06/2025) |
+| `e3-australia` | temporário · trabalho | nacionalidade Austrália (lista `e3-nationalities`) | USCIS E-3 (29/07/2024) |
+| `h1b1-chile-singapore` | temporário · trabalho | nacionalidade Chile ou Singapura (lista `h1b1-nationalities`) | USCIS Temporary Workers (20/08/2026) · H-1B |
+| `family-immediate-relative` | permanente · família | cônjuge, pai/mãe ou filho cidadão americano | USCIS Immediate Relatives (30/01/2026) · Family Preference |
+| `family-preference` | permanente · família | pai/mãe ou irmão cidadão; cônjuge ou pai/mãe com Green Card | USCIS Family Preference (08/07/2025) |
+| `k1-fiance` | temporário · família | propósito casamento | USCIS K-1 (23/03/2018 — o texto avisa que a página é antiga) |
+| `student-f1-m1` | temporário · estudo | propósito estudo, aceite de escola, ou adulto da família que pretende estudar | USCIS Students and Exchange Visitors (24/01/2025) · Students and Employment (20/11/2025) |
+| `j1-exchange` | temporário · estudo | propósito intercâmbio ou acadêmico, ou intercâmbio de ensino médio | USCIS Exchange Visitors (13/01/2025) |
+| `diversity-visa` | permanente · outros | propósito loteria | USCIS Diversity Visa (08/07/2025) |
+
+**Peça nova de condição `w`:** resposta de carreira do adulto da vez, lida de `you.<w>` para você e de `career.<w>` para os outros (ex.: `{ "w": "education", "in": ["master", "doctorate"] }`). Em respostas de várias escolhas, `gte`/`lte` contam os itens marcados (ex.: 3 ou mais conquistas).
+
+**Limites do levantamento (honestidade):**
+- As páginas do **Departamento de Estado** (travel.state.gov) recusam o acesso automático. Por isso: a lista de **países com tratado E-1/E-2** não foi usada (o caminho E-2 aparece por investimento e manda conferir a lista oficial), e a **loteria** não filtra por país nem cita os requisitos de escolaridade (o texto manda conferir as instruções oficiais do ano). O E-1 (comércio) ficou de fora, porque o questionário não pergunta sobre comércio internacional.
+- **Aposentadoria:** nas páginas oficiais conferidas não há uma categoria específica; nenhum caminho aparece por esse propósito (a tarefa "Conhecer os caminhos" continua valendo).
+- A página geral do EB-5 é de 2023 e fala de uma regra anulada; os valores atuais vêm da página **Permanent Workers** (20/08/2026).
+- Os caminhos ainda **não aparecem na tela**: a tela de Família e Caminho é a parte 4 do Marco 5.
+
 ## Perfil da família
 
 Uma tela-resumo, gerada só a partir das respostas, que mostra **quem é essa família** e serve de "capa" da jornada. Não dá nota nem diagnóstico.
@@ -159,7 +196,9 @@ Incluídas em 16/11/2026 para aprofundar a carreira **de você e do cônjuge**. 
 ## Pendências
 - [x] Revisar e aprovar [Como o motor gera o perfil e os caminhos](#como-o-motor-gera-o-perfil-e-os-caminhos-marco-3-passo-5--aprovado-em-17112026) (Marco 3, passo 5), aprovado em 17/11/2026
 - [ ] Aprovar a proposta de [adultos além do casal no questionário](#adultos-além-do-casal-no-questionário-proposta)
-- [ ] Completar o mapeamento no Marco 3, com o conteúdo de cada caminho resumido da fonte oficial
-- [ ] Conferir na fonte oficial os grupos de família, estudo, intercâmbio, loteria e aposentadoria antes de escrever os caminhos
-- [ ] Conferir em fonte oficial a lista de países de tratado (E-1/E-2) e as nacionalidades de TN e E-3 antes de usar no mapeamento
+- [x] Completar o mapeamento com o conteúdo de cada caminho resumido da fonte oficial (20 caminhos em 17/11/2026, ver [Caminhos publicados](#caminhos-publicados-levantamento-de-17112026))
+- [x] Conferir na fonte oficial os grupos de família, estudo, intercâmbio, loteria e aposentadoria (USCIS, 17/11/2026)
+- [x] Nacionalidades de TN, E-3 e H-1B1 conferidas no USCIS (listas em `content/data/`)
+- [ ] Lista de países de tratado (E-1/E-2) e instruções anuais da loteria: o site do Departamento de Estado recusa o acesso automático; buscar outra forma oficial (ex.: Federal Register, 9 FAM)
+- [ ] Tela de Família e Caminho (Marco 5, parte 4) para mostrar os caminhos
 - [ ] Desenhar a tela do perfil da família

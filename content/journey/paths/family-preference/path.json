@@ -1,0 +1,59 @@
+{
+  "id": "family-preference",
+  "status": "published",
+  "kind": "permanent",
+  "group": "family",
+  "byWorker": false,
+  "showWhen": {
+    "q": "goal.familyLink",
+    "in": [
+      "parent_citizen",
+      "sibling_citizen",
+      "spouse_resident",
+      "parent_resident"
+    ]
+  },
+  "reasons": [
+    {
+      "id": "parent",
+      "when": {
+        "q": "goal.familyLink",
+        "is": "parent_citizen"
+      }
+    },
+    {
+      "id": "sibling",
+      "when": {
+        "q": "goal.familyLink",
+        "is": "sibling_citizen"
+      }
+    },
+    {
+      "id": "spouse-resident",
+      "when": {
+        "q": "goal.familyLink",
+        "is": "spouse_resident"
+      }
+    },
+    {
+      "id": "parent-resident",
+      "when": {
+        "q": "goal.familyLink",
+        "is": "parent_resident"
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-family-preference",
+      "url": "https://www.uscis.gov/green-card/green-card-eligibility/green-card-for-family-preference-immigrants",
+      "agency": "USCIS",
+      "title": "Green Card for Family Preference Immigrants",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

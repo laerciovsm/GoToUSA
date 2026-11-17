@@ -1,0 +1,58 @@
+{
+  "id": "j1-exchange",
+  "status": "published",
+  "kind": "temporary",
+  "group": "study",
+  "byWorker": false,
+  "showWhen": {
+    "any": [
+      {
+        "q": "goal.purpose",
+        "in": [
+          "exchange",
+          "academic"
+        ]
+      },
+      {
+        "q": "goal.studyLevel",
+        "is": "exchange_hs"
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "exchange",
+      "when": {
+        "q": "goal.purpose",
+        "is": "exchange"
+      }
+    },
+    {
+      "id": "academic",
+      "when": {
+        "q": "goal.purpose",
+        "is": "academic"
+      }
+    },
+    {
+      "id": "high-school",
+      "when": {
+        "q": "goal.studyLevel",
+        "is": "exchange_hs"
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-exchange-visitors",
+      "url": "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/exchange-visitors",
+      "agency": "USCIS",
+      "title": "Exchange Visitors",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

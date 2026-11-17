@@ -1,0 +1,127 @@
+{
+  "id": "l1-intracompany",
+  "status": "published",
+  "kind": "temporary",
+  "group": "transfer",
+  "byWorker": true,
+  "showWhen": {
+    "any": [
+      {
+        "all": [
+          {
+            "p": "career.multinational",
+            "is": "yes"
+          },
+          {
+            "p": "career.companyTime",
+            "in": [
+              "1to3y",
+              "gt3y"
+            ]
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.purpose",
+            "is": "transfer"
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.has",
+            "has": "company_branch"
+          }
+        ]
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "multinational",
+      "when": {
+        "all": [
+          {
+            "p": "career.multinational",
+            "is": "yes"
+          },
+          {
+            "p": "career.companyTime",
+            "in": [
+              "1to3y",
+              "gt3y"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer",
+      "when": {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.purpose",
+            "is": "transfer"
+          }
+        ]
+      }
+    },
+    {
+      "id": "branch",
+      "when": {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.has",
+            "has": "company_branch"
+          }
+        ]
+      }
+    },
+    {
+      "id": "manager",
+      "when": {
+        "p": "career.level",
+        "in": [
+          "manager",
+          "executive",
+          "owner"
+        ]
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-l1a",
+      "url": "https://www.uscis.gov/working-in-the-united-states/temporary-workers/l-1a-intracompany-transferee-executive-or-manager",
+      "agency": "USCIS",
+      "title": "L-1A Intracompany Transferee Executive or Manager",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "uscis-l1b",
+      "url": "https://www.uscis.gov/working-in-the-united-states/temporary-workers/l-1b-intracompany-transferee-specialized-knowledge",
+      "agency": "USCIS",
+      "title": "L-1B Intracompany Transferee Specialized Knowledge",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

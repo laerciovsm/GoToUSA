@@ -1,0 +1,14 @@
+{
+  "id": "tn-nationalities",
+  "codes": [
+    "CA",
+    "MX"
+  ],
+  "source": {
+    "id": "uscis-tn",
+    "url": "https://www.uscis.gov/working-in-the-united-states/temporary-workers/tn-usmca-professionals",
+    "agency": "USCIS",
+    "title": "TN USMCA Professionals",
+    "verifiedAt": "2026-11-17"
+  }
+}

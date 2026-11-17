@@ -1,0 +1,58 @@
+{
+  "id": "family-immediate-relative",
+  "status": "published",
+  "kind": "permanent",
+  "group": "family",
+  "byWorker": false,
+  "showWhen": {
+    "q": "goal.familyLink",
+    "in": [
+      "spouse_citizen",
+      "parent_citizen",
+      "child_citizen"
+    ]
+  },
+  "reasons": [
+    {
+      "id": "spouse",
+      "when": {
+        "q": "goal.familyLink",
+        "is": "spouse_citizen"
+      }
+    },
+    {
+      "id": "parent",
+      "when": {
+        "q": "goal.familyLink",
+        "is": "parent_citizen"
+      }
+    },
+    {
+      "id": "child",
+      "when": {
+        "q": "goal.familyLink",
+        "is": "child_citizen"
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-immediate-relatives",
+      "url": "https://www.uscis.gov/green-card/green-card-eligibility/green-card-for-immediate-relatives-of-us-citizen",
+      "agency": "USCIS",
+      "title": "Green Card for Immediate Relatives of U.S. Citizen",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "uscis-family-preference",
+      "url": "https://www.uscis.gov/green-card/green-card-eligibility/green-card-for-family-preference-immigrants",
+      "agency": "USCIS",
+      "title": "Green Card for Family Preference Immigrants",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

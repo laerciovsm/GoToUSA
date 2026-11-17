@@ -1,0 +1,48 @@
+{
+  "id": "e2-treaty-investor",
+  "status": "published",
+  "kind": "temporary",
+  "group": "investment",
+  "byWorker": false,
+  "showWhen": {
+    "any": [
+      {
+        "q": "goal.purpose",
+        "is": "business"
+      },
+      {
+        "q": "goal.has",
+        "has": "capital"
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "business",
+      "when": {
+        "q": "goal.purpose",
+        "is": "business"
+      }
+    },
+    {
+      "id": "capital",
+      "when": {
+        "q": "goal.has",
+        "has": "capital"
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-e2",
+      "url": "https://www.uscis.gov/working-in-the-united-states/temporary-workers/e-2-treaty-investors",
+      "agency": "USCIS",
+      "title": "E-2 Treaty Investors",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

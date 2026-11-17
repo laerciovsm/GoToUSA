@@ -1,0 +1,13 @@
+{
+  "id": "e3-nationalities",
+  "codes": [
+    "AU"
+  ],
+  "source": {
+    "id": "uscis-e3",
+    "url": "https://www.uscis.gov/working-in-the-united-states/temporary-workers/e-3-specialty-occupation-workers-from-australia",
+    "agency": "USCIS",
+    "title": "E-3 Specialty Occupation Workers from Australia",
+    "verifiedAt": "2026-11-17"
+  }
+}

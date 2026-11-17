@@ -1,0 +1,31 @@
+{
+  "id": "e3-australia",
+  "status": "published",
+  "kind": "temporary",
+  "group": "work",
+  "byWorker": true,
+  "showWhen": {
+    "nationalityIn": "e3-nationalities"
+  },
+  "reasons": [
+    {
+      "id": "nationality",
+      "when": {
+        "nationalityIn": "e3-nationalities"
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-e3",
+      "url": "https://www.uscis.gov/working-in-the-united-states/temporary-workers/e-3-specialty-occupation-workers-from-australia",
+      "agency": "USCIS",
+      "title": "E-3 Specialty Occupation Workers from Australia",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

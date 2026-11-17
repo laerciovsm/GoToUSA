@@ -1,0 +1,84 @@
+{
+  "id": "eb1-researcher",
+  "status": "published",
+  "kind": "permanent",
+  "group": "merit",
+  "byWorker": true,
+  "showWhen": {
+    "any": [
+      {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.purpose",
+            "is": "academic"
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "p": "career.achievements",
+            "has": "publications"
+          },
+          {
+            "w": "education",
+            "in": [
+              "master",
+              "doctorate"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "academic",
+      "when": {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.purpose",
+            "is": "academic"
+          }
+        ]
+      }
+    },
+    {
+      "id": "publications",
+      "when": {
+        "all": [
+          {
+            "p": "career.achievements",
+            "has": "publications"
+          },
+          {
+            "w": "education",
+            "in": [
+              "master",
+              "doctorate"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-eb1",
+      "url": "https://www.uscis.gov/working-in-the-united-states/permanent-workers/employment-based-immigration-first-preference-eb-1",
+      "agency": "USCIS",
+      "title": "Employment-Based Immigration: First Preference EB-1",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

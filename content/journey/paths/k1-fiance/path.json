@@ -1,0 +1,33 @@
+{
+  "id": "k1-fiance",
+  "status": "published",
+  "kind": "temporary",
+  "group": "family",
+  "byWorker": false,
+  "showWhen": {
+    "q": "goal.purpose",
+    "is": "marriage"
+  },
+  "reasons": [
+    {
+      "id": "marriage",
+      "when": {
+        "q": "goal.purpose",
+        "is": "marriage"
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-k1",
+      "url": "https://www.uscis.gov/family/family-of-us-citizens/visas-for-fiancees-of-us-citizens",
+      "agency": "USCIS",
+      "title": "Visas for Fiancé(e)s of U.S. Citizens",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

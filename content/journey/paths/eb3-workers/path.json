@@ -1,0 +1,99 @@
+{
+  "id": "eb3-workers",
+  "status": "published",
+  "kind": "permanent",
+  "group": "work",
+  "byWorker": true,
+  "showWhen": {
+    "any": [
+      {
+        "any": [
+          {
+            "p": "career.usJobSearch",
+            "is": "offer"
+          },
+          {
+            "all": [
+              {
+                "kind": "self"
+              },
+              {
+                "q": "goal.has",
+                "has": "job_offer"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.sponsorship",
+            "is": "greencard"
+          }
+        ]
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "offer",
+      "when": {
+        "any": [
+          {
+            "p": "career.usJobSearch",
+            "is": "offer"
+          },
+          {
+            "all": [
+              {
+                "kind": "self"
+              },
+              {
+                "q": "goal.has",
+                "has": "job_offer"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "greencard",
+      "when": {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.sponsorship",
+            "is": "greencard"
+          }
+        ]
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-eb3",
+      "url": "https://www.uscis.gov/working-in-the-united-states/permanent-workers/employment-based-immigration-third-preference-eb-3",
+      "agency": "USCIS",
+      "title": "Employment-Based Immigration: Third Preference EB-3",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "uscis-permanent-workers",
+      "url": "https://www.uscis.gov/working-in-the-united-states/permanent-workers",
+      "agency": "USCIS",
+      "title": "Permanent Workers",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

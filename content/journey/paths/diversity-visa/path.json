@@ -1,0 +1,33 @@
+{
+  "id": "diversity-visa",
+  "status": "published",
+  "kind": "permanent",
+  "group": "other",
+  "byWorker": false,
+  "showWhen": {
+    "q": "goal.purpose",
+    "is": "lottery"
+  },
+  "reasons": [
+    {
+      "id": "lottery",
+      "when": {
+        "q": "goal.purpose",
+        "is": "lottery"
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-dv",
+      "url": "https://www.uscis.gov/green-card/green-card-eligibility/green-card-through-the-diversity-immigrant-visa-program",
+      "agency": "USCIS",
+      "title": "Green Card Through the Diversity Immigrant Visa Program",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

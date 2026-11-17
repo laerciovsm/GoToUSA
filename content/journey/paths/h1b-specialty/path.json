@@ -1,0 +1,132 @@
+{
+  "id": "h1b-specialty",
+  "status": "published",
+  "kind": "temporary",
+  "group": "work",
+  "byWorker": true,
+  "showWhen": {
+    "all": [
+      {
+        "w": "education",
+        "in": [
+          "bachelor",
+          "postgrad",
+          "master",
+          "doctorate"
+        ]
+      },
+      {
+        "any": [
+          {
+            "any": [
+              {
+                "p": "career.usJobSearch",
+                "is": "offer"
+              },
+              {
+                "all": [
+                  {
+                    "kind": "self"
+                  },
+                  {
+                    "q": "goal.has",
+                    "has": "job_offer"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "kind": "self"
+              },
+              {
+                "q": "goal.sponsorship",
+                "is": "temporary"
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "kind": "self"
+              },
+              {
+                "q": "goal.purpose",
+                "is": "work"
+              }
+            ]
+          },
+          {
+            "p": "career.usJobSearch",
+            "in": [
+              "searching",
+              "interviews",
+              "offer"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "degree",
+      "when": {
+        "w": "education",
+        "in": [
+          "bachelor",
+          "postgrad",
+          "master",
+          "doctorate"
+        ]
+      }
+    },
+    {
+      "id": "offer",
+      "when": {
+        "any": [
+          {
+            "p": "career.usJobSearch",
+            "is": "offer"
+          },
+          {
+            "all": [
+              {
+                "kind": "self"
+              },
+              {
+                "q": "goal.has",
+                "has": "job_offer"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "searching",
+      "when": {
+        "p": "career.usJobSearch",
+        "in": [
+          "searching",
+          "interviews"
+        ]
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-h1b",
+      "url": "https://www.uscis.gov/working-in-the-united-states/h-1b-specialty-occupations",
+      "agency": "USCIS",
+      "title": "H-1B Specialty Occupations",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

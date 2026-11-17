@@ -1,0 +1,119 @@
+{
+  "id": "eb2-niw",
+  "status": "published",
+  "kind": "permanent",
+  "group": "merit",
+  "byWorker": true,
+  "showWhen": {
+    "all": [
+      {
+        "any": [
+          {
+            "w": "education",
+            "in": [
+              "master",
+              "doctorate"
+            ]
+          },
+          {
+            "all": [
+              {
+                "w": "education",
+                "in": [
+                  "bachelor",
+                  "postgrad"
+                ]
+              },
+              {
+                "w": "experienceYears",
+                "gte": 5
+              }
+            ]
+          },
+          {
+            "p": "career.achievements",
+            "gte": 3
+          }
+        ]
+      },
+      {
+        "any": [
+          {
+            "p": "career.achievements",
+            "gte": 1
+          },
+          {
+            "all": [
+              {
+                "kind": "self"
+              },
+              {
+                "q": "goal.purpose",
+                "in": [
+                  "talent",
+                  "academic"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "not": {
+          "p": "career.achievements",
+          "has": "none"
+        }
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "degree",
+      "when": {
+        "w": "education",
+        "in": [
+          "master",
+          "doctorate"
+        ]
+      }
+    },
+    {
+      "id": "bachelor5",
+      "when": {
+        "all": [
+          {
+            "w": "education",
+            "in": [
+              "bachelor",
+              "postgrad"
+            ]
+          },
+          {
+            "w": "experienceYears",
+            "gte": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "achievements",
+      "when": {
+        "p": "career.achievements",
+        "gte": 1
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-eb2",
+      "url": "https://www.uscis.gov/working-in-the-united-states/permanent-workers/employment-based-immigration-second-preference-eb-2",
+      "agency": "USCIS",
+      "title": "Employment-Based Immigration: Second Preference EB-2",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "o1-extraordinary",
+  "status": "published",
+  "kind": "temporary",
+  "group": "merit",
+  "byWorker": true,
+  "showWhen": {
+    "any": [
+      {
+        "p": "career.achievements",
+        "gte": 3
+      },
+      {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.purpose",
+            "is": "talent"
+          }
+        ]
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "achievements",
+      "when": {
+        "p": "career.achievements",
+        "gte": 3
+      }
+    },
+    {
+      "id": "talent",
+      "when": {
+        "all": [
+          {
+            "kind": "self"
+          },
+          {
+            "q": "goal.purpose",
+            "is": "talent"
+          }
+        ]
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-o1",
+      "url": "https://www.uscis.gov/working-in-the-united-states/temporary-workers/o-1-visa-individuals-with-extraordinary-ability-or-achievement",
+      "agency": "USCIS",
+      "title": "O-1 Visa: Individuals with Extraordinary Ability or Achievement",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

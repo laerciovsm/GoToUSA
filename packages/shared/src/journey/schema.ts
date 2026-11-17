@@ -23,6 +23,7 @@ export const conditionSchema: z.ZodType<Condition> = z.lazy(() =>
     z.strictObject({ not: conditionSchema }),
     z.strictObject({ q: z.string(), ...answerCompare }),
     z.strictObject({ p: z.string(), ...answerCompare }),
+    z.strictObject({ w: z.string(), ...answerCompare }),
     z.strictObject({ fact: z.string(), is: z.union([z.string(), z.boolean()]).optional(), ...numberCompare }),
     z.strictObject({ kind: z.union([personKind, z.array(personKind).min(1)]) }),
     z.strictObject({ age: z.strictObject(numberCompare) }),

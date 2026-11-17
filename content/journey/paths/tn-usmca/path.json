@@ -1,0 +1,31 @@
+{
+  "id": "tn-usmca",
+  "status": "published",
+  "kind": "temporary",
+  "group": "work",
+  "byWorker": true,
+  "showWhen": {
+    "nationalityIn": "tn-nationalities"
+  },
+  "reasons": [
+    {
+      "id": "nationality",
+      "when": {
+        "nationalityIn": "tn-nationalities"
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-tn",
+      "url": "https://www.uscis.gov/working-in-the-united-states/temporary-workers/tn-usmca-professionals",
+      "agency": "USCIS",
+      "title": "TN USMCA Professionals",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

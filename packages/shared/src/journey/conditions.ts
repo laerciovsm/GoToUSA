@@ -42,7 +42,15 @@ function compareAnswer(
   if (c.in !== undefined && !(typeof value === "string" && c.in.includes(value))) return false;
   if (c.has !== undefined && !(Array.isArray(value) && (value as unknown[]).includes(c.has))) return false;
   if (hasNumberCompare(c)) {
-    const n = typeof value === "number" ? value : typeof value === "object" && !Array.isArray(value) ? value.amount : NaN;
+    // Número, valor com moeda ou, numa lista de várias escolhas, a quantidade de itens marcados.
+    const n =
+      typeof value === "number"
+        ? value
+        : Array.isArray(value)
+          ? value.length
+          : typeof value === "object"
+            ? value.amount
+            : NaN;
     if (!Number.isFinite(n) || !compareNumber(n, c)) return false;
   }
   return true;
@@ -99,6 +107,17 @@ export function evaluate(condition: Condition | null | undefined, ctx: Condition
     const value = getAnswer(ctx.data, condition.p, ctx.person);
     if (!isAnswered(value)) {
       ctx.unanswered?.add(condition.p);
+      return undefined;
+    }
+    return compareAnswer(value!, condition);
+  }
+  if ("w" in condition) {
+    if (!ctx.person) return undefined;
+    const self = ctx.person.kind === "self";
+    const qid = self ? `you.${condition.w}` : `career.${condition.w}`;
+    const value = self ? getAnswer(ctx.data, qid) : getAnswer(ctx.data, qid, ctx.person);
+    if (!isAnswered(value)) {
+      ctx.unanswered?.add(qid);
       return undefined;
     }
     return compareAnswer(value!, condition);

@@ -350,3 +350,67 @@ describe("cenário inicial com o conteúdo real", () => {
     expect(j.tasks.find((t) => t.key === `care-plan@${child.id}`)!.state).toBe("waiting");
   });
 });
+
+describe("caminhos de visto com o conteúdo real", () => {
+  const catalog = loadCatalog(CONTENT_DIR);
+  const shown = (data: QuestionnaireData) => generateJourney(catalog, data, progressAt(), NOW).paths;
+  const byId = (data: QuestionnaireData, id: string) => shown(data).find((p) => p.pathId === id);
+
+  it("sem respostas de carreira, nenhum caminho por trabalho aparece e o bloco de carreira é sugerido", () => {
+    const j = generateJourney(catalog, founderFamily(), progressAt(), NOW);
+    expect(j.paths.map((p) => p.pathId)).not.toContain("eb2-professional");
+    expect(j.missingBlocks).toContain("career");
+  });
+
+  it("mestrado de quem é o titular mostra o EB-2 por essa pessoa, com o motivo", () => {
+    let d = setAnswer(founderFamily(), "you.education", "master", undefined, NOW);
+    const self = d.people.find((p) => p.kind === "self")!;
+    d = setAnswer(d, "career.achievements", ["publications"], self, NOW);
+    const eb2 = byId(d, "eb2-professional")!;
+    expect(eb2.personIds).toEqual([self.id]);
+    expect(eb2.reasons[0]!.reasonIds).toContain("degree");
+    expect(byId(d, "eb2-niw")).toBeDefined();
+    expect(byId(d, "eb1-extraordinary")).toBeUndefined(); // só 1 conquista marcada
+  });
+
+  it("graduação com 5 anos de experiência também leva ao EB-2 (a resposta de você vem de you.*)", () => {
+    let d = setAnswer(founderFamily(), "you.education", "bachelor", undefined, NOW);
+    d = setAnswer(d, "you.experienceYears", 6, undefined, NOW);
+    expect(byId(d, "eb2-professional")!.reasons[0]!.reasonIds).toContain("bachelor5");
+  });
+
+  it("3 conquistas mostram EB-1 e O-1 (conta os itens marcados)", () => {
+    const d0 = founderFamily();
+    const self = d0.people.find((p) => p.kind === "self")!;
+    const d = setAnswer(d0, "career.achievements", ["awards", "media", "judge"], self, NOW);
+    expect(byId(d, "eb1-extraordinary")).toBeDefined();
+    expect(byId(d, "o1-extraordinary")).toBeDefined();
+  });
+
+  it("investimento mostra EB-5 e E-2 para a família", () => {
+    let d = setAnswer(founderFamily(), "goal.purpose", "business", undefined, NOW);
+    d = setAnswer(d, "goal.has", ["capital"], undefined, NOW);
+    expect(byId(d, "eb5-investor")!.personIds).toBeNull();
+    expect(byId(d, "e2-treaty-investor")).toBeDefined();
+  });
+
+  it("nacionalidade mexicana mostra o TN; brasileira não", () => {
+    expect(byId(founderFamily(), "tn-usmca")).toBeUndefined();
+    const d = setAnswer(founderFamily(), "you.nationalities", ["BR", "MX"], undefined, NOW);
+    expect(byId(d, "tn-usmca")).toBeDefined();
+  });
+
+  it("filho adulto que pretende estudar ganha o caminho de estudante por ele", () => {
+    const d0 = founderFamily();
+    const child = d0.people.find((p) => p.kind === "child")!;
+    const d = setAnswer(d0, "adult.plan", "study", child, NOW);
+    expect(byId(d, "student-f1-m1")!.personIds).toEqual([child.id]);
+  });
+
+  it("a tarefa de conversar com advogado entra para todos, depois de conhecer os caminhos", () => {
+    const j = generateJourney(catalog, founderFamily(), progressAt(), NOW);
+    const t = j.tasks.find((x) => x.key === "talk-to-attorney")!;
+    expect(t.state).toBe("waiting");
+    expect(t.waitingFor).toEqual(["explore-paths"]);
+  });
+});

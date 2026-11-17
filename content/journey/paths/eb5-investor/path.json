@@ -1,0 +1,65 @@
+{
+  "id": "eb5-investor",
+  "status": "published",
+  "kind": "permanent",
+  "group": "investment",
+  "byWorker": false,
+  "showWhen": {
+    "any": [
+      {
+        "q": "goal.purpose",
+        "is": "business"
+      },
+      {
+        "q": "goal.has",
+        "has": "capital"
+      }
+    ]
+  },
+  "reasons": [
+    {
+      "id": "business",
+      "when": {
+        "q": "goal.purpose",
+        "is": "business"
+      }
+    },
+    {
+      "id": "capital",
+      "when": {
+        "q": "goal.has",
+        "has": "capital"
+      }
+    },
+    {
+      "id": "range",
+      "when": {
+        "q": "goal.investRange",
+        "in": [
+          "500kto1m",
+          "gt1m"
+        ]
+      }
+    }
+  ],
+  "tasks": [
+    "explore-paths",
+    "talk-to-attorney"
+  ],
+  "sources": [
+    {
+      "id": "uscis-permanent-workers",
+      "url": "https://www.uscis.gov/working-in-the-united-states/permanent-workers",
+      "agency": "USCIS",
+      "title": "Permanent Workers",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "uscis-eb5",
+      "url": "https://www.uscis.gov/working-in-the-united-states/permanent-workers/eb-5-immigrant-investor-program",
+      "agency": "USCIS",
+      "title": "EB-5 Immigrant Investor Program",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

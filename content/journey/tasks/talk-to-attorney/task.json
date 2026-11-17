@@ -1,0 +1,44 @@
+{
+  "id": "talk-to-attorney",
+  "status": "published",
+  "phase": "discovery",
+  "stage": "discovery.paths",
+  "themes": [
+    "immigration"
+  ],
+  "type": "action",
+  "essential": true,
+  "who": {
+    "scope": "family"
+  },
+  "appliesWhen": null,
+  "highlightWhen": null,
+  "deadline": null,
+  "dependsOn": [
+    "explore-paths"
+  ],
+  "weight": "high",
+  "time": {
+    "minHours": 2,
+    "maxHours": 4
+  },
+  "cost": null,
+  "subtasks": [
+    "list-questions",
+    "check-license",
+    "consult",
+    "write-down"
+  ],
+  "record": {
+    "type": "notes"
+  },
+  "sources": [
+    {
+      "id": "uscis-legal-services",
+      "url": "https://www.uscis.gov/scams-fraud-and-misconduct/avoid-scams/find-legal-services",
+      "agency": "USCIS",
+      "title": "Find Legal Services",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

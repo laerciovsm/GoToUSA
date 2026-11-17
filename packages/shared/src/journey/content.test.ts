@@ -35,6 +35,17 @@ function conditionProblems(condition: Condition | null | undefined, where: strin
         if (q.options && !q.options.includes(v)) problems.push(`${where}: opção "${v}" não existe em "${qid}"`);
       }
     }
+    if ("w" in leaf) {
+      const values = [leaf.is, leaf.has, ...(leaf.in ?? [])].filter((v): v is string => v !== undefined);
+      for (const qid of [`you.${leaf.w}`, `career.${leaf.w}`]) {
+        const q = questions.get(qid);
+        if (!q) {
+          problems.push(`${where}: pergunta inexistente "${qid}"`);
+          continue;
+        }
+        for (const v of values) if (q.options && !q.options.includes(v)) problems.push(`${where}: opção "${v}" não existe em "${qid}"`);
+      }
+    }
     if ("fact" in leaf && !FACTS[leaf.fact]) problems.push(`${where}: fato calculado inexistente "${leaf.fact}"`);
     if ("path" in leaf && !catalog.paths.some((p) => p.id === leaf.path)) problems.push(`${where}: caminho inexistente "${leaf.path}"`);
     if ("nationalityIn" in leaf && !catalog.lists.some((l) => l.id === leaf.nationalityIn)) {
@@ -136,6 +147,20 @@ describe("conteúdo da jornada: caminhos de visto", () => {
       for (const t of p.tasks) expect(catalog.tasks.some((x) => x.id === t), `${p.id} → ${t}`).toBe(true);
     }
   });
+
+  for (const locale of LOCALES) {
+    it(`${locale}: todo motivo tem texto e toda fonte citada existe no caminho`, () => {
+      const texts = loadTexts(CONTENT_DIR, locale, catalog);
+      for (const p of publishedPaths) {
+        const text = texts.paths[p.id]!;
+        expect(Object.keys(text.reasons).sort(), `${p.id} (${locale})`).toEqual(p.reasons.map((r) => r.id).sort());
+        const ids = p.sources.map((s) => s.id);
+        for (const ref of sourceRefs(text.body)) expect(ids, `${p.id} (${locale})`).toContain(ref);
+        // Cada fonte do caminho é citada no texto pelo menos uma vez.
+        for (const id of ids) expect(sourceRefs(text.body), `${p.id} (${locale}): ${id}`).toContain(id);
+      }
+    });
+  }
 
   const FORBIDDEN = [/você se qualifica/i, /suas chances/i, /you qualify/i, /your chances/i, /usted califica/i, /calificas/i, /tus posibilidades/i];
   for (const locale of LOCALES) {

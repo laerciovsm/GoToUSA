@@ -1,0 +1,88 @@
+{
+  "phases": [
+    {
+      "id": "discovery",
+      "order": 0,
+      "appliesWhen": null
+    },
+    {
+      "id": "planning",
+      "order": 1,
+      "appliesWhen": null
+    },
+    {
+      "id": "preparation",
+      "order": 2,
+      "appliesWhen": null
+    },
+    {
+      "id": "move",
+      "order": 3,
+      "appliesWhen": null
+    },
+    {
+      "id": "arrival",
+      "order": 4,
+      "appliesWhen": null
+    },
+    {
+      "id": "settling",
+      "order": 5,
+      "appliesWhen": {
+        "not": {
+          "q": "goal.duration",
+          "is": "lt6m"
+        }
+      }
+    },
+    {
+      "id": "future",
+      "order": 6,
+      "appliesWhen": null
+    }
+  ],
+  "stages": [
+    {
+      "id": "discovery.family",
+      "phase": "discovery",
+      "order": 1,
+      "appliesWhen": null
+    },
+    {
+      "id": "discovery.paths",
+      "phase": "discovery",
+      "order": 2,
+      "appliesWhen": null
+    },
+    {
+      "id": "planning.timeline",
+      "phase": "planning",
+      "order": 1,
+      "appliesWhen": null
+    },
+    {
+      "id": "planning.budget",
+      "phase": "planning",
+      "order": 2,
+      "appliesWhen": null
+    },
+    {
+      "id": "planning.language",
+      "phase": "planning",
+      "order": 3,
+      "appliesWhen": null
+    },
+    {
+      "id": "planning.family",
+      "phase": "planning",
+      "order": 4,
+      "appliesWhen": null
+    },
+    {
+      "id": "preparation.documents",
+      "phase": "preparation",
+      "order": 1,
+      "appliesWhen": null
+    }
+  ]
+}

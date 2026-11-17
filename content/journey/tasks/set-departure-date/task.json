@@ -1,0 +1,41 @@
+{
+  "id": "set-departure-date",
+  "status": "published",
+  "phase": "planning",
+  "stage": "planning.timeline",
+  "themes": [
+    "family"
+  ],
+  "type": "decide",
+  "essential": true,
+  "who": {
+    "scope": "family"
+  },
+  "appliesWhen": {
+    "not": {
+      "fact": "departureKnown"
+    }
+  },
+  "highlightWhen": {
+    "not": {
+      "fact": "departureKnown"
+    }
+  },
+  "deadline": null,
+  "dependsOn": [],
+  "weight": "medium",
+  "time": {
+    "minHours": 1,
+    "maxHours": 2
+  },
+  "cost": null,
+  "subtasks": [
+    "review-plan",
+    "choose-month",
+    "update-answer"
+  ],
+  "record": {
+    "type": "agreement"
+  },
+  "sources": []
+}

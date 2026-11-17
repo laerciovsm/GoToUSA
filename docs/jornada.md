@@ -556,6 +556,28 @@ Quando um prazo vem de uma regra ou de um tempo oficial (ex.: validade mínima d
 2. ✅ **Fase 0 com prazo de 1 mês, contado do início da jornada** (17/11/2026): dá ritmo para não ficar parado só pensando. É uma sugestão sem pressão, e a pessoa pode mudar esse prazo (o novo prazo fica guardado no progresso).
 3. ✅ **Conferência de realidade** pelo tempo estimado × tempo por semana, sugerindo rever a data de ida ou reservar mais tempo quando não couber (17/11/2026).
 
+## Implementação do motor (Marco 3 · 17/11/2026)
+
+O motor foi implementado em `packages/shared/src/journey/`, seguindo os 5 passos aprovados:
+
+| Arquivo | O que faz |
+|---|---|
+| `types.ts` | Tipos das três camadas (conteúdo, jornada gerada, progresso) |
+| `schema.ts` | Validação (Zod) do conteúdo e do progresso salvo; `createProgress` |
+| `conditions.ts` | Avalia as condições com três resultados (sim, não, não sei) |
+| `facts.ts` | Fatos calculados (`partnerGoing`, `maxChildAgeAtDeparture` etc.) |
+| `dates.ts` | Prazos: início, ida e chegada; janelas das fases |
+| `generate.ts` | Gera a jornada: caminhos, fases, etapas, tarefas, dependências, ordem, prioridade, próximo passo, conferência de realidade |
+| `readiness.ts` | Prontidão total, por tema, etapa e fase |
+| `profile.ts` | Perfil da família |
+| `frontmatter.ts` · `load-node.ts` | Leem os arquivos de `content/journey` (o carregador só roda no Node: testes e scripts) |
+
+**Conteúdo de exemplo** em `content/journey/`: estrutura das 7 fases, 7 etapas e 7 tarefas nos 3 idiomas (conversar em família, conhecer os caminhos, definir a data de ida, orçamento, plano de inglês, plano de cuidados por pessoa, conferir passaporte por pessoa). **Nenhuma contém fato legal**, por isso nenhuma precisa de fonte ainda. Tarefas com regras, prazos oficiais ou taxas entram com o conteúdo real, sempre com fonte oficial.
+
+**Testes:** `content.test.ts` valida o conteúdo (perguntas e opções existentes, 3 idiomas, subtarefas, fontes citadas, alerta com fonte, dependências sem ciclo, expressões proibidas nos caminhos) e `journey.test.ts` testa o motor, incluindo o cenário inicial (casal + filho adulto com deficiência).
+
+**Ainda não feito (próximos marcos):** as telas da jornada (Marco 5), o salvamento do progresso no navegador, o pacote do conteúdo para o site e os caminhos de visto reais (dependem dos resumos das fontes oficiais).
+
 ## Gratuito × pago (proposta)
 
 - **Grátis:** questionário, visão geral da jornada, Fases 0 e 1.

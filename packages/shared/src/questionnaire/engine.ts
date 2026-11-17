@@ -78,6 +78,32 @@ export function personAge(data: QuestionnaireData, person: Person, date: Date): 
   return undefined;
 }
 
+/**
+ * Data de ida como data: o dia 1º do mês escolhido em goal.departure (decisão de 17/11/2026).
+ * Retorna undefined quando a pessoa ainda não sabe.
+ */
+export function departureDate(data: QuestionnaireData): Date | undefined {
+  const match = /^(\d{4})-(\d{2})$/.exec(String(data.answers["goal.departure"] ?? ""));
+  return match ? new Date(Number(match[1]), Number(match[2]) - 1, 1) : undefined;
+}
+
+/** Idade na data de ida (a meta); sem data de ida, a idade de hoje. */
+export function ageAtDeparture(data: QuestionnaireData, person: Person, now: Date): number | undefined {
+  return personAge(data, person, departureDate(data) ?? now);
+}
+
+/** Filho ou dependente que terá 18 anos ou mais na data de ida. */
+export function isAdultMember(data: QuestionnaireData, person: Person, now: Date): boolean {
+  if (person.kind !== "child" && person.kind !== "dependent") return false;
+  return (ageAtDeparture(data, person, now) ?? 0) >= 18;
+}
+
+/** Adulto (além do casal) que pretende trabalhar nos EUA: entra no perfil profissional. */
+export function adultPlansToWork(data: QuestionnaireData, person: Person): boolean {
+  const plan = getAnswer(data, "adult.plan", person);
+  return plan === "work" || plan === "both";
+}
+
 /** Sexo de uma pessoa da família ("male" ou "female"; undefined se não informado). */
 export function personSex(data: QuestionnaireData, person: Person): string | undefined {
   if (person.kind === "self") return stringAnswer(data, "you.sex");
@@ -203,7 +229,10 @@ function isGroup(item: Question | PersonGroup): item is PersonGroup {
 export function peopleOf(data: QuestionnaireData, group: PersonGroup["group"]): Person[] {
   if (group === "children") return data.people.filter((p) => p.kind === "child");
   if (group === "dependents") return data.people.filter((p) => p.kind === "dependent");
-  if (group === "workers") return data.people.filter((p) => p.kind === "self" || p.kind === "partner");
+  // "workers": você, o cônjuge e os filhos e dependentes adultos que pretendem trabalhar nos EUA.
+  if (group === "workers") {
+    return data.people.filter((p) => p.kind === "self" || p.kind === "partner" || adultPlansToWork(data, p));
+  }
   return data.people;
 }
 
@@ -222,7 +251,7 @@ export function textSexValues(
   data: QuestionnaireData,
   step: Pick<Step, "question" | "person">,
   now: Date = new Date(),
-): { sex: TextSex; partnerSex: TextSex; adultChildSex: TextSex } {
+): { sex: TextSex; partnerSex: TextSex; adultChildSex: TextSex; personKind: Person["kind"] | "other" } {
   const self = data.people.find((p) => p.kind === "self");
   const partner = data.people.find((p) => p.kind === "partner");
   const subject = step.person ?? (step.question.id.startsWith("partner.") ? partner : self);
@@ -235,6 +264,8 @@ export function textSexValues(
     sex: toTextSex(subject ? personSex(data, subject) : undefined),
     partnerSex: toTextSex(partner ? personSex(data, partner) : undefined),
     adultChildSex: adultSexes.size === 1 ? [...adultSexes][0]! : "other",
+    // De quem a pergunta fala, para textos como "do seu cônjuge" × "desta pessoa".
+    personKind: step.person?.kind ?? "other",
   };
 }
 

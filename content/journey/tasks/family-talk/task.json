@@ -1,0 +1,41 @@
+{
+  "id": "family-talk",
+  "status": "published",
+  "phase": "discovery",
+  "stage": "discovery.family",
+  "themes": [
+    "family"
+  ],
+  "type": "reflect",
+  "essential": true,
+  "who": {
+    "scope": "family"
+  },
+  "appliesWhen": null,
+  "highlightWhen": {
+    "q": "moment.partnerSupport",
+    "in": [
+      "unsure",
+      "against",
+      "not_talked"
+    ]
+  },
+  "deadline": null,
+  "dependsOn": [],
+  "weight": "medium",
+  "time": {
+    "minHours": 1,
+    "maxHours": 2
+  },
+  "cost": null,
+  "subtasks": [
+    "pick-moment",
+    "share-why",
+    "hear-doubts",
+    "write-agreements"
+  ],
+  "record": {
+    "type": "agreement"
+  },
+  "sources": []
+}

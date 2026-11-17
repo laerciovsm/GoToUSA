@@ -10,7 +10,7 @@
     "dest": { "title": "Destination", "intro": "Where you are thinking of going and what matters most in that choice." },
     "history": { "title": "History with the U.S.", "intro": "Visits, visas, and people you know there." },
     "docs": { "title": "Documents", "intro": "Yes or no only: no files are uploaded." },
-    "career": { "title": "Professional profile", "intro": "The careers of those who will work: you and your spouse. It's the basis for pointing to the visa paths worth learning about." },
+    "career": { "title": "Professional profile", "intro": "The careers of those who will work: you, your spouse and any adult children or dependents who plan to work. It's the basis for pointing to the visa paths worth learning about." },
     "moment": { "title": "Your moment", "intro": "How your life is right now, so your journey starts at the right pace. Everything is optional." },
     "rhythm": { "title": "Your pace", "intro": "How often you want to follow your journey and what motivates you." }
   },
@@ -689,12 +689,16 @@
       "partnerSupport": { "label": "How does your spouse feel about the move?", "why": "A move like this works better when the couple is on the same page. If you're not there yet, the journey brings those conversations early.", "options": {"aligned": "They want it as much as I do", "mostly": "Supportive, with some doubts", "unsure": "Still unsure", "against": "They don't want to go", "not_talked": "We haven't talked yet"} },
       "familySupport": { "label": "Do the people close to you support the idea?", "why": "Support makes a difference on hard days. Your answer helps the journey remind you where to find strength.", "options": {"yes": "Yes, they do", "partial": "Some of them do", "no": "They don't", "skip": "I'd rather not say"} }
     },
+    "adult": {
+      "plan": { "label": "Does this person plan to work or study in the U.S.?", "why": "An adult child or dependent may need their own visa path. Knowing their plan helps the journey show what's worth learning about.", "options": {"work": "Work", "study": "Study", "both": "Both", "no": "Neither work nor study", "unsure": "Not sure yet"} },
+      "studyLevel": { "label": "What does this person plan to study?", "why": "It helps point to the study paths worth learning about." }
+    },
     "career": {
-      "nationalities": { "label": "What is your spouse's nationality? If more than one, select all.", "why": "Each adult's nationality can open or close different visa paths. Sometimes the best path is through the spouse." },
-      "education": { "label": "What is your spouse's highest completed education?", "why": "Each adult's education helps point to the visa paths worth learning about." },
-      "field": { "label": "What is your spouse's field of study?", "why": "It helps connect education with profession and the U.S. job market." },
-      "experienceYears": { "label": "How many years has your spouse worked in {sex, select, male {his} female {her} other {their}} field?", "why": "Years of experience help point to visa paths and plan the job search.", "placeholder": "E.g.: 8" },
-      "regulated": { "label": "Does your spouse's profession require a registration or license to practice?", "why": "Licensed professions usually require validating the degree and license in the destination state." },
+      "nationalities": { "label": "{personKind, select, partner {What is your spouse's nationality? If more than one, select all.} other {What is this person's nationality? If more than one, select all.}}", "why": "Each adult's nationality can open or close different visa paths. Sometimes the best path is through the spouse." },
+      "education": { "label": "{personKind, select, partner {What is your spouse's highest completed education?} other {What is this person's highest completed education?}}", "why": "Each adult's education helps point to the visa paths worth learning about." },
+      "field": { "label": "{personKind, select, partner {What is your spouse's field of study?} other {What is this person's field of study?}}", "why": "It helps connect education with profession and the U.S. job market." },
+      "experienceYears": { "label": "{personKind, select, partner {How many years has your spouse worked} other {How many years has this person worked}} in {sex, select, male {his} female {her} other {their}} field?", "why": "Years of experience help point to visa paths and plan the job search.", "placeholder": "E.g.: 8" },
+      "regulated": { "label": "{personKind, select, partner {Does your spouse's profession require a registration or license to practice?} other {Does this person's profession require a registration or license to practice?}}", "why": "Licensed professions usually require validating the degree and license in the destination state." },
       "sector": {
         "label": "What area is the work in?",
         "why": "The area helps point to visa paths and to each state's job market.",

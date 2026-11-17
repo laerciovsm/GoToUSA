@@ -113,6 +113,8 @@
 | `health.autonomy` / `health.caregiver` | (as mesmas perguntas dos filhos) | por pessoa | Condição: `dependent.dependency` ∈ {`full`, `care`, `partial`} |
 | `household.pets` | Vai levar animais de estimação? | múltipla | `none` Não · `dog` Cachorro · `cat` Gato · `bird` Ave · `other` Outro. Depois, quantos |
 | `household.leftBehind` | Alguém que depende de você vai ficar no seu país? | única | `yes` Sim · `no` Não |
+| `adult.plan` | Essa pessoa pretende trabalhar ou estudar nos EUA? | por pessoa · única | `work` Trabalhar · `study` Estudar · `both` As duas coisas · `no` Nem trabalhar nem estudar · `unsure` Ainda não sei. Condição: filho ou dependente com **18 anos ou mais na data de ida**. Quem vai trabalhar entra no perfil profissional (Bloco 11). Incluída em 17/11/2026 |
+| `adult.studyLevel` | O que essa pessoa pretende estudar? | por pessoa · única | Mesmas opções de `goal.studyLevel` (sem intercâmbio de ensino médio). Condição: `adult.plan` ∈ {`study`, `both`} |
 | `household.leftBehindList` | Quem vai ficar no seu país? | múltipla (opcional) | `parent` Pai ou mãe · `grandparent` Avô ou avó · `child` Filho ou filha · `sibling` Irmão ou irmã · `partner` Cônjuge · `in_law` Sogro ou sogra · `other` Outra pessoa. Condição: `household.leftBehind` = `yes`. (Substituiu o texto livre `household.leftBehindWho`) |
 
 > **Autonomia e cuidador** são perguntados aqui para quem tem deficiência ou depende de cuidados. O **restante da saúde** (condições, medicação, terapias) fica no Bloco 4.
@@ -274,7 +276,9 @@ Repetido para cada pessoa: você, cônjuge (se vai), cada filho e cada dependent
 
 ---
 
-## Bloco 11 · Perfil profissional *(para completar · por pessoa: você e cônjuge)*
+## Bloco 11 · Perfil profissional *(para completar · por pessoa: você, cônjuge e adultos que vão trabalhar)*
+
+> Desde 17/11/2026, filhos e dependentes adultos que pretendem trabalhar (`adult.plan` ∈ {`work`, `both`}) também respondem este bloco, com as mesmas perguntas do cônjuge. Os textos se ajustam: "do seu cônjuge" ou "desta pessoa".
 
 > **Quem é do lar** (`homemaker`) não tem carreira em andamento: para essa pessoa, só aparecem nacionalidade, escolaridade e área de formação (no caso do cônjuge). As perguntas de carreira (área, cargo, nível, empresa, conquistas, busca de trabalho) ficam de fora.
 

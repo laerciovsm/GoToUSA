@@ -1,0 +1,41 @@
+{
+  "id": "passport-check",
+  "status": "published",
+  "phase": "preparation",
+  "stage": "preparation.documents",
+  "themes": [
+    "documents"
+  ],
+  "type": "action",
+  "essential": true,
+  "who": {
+    "scope": "each"
+  },
+  "appliesWhen": {
+    "not": {
+      "p": "docs.passport",
+      "is": "valid_long"
+    }
+  },
+  "highlightWhen": null,
+  "deadline": null,
+  "dependsOn": [],
+  "weight": "medium",
+  "time": {
+    "minHours": 1,
+    "maxHours": 2
+  },
+  "cost": null,
+  "subtasks": [
+    "find",
+    "check",
+    "note"
+  ],
+  "record": {
+    "type": "documents",
+    "documents": [
+      "passport"
+    ]
+  },
+  "sources": []
+}

@@ -1,0 +1,62 @@
+{
+  "phases": {
+    "discovery": {
+      "title": "Descubrimiento",
+      "summary": "Ver el panorama completo y decidir con conciencia si la mudanza tiene sentido para ti."
+    },
+    "planning": {
+      "title": "Planificación",
+      "summary": "Fecha, presupuesto, destino, inglés y carrera: el plan de la mudanza."
+    },
+    "preparation": {
+      "title": "Preparación",
+      "summary": "Documentos, trámites y todo lo que debe estar listo antes de irte."
+    },
+    "move": {
+      "title": "Mudanza",
+      "summary": "Los últimos 90 días: cerrar, empacar y partir."
+    },
+    "arrival": {
+      "title": "Llegada",
+      "summary": "Tus primeros 90 días en EE. UU."
+    },
+    "settling": {
+      "title": "Establecimiento",
+      "summary": "El primer año: rutina, trabajo, comunidad y adaptación."
+    },
+    "future": {
+      "title": "Futuro",
+      "summary": "Renovaciones y los próximos pasos."
+    }
+  },
+  "stages": {
+    "discovery.family": {
+      "title": "Familia",
+      "summary": "Decidir juntos y alinear expectativas."
+    },
+    "discovery.paths": {
+      "title": "Caminos de visa",
+      "summary": "Conocer los caminos que vale la pena estudiar."
+    },
+    "planning.timeline": {
+      "title": "Cronograma",
+      "summary": "La fecha de viaje es tu meta."
+    },
+    "planning.budget": {
+      "title": "Presupuesto",
+      "summary": "Cuánto cuesta la mudanza y cómo ahorrar."
+    },
+    "planning.language": {
+      "title": "Inglés",
+      "summary": "Un plan de estudio a tu ritmo."
+    },
+    "planning.family": {
+      "title": "Cuidados de la familia",
+      "summary": "Planificar la mudanza de quien necesita apoyo."
+    },
+    "preparation.documents": {
+      "title": "Documentos",
+      "summary": "Reunir y revisar los documentos de cada persona."
+    }
+  }
+}

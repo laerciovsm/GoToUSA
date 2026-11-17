@@ -180,7 +180,7 @@ Na raiz do repositório:
 | `pnpm start` | Roda a versão de produção (depois do build) |
 | `pnpm lint` | Verifica o código (ESLint) |
 | `pnpm typecheck` | Verifica os tipos (TypeScript) |
-| `pnpm test` | Roda os testes automáticos (Vitest): motor do questionário e traduções completas |
+| `pnpm test` | Roda os testes automáticos (Vitest): questionário, traduções completas, motor da jornada e validação do conteúdo |
 
 ### Convenções do código
 - **Next.js 16** (App Router): o antigo `middleware.ts` agora se chama `proxy.ts`. Antes de escrever código Next.js, consultar os guias em `apps/web/node_modules/next/dist/docs/` (ver `apps/web/AGENTS.md`), porque a versão tem mudanças em relação ao que é comum na internet.
@@ -198,6 +198,7 @@ Na raiz do repositório:
   - **Cidades dos EUA:** `pnpm data:cities` gera `apps/web/public/data/us-cities/<UF>.json` a partir do arquivo oficial do Census (`scripts/build-us-cities.mjs`).
 - **Armazenamento:** as telas usam só os repositórios de `apps/web/src/lib/storage/` (hoje IndexedDB; depois, a API). Todo dado lido passa pela validação Zod de `packages/shared`.
 - **UUID:** usar `uuid()` de `@gotousa/shared`, que funciona também sem HTTPS (teste no celular pela rede local).
+- **Jornada:** motor em `packages/shared/src/journey/`; conteúdo em `content/journey/` (uma pasta por tarefa: `task.json` + `pt-BR.md`, `en-US.md`, `es.md`). Ao criar uma tarefa, escreva os 3 idiomas e rode `pnpm test`: o teste `content.test.ts` bloqueia conteúdo com problema. Fato legal, prazo oficial ou taxa só com fonte oficial em `sources` e citado no texto com `[[fonte:id]]`.
 
 ## Ambiente de desenvolvimento
 
@@ -249,8 +250,8 @@ Na raiz do repositório:
    4. ✅ **Cálculo de prazos:** aprovado em 17/11/2026 em [docs/jornada.md](docs/jornada.md#cálculo-de-prazos-marco-3-passo-4--aprovado-em-17112026) (o mês da ida é a **meta**; prazos em mês e ano; Fase 0 com 1 mês a partir do início; conferência de realidade pelo tempo disponível).
    5. ✅ **Perfil da família e caminhos de visto:** aprovado em 17/11/2026 em [docs/caminhos-visto.md](docs/caminhos-visto.md#como-o-motor-gera-o-perfil-e-os-caminhos-marco-3-passo-5--aprovado-em-17112026) (perfil calculado na hora; pontos de atenção = alertas da jornada; caminhos em `content/journey/paths/` com fonte oficial obrigatória; agrupados, sem ranking; avaliação de **cada adulto que vai**; asilo e refúgio fora). Premissa reforçada: todo fato sobre visto vem de fonte oficial, sempre.
    - **Registro nas tarefas** de alinhamento e documentação (anotar o combinado e a situação dos documentos, sem enviar arquivos): [docs/jornada.md](docs/jornada.md#registro-da-tarefa-decisão-do-fundador-em-17112026).
-   - **Proposta pendente:** perguntas para filhos e dependentes adultos (pretende trabalhar ou estudar?), [docs/caminhos-visto.md](docs/caminhos-visto.md#adultos-além-do-casal-no-questionário-proposta).
-   Depois: implementação com tarefas de exemplo. O conteúdo real da Fase 0 é outro marco, em paralelo.
+   - ✅ **Implementado em 17/11/2026:** motor em `packages/shared/src/journey/` (ver [docs/jornada.md](docs/jornada.md#implementação-do-motor-marco-3--17112026)), conteúdo de exemplo em `content/journey/` (7 tarefas, 3 idiomas, sem fatos legais) e a pergunta **"pretende trabalhar ou estudar nos EUA?"** para filhos e dependentes adultos (quem vai trabalhar entra no Bloco 11).
+   **Próximo:** Marco 5, as telas da jornada (por fase e por tema, tarefas com registro, prontidão, tela "Hoje", perfil da família), com o salvamento do progresso no navegador. Em paralelo: conteúdo real da Fase 0 e dos caminhos de visto, sempre a partir de fonte oficial.
 5. **Anotado para o momento certo:** custos personalizados e custo total aproximado da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
 6. Em paralelo: conteúdo da Fase 0 para o cenário inicial e levantamento das taxas oficiais do orçamento (passaporte no Brasil, vistos, USCIS, impostos e DMV dos estados da lista curta), sempre a partir de fontes oficiais.
 

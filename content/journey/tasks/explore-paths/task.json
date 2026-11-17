@@ -1,0 +1,33 @@
+{
+  "id": "explore-paths",
+  "status": "published",
+  "phase": "discovery",
+  "stage": "discovery.paths",
+  "themes": [
+    "immigration"
+  ],
+  "type": "learn",
+  "essential": true,
+  "who": {
+    "scope": "family"
+  },
+  "appliesWhen": null,
+  "highlightWhen": null,
+  "deadline": null,
+  "dependsOn": [],
+  "weight": "medium",
+  "time": {
+    "minHours": 2,
+    "maxHours": 4
+  },
+  "cost": null,
+  "subtasks": [
+    "read-profile",
+    "read-official",
+    "list-questions"
+  ],
+  "record": {
+    "type": "notes"
+  },
+  "sources": []
+}

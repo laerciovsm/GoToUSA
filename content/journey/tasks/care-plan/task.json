@@ -1,0 +1,63 @@
+{
+  "id": "care-plan",
+  "status": "published",
+  "phase": "planning",
+  "stage": "planning.family",
+  "themes": [
+    "family",
+    "health"
+  ],
+  "type": "action",
+  "essential": false,
+  "who": {
+    "scope": "each",
+    "where": {
+      "all": [
+        {
+          "kind": [
+            "child",
+            "dependent"
+          ]
+        },
+        {
+          "any": [
+            {
+              "p": "child.specialNeeds",
+              "is": "yes"
+            },
+            {
+              "p": "dependent.dependency",
+              "in": [
+                "full",
+                "care",
+                "partial"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "appliesWhen": null,
+  "highlightWhen": null,
+  "deadline": null,
+  "dependsOn": [
+    "family-talk"
+  ],
+  "weight": "high",
+  "time": {
+    "minHours": 2,
+    "maxHours": 4
+  },
+  "cost": null,
+  "subtasks": [
+    "routine",
+    "caregivers",
+    "health-info",
+    "transition"
+  ],
+  "record": {
+    "type": "notes"
+  },
+  "sources": []
+}

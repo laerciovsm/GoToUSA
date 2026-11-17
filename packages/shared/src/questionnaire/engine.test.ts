@@ -254,6 +254,7 @@ describe("escola pela idade e textos com gênero", () => {
       sex: "male",
       partnerSex: "female",
       adultChildSex: "female",
+      personKind: "other",
     });
     expect(textSexValues(data, { question: q("partner.workStatus") }, NOW).sex).toBe("female");
     expect(textSexValues(data, { question: q("health.specialists"), person: child }, NOW).sex).toBe("female");
@@ -328,5 +329,40 @@ describe("hobbies, bem-estar e passeios", () => {
     expect(ids).toContain("pref.outings");
     expect(ids).toContain("pref.domesticTravel");
     expect(getBlock("pref")!.items.every((i) => ("group" in i ? i.questions.every((q) => q.optional) : i.optional))).toBe(true);
+  });
+});
+
+describe("filhos e dependentes adultos", () => {
+  function family(childBirth: string) {
+    let data = setAnswer(createQuestionnaire(NOW), "household.partner", "going", undefined, NOW);
+    data = setAnswer(data, "goal.departure", "2027-06", undefined, NOW);
+    data = setAnswer(data, "household.children", 1, undefined, NOW);
+    const child = data.people.find((p) => p.kind === "child")!;
+    data = setAnswer(data, "child.birth", childBirth, child, NOW);
+    return { data, child };
+  }
+
+  it("pergunta o plano só para quem terá 18 anos ou mais na data de ida", () => {
+    expect(stepIds("household", family("2012-01").data)).not.toContain("adult.plan@child");
+    // Faz 18 em março de 2027, antes da ida em junho de 2027.
+    expect(stepIds("household", family("2009-03").data)).toContain("adult.plan@child");
+  });
+
+  it("adulto que vai trabalhar entra no perfil profissional, com textos 'desta pessoa'", () => {
+    let { data, child } = family("2005-03");
+    expect(stepIds("career", data)).not.toContain("career.sector@child");
+    data = setAnswer(data, "adult.plan", "work", child, NOW);
+    const ids = stepIds("career", data);
+    expect(ids).toContain("career.nationalities@child");
+    expect(ids).toContain("career.sector@child");
+    const step = visibleSteps(getBlock("career")!, data, NOW).find((s) => s.person?.id === child.id)!;
+    expect(textSexValues(data, step, NOW).personKind).toBe("child");
+  });
+
+  it("adulto que vai estudar responde o nível de estudo", () => {
+    let { data, child } = family("2005-03");
+    data = setAnswer(data, "adult.plan", "study", child, NOW);
+    expect(stepIds("household", data)).toContain("adult.studyLevel@child");
+    expect(stepIds("career", data)).not.toContain("career.sector@child");
   });
 });

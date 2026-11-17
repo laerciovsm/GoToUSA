@@ -10,7 +10,7 @@
     "dest": { "title": "Destino", "intro": "Para onde você pensa em ir e o que mais pesa na escolha." },
     "history": { "title": "Histórico com os EUA", "intro": "Visitas, vistos e pessoas que você conhece por lá." },
     "docs": { "title": "Documentos", "intro": "Só sim ou não: nenhum arquivo é enviado." },
-    "career": { "title": "Perfil profissional", "intro": "Carreira de quem vai trabalhar: você e o cônjuge. É a base para indicar os caminhos de visto que vale a pena conhecer." },
+    "career": { "title": "Perfil profissional", "intro": "Carreira de quem vai trabalhar: você, o cônjuge e os filhos ou dependentes adultos que pretendem trabalhar. É a base para indicar os caminhos de visto que vale a pena conhecer." },
     "moment": { "title": "Seu momento", "intro": "Como está a sua vida agora, para a jornada começar no ritmo certo. Tudo é opcional." },
     "rhythm": { "title": "Seu ritmo", "intro": "Com que frequência você quer acompanhar a jornada e o que te motiva." }
   },
@@ -689,12 +689,16 @@
       "partnerSupport": { "label": "Como o seu cônjuge vê a mudança?", "why": "Uma mudança dessas funciona melhor com o casal alinhado. Se ainda não estiver, a jornada traz essas conversas logo no começo.", "options": {"aligned": "Quer tanto quanto eu", "mostly": "Apoia, com algumas dúvidas", "unsure": "Ainda está em dúvida", "against": "Não quer ir", "not_talked": "Ainda não conversamos"} },
       "familySupport": { "label": "As pessoas próximas apoiam a sua ideia?", "why": "Apoio faz diferença nos dias difíceis. A resposta ajuda a jornada a lembrar você de onde buscar força.", "options": {"yes": "Sim, apoiam", "partial": "Algumas pessoas apoiam", "no": "Não apoiam", "skip": "Prefiro não responder"} }
     },
+    "adult": {
+      "plan": { "label": "Essa pessoa pretende trabalhar ou estudar nos EUA?", "why": "Um filho ou dependente adulto pode precisar do próprio caminho de visto. Saber o plano dele ajuda a jornada a mostrar o que vale a pena conhecer.", "options": {"work": "Trabalhar", "study": "Estudar", "both": "As duas coisas", "no": "Nem trabalhar nem estudar", "unsure": "Ainda não sei"} },
+      "studyLevel": { "label": "O que essa pessoa pretende estudar?", "why": "Ajuda a indicar os caminhos de estudo que vale a pena conhecer." }
+    },
     "career": {
-      "nationalities": { "label": "Qual é a nacionalidade do seu cônjuge? Se tiver mais de uma, marque todas.", "why": "A nacionalidade de cada adulto pode abrir ou fechar caminhos de visto diferentes. Às vezes, o melhor caminho é pelo cônjuge." },
-      "education": { "label": "Qual é a escolaridade mais alta (concluída) do seu cônjuge?", "why": "A formação de cada adulto ajuda a indicar quais caminhos de visto vale a pena conhecer." },
-      "field": { "label": "Qual é a área de formação do seu cônjuge?", "why": "Ajuda a relacionar a formação com a profissão e com o mercado nos EUA." },
-      "experienceYears": { "label": "Há quantos anos o seu cônjuge trabalha na área {sex, select, male {dele} female {dela} other {dele(a)}}?", "why": "O tempo de experiência ajuda a indicar caminhos de visto e a planejar a busca de emprego.", "placeholder": "Ex.: 8" },
-      "regulated": { "label": "A profissão do seu cônjuge exige registro ou licença para exercer?", "why": "Profissões com licença costumam exigir validação do diploma e da licença no estado de destino." },
+      "nationalities": { "label": "{personKind, select, partner {Qual é a nacionalidade do seu cônjuge? Se tiver mais de uma, marque todas.} other {Qual é a nacionalidade desta pessoa? Se tiver mais de uma, marque todas.}}", "why": "A nacionalidade de cada adulto pode abrir ou fechar caminhos de visto diferentes. Às vezes, o melhor caminho é pelo cônjuge." },
+      "education": { "label": "{personKind, select, partner {Qual é a escolaridade mais alta (concluída) do seu cônjuge?} other {Qual é a escolaridade mais alta (concluída) desta pessoa?}}", "why": "A formação de cada adulto ajuda a indicar quais caminhos de visto vale a pena conhecer." },
+      "field": { "label": "{personKind, select, partner {Qual é a área de formação do seu cônjuge?} other {Qual é a área de formação desta pessoa?}}", "why": "Ajuda a relacionar a formação com a profissão e com o mercado nos EUA." },
+      "experienceYears": { "label": "{personKind, select, partner {Há quantos anos o seu cônjuge trabalha} other {Há quantos anos esta pessoa trabalha}} na área {sex, select, male {dele} female {dela} other {dele(a)}}?", "why": "O tempo de experiência ajuda a indicar caminhos de visto e a planejar a busca de emprego.", "placeholder": "Ex.: 8" },
+      "regulated": { "label": "{personKind, select, partner {A profissão do seu cônjuge exige registro ou licença para exercer?} other {A profissão desta pessoa exige registro ou licença para exercer?}}", "why": "Profissões com licença costumam exigir validação do diploma e da licença no estado de destino." },
       "sector": {
         "label": "Em que área é o trabalho?",
         "why": "A área ajuda a indicar caminhos de visto e o mercado de trabalho de cada estado.",

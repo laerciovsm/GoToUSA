@@ -1,0 +1,38 @@
+{
+  "id": "english-plan",
+  "status": "published",
+  "phase": "planning",
+  "stage": "planning.language",
+  "themes": [
+    "language"
+  ],
+  "type": "action",
+  "essential": false,
+  "who": {
+    "scope": "family"
+  },
+  "appliesWhen": {
+    "q": "you.english",
+    "in": [
+      "none",
+      "basic",
+      "intermediate"
+    ]
+  },
+  "highlightWhen": null,
+  "deadline": null,
+  "dependsOn": [],
+  "weight": "medium",
+  "time": {
+    "minHours": 1,
+    "maxHours": 2
+  },
+  "cost": null,
+  "subtasks": [
+    "choose-goal",
+    "when-where",
+    "first-week"
+  ],
+  "record": null,
+  "sources": []
+}

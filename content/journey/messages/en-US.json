@@ -1,0 +1,62 @@
+{
+  "phases": {
+    "discovery": {
+      "title": "Discovery",
+      "summary": "See the whole picture and decide consciously whether the move makes sense for you."
+    },
+    "planning": {
+      "title": "Planning",
+      "summary": "Date, budget, destination, English and career: the plan for the move."
+    },
+    "preparation": {
+      "title": "Preparation",
+      "summary": "Documents, processes and everything that must be ready before you go."
+    },
+    "move": {
+      "title": "Moving",
+      "summary": "The last 90 days: wrap up, pack and go."
+    },
+    "arrival": {
+      "title": "Arrival",
+      "summary": "Your first 90 days in the U.S."
+    },
+    "settling": {
+      "title": "Settling in",
+      "summary": "The first year: routine, work, community and adapting."
+    },
+    "future": {
+      "title": "Future",
+      "summary": "Renewals and the next steps."
+    }
+  },
+  "stages": {
+    "discovery.family": {
+      "title": "Family",
+      "summary": "Decide together and align expectations."
+    },
+    "discovery.paths": {
+      "title": "Visa paths",
+      "summary": "Learn about the paths worth studying."
+    },
+    "planning.timeline": {
+      "title": "Timeline",
+      "summary": "Your departure date is your goal."
+    },
+    "planning.budget": {
+      "title": "Budget",
+      "summary": "What the move costs and how to save for it."
+    },
+    "planning.language": {
+      "title": "English",
+      "summary": "A study plan at your own pace."
+    },
+    "planning.family": {
+      "title": "Family care",
+      "summary": "Plan the move for those who need support."
+    },
+    "preparation.documents": {
+      "title": "Documents",
+      "summary": "Gather and check each person's documents."
+    }
+  }
+}

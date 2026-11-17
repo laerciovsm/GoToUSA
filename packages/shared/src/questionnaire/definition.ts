@@ -8,6 +8,7 @@ import {
   ctxPersonAnswer as p,
   hasAdultChild,
   hasCareer,
+  isAdultMember,
   includes,
   partnerIsGoing,
   personAge,
@@ -203,6 +204,8 @@ const goalBlock: Block = {
 };
 
 const isPartner = (ctx: QuestionContext) => ctx.person?.kind === "partner";
+/** Qualquer adulto do perfil profissional que não é você (cônjuge ou filho/dependente adulto). */
+const isOtherWorker = (ctx: QuestionContext) => !!ctx.person && ctx.person.kind !== "self";
 /** A pessoa da vez tem carreira (não é do lar). */
 const personHasCareer = (ctx: QuestionContext) => !!ctx.person && hasCareer(ctx.record, ctx.person);
 /** A pessoa da vez trabalha numa empresa (perguntas sobre filial nos EUA e tempo de casa). */
@@ -226,32 +229,32 @@ const careerBlock: Block = {
     {
       group: "workers",
       questions: [
-        { id: "career.nationalities", type: "countries", when: isPartner },
+        { id: "career.nationalities", type: "countries", when: isOtherWorker },
         {
           id: "career.education",
           type: "single",
           options: ["primary", "secondary", "technical", "bachelor", "postgrad", "master", "doctorate"],
           optionsFrom: "you.education",
-          when: isPartner,
+          when: isOtherWorker,
         },
         {
           id: "career.field",
           type: "text",
-          when: (ctx) => isPartner(ctx) && HIGHER_EDUCATION.has(String(p(ctx, "career.education"))),
+          when: (ctx) => isOtherWorker(ctx) && HIGHER_EDUCATION.has(String(p(ctx, "career.education"))),
         },
         {
           id: "career.experienceYears",
           type: "number",
           min: 0,
           maxValue: 70,
-          when: (ctx) => isPartner(ctx) && personHasCareer(ctx),
+          when: (ctx) => isOtherWorker(ctx) && personHasCareer(ctx),
         },
         {
           id: "career.regulated",
           type: "single",
           options: ["yes", "no", "unsure"],
           optionsFrom: "you.regulated",
-          when: (ctx) => isPartner(ctx) && personHasCareer(ctx),
+          when: (ctx) => isOtherWorker(ctx) && personHasCareer(ctx),
         },
         {
           id: "career.sector",
@@ -343,6 +346,25 @@ const childAgeIn = (ctx: QuestionContext, min: number, max: number) => {
   return age === undefined || (age >= min && age <= max);
 };
 
+/**
+ * Filhos e dependentes adultos (18 anos ou mais na data de ida): pretendem trabalhar ou estudar nos EUA?
+ * Quem vai trabalhar entra no perfil profissional (Bloco 11). Decisão do fundador em 17/11/2026.
+ */
+const adultPlan: Question = {
+  id: "adult.plan",
+  type: "single",
+  options: ["work", "study", "both", "no", "unsure"],
+  when: (ctx) => !!ctx.person && isAdultMember(ctx.record, ctx.person, ctx.now),
+};
+const adultStudyLevel: Question = {
+  id: "adult.studyLevel",
+  type: "single",
+  options: ["language", "undergrad", "grad", "vocational"],
+  optionsFrom: "goal.studyLevel",
+  when: (ctx) =>
+    !!ctx.person && isAdultMember(ctx.record, ctx.person, ctx.now) && ["study", "both"].includes(String(p(ctx, "adult.plan"))),
+};
+
 const householdBlock: Block = {
   id: "household",
   number: 3,
@@ -425,6 +447,8 @@ const householdBlock: Block = {
             return age === undefined || age >= 3;
           },
         },
+        adultPlan,
+        adultStudyLevel,
       ],
     },
     {
@@ -450,6 +474,8 @@ const householdBlock: Block = {
         { id: "dependent.dependency", type: "single", options: ["full", "care", "financial", "partial"] },
         autonomy((ctx) => !!ctx.person && autonomyAskedInHousehold(ctx.record, ctx.person)),
         caregiver((ctx) => !!ctx.person && autonomyAskedInHousehold(ctx.record, ctx.person)),
+        adultPlan,
+        adultStudyLevel,
       ],
     },
     {

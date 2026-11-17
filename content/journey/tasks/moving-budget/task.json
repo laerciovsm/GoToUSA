@@ -1,0 +1,34 @@
+{
+  "id": "moving-budget",
+  "status": "published",
+  "phase": "planning",
+  "stage": "planning.budget",
+  "themes": [
+    "finance"
+  ],
+  "type": "action",
+  "essential": true,
+  "who": {
+    "scope": "family"
+  },
+  "appliesWhen": null,
+  "highlightWhen": null,
+  "deadline": null,
+  "dependsOn": [],
+  "weight": "high",
+  "time": {
+    "minHours": 3,
+    "maxHours": 6
+  },
+  "cost": null,
+  "subtasks": [
+    "list-costs",
+    "monthly-costs",
+    "compare-savings",
+    "saving-plan"
+  ],
+  "record": {
+    "type": "notes"
+  },
+  "sources": []
+}

@@ -255,7 +255,6 @@
     "changeAnswer": "Cambiar respuesta",
     "notAnswered": "Todavía sin responder.",
     "people": "Quién va",
-    "ageAtGoal": "{age, plural, one {# año} other {# años}} en la meta",
     "ageToday": "{age, plural, one {# año} other {# años}} hoy",
     "career": "Perfil profesional",
     "careerEmpty": "Todavía nadie tiene perfil profesional informado.",
@@ -294,6 +293,8 @@
     "reasonGeneral": "Coincide con tus respuestas.",
     "lawyerTitle": "Habla con un abogado de inmigración",
     "lawyerBody": "GoToUSA es un apoyo para tu recorrido, no una asesoría legal. La evaluación de tu caso y la conducción del proceso legal deben estar a cargo de un abogado de inmigración o un profesional especializado.",
-    "doNow": "Qué puedes hacer ahora"
+    "doNow": "Qué puedes hacer ahora",
+    "ageTodayAndGoal": "{today, plural, one {# año} other {# años}} hoy · {goal, plural, one {# año} other {# años}} en la meta ({date})",
+    "ageNote": "Las edades usan solo el año de nacimiento, así que pueden variar un año."
   }
 }

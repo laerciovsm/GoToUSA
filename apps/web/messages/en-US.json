@@ -255,7 +255,6 @@
     "changeAnswer": "Change answer",
     "notAnswered": "Not answered yet.",
     "people": "Who is going",
-    "ageAtGoal": "{age, plural, one {# year} other {# years}} old at the goal",
     "ageToday": "{age, plural, one {# year} other {# years}} old today",
     "career": "Professional profile",
     "careerEmpty": "No professional profile reported yet.",
@@ -294,6 +293,8 @@
     "reasonGeneral": "It matches your answers.",
     "lawyerTitle": "Talk to an immigration attorney",
     "lawyerBody": "GoToUSA supports your journey; it is not legal advice. Your case should be evaluated, and the legal process handled, by an immigration attorney or a qualified professional.",
-    "doNow": "What you can do now"
+    "doNow": "What you can do now",
+    "ageTodayAndGoal": "{today, plural, one {# year} other {# years}} old today · {goal, plural, one {# year} other {# years}} at the goal ({date})",
+    "ageNote": "Ages use only the birth year, so they may be off by one year."
   }
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useTranslations } from "next-intl";
-import { buildFamilyProfile, getAnswer, type PathGroup, type PathKind, type VisiblePath } from "@gotousa/shared";
+import { useFormatter, useTranslations } from "next-intl";
+import { buildFamilyProfile, getAnswer, parseIsoDate, personAge, type PathGroup, type PathKind, type VisiblePath } from "@gotousa/shared";
 import { Link } from "@/i18n/navigation";
 import type { JourneyContent } from "@/lib/journey/content";
 import type { ReadyJourney } from "@/components/journey/journey-gate";
@@ -18,10 +18,12 @@ export function FamilyProfileView({ content, state, onOpenPath }: Props) {
   const t = useTranslations("Family");
   const tb = useTranslations("QBlocks");
   const option = useOptionLabel();
+  const format = useFormatter();
   const { personName, taskTitle } = useJourneyText(content, state.data);
   const { data, journey, now } = state;
   const profile = buildFamilyProfile(data, journey, now);
   const atGoal = journey.departure !== null;
+  const goalText = journey.departure ? format.dateTime(parseIsoDate(journey.departure), { month: "short", year: "numeric" }) : "";
 
   const str = (v: unknown) => (typeof v === "string" ? v : undefined);
   const care = profile.people.filter((p) => p.needsSupport || p.continuousMedication);
@@ -46,11 +48,19 @@ export function FamilyProfileView({ content, state, onOpenPath }: Props) {
             <li key={p.personId} className="flex flex-wrap justify-between gap-2">
               <span className="font-semibold">{personName(p.personId)}</span>
               {p.ageAtDeparture !== undefined && (
-                <span className="text-ink2">{t(atGoal ? "ageAtGoal" : "ageToday", { age: p.ageAtDeparture })}</span>
+                <span className="text-ink2">
+                  {(() => {
+                    const person = data.people.find((x) => x.id === p.personId)!;
+                    const today = personAge(data, person, now);
+                    if (!atGoal || today === undefined) return t("ageToday", { age: today ?? p.ageAtDeparture });
+                    return t("ageTodayAndGoal", { today, goal: p.ageAtDeparture, date: goalText });
+                  })()}
+                </span>
               )}
             </li>
           ))}
         </ul>
+        <p className="text-sm text-ink2">{t("ageNote")}</p>
       </Section>
 
       <Section title={t("career")} block="career">

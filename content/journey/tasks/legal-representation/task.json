@@ -21,8 +21,16 @@
         },
         {
           "any": [
-            { "age": { "gte": 18 } },
-            { "ageAtDeparture": { "gte": 18 } }
+            {
+              "age": {
+                "gte": 18
+              }
+            },
+            {
+              "ageAtDeparture": {
+                "gte": 18
+              }
+            }
           ]
         },
         {
@@ -49,6 +57,7 @@
   "subtasks": [
     "check-situation",
     "talk-professional",
+    "confirm-pf",
     "passport",
     "visa",
     "write-down"

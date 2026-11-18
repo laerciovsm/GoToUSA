@@ -536,6 +536,17 @@
           "other": "Outra pessoa"
         }
       },
+      "legalGuardian": {
+        "label": "Essa pessoa já tem um representante legal nomeado pela Justiça?",
+        "why": "Adulto que depende de outra pessoa pode precisar de representação legal (no Brasil, a curatela) para o passaporte, o visto e outros pedidos. Se ainda não tem, a jornada traz a tarefa com as regras oficiais.",
+        "options": {
+          "yes": "Sim, já tem (no Brasil, curatela)",
+          "in_progress": "O pedido está em andamento na Justiça",
+          "supported": "Tem apoio formal nas decisões, sem curatela (no Brasil, tomada de decisão apoiada)",
+          "no": "Não",
+          "unknown": "Não sei"
+        }
+      },
       "medications": {
         "label": "Toma medicação contínua?",
         "why": "Remédios contínuos geram tarefas: estoque inicial, receitas, regras de entrada e médico nos EUA.",

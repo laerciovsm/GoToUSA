@@ -1,0 +1,116 @@
+{
+  "id": "request-guardianship",
+  "status": "published",
+  "phase": "planning",
+  "stage": "planning.family",
+  "themes": [
+    "documents",
+    "family"
+  ],
+  "type": "action",
+  "essential": false,
+  "who": {
+    "scope": "each",
+    "where": {
+      "all": [
+        {
+          "kind": [
+            "child",
+            "dependent"
+          ]
+        },
+        {
+          "any": [
+            {
+              "age": {
+                "gte": 18
+              }
+            },
+            {
+              "ageAtDeparture": {
+                "gte": 18
+              }
+            }
+          ]
+        },
+        {
+          "p": "health.autonomy",
+          "in": [
+            "supervision",
+            "help",
+            "full"
+          ]
+        },
+        {
+          "p": "health.legalGuardian",
+          "in": [
+            "no",
+            "unknown"
+          ]
+        }
+      ]
+    }
+  },
+  "appliesWhen": null,
+  "highlightWhen": null,
+  "deadline": null,
+  "dependsOn": [],
+  "weight": "high",
+  "time": {
+    "minHours": 6,
+    "maxHours": 20
+  },
+  "cost": null,
+  "subtasks": [
+    "talk-lawyer",
+    "medical-report",
+    "gather-documents",
+    "interview",
+    "decision",
+    "write-down"
+  ],
+  "record": {
+    "type": "documents",
+    "documents": [
+      "medical-report",
+      "court-decision"
+    ]
+  },
+  "sources": [
+    {
+      "id": "br-civil-code",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "agency": "Presidência da República (Brasil)",
+      "title": "Lei nº 10.406/2002 (Código Civil)",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "br-cpc",
+      "url": "https://www2.camara.leg.br/legin/fed/lei/2015/lei-13105-16-marco-2015-780273-publicacaooriginal-146341-pl.html",
+      "agency": "Câmara dos Deputados (Brasil)",
+      "title": "Lei nº 13.105/2015 (Código de Processo Civil), arts. 747 a 758",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "pf-in-173",
+      "url": "https://www.gov.br/pf/pt-br/assuntos/passaporte/legislacao/in_173_de_2020.pdf",
+      "agency": "Polícia Federal (Brasil)",
+      "title": "Instrução Normativa nº 173-DG/PF/2020 (documentos de viagem)",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "br-lbi",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
+      "agency": "Presidência da República (Brasil)",
+      "title": "Lei nº 13.146/2015 (Estatuto da Pessoa com Deficiência)",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "uscis-signatures",
+      "url": "https://www.uscis.gov/policy-manual/volume-1-part-b-chapter-2",
+      "agency": "USCIS",
+      "title": "Policy Manual, Volume 1, Part B, Chapter 2 – Signatures",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

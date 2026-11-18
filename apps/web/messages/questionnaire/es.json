@@ -536,6 +536,17 @@
           "other": "Otra persona"
         }
       },
+      "legalGuardian": {
+        "label": "¿Esta persona ya tiene un representante legal nombrado por la Justicia?",
+        "why": "Un adulto que depende de otra persona puede necesitar representación legal (en Brasil, la curatela) para el pasaporte, la visa y otras solicitudes. Si todavía no la tiene, el recorrido trae la tarea con las reglas oficiales.",
+        "options": {
+          "yes": "Sí, ya tiene (en Brasil, curatela)",
+          "in_progress": "La solicitud está en trámite en la Justicia",
+          "supported": "Tiene apoyo formal en las decisiones, sin curatela (en Brasil, tomada de decisão apoiada)",
+          "no": "No",
+          "unknown": "No sé"
+        }
+      },
       "medications": {
         "label": "¿Toma medicación continua?",
         "why": "Los medicamentos continuos generan tareas: reserva inicial, recetas, reglas de entrada y médico en EE. UU.",

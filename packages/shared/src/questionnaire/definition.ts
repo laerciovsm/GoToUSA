@@ -56,6 +56,22 @@ const caregiver = (when: (ctx: QuestionContext) => boolean): Question => ({
   when: (ctx) => when(ctx) && p(ctx, "health.autonomy") !== undefined && p(ctx, "health.autonomy") !== "independent",
 });
 
+/**
+ * Representação legal (ajuste do teste do fundador, 17/11/2026): adulto na data de ida que não é
+ * independente no dia a dia. Define a tarefa de pedir a curatela (ou outra representação legal).
+ */
+const legalGuardian = (when: (ctx: QuestionContext) => boolean): Question => ({
+  id: "health.legalGuardian",
+  type: "single",
+  options: ["yes", "in_progress", "supported", "no", "unknown"],
+  when: (ctx) =>
+    when(ctx) &&
+    !!ctx.person &&
+    isAdultMember(ctx.record, ctx.person, ctx.now) &&
+    p(ctx, "health.autonomy") !== undefined &&
+    p(ctx, "health.autonomy") !== "independent",
+});
+
 /** Nos blocos "para completar", todas as perguntas podem ser puladas. */
 function allOptional(items: readonly BlockItem[]): BlockItem[] {
   return items.map((item) =>
@@ -433,6 +449,7 @@ const householdBlock: Block = {
         { id: "child.specialNeeds", type: "single", options: ["yes", "no", "skip"] },
         autonomy((ctx) => p(ctx, "child.specialNeeds") === "yes"),
         caregiver((ctx) => p(ctx, "child.specialNeeds") === "yes"),
+        legalGuardian((ctx) => p(ctx, "child.specialNeeds") === "yes"),
         {
           id: "child.english",
           type: "single",
@@ -471,6 +488,7 @@ const householdBlock: Block = {
         { id: "dependent.dependency", type: "single", options: ["full", "care", "financial", "partial"] },
         autonomy((ctx) => !!ctx.person && autonomyAskedInHousehold(ctx.record, ctx.person)),
         caregiver((ctx) => !!ctx.person && autonomyAskedInHousehold(ctx.record, ctx.person)),
+        legalGuardian((ctx) => !!ctx.person && autonomyAskedInHousehold(ctx.record, ctx.person)),
         adultPlan,
         adultStudyLevel,
       ],
@@ -561,6 +579,7 @@ const healthBlock: Block = {
         },
         autonomy((ctx) => !!ctx.person && !autonomyAskedInHousehold(ctx.record, ctx.person)),
         caregiver((ctx) => !!ctx.person && !autonomyAskedInHousehold(ctx.record, ctx.person)),
+        legalGuardian((ctx) => !!ctx.person && !autonomyAskedInHousehold(ctx.record, ctx.person)),
         { id: "health.medications", type: "medications" },
         {
           id: "health.therapies",

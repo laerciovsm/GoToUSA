@@ -4,6 +4,7 @@ why: An adult who depends on someone else may need a person to represent them le
 subtasks:
   check-situation: Understand the person's legal situation (fully capable, supported decision-making, or guardianship)
   talk-professional: Talk to an attorney about legal representation
+  confirm-pf: Before booking, confirm with the passport authority what the guardian must bring and sign
   passport: Check what the passport authority requires
   visa: Check with the immigration attorney who signs and goes with the person for the visa
   write-down: Write down in the Record what you were told
@@ -15,8 +16,9 @@ GoToUSA is **support for your journey**. Whether the person needs legal represen
 
 - **Legal age:** minority ends at 18 full years [[fonte:br-civil-code]].
 - **A disability alone does not remove a person's legal capacity** [[fonte:br-lbi]].
+- **Someone who can't express their will is different:** a person who, for a temporary or permanent reason, cannot express their will is relatively incapable and subject to guardianship [[fonte:br-civil-code]]. This is the case, for example, of someone who can't speak or respond because of a severe intellectual disability, or of an elderly person who can no longer decide. If that applies, the journey brings the task **Request guardianship, with an attorney**.
 - **Guardianship (curatela):** when necessary, it is an extraordinary protective measure, set by a judge, who explains the reasons in the ruling. It affects only property and business acts [[fonte:br-lbi]].
-- **Supported decision-making (tomada de decisão apoiada):** a person with a disability may choose this process instead of guardianship [[fonte:br-lbi]].
+- **Supported decision-making (tomada de decisão apoiada):** a person with a disability may choose this process instead of guardianship [[fonte:br-lbi]], but they make the request themselves [[fonte:br-civil-code]].
 - **Official documents:** by law, guardianship is not required to issue official documents for a person with a disability [[fonte:br-lbi]].
 - **Passport documents:** the Federal Police asks an adult considered legally incapable for the same documents as anyone else, with no distinction [[fonte:pf-faq-incapable-adult]].
 - **When the adult is legally incapable and has a guardian:** Federal Police rules call for the guardian's consent; a court authorization for the passport replaces that consent. Authorizations and powers of attorney are only valid if made less than 1 year before [[fonte:pf-in-173]].
@@ -30,6 +32,7 @@ GoToUSA is **support for your journey**. Whether the person needs legal represen
 
 ## What to do now
 
+- Before booking the passport appointment, confirm with the Federal Police what the guardian must bring and sign: the official pages don't have a specific step-by-step for this case.
 - Talk to an attorney in your country about the person's legal situation, and to an **immigration attorney** about the document that will be valid for the visa and USCIS requests.
 - If the person's passport isn't Brazilian, check the rules with their country's official passport authority.
 - Write down in the **Record** what you were told. Don't write down document numbers or passwords.

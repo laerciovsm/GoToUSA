@@ -371,6 +371,34 @@ describe("cenário inicial com o conteúdo real", () => {
     const minor = keysFor("2015-01", "full");
     expect(minor.keys).not.toContain(minor.key);
   });
+
+  it("pedir a curatela: filho adulto ou idoso dependente sem representante legal", () => {
+    const catalog = loadCatalog(CONTENT_DIR);
+    const childCase = (guardian?: string) => {
+      let data = founderFamily();
+      const child = data.people.find((p) => p.kind === "child")!;
+      data = setAnswer(data, "health.autonomy", "full", child, NOW);
+      if (guardian) data = setAnswer(data, "health.legalGuardian", guardian, child, NOW);
+      return generateJourney(catalog, data, progressAt(), NOW).tasks.some((t) => t.key === `request-guardianship@${child.id}`);
+    };
+    expect(childCase("no")).toBe(true);
+    expect(childCase("unknown")).toBe(true);
+    expect(childCase("yes")).toBe(false);
+    expect(childCase("in_progress")).toBe(false);
+    expect(childCase()).toBe(false); // sem resposta, fica só a tarefa de representação legal
+
+    let data = founderFamily();
+    data = setAnswer(data, "household.dependents", 1, undefined, NOW);
+    const elder = data.people.find((p) => p.kind === "dependent")!;
+    data = setAnswer(data, "dependent.relation", "parent", elder, NOW);
+    data = setAnswer(data, "dependent.birth", "1940-05", elder, NOW);
+    data = setAnswer(data, "dependent.dependency", "full", elder, NOW);
+    data = setAnswer(data, "health.autonomy", "full", elder, NOW);
+    data = setAnswer(data, "health.legalGuardian", "no", elder, NOW);
+    const keys = generateJourney(catalog, data, progressAt(), NOW).tasks.map((t) => t.key);
+    expect(keys).toContain(`request-guardianship@${elder.id}`);
+    expect(keys).toContain(`legal-representation@${elder.id}`);
+  });
 });
 
 describe("caminhos de visto com o conteúdo real", () => {

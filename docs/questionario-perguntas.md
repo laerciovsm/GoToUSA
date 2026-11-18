@@ -102,6 +102,7 @@
 | `child.specialNeeds` | Tem alguma deficiência ou precisa de cuidados contínuos? | por pessoa · única | `yes` Sim · `no` Não · `skip` Prefiro não responder (o detalhe fica no bloco Saúde) |
 | `health.autonomy` | No dia a dia, essa pessoa… | por pessoa · única | `independent` É independente · `supervision` Precisa de supervisão · `help` Precisa de ajuda em atividades diárias (banho, alimentação, vestir) · `full` Depende totalmente de outra pessoa. Condição: `child.specialNeeds` = `yes`. **Fica na parte essencial** porque gera tarefas importantes (ex.: *guardianship*) já na primeira jornada |
 | `health.caregiver` | Quem é o cuidador principal? | por pessoa · única | Lista das pessoas da família + `external` Cuidador contratado + `other` Outro. Condição: `health.autonomy` ≠ `independent` |
+| `health.legalGuardian` | Essa pessoa já tem um representante legal nomeado pela Justiça? | por pessoa · única | `yes` Sim (no Brasil, curatela) · `in_progress` Pedido em andamento · `supported` Tomada de decisão apoiada · `no` Não · `unknown` Não sei. Condição: 18 anos ou mais na ida e `health.autonomy` ≠ `independent` (também nos Blocos 4 e 5). `no`/`unknown` geram a tarefa "Pedir a curatela, com um advogado" (ajuste do teste do fundador, 17/11/2026) |
 | `child.english` | Fala inglês? | por pessoa · única | Mesmas opções de `you.english`. Condição: 3 anos ou mais |
 | `household.otherChildren` | Você tem filhos de outro relacionamento que vão junto? | única | `yes` · `no`. Se sim: `household.custody` (abaixo) |
 | `household.custody` | O outro pai ou mãe concorda com a viagem? | única | `agrees` Sim, concorda · `disagrees` Não concorda · `unknown` Ainda não conversamos · `sole` Tenho a guarda exclusiva/o outro genitor é falecido |
@@ -110,7 +111,7 @@
 | `dependent.birth` | Mês e ano de nascimento | por pessoa · mês/ano | — |
 | `dependent.sex` | Qual é o sexo, como consta no documento? | por pessoa · única | Mesmas opções de `you.sex` |
 | `dependent.dependency` | Como é a dependência? | por pessoa · única | `full` Depende totalmente (cuidados e dinheiro) · `care` Precisa de cuidados, mas tem renda própria · `financial` Só financeira · `partial` Parcial |
-| `health.autonomy` / `health.caregiver` | (as mesmas perguntas dos filhos) | por pessoa | Condição: `dependent.dependency` ∈ {`full`, `care`, `partial`} |
+| `health.autonomy` / `health.caregiver` / `health.legalGuardian` | (as mesmas perguntas dos filhos) | por pessoa | Condição: `dependent.dependency` ∈ {`full`, `care`, `partial`} |
 | `household.pets` | Vai levar animais de estimação? | múltipla | `none` Não · `dog` Cachorro · `cat` Gato · `bird` Ave · `other` Outro. Depois, quantos |
 | `household.leftBehind` | Alguém que depende de você vai ficar no seu país? | única | `yes` Sim · `no` Não |
 | `adult.plan` | Essa pessoa pretende trabalhar ou estudar nos EUA? | por pessoa · única | `work` Trabalhar · `study` Estudar · `both` As duas coisas · `no` Nem trabalhar nem estudar · `unsure` Ainda não sei. Condição: filho ou dependente com **18 anos ou mais na data de ida**. Quem vai trabalhar entra no perfil profissional (Bloco 11). Incluída em 17/11/2026 |

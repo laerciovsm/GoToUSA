@@ -4,6 +4,7 @@ why: Un adulto que depende de otra persona puede necesitar a alguien que lo repr
 subtasks:
   check-situation: Entender la situación legal de la persona (plenamente capaz, con toma de decisiones con apoyo o con curatela)
   talk-professional: Hablar con un abogado sobre la representación legal
+  confirm-pf: Antes de agendar, confirmar con la autoridad de pasaportes qué debe llevar y firmar el curador
   passport: Ver qué pide la autoridad de pasaportes
   visa: Ver con el abogado de inmigración quién firma y acompaña a la persona en la visa
   write-down: Anotar en el Registro lo que te orientaron
@@ -15,8 +16,9 @@ GoToUSA es un **apoyo para tu recorrido**. Quien evalúa si la persona necesita 
 
 - **Mayoría de edad:** la minoría de edad termina a los 18 años cumplidos [[fonte:br-civil-code]].
 - **La discapacidad, por sí sola, no quita la capacidad civil** de la persona [[fonte:br-lbi]].
+- **Quien no puede expresar su voluntad es distinto:** quien, por causa transitoria o permanente, no puede expresar su voluntad es relativamente incapaz y está sujeto a curatela [[fonte:br-civil-code]]. Es el caso, por ejemplo, de quien no puede hablar ni responder por una discapacidad intelectual severa, o de una persona mayor que ya no puede decidir. Si es el caso, el recorrido trae la tarea **Pedir la curatela, con un abogado**.
 - **Curatela:** cuando es necesaria, es una medida de protección extraordinaria, definida por un juez, que explica las razones en la sentencia. Afecta solo los actos de naturaleza patrimonial y negocial [[fonte:br-lbi]].
-- **Toma de decisiones con apoyo (tomada de decisão apoiada):** la persona con discapacidad puede elegir este proceso en lugar de la curatela [[fonte:br-lbi]].
+- **Toma de decisiones con apoyo (tomada de decisão apoiada):** la persona con discapacidad puede elegir este proceso en lugar de la curatela [[fonte:br-lbi]], pero es ella misma quien hace la solicitud [[fonte:br-civil-code]].
 - **Documentos oficiales:** por ley, la curatela no se exige para emitir documentos oficiales de la persona con discapacidad [[fonte:br-lbi]].
 - **Documentos del pasaporte:** la Policía Federal pide al adulto considerado incapaz los mismos documentos que a cualquier persona, sin distinción [[fonte:pf-faq-incapable-adult]].
 - **Cuando el adulto es legalmente incapaz y tiene curador:** las reglas de la Policía Federal prevén el consentimiento del curador; una autorización judicial para el pasaporte reemplaza ese consentimiento. Las autorizaciones y los poderes solo valen si se hicieron hace menos de 1 año [[fonte:pf-in-173]].
@@ -30,6 +32,7 @@ GoToUSA es un **apoyo para tu recorrido**. Quien evalúa si la persona necesita 
 
 ## Qué hacer ahora
 
+- Antes de agendar el pasaporte, confirma con la Policía Federal qué debe llevar y firmar el curador: las páginas oficiales no traen un paso a paso específico para este caso.
 - Habla con un abogado en tu país sobre la situación legal de la persona y con un **abogado de inmigración** sobre el documento que valdrá para la visa y las solicitudes al USCIS.
 - Si el pasaporte de la persona no es brasileño, consulta las reglas en la autoridad oficial de pasaportes de su país.
 - Anota en el **Registro** lo que te orientaron. No anotes números de documentos ni contraseñas.

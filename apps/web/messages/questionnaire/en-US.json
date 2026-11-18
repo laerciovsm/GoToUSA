@@ -536,6 +536,17 @@
           "other": "Someone else"
         }
       },
+      "legalGuardian": {
+        "label": "Does this person already have a legal guardian appointed by a court?",
+        "why": "An adult who depends on someone else may need legal representation (in Brazil, curatela) for the passport, the visa, and other applications. If they don't have it yet, the journey brings the task with the official rules.",
+        "options": {
+          "yes": "Yes, they do (in Brazil, curatela)",
+          "in_progress": "The request is in progress in court",
+          "supported": "They have formal decision support, without guardianship (in Brazil, tomada de decisão apoiada)",
+          "no": "No",
+          "unknown": "I don't know"
+        }
+      },
       "medications": {
         "label": "Do they take ongoing medication?",
         "why": "Ongoing medication creates tasks: initial supply, prescriptions, entry rules, and a doctor in the U.S.",

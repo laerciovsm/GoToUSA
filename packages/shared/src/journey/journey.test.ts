@@ -350,6 +350,27 @@ describe("cenário inicial com o conteúdo real", () => {
     expect(j.nextStep).toBe("family-talk");
     expect(j.tasks.find((t) => t.key === `care-plan@${child.id}`)!.state).toBe("waiting");
   });
+
+  it("representação legal só para filho ou dependente adulto que não é independente", () => {
+    const catalog = loadCatalog(CONTENT_DIR);
+    const keysFor = (birth: string, autonomy?: string) => {
+      let data = founderFamily();
+      const child = data.people.find((p) => p.kind === "child")!;
+      data = setAnswer(data, "child.birth", birth, child, NOW);
+      if (autonomy) data = setAnswer(data, "health.autonomy", autonomy, child, NOW);
+      return { keys: generateJourney(catalog, data, progressAt(), NOW).tasks.map((t) => t.key), key: `legal-representation@${child.id}` };
+    };
+    const adultFull = keysFor("2005-03", "full");
+    expect(adultFull.keys).toContain(adultFull.key);
+    const adultIndependent = keysFor("2005-03", "independent");
+    expect(adultIndependent.keys).not.toContain(adultIndependent.key);
+    const unanswered = keysFor("2005-03");
+    expect(unanswered.keys).not.toContain(unanswered.key);
+    const turns18BeforeDeparture = keysFor("2009-06", "help"); // 17 hoje, 18 na ida (12/2027)
+    expect(turns18BeforeDeparture.keys).toContain(turns18BeforeDeparture.key);
+    const minor = keysFor("2015-01", "full");
+    expect(minor.keys).not.toContain(minor.key);
+  });
 });
 
 describe("caminhos de visto com o conteúdo real", () => {

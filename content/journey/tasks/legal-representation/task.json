@@ -1,0 +1,110 @@
+{
+  "id": "legal-representation",
+  "status": "published",
+  "phase": "planning",
+  "stage": "planning.family",
+  "themes": [
+    "documents",
+    "family"
+  ],
+  "type": "action",
+  "essential": false,
+  "who": {
+    "scope": "each",
+    "where": {
+      "all": [
+        {
+          "kind": [
+            "child",
+            "dependent"
+          ]
+        },
+        {
+          "any": [
+            { "age": { "gte": 18 } },
+            { "ageAtDeparture": { "gte": 18 } }
+          ]
+        },
+        {
+          "p": "health.autonomy",
+          "in": [
+            "supervision",
+            "help",
+            "full"
+          ]
+        }
+      ]
+    }
+  },
+  "appliesWhen": null,
+  "highlightWhen": null,
+  "deadline": null,
+  "dependsOn": [],
+  "weight": "high",
+  "time": {
+    "minHours": 4,
+    "maxHours": 10
+  },
+  "cost": null,
+  "subtasks": [
+    "check-situation",
+    "talk-professional",
+    "passport",
+    "visa",
+    "write-down"
+  ],
+  "record": {
+    "type": "notes"
+  },
+  "sources": [
+    {
+      "id": "br-lbi",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
+      "agency": "Presidência da República (Brasil)",
+      "title": "Lei nº 13.146/2015 (Estatuto da Pessoa com Deficiência)",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "br-civil-code",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+      "agency": "Presidência da República (Brasil)",
+      "title": "Lei nº 10.406/2002 (Código Civil)",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "pf-in-173",
+      "url": "https://www.gov.br/pf/pt-br/assuntos/passaporte/legislacao/in_173_de_2020.pdf",
+      "agency": "Polícia Federal (Brasil)",
+      "title": "Instrução Normativa nº 173-DG/PF/2020 (documentos de viagem)",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "pf-faq-incapable-adult",
+      "url": "https://www.gov.br/pf/pt-br/assuntos/passaporte/ajuda/duvidas_/documentacao/documentacao-maior-incapaz-precisa-apresentar-algum",
+      "agency": "Polícia Federal (Brasil)",
+      "title": "Maior incapaz precisa apresentar algum documento adicional?",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "fam-niv-application",
+      "url": "https://fam.state.gov/fam/09FAM/09FAM040302.html",
+      "agency": "U.S. Department of State",
+      "title": "9 FAM 403.2 – NIV Application",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "fam-iv-oath",
+      "url": "https://fam.state.gov/fam/09FAM/09FAM050407.html",
+      "agency": "U.S. Department of State",
+      "title": "9 FAM 504.7 – Interview by Consular Officer",
+      "verifiedAt": "2026-11-17"
+    },
+    {
+      "id": "uscis-signatures",
+      "url": "https://www.uscis.gov/policy-manual/volume-1-part-b-chapter-2",
+      "agency": "USCIS",
+      "title": "Policy Manual, Volume 1, Part B, Chapter 2 – Signatures",
+      "verifiedAt": "2026-11-17"
+    }
+  ]
+}

@@ -148,7 +148,7 @@ Cada passo é testado, documentado e enviado ao GitHub antes do próximo.
 
 1. **Banco e e-mail de teste:** WSL 2 e Docker instalados; `docker-compose.yml` com PostgreSQL e Mailpit (só em `127.0.0.1`); `.env.example` atualizado. *Pronto quando:* `pnpm db:up` sobe tudo e a tela do Mailpit abre. **Concluído em 19/11/2026:** PostgreSQL 18.7 e Mailpit 1.27 sobem saudáveis; banco responde; Mailpit recebeu um e-mail de teste; as portas 5432, 1025 e 8025 não respondem pela rede (só no PC). Senha do banco só no `.env`; o volume `postgres-data` guarda os dados entre reinícios.
 2. **API vazia:** NestJS em `apps/api` com Prisma, rota de saúde (`/api/health`) e o *rewrite* do app. *Pronto quando:* o celular abre `http://<IP>:3000/api/health`. **Concluído em 19/11/2026** (ver [Passo 2 em detalhe](#passo-2-em-detalhe-api-vazia)); falta só o fundador abrir no celular.
-3. **Contas e login:** Better Auth com Argon2id, cadastro só para e-mails autorizados, confirmação de e-mail (Mailpit), login, sair, recuperar senha. Telas de entrar e criar conta nos 3 idiomas. *Pronto quando:* o fundador cria a conta e entra pelo celular. **Implementado e testado em 19/11/2026** (ver [Resultado do passo 3](#resultado-do-passo-3)); falta o fundador testar no celular.
+3. **Contas e login:** Better Auth com Argon2id, cadastro só para e-mails autorizados, confirmação de e-mail (Mailpit), login, sair, recuperar senha. Telas de entrar e criar conta nos 3 idiomas. *Pronto quando:* o fundador cria a conta e entra pelo celular. **Implementado e testado em 19/11/2026** (ver [Resultado do passo 3](#resultado-do-passo-3)). **O fundador testou no celular em 19/11/2026: funcionou.**
 4. **Convites:** jornada como organização, convite com escolha da pessoa e do papel, e-mail com link, "Copiar link", aceitar o convite. Gmail configurado. *Pronto quando:* o cônjuge recebe o convite no e-mail e entra.
 5. **Jornada no servidor:** levar a jornada do navegador para a conta; carregar e salvar pela API (o repositório de armazenamento troca o IndexedDB pela API quando há sessão); versão contra salvamentos simultâneos; histórico. *Pronto quando:* o que um conclui aparece no celular do outro.
 6. **Permissões:** participante sem saúde e dinheiro dos outros, alterando só as tarefas que executa; testes automáticos de cada regra. *Pronto quando:* os testes de permissão passam e o fundador confere com a família.
@@ -292,7 +292,7 @@ Depois, se ficar cansativo, um comando só para ligar tudo.
 
 ## Passo 3 em detalhe: contas e login
 
-> **Implementado e testado em 19/11/2026** (ver [Resultado do passo 3](#resultado-do-passo-3)). Falta só o teste do fundador no celular.
+> **Implementado e testado em 19/11/2026** (ver [Resultado do passo 3](#resultado-do-passo-3)). **O fundador testou no celular em 19/11/2026: funcionou.** Até o passo 4, o e-mail sai só pelo Mailpit (aberto só no PC), então só o fundador consegue ativar contas; a família entra a partir do passo 4.
 >
 > Documentado em 19/11/2026, antes de implementar. Fontes conferidas nessa data: documentação oficial do Better Auth (integração com Express, e-mail e senha, e-mail, adaptador do Prisma, limite de requisições, ganchos e segurança), o npm, o guia de *custom server* do Next.js 16 (em `apps/web/node_modules/next/dist/docs/`) e o *Password Storage Cheat Sheet* da OWASP.
 

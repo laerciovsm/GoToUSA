@@ -153,6 +153,123 @@ Cada passo é testado, documentado e enviado ao GitHub antes do próximo.
 5. **Jornada no servidor:** levar a jornada do navegador para a conta; carregar e salvar pela API (o repositório de armazenamento troca o IndexedDB pela API quando há sessão); versão contra salvamentos simultâneos; histórico. *Pronto quando:* o que um conclui aparece no celular do outro.
 6. **Permissões:** participante sem saúde e dinheiro dos outros, alterando só as tarefas que executa; testes automáticos de cada regra. *Pronto quando:* os testes de permissão passam e o fundador confere com a família.
 
+## Passo 2 em detalhe: API vazia
+
+> Documentado em 19/11/2026, antes de implementar. Versões conferidas no npm e nas documentações oficiais (guia de migração do NestJS 12, guia de atualização do Prisma 7 e guia de *rewrites* do Next.js 16 em `apps/web/node_modules/next/dist/docs/`) nessa data.
+
+**Objetivo:** ter o servidor do backend funcionando e ligado ao banco, **sem nenhuma regra de negócio ainda**. É a base sobre a qual entram as contas (passo 3). O app continua funcionando igual, com ou sem a API ligada.
+
+### Versões escolhidas
+
+| Peça | Versão | Por quê |
+|---|---|---|
+| NestJS | **12** (lançado em 27/08/2026) | Versão atual. Os pacotes do NestJS 12 são **só ESM** (módulos modernos do JavaScript); a API nasce em ESM (`"type": "module"`), como recomenda o guia |
+| Express (por baixo do NestJS) | 5 | O que o `@nestjs/platform-express` 12 usa |
+| Prisma | **7.10.1** (estável) | No npm, a etiqueta "latest" do Prisma aponta hoje para uma **versão de teste (8.0 rc)**. Fixamos a 7.10.1, a última estável. A 8 só depois de sair a versão final |
+| Driver do PostgreSQL | `@prisma/adapter-pg` 7.10.1 | O Prisma 7 **exige** um adaptador de banco |
+| TypeScript da API | 6 | As ferramentas do NestJS 12 (CLI e geradores) exigem o TypeScript 6. O resto do projeto continua no 5.9 por enquanto; atualizar tudo será uma tarefa separada. O TypeScript 7 (versão nova, reescrita) fica para depois |
+| Testes | Vitest | Igual ao resto do projeto; é o padrão do NestJS 12 para projetos ESM. Precisa do `unplugin-swc` para os decoradores do NestJS |
+| Segurança HTTP | Helmet 8 | Cabeçalhos de segurança (exigência do CLAUDE.md) |
+
+### Arquivos novos
+
+```
+apps/api/
+├── package.json          ← @gotousa/api, "type": "module"
+├── tsconfig.json
+├── nest-cli.json         ← build com SWC
+├── vitest.config.ts
+├── prisma.config.ts      ← onde fica o schema e a DATABASE_URL (Prisma 7)
+├── prisma/schema.prisma  ← ainda sem tabelas (elas chegam no passo 3)
+└── src/
+    ├── main.ts           ← liga o servidor em 127.0.0.1:4000, prefixo /api
+    ├── app.module.ts
+    ├── config/env.ts     ← lê e valida o .env com Zod
+    ├── prisma/           ← conexão com o banco (abre ao ligar, fecha ao desligar)
+    └── health/           ← rota GET /api/health e o teste dela
+```
+
+- O cliente do banco que o Prisma gera fica em `apps/api/src/generated/` e **não vai para o Git** (é refeito a cada build com `prisma generate`; no Prisma 7 ele não fica mais dentro de `node_modules`).
+- O `.env` continua **um só, na raiz**. A API lê esse arquivo com a opção `--env-file` do próprio Node.js (o Prisma 7 não lê o `.env` sozinho), sem pacote extra.
+
+### Variáveis novas no `.env`
+
+| Variável | Exemplo | Para quê |
+|---|---|---|
+| `DATABASE_URL` | `postgresql://gotousa:<senha>@127.0.0.1:5432/gotousa` | Endereço do banco para a API. Repete a senha do `POSTGRES_PASSWORD` |
+| `API_HOST` | `127.0.0.1` | A API escuta **só no PC**, nunca na rede |
+| `API_PORT` | `4000` | Porta da API |
+| `API_INTERNAL_URL` | `http://127.0.0.1:4000` | Para onde o app repassa o `/api/*` |
+
+- Ao ligar, a API **confere o `.env` com Zod**. Se faltar algo ou estiver errado, ela não liga e diz **qual variável** está com problema, **sem mostrar o valor**.
+- O `API_INTERNAL_URL` é lido quando o app é gerado (`pnpm build`). Se mudar, é preciso gerar o app de novo.
+
+### A rota de saúde (`GET /api/health`)
+
+Serve para saber se a API e o banco estão de pé. Não precisa de login e não mostra nenhum detalhe interno (versões, erros, endereços).
+
+| Situação | Resposta |
+|---|---|
+| Tudo certo | `200` com `{"status":"ok","database":"ok"}` |
+| Banco desligado | `503` com `{"status":"error","database":"unavailable"}` |
+
+Para saber se o banco responde, a API faz uma consulta mínima (`SELECT 1`), com tempo limite curto para não travar.
+
+### Como o app conversa com a API (o *rewrite*)
+
+- No `apps/web/next.config.ts` entra uma regra de *rewrite*: tudo o que chega em **`/api/...`** na porta 3000 é repassado para **`http://127.0.0.1:4000/api/...`**.
+- O `proxy.ts` (troca de idioma) **já ignora** os endereços que começam com `/api`. Não precisa mudar.
+- Assim o celular só fala com a porta 3000: **sem CORS**, e a porta 4000 fica fechada para a rede.
+- **Se a API estiver desligada**, o app continua funcionando no modo sem conta. Só o `/api/...` responde com erro.
+
+### Segurança desde o passo 2
+
+- API escutando **só em `127.0.0.1`**. Nenhuma porta nova no firewall.
+- **Helmet** (cabeçalhos de segurança); sem o cabeçalho que revela que é Express.
+- **CORS desligado.** Ninguém de outro site chama a API, só o próprio app pela porta 3000.
+- Tamanho máximo do corpo das requisições pequeno (o padrão do Express, 100 KB; a jornada importada chega a 2 MB e terá limite próprio no passo 5).
+- **IP real de quem acessa:** para a API, toda requisição chega do próprio PC (vem do app). Para o limite de tentativas do passo 3 funcionar por celular, a API vai confiar no cabeçalho `X-Forwarded-For` **só quando a requisição vier do próprio PC** (`trust proxy` em *loopback*). No passo 2 conferimos se o Next.js manda esse cabeçalho.
+- Logs sem senhas nem conteúdo do `.env`.
+- O limite de tentativas (`@nestjs/throttler`) entra no **passo 3**, junto com o login, que é onde ele é necessário.
+
+### Usar o `packages/shared` na API
+
+- O `packages/shared` hoje é usado direto do código TypeScript, sem ser compilado antes (o Next.js e o Vitest fazem isso sozinhos). O Node.js, na hora de rodar a API, não consegue fazer o mesmo: os imports do `shared` não têm extensão de arquivo.
+- **Proposta:** a API compila o código dela com o **SWC** (pela CLI do NestJS) e **embute o `shared` no resultado** (com o Rspack, que o NestJS 12 usa por padrão em monorepos). Assim o `shared` continua igual.
+- **Alternativa**, se a proposta não funcionar bem: ajustar os imports do `shared` para que o Node.js consiga rodá-lo direto.
+- No passo 2 a API já importa **uma coisa pequena do `shared`** (por exemplo, a lista de idiomas), só para provar que funciona. As contas do passo 3 vão depender disso.
+
+### Comandos novos
+
+| Comando | O que faz |
+|---|---|
+| `pnpm api:dev` | API em modo de desenvolvimento (reinicia sozinha a cada mudança) |
+| `pnpm api:build` | Gera o cliente do banco e a versão de produção da API |
+| `pnpm api:start` | Roda a versão de produção da API (depois do `api:build`) |
+
+O `pnpm test`, o `pnpm typecheck` e o `pnpm lint` passam a incluir a API.
+
+**Para o teste com a família, a ordem fica:**
+1. abrir o Docker Desktop e rodar `pnpm db:up`;
+2. num terminal: `pnpm api:build` e depois `pnpm api:start`;
+3. em outro terminal: `pnpm build` e depois `pnpm --filter @gotousa/web start -H 0.0.0.0 -p 3000`.
+
+Depois, se ficar cansativo, um comando só para ligar tudo.
+
+### Pontos para conferir na implementação
+
+- O pnpm do projeto bloqueia scripts de instalação (`allowBuilds`), e o `@swc/core` está bloqueado hoje. Conferir se o SWC e o Prisma funcionam assim; se algum precisar de script de instalação, liberar só ele e explicar por quê.
+- Conferir se o Next.js 16 repassa o `X-Forwarded-For` no *rewrite*.
+- Decidir entre a proposta e a alternativa de uso do `shared` (acima).
+
+### Pronto quando
+
+1. O celular abre **`http://192.168.0.6:3000/api/health`** e vê `{"status":"ok","database":"ok"}`.
+2. Com o banco desligado (`pnpm db:down`), a mesma rota mostra `database: unavailable`, e **o resto do app continua funcionando**.
+3. A porta **4000 não responde pela rede**, só no PC.
+4. A API usa algo do `packages/shared` sem erro.
+5. `pnpm test`, `pnpm typecheck` e `pnpm lint` passam.
+
 ## Pendências desta fase
 
 - Definir no passo 3 se o NestJS usa o manipulador oficial do Better Auth (proposta) ou o pacote da comunidade.

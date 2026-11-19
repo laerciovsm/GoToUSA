@@ -18,3 +18,23 @@ export const authSchemaOptions = {
     storage: "database",
   },
 } as const;
+
+/** Campos nossos nas tabelas do plugin de organização (jornada = organização; passo 4). */
+export const organizationSchemaOptions = {
+  invitation: {
+    additionalFields: {
+      /** Pessoa da família no questionário (UUID) que vai usar esta conta. */
+      personId: { type: "string", required: true, input: true },
+      /** Idioma do e-mail do convite e do link. */
+      locale: { type: "string", required: true, input: true },
+      /** Nome de quem é convidado, para a saudação do e-mail. */
+      inviteeName: { type: "string", required: false, input: true },
+    },
+  },
+  member: {
+    additionalFields: {
+      /** Pessoa da família no questionário. Vazio no dono (é o "você" do questionário). */
+      personId: { type: "string", required: false, input: false },
+    },
+  },
+} as const;

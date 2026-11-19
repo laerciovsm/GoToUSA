@@ -16,5 +16,14 @@ export default {
     expiry: "El enlace es válido por {hours} hora(s). Al cambiar la contraseña, se cierran las otras sesiones abiertas.",
     ignore: "Si no fuiste tú quien lo pidió, puedes ignorar este correo: tu contraseña sigue siendo la misma.",
   },
+  invite: {
+    subject: "{inviter} te invitó a un recorrido en GoToUSA",
+    greeting: "¡Hola, {name}!",
+    greetingNoName: "¡Hola!",
+    intro: "{inviter} te invitó al recorrido “{journey}” en GoToUSA, para que acompañen juntos la preparación de la mudanza a los Estados Unidos. Toca el enlace de abajo para ver la invitación:",
+    action: "Ver la invitación",
+    expiry: "La invitación es válida por {days} días.",
+    ignore: "Si no esperabas esta invitación, puedes ignorar este correo.",
+  },
   footer: "GoToUSA: tu compañero en el camino para vivir en Estados Unidos.",
 };

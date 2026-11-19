@@ -6,6 +6,7 @@ import { ENV, type Env } from "./config/env.js";
 import { createMailer, MAILER, type Mailer } from "./email/mailer.js";
 import { HealthController } from "./health/health.controller.js";
 import { HealthService } from "./health/health.service.js";
+import { InvitationsController, JourneyController } from "./journey/journey.controller.js";
 import { PrismaService } from "./prisma/prisma.service.js";
 
 @Module({})
@@ -14,7 +15,7 @@ export class AppModule {
   static forRoot(env: Env): DynamicModule {
     return {
       module: AppModule,
-      controllers: [HealthController, MeController],
+      controllers: [HealthController, MeController, JourneyController, InvitationsController],
       providers: [
         { provide: ENV, useValue: env },
         PrismaService,

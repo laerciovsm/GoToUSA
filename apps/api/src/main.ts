@@ -5,6 +5,7 @@ import { NestFactory } from "@nestjs/core";
 import type { NestExpressApplication } from "@nestjs/platform-express";
 import { AppModule } from "./app.module.js";
 import { loadRootEnvFile, parseEnv } from "./config/env.js";
+import { MAILER, type Mailer } from "./email/mailer.js";
 import { configureApp } from "./setup.js";
 
 loadRootEnvFile();
@@ -17,3 +18,6 @@ await app.listen(env.API_PORT, env.API_HOST);
 new Logger("GoToUSA").log(
   `API em http://${env.API_HOST}:${env.API_PORT}/api (só neste PC) · idiomas: ${LOCALES.join(", ")}`,
 );
+
+// Só avisa no log; a API continua funcionando mesmo sem e-mail.
+void app.get<Mailer>(MAILER).verify();

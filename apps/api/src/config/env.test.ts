@@ -54,3 +54,35 @@ describe("parseEnv", () => {
     expect(() => parseEnv({ ...valid, API_HOST: "0.0.0.0" })).toThrow(/API_HOST/);
   });
 });
+
+describe("parseEnv com o Gmail", () => {
+  const appPassword = "abcdabcdabcdabcd";
+  const gmail = {
+    ...valid,
+    SMTP_HOST: "smtp.gmail.com",
+    SMTP_PORT: "465",
+    SMTP_USER: "gotousa.teste@gmail.com",
+    SMTP_PASS: appPassword,
+    MAIL_FROM: "GoToUSA <gotousa.teste@gmail.com>",
+  };
+
+  it("aceita a configuração completa", () => {
+    const env = parseEnv(gmail);
+    expect(env.SMTP_PORT).toBe(465);
+  });
+
+  it("exige usuário e senha de app, sem mostrar valores", () => {
+    expect(() => parseEnv({ ...gmail, SMTP_PASS: "" })).toThrow(/SMTP_PASS/);
+    expect(() => parseEnv({ ...gmail, SMTP_USER: "" })).toThrow(/SMTP_USER/);
+    try {
+      parseEnv({ ...gmail, SMTP_USER: "" });
+    } catch (error) {
+      expect(String(error)).not.toContain(appPassword);
+    }
+  });
+
+  it("exige o remetente igual ao endereço do Gmail", () => {
+    expect(() => parseEnv({ ...gmail, MAIL_FROM: "GoToUSA <nao-responda@gotousa.local>" })).toThrow(/MAIL_FROM/);
+    expect(parseEnv({ ...gmail, MAIL_FROM: "GoToUSA <GoToUSA.Teste@gmail.com>" }).MAIL_FROM).toContain("GoToUSA");
+  });
+});

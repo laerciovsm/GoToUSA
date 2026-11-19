@@ -149,7 +149,7 @@ Cada passo é testado, documentado e enviado ao GitHub antes do próximo.
 1. **Banco e e-mail de teste:** WSL 2 e Docker instalados; `docker-compose.yml` com PostgreSQL e Mailpit (só em `127.0.0.1`); `.env.example` atualizado. *Pronto quando:* `pnpm db:up` sobe tudo e a tela do Mailpit abre. **Concluído em 19/11/2026:** PostgreSQL 18.7 e Mailpit 1.27 sobem saudáveis; banco responde; Mailpit recebeu um e-mail de teste; as portas 5432, 1025 e 8025 não respondem pela rede (só no PC). Senha do banco só no `.env`; o volume `postgres-data` guarda os dados entre reinícios.
 2. **API vazia:** NestJS em `apps/api` com Prisma, rota de saúde (`/api/health`) e o *rewrite* do app. *Pronto quando:* o celular abre `http://<IP>:3000/api/health`. **Concluído em 19/11/2026** (ver [Passo 2 em detalhe](#passo-2-em-detalhe-api-vazia)); falta só o fundador abrir no celular.
 3. **Contas e login:** Better Auth com Argon2id, cadastro só para e-mails autorizados, confirmação de e-mail (Mailpit), login, sair, recuperar senha. Telas de entrar e criar conta nos 3 idiomas. *Pronto quando:* o fundador cria a conta e entra pelo celular. **Implementado e testado em 19/11/2026** (ver [Resultado do passo 3](#resultado-do-passo-3)). **O fundador testou no celular em 19/11/2026: funcionou.**
-4. **Convites:** jornada como organização, convite com escolha da pessoa e do papel, e-mail com link, "Copiar link", aceitar o convite. Gmail configurado. *Pronto quando:* o cônjuge recebe o convite no e-mail e entra. **Documentado em 19/11/2026** (ver [Passo 4 em detalhe](#passo-4-em-detalhe-convites)).
+4. **Convites:** jornada como organização, convite com escolha da pessoa e do papel, e-mail com link, "Copiar link", aceitar o convite. Gmail configurado. *Pronto quando:* o cônjuge recebe o convite no e-mail e entra. **Implementado e testado em 19/11/2026** (ver [Resultado do passo 4](#resultado-do-passo-4)); falta o fundador ligar o Gmail e testar com o cônjuge.
 5. **Jornada no servidor:** levar a jornada do navegador para a conta; carregar e salvar pela API (o repositório de armazenamento troca o IndexedDB pela API quando há sessão); versão contra salvamentos simultâneos; histórico. *Pronto quando:* o que um conclui aparece no celular do outro.
 6. **Permissões:** participante sem saúde e dinheiro dos outros, alterando só as tarefas que executa; testes automáticos de cada regra. *Pronto quando:* os testes de permissão passam e o fundador confere com a família.
 
@@ -473,6 +473,8 @@ Como hoje, a API confere tudo com Zod ao ligar e recusa ligar se faltar algo, di
 
 ## Passo 4 em detalhe: convites
 
+> **Implementado e testado em 19/11/2026** (ver [Resultado do passo 4](#resultado-do-passo-4)). Falta o teste do fundador com o Gmail e o cônjuge.
+>
 > Documentado em 19/11/2026, antes de implementar. Fontes conferidas nessa data: o código do Better Auth 1.7.25 instalado no projeto (plugins de organização e de 2FA: opções e padrões) e as páginas de ajuda do Google "Fazer login com senhas de app", "Ativar a verificação em 2 etapas", "Limites de envio do Gmail" e "Enviar e-mails de uma impressora, scanner ou app".
 
 **Objetivo:** o fundador cria a **jornada da família** na conta, convida o cônjuge (e outros adultos que podem executar tarefas) pelo e-mail de verdade, e a pessoa entra no próprio celular, sem passar pelo PC do fundador. **Os dados da jornada (questionário e progresso) ainda não vão para o servidor**: isso é o passo 5. Neste passo a pessoa entra na jornada, mas a tela ainda diz "em breve a jornada aparece aqui".
@@ -609,6 +611,49 @@ A API confere com Zod: com `smtp.gmail.com`, `SMTP_USER` e `SMTP_PASS` passam a 
 7. Um e-mail **sem convite e fora da lista** continua sem conseguir criar conta.
 8. Crianças e adultos que não executam tarefas **não aparecem** na lista de quem pode ser convidado.
 9. `pnpm test`, `pnpm typecheck` e `pnpm lint` passam.
+
+### Resultado do passo 4
+
+> **Implementado e testado pelo Claude Code em 19/11/2026**, com o Mailpit. **Falta o fundador** criar o Gmail do GoToUSA, colocá-lo no `.env` e fazer o teste acima com o cônjuge.
+
+**O que a implementação confirmou ou decidiu:**
+- **Plugin de organização do Better Auth 1.7.25** em `apps/api/src/auth/auth.ts`. Campos nossos em `schema-options.ts` (`organizationSchemaOptions`): `personId`, `locale` e `inviteeName` no convite; `personId` no membro. Segunda migração: `apps/api/prisma/migrations/20261119173958_jornadas_e_convites/`.
+- **O dono fica sem `personId`:** ele é sempre o "você" do questionário (o mesmo `journeyOwnerId` que já existe no `shared`). O Better Auth cria o membro sem os nossos campos ao aceitar; um gancho (`afterAcceptInvitation`) copia o `personId` do convite para o membro.
+- **Regras no servidor** (ganchos do Better Auth): papel só `admin` ou `member` (nunca dono); `personId` em formato UUID; idioma válido; uma conta e um convite por pessoa da família na jornada; cada pessoa numa jornada só; nome da jornada de 1 a 80 caracteres.
+- **Rotas do plugin que o app não usa ficam fechadas** (respondem 404 antes de chegar ao Better Auth): apagar a jornada direto (pularia a senha), ver a jornada completa e listar convites (mostrariam os convites a participantes) e adicionar membro sem convite. No lugar delas, a API tem `GET /api/journey` (a jornada de quem está logado; convites só para dono e admin) e `POST /api/journey/delete` (só o dono, com a senha conferida pelo Argon2id).
+- **Prévia pública do convite:** `GET /api/invitations/:id` confere o formato do código antes de ir ao banco e devolve só e-mail, nome da jornada, quem convidou, papel, idioma e nome do convidado. Inexistente, vencido, cancelado ou usado: a mesma resposta 404.
+- **Convite para o e-mail confirmado:** sem confirmar o e-mail, o Better Auth recusa aceitar. O link de confirmação volta para a tela do convite, que aceita sozinha.
+- **Os aceites do convidado** (aviso legal e uso dos dados) são caixas obrigatórias na tela, como o aviso legal do app. Ainda não ficam registrados no servidor; isso entra com a página de privacidade.
+- **Quem convida precisa estar no aparelho onde o questionário foi respondido** (a lista de pessoas vem dele). Um admin no próprio celular vê o aviso "abra esta tela no aparelho onde você respondeu o questionário". Isso se resolve no passo 5, com o questionário no servidor.
+- **Copiar link sem HTTPS:** o navegador não libera a área de transferência moderna em `http://`; o app usa o jeito antigo e, se falhar, mostra o link num campo para copiar à mão.
+- **E-mail:** `MAIL_FROM` igual ao `SMTP_USER` é exigido com o Gmail (Zod); a API testa a conexão com o servidor de e-mail ao ligar e só avisa no log, sem detalhes. `.env.example` traz as linhas do Gmail comentadas.
+- **No espanhol**, a jornada compartilhada se chama "recorrido", como a aba do app ("camino" já é usado para os caminhos de visto).
+- **Telas:** `apps/web/src/components/account/journey-people.tsx` (Pessoas da jornada, dentro de Mais → Conta), `invite-view.tsx` (rota `/[locale]/account/invite`) e `account-ui.tsx` (peças comuns às telas de conta).
+- **Testes automáticos novos:** API 17 (regras, prévia pública, rotas fechadas, rotas com sessão, e-mail de convite nos 3 idiomas e protegido, `.env` com o Gmail). Total da API: 40.
+
+**Teste completo feito pelo Claude Code em 19/11/2026** pelo app (porta 3000), com contas `@gotousa.local`, o Mailpit e uma lista de teste só durante o teste. **42 de 42 itens passaram**; os dados de teste foram apagados no fim (o banco ficou só com a conta do fundador):
+
+| Teste | Resultado |
+|---|---|
+| Dono cria a conta, a jornada (nome limpo) e tenta uma segunda | criada; a segunda é recusada |
+| Convite ao cônjuge como admin, e-mail em espanhol | e-mail no idioma, com quem convidou, a jornada, o nome e o link `/es/account/invite` |
+| Mesma pessoa da família de novo; papel "dono"; pessoa fora do formato | recusados (`PERSON_ALREADY_IN_JOURNEY`, `INVALID_ROLE`, `INVALID_PERSON`) |
+| Prévia pública | só os campos permitidos |
+| E-mail sem convite e fora da lista | `403 SIGNUP_NOT_ALLOWED` |
+| Cônjuge cria conta pelo convite; aceitar antes de confirmar | conta criada; aceitar é recusado |
+| Link de confirmação | volta para `/es/account/invite?id=…&verified=1`; o convite é aceito |
+| Convite usado | prévia dá 404 |
+| Lista da jornada para o dono | 2 pessoas, papéis e pessoa da família certos |
+| Admin convida um participante; dono vê o convite com o link | ok |
+| 6º convite no mesmo minuto e aparelho | `429` (limite de 5 por minuto) |
+| Reenviar | mesmo convite, novo prazo e novo e-mail |
+| Participante: ver convites, convidar, rota de listar convites | não vê; `403`; `404` |
+| Cancelar convite | prévia dá 404 e o e-mail não consegue mais criar conta |
+| Admin tenta remover o dono; dono muda papel; alguém sai; dono tenta sair | recusado; ok; ok; recusado |
+| Dono apaga a conta com jornada | recusado (`OWNER_HAS_JOURNEY`) |
+| Apagar a jornada: admin; dono com senha errada; dono com a senha | `403`; `400`; apagada, e ninguém fica com jornada |
+| Dono sem jornada apaga a conta | ok |
+| Página `/account/invite` | abre |
 
 ## Pendências desta fase
 

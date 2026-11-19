@@ -1,62 +1,13 @@
 "use client";
 
-import { useEffect, useId, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import { authErrorKey, getAuthClient } from "@/lib/auth-client";
+import { card, type ErrorLike, Field, Notice, primaryButton, secondaryLink, Shell, textLink, useQueryParam } from "./account-ui";
+import { JourneyPeople } from "./journey-people";
 
-/** Telas de conta (docs/backend-local.md, passo 3). A jornada continua no navegador até o passo 5. */
-
-const card = "flex flex-col gap-4 rounded-2xl border border-line bg-surface p-5";
-const primaryButton = "min-h-12 self-start rounded-full bg-action px-6 font-bold text-on-action disabled:opacity-50";
-const secondaryLink = "flex min-h-12 items-center self-start rounded-full border-2 border-primary px-5 font-bold text-primary";
-const textLink = "flex min-h-11 items-center self-start font-bold text-primary underline underline-offset-4";
-const fieldClass = "w-full rounded-xl border-2 border-line bg-surface px-3 py-2.5 text-ink focus:border-primary focus:outline-none";
-
-type ErrorLike = { code?: string; status?: number } | null | undefined;
-
-function Shell({ children }: { children: React.ReactNode }) {
-  return <main className="mx-auto flex w-full max-w-md flex-col gap-6 px-4 pt-6 pb-28">{children}</main>;
-}
-
-function Notice({ errorKey }: { errorKey: string | null }) {
-  const t = useTranslations("Account.errors");
-  if (!errorKey) return null;
-  return <p role="alert" className="rounded-xl border border-error p-3">{t(errorKey)}</p>;
-}
-
-function Field(props: { label: string; hint?: string; type: string; value: string; onChange: (v: string) => void; autoComplete: string; minLength?: number; maxLength?: number }) {
-  const id = useId();
-  return (
-    <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="font-semibold">{props.label}</label>
-      {props.hint && <p id={`${id}-hint`} className="text-sm text-ink2">{props.hint}</p>}
-      <input
-        id={id}
-        type={props.type}
-        required
-        value={props.value}
-        onChange={(e) => props.onChange(e.target.value)}
-        autoComplete={props.autoComplete}
-        minLength={props.minLength}
-        maxLength={props.maxLength}
-        aria-describedby={props.hint ? `${id}-hint` : undefined}
-        className={fieldClass}
-      />
-    </div>
-  );
-}
-
-const noSubscribe = () => () => {};
-
-/** Lê um parâmetro da URL no navegador, sem Suspense (undefined na geração da página). */
-function useQueryParam(name: string): string | null | undefined {
-  return useSyncExternalStore(
-    noSubscribe,
-    () => new URLSearchParams(window.location.search).get(name),
-    () => undefined,
-  );
-}
+/** Telas de conta (docs/backend-local.md, passos 3 e 4). A jornada continua no navegador até o passo 5. */
 
 type User = { name: string; email: string };
 
@@ -124,6 +75,8 @@ export function AccountHome() {
             <p className="text-sm text-ink2">{t("journeyStays")}</p>
             <button type="button" onClick={signOut} disabled={busy} className={primaryButton}>{t("signOut")}</button>
           </section>
+
+          <JourneyPeople userName={state.user.name} />
 
           <section className={card}>
             <h2 className="text-xl font-semibold">{t("deleteTitle")}</h2>

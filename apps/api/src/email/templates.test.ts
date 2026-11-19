@@ -1,6 +1,6 @@
 import { LOCALES } from "@gotousa/shared";
 import { describe, expect, it } from "vitest";
-import { EMAIL_MESSAGES, renderEmail } from "./templates.ts";
+import { EMAIL_MESSAGES, INVITE_VALIDITY_DAYS, renderEmail, renderInviteEmail } from "./templates.ts";
 
 /** Lista as chaves aninhadas ("verify.subject", …). */
 function keys(obj: object, prefix = ""): string[] {
@@ -50,5 +50,41 @@ describe("renderEmail", () => {
     const email = renderEmail("verify", "pt-BR", { ...data, name: "<script>x</script>" });
     expect(email.html).not.toContain("<script>");
     expect(email.html).toContain("&lt;script&gt;");
+  });
+});
+
+describe("renderInviteEmail", () => {
+  const data = {
+    inviteeName: "Bia",
+    inviterName: "Ana",
+    journeyName: "Jornada da Ana",
+    url: "http://192.168.0.6:3000/pt-BR/account/invite?id=abc",
+  };
+
+  it("usa o idioma escolhido e traz quem convidou, a jornada, o link e a validade", () => {
+    const email = renderInviteEmail("es", data);
+    expect(email.subject).toContain("Ana");
+    expect(email.text).toContain("Bia");
+    expect(email.text).toContain("Jornada da Ana");
+    expect(email.text).toContain(data.url);
+    expect(email.text).toContain(String(INVITE_VALIDITY_DAYS));
+    expect(email.text).not.toMatch(/\{\w+\}/);
+    expect(email.subject).not.toMatch(/\{\w+\}/);
+  });
+
+  it("sem o nome do convidado, usa a saudação sem nome", () => {
+    const email = renderInviteEmail("pt-BR", { ...data, inviteeName: null });
+    expect(email.text.startsWith(EMAIL_MESSAGES["pt-BR"].invite.greetingNoName)).toBe(true);
+  });
+
+  it("protege o HTML e o assunto contra nomes maliciosos", () => {
+    const email = renderInviteEmail("pt-BR", {
+      ...data,
+      inviterName: "<img src=x onerror=alert(1)>\nBcc: x@example.com",
+      journeyName: "<script>x</script>",
+    });
+    expect(email.html).not.toContain("<script>");
+    expect(email.html).not.toContain("<img");
+    expect(email.subject).not.toContain("\n");
   });
 });

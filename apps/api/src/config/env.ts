@@ -5,6 +5,9 @@ import { z } from "zod";
 /** Endereços em que a API pode escutar: só o próprio PC, nunca a rede. */
 const LOOPBACK_HOSTS = ["127.0.0.1", "::1", "localhost"] as const;
 
+/** Servidor do Gmail (regras extras abaixo). */
+export const GMAIL_HOST = "smtp.gmail.com";
+
 /** Texto vazio no .env conta como "não definido" (para usar o padrão). */
 const optionalText = z
   .string()
@@ -30,12 +33,20 @@ const envSchema = z.object({
     )
     .pipe(z.array(z.email())),
 
-  // E-mail (Mailpit no passo 3; Gmail no passo 4)
+  // E-mail (Mailpit no desenvolvimento; Gmail do GoToUSA para a família)
   SMTP_HOST: z.string().min(1).default("127.0.0.1"),
   SMTP_PORT: z.coerce.number().int().min(1).max(65535).default(1025),
   SMTP_USER: optionalText,
   SMTP_PASS: optionalText,
   MAIL_FROM: z.string().min(3).default("GoToUSA <nao-responda@gotousa.local>"),
+}).superRefine((env, ctx) => {
+  // Gmail: precisa do usuário e da senha de app, e o remetente tem de ser o próprio endereço.
+  if (env.SMTP_HOST.toLowerCase() !== GMAIL_HOST) return;
+  if (!env.SMTP_USER) ctx.addIssue({ code: "custom", path: ["SMTP_USER"], message: "obrigatório com o Gmail" });
+  if (!env.SMTP_PASS) ctx.addIssue({ code: "custom", path: ["SMTP_PASS"], message: "obrigatório com o Gmail" });
+  if (env.SMTP_USER && !env.MAIL_FROM.toLowerCase().includes(`<${env.SMTP_USER.toLowerCase()}>`)) {
+    ctx.addIssue({ code: "custom", path: ["MAIL_FROM"], message: "precisa usar o mesmo endereço do SMTP_USER" });
+  }
 });
 
 export type Env = z.infer<typeof envSchema>;

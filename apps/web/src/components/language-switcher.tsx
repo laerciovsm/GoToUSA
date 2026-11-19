@@ -6,7 +6,7 @@ import { LOCALES, type Locale } from "@gotousa/shared";
 import { usePathname, useRouter } from "@/i18n/navigation";
 
 /** Nome de cada idioma escrito no próprio idioma, para que qualquer pessoa reconheça o seu. */
-const LANGUAGE_NAMES: Record<Locale, string> = {
+export const LANGUAGE_NAMES: Record<Locale, string> = {
   "en-US": "English (US)",
   "pt-BR": "Português (Brasil)",
   es: "Español",

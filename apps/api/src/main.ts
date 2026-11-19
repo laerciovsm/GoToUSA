@@ -10,7 +10,7 @@ import { configureApp } from "./setup.js";
 loadRootEnvFile();
 const env = parseEnv(process.env);
 
-const app = await NestFactory.create<NestExpressApplication>(AppModule.forRoot(env));
+const app = await NestFactory.create<NestExpressApplication>(AppModule.forRoot(env), { bodyParser: false });
 configureApp(app);
 await app.listen(env.API_PORT, env.API_HOST);
 

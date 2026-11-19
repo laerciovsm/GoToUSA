@@ -13,6 +13,7 @@ import {
 } from "@gotousa/shared";
 import { Link } from "@/i18n/navigation";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { accountsEnabled } from "@/lib/accounts";
 import { browserJourneyRepository as progressRepo } from "@/lib/storage/journey-repository";
 import { browserQuestionnaireRepository as questionnaireRepo } from "@/lib/storage/questionnaire-repository";
 import {
@@ -113,6 +114,15 @@ export function MoreApp() {
   return (
     <Shell>
       <h1 className="text-3xl font-semibold">{t("title")}</h1>
+
+      {/* Conta (só com o backend; docs/backend-local.md) */}
+      {accountsEnabled() && (
+        <section className={card}>
+          <h2 className="text-xl font-semibold">👤 {t("accountTitle")}</h2>
+          <p className="text-ink2">{t("accountBody")}</p>
+          <Link href="/account" className="flex min-h-12 items-center self-start rounded-full border-2 border-primary px-5 font-bold text-primary">{t("accountAction")}</Link>
+        </section>
+      )}
 
       {/* Seus dados: baixar e importar */}
       <section className={card}>

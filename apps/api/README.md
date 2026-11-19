@@ -2,7 +2,11 @@
 
 Backend (NestJS 12, ESM) do GoToUSA. Plano e decisões da fase de testes com a família (tudo no PC do fundador, rede de casa, só HTTP): [docs/backend-local.md](../../docs/backend-local.md).
 
-**Hoje (passo 2):** só a rota de saúde `GET /api/health`, ligada ao PostgreSQL pelo Prisma 7. Escuta só em `127.0.0.1:4000`; o app (porta 3000) repassa o `/api/*` para cá.
+**Hoje (passo 3):** rota de saúde `GET /api/health`, contas do Better Auth em `/api/auth/*` e `GET /api/me` (protegida pelo `SessionGuard`). Escuta só em `127.0.0.1:4000`; o app (porta 3000) repassa o `/api/*` para cá.
+
+- `src/auth/`: Better Auth (`auth.ts`), Argon2id (`password.ts`), lista de quem pode criar conta (`allowlist.ts`), guarda de sessão e `/api/me`.
+- `src/email/`: Nodemailer (`mailer.ts`, envio em segundo plano) e e-mails nos 3 idiomas (`templates.ts`, `messages/`).
+- Tabelas: `pnpm --filter @gotousa/api auth:schema` gera as do Better Auth no `schema.prisma`; `pnpm db:migrate:new <nome>` cria a migração; `pnpm db:migrate` aplica.
 
 ## Como rodar (na raiz do repositório)
 

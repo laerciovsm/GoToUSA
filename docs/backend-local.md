@@ -148,7 +148,7 @@ Cada passo é testado, documentado e enviado ao GitHub antes do próximo.
 
 1. **Banco e e-mail de teste:** WSL 2 e Docker instalados; `docker-compose.yml` com PostgreSQL e Mailpit (só em `127.0.0.1`); `.env.example` atualizado. *Pronto quando:* `pnpm db:up` sobe tudo e a tela do Mailpit abre. **Concluído em 19/11/2026:** PostgreSQL 18.7 e Mailpit 1.27 sobem saudáveis; banco responde; Mailpit recebeu um e-mail de teste; as portas 5432, 1025 e 8025 não respondem pela rede (só no PC). Senha do banco só no `.env`; o volume `postgres-data` guarda os dados entre reinícios.
 2. **API vazia:** NestJS em `apps/api` com Prisma, rota de saúde (`/api/health`) e o *rewrite* do app. *Pronto quando:* o celular abre `http://<IP>:3000/api/health`. **Concluído em 19/11/2026** (ver [Passo 2 em detalhe](#passo-2-em-detalhe-api-vazia)); falta só o fundador abrir no celular.
-3. **Contas e login:** Better Auth com Argon2id, cadastro só para e-mails autorizados, confirmação de e-mail (Mailpit), login, sair, recuperar senha. Telas de entrar e criar conta nos 3 idiomas. *Pronto quando:* o fundador cria a conta e entra pelo celular.
+3. **Contas e login:** Better Auth com Argon2id, cadastro só para e-mails autorizados, confirmação de e-mail (Mailpit), login, sair, recuperar senha. Telas de entrar e criar conta nos 3 idiomas. *Pronto quando:* o fundador cria a conta e entra pelo celular. **Implementado e testado em 19/11/2026** (ver [Resultado do passo 3](#resultado-do-passo-3)); falta o fundador testar no celular.
 4. **Convites:** jornada como organização, convite com escolha da pessoa e do papel, e-mail com link, "Copiar link", aceitar o convite. Gmail configurado. *Pronto quando:* o cônjuge recebe o convite no e-mail e entra.
 5. **Jornada no servidor:** levar a jornada do navegador para a conta; carregar e salvar pela API (o repositório de armazenamento troca o IndexedDB pela API quando há sessão); versão contra salvamentos simultâneos; histórico. *Pronto quando:* o que um conclui aparece no celular do outro.
 6. **Permissões:** participante sem saúde e dinheiro dos outros, alterando só as tarefas que executa; testes automáticos de cada regra. *Pronto quando:* os testes de permissão passam e o fundador confere com a família.
@@ -292,6 +292,8 @@ Depois, se ficar cansativo, um comando só para ligar tudo.
 
 ## Passo 3 em detalhe: contas e login
 
+> **Implementado e testado em 19/11/2026** (ver [Resultado do passo 3](#resultado-do-passo-3)). Falta só o teste do fundador no celular.
+>
 > Documentado em 19/11/2026, antes de implementar. Fontes conferidas nessa data: documentação oficial do Better Auth (integração com Express, e-mail e senha, e-mail, adaptador do Prisma, limite de requisições, ganchos e segurança), o npm, o guia de *custom server* do Next.js 16 (em `apps/web/node_modules/next/dist/docs/`) e o *Password Storage Cheat Sheet* da OWASP.
 
 **Objetivo:** o fundador cria a conta, confirma o e-mail, entra e sai pelo celular, e recupera a senha se esquecer. **A jornada ainda não vai para a conta** (isso é o passo 5), e ainda não há convites (passo 4). O modo sem conta continua igual.
@@ -300,9 +302,9 @@ Depois, se ficar cansativo, um comando só para ligar tudo.
 
 | Pacote | Versão | Licença | Para quê |
 |---|---|---|---|
-| `better-auth` | 1.7.26 (estável; existe uma 1.8 beta, que não usaremos) | MIT | Contas, sessões, confirmação de e-mail, recuperação de senha, limite de tentativas |
-| `@better-auth/prisma-adapter` | 1.7.26 | MIT | Liga o Better Auth ao Prisma (aceita o Prisma 7) |
-| `auth` (CLI oficial do Better Auth, mesmo repositório) | 1.7.26 | MIT | Gera as tabelas do Better Auth no `schema.prisma` |
+| `better-auth` | 1.7.25 (estável; existe uma 1.8 beta, que não usaremos) | MIT | Contas, sessões, confirmação de e-mail, recuperação de senha, limite de tentativas |
+| `@better-auth/prisma-adapter` | 1.7.25 | MIT | Liga o Better Auth ao Prisma (aceita o Prisma 7) |
+| `auth` (CLI oficial do Better Auth, mesmo repositório) | 1.7.25 | MIT | Gera as tabelas do Better Auth no `schema.prisma` |
 | `@node-rs/argon2` | 2.2.2 | MIT | **Argon2id** (é o que o próprio Better Auth usa no exemplo). Vem pronto para Windows, **sem script de instalação** |
 | `nodemailer` | 10.6.0 | MIT-0 | Envio dos e-mails por SMTP (Mailpit agora, Gmail no passo 4) |
 
@@ -436,9 +438,42 @@ Como hoje, a API confere tudo com Zod ao ligar e recusa ligar se faltar algo, di
 8. O app **sem** `ACCOUNTS_ENABLED` não mostra a seção Conta.
 9. `pnpm test`, `pnpm typecheck` e `pnpm lint` passam.
 
+### Resultado do passo 3
+
+**O que a implementação confirmou ou decidiu:**
+- **Better Auth 1.7.25, não 1.7.26:** a 1.7.26 foi publicada em 18/11/2026 às 17:52 (UTC), menos de 1 dia antes da instalação. O pnpm 12 tem uma proteção que só aceita pacotes publicados há pelo menos 1 dia (`minimumReleaseAge`): versões recém-publicadas são o alvo típico de ataques à cadeia de pacotes. Ao instalar, o pnpm criou exceções sozinho no `pnpm-workspace.yaml`. **As exceções foram removidas** e o Better Auth voltou para a 1.7.25 (publicada em 14/11/2026). As tabelas e os padrões conferidos são os mesmos, e todos os testes foram refeitos.
+- **Servidor próprio do app adotado** (`apps/web/server.mjs` + `client-ip.mjs`). O `pnpm --filter @gotousa/web start` roda esse servidor (padrão `127.0.0.1:3000`; para a rede, `-H 0.0.0.0 -p 3000`, como antes).
+- **Validade dos links** (conferida no código do Better Auth 1.7.25): confirmação de e-mail e nova senha valem **1 hora** (3600 s). O link de nova senha só pode ser usado uma vez.
+- **Limites padrão do Better Auth** (conferidos no código): entrar e criar conta, 3 a cada 10 s; esqueci a senha e reenviar confirmação, 3 por minuto. Os nossos substituem os de entrar (5 por minuto) e criar conta (3 por minuto).
+- **Tabelas geradas pela CLI** com `pnpm --filter @gotousa/api auth:schema` (configuração só para a CLI em `apps/api/prisma/auth-cli.config.ts`; as opções que mudam tabelas ficam em `apps/api/src/auth/schema-options.ts`). Primeira migração: `apps/api/prisma/migrations/20261119154029_better_auth/`.
+- **Argon2id medido:** cerca de **0,26 s** por login no PC (meta: abaixo de 1 s).
+- **Montagem no NestJS:** a API é criada com `bodyParser: false`; o Better Auth fica em `/api/auth/*splat` e o leitor de JSON (100 KB) vem depois (`apps/api/src/setup.ts`).
+- **`ACCOUNTS_ENABLED`:** o `next.config.ts` lê do `.env` da raiz **só** essa chave e o `API_INTERNAL_URL` (os segredos da API não entram no app). Com a chave desligada, o código da seção Conta **nem vai para o navegador** e as rotas `/account` dão 404.
+- **E-mails:** textos em `apps/api/src/email/messages/<idioma>.ts` (arquivos TypeScript, para irem junto no build da API).
+- **Testes automáticos novos:** API 23 (senha, lista de e-mails, `.env`, e-mails nos 3 idiomas e protegidos contra HTML malicioso, `/api/me` sem sessão) e app 4 (IP real e tentativa de falsificar). Total do projeto: 144.
+
+**Teste completo feito pelo Claude Code em 19/11/2026** (com um e-mail de teste e o Mailpit; dados de teste apagados no fim):
+
+| Teste | Resultado |
+|---|---|
+| E-mail fora da lista | `403 SIGNUP_NOT_ALLOWED` |
+| Cadastro na lista | `200`; e-mail no idioma da conta (testado em espanhol e português) |
+| Cadastro repetido do mesmo e-mail | **mesma resposta `200`** (não revela que existe) |
+| Entrar sem confirmar | `403 EMAIL_NOT_VERIFIED` (e reenvia o link) |
+| Link do e-mail pelo app | confirma, já entra (cookie `HttpOnly; SameSite=Lax`, 7 dias) e volta para `/<idioma>/account?verified=1` |
+| `/api/me` pelo app | nome, e-mail e idioma |
+| 6 senhas erradas de um IP | 5 × `401`, depois `429` |
+| Ao mesmo tempo, outro IP | entra normalmente (**limite por aparelho**) |
+| Tentar falsificar o cabeçalho de IP | continua bloqueado (vale o IP real) |
+| Origem de outro site | `403 INVALID_ORIGIN` |
+| Esqueci a senha (e-mail existe / não existe) | **mesma mensagem** nos dois casos |
+| Trocar a senha pelo link | troca; a sessão antiga cai (`401`); senha antiga não entra |
+| Apagar a conta (senha errada / certa) | `400 INVALID_PASSWORD` / conta apagada, sessão cai |
+| App gerado com `ACCOUNTS_ENABLED=false` | `/account` dá 404; seção Conta fora do código do navegador |
+
 ## Pendências desta fase
 
-- **IP real do celular (passo 3):** o *rewrite* do Next.js 16 não repassa o `X-Forwarded-For`, e o guia do `proxy.ts` não oferece o IP de quem acessa. **Proposta documentada no passo 3:** servidor próprio do app (`server.mjs`) que grava o IP real num cabeçalho só nosso.
+- ~~IP real do celular (passo 3)~~: **resolvido** com o servidor próprio do app (`server.mjs`), testado em 19/11/2026.
 - ~~Definir no passo 3 se o NestJS usa o manipulador oficial do Better Auth ou o pacote da comunidade~~: **manipulador oficial** (ver o passo 3).
 
 - Definir no passo 4 como o link do convite também confirma o e-mail.

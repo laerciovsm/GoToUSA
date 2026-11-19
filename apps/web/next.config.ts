@@ -1,3 +1,6 @@
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { parseEnv } from "node:util";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
@@ -12,15 +15,27 @@ const securityHeaders = [
 ];
 
 /**
- * Para onde o app repassa o /api/* (a API escuta só neste PC). Lido no build.
- * Ver docs/backend-local.md.
+ * Lê do .env da raiz SÓ as chaves que o app usa (os segredos da API não entram no app).
+ * Variáveis já definidas no sistema têm prioridade. Ver docs/backend-local.md.
  */
-const apiInternalUrl = (process.env.API_INTERNAL_URL ?? "http://127.0.0.1:4000").replace(/\/+$/, "");
+function rootEnv(key: string): string | undefined {
+  if (process.env[key] !== undefined) return process.env[key];
+  const file = join(process.cwd(), "..", "..", ".env");
+  if (!existsSync(file)) return undefined;
+  return parseEnv(readFileSync(file, "utf8"))[key];
+}
+
+/** Para onde o app repassa o /api/* (a API escuta só neste PC). Lido no build. */
+const apiInternalUrl = (rootEnv("API_INTERNAL_URL") ?? "http://127.0.0.1:4000").replace(/\/+$/, "");
+
+/** Mostra a seção Conta (só quando o backend existe). Lido no build. */
+const accountsEnabled = rootEnv("ACCOUNTS_ENABLED") === "true" ? "true" : "false";
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,
+  env: { ACCOUNTS_ENABLED: accountsEnabled },
   transpilePackages: ["@gotousa/shared"],
   turbopack: {
     rules: {

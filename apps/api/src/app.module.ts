@@ -1,5 +1,9 @@
 import { type DynamicModule, Module } from "@nestjs/common";
+import { AUTH, createAuth } from "./auth/auth.js";
+import { MeController } from "./auth/me.controller.js";
+import { SessionGuard } from "./auth/session.guard.js";
 import { ENV, type Env } from "./config/env.js";
+import { createMailer, MAILER, type Mailer } from "./email/mailer.js";
 import { HealthController } from "./health/health.controller.js";
 import { HealthService } from "./health/health.service.js";
 import { PrismaService } from "./prisma/prisma.service.js";
@@ -10,8 +14,19 @@ export class AppModule {
   static forRoot(env: Env): DynamicModule {
     return {
       module: AppModule,
-      controllers: [HealthController],
-      providers: [{ provide: ENV, useValue: env }, PrismaService, HealthService],
+      controllers: [HealthController, MeController],
+      providers: [
+        { provide: ENV, useValue: env },
+        PrismaService,
+        HealthService,
+        { provide: MAILER, useFactory: () => createMailer(env) },
+        {
+          provide: AUTH,
+          useFactory: (prisma: PrismaService, mailer: Mailer) => createAuth(env, prisma, mailer),
+          inject: [PrismaService, MAILER],
+        },
+        SessionGuard,
+      ],
     };
   }
 }

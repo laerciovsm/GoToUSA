@@ -19,6 +19,8 @@
     "db:logs": "docker compose logs -f",
     "api:dev": "pnpm --filter @gotousa/api dev",
     "api:build": "pnpm --filter @gotousa/api build",
-    "api:start": "pnpm --filter @gotousa/api start"
+    "api:start": "pnpm --filter @gotousa/api start",
+    "db:migrate": "pnpm --filter @gotousa/api migrate",
+    "db:migrate:new": "pnpm --filter @gotousa/api migrate:new"
   }
 }

@@ -63,6 +63,7 @@ O GoToUSA ajuda a pessoa a **criar a própria jornada** e a evoluir nela, com tu
 - Identidade visual, paleta e lúdico (trilha da família, mala da prontidão, carimbos): [docs/design.md](docs/design.md).
 - Telas da jornada (Marco 5): [docs/telas.md](docs/telas.md).
 - Acesso compartilhado (quem executa, papéis dono/admin/participante, convite por e-mail): [docs/acesso-compartilhado.md](docs/acesso-compartilhado.md).
+- Backend local para o teste com a família (NestJS, PostgreSQL, Better Auth, e-mail, só HTTP nesta fase): [docs/backend-local.md](docs/backend-local.md).
 - Checklist para quando for comercializar (custos, simulação de custo da IA, empresa, jurídico): [docs/comercializacao.md](docs/comercializacao.md).
 
 ### Funcionalidades decididas
@@ -212,7 +213,7 @@ Na raiz do repositório:
 
 - Sistema: Windows 11 com PowerShell.
 - Node.js 26 LTS e pnpm 12. Se `node`/`pnpm` não forem reconhecidos num terminal aberto antes da instalação, reinicie o terminal.
-- Por enquanto, apenas servidor local (nada publicado na web).
+- Por enquanto, apenas servidor local (nada publicado na web). O backend da fase de testes também roda só no PC, acessado pela rede de casa e **só com HTTP** (decisão de 19/11/2026; HTTPS é obrigatório antes de publicar). Docker e WSL 2 ainda não instalados.
 - Git instalado em `C:\Program Files\Git\cmd\git.exe`. Se `git` não for reconhecido no terminal, use o caminho completo.
 - GitHub CLI instalado em `C:\Program Files\GitHub CLI\gh.exe` (sem login no ambiente do Claude Code). O push funciona pela credencial salva no Windows.
 
@@ -242,7 +243,9 @@ Na raiz do repositório:
 - [ ] Conteúdo real da jornada além das tarefas de exemplo (Fase 0 em diante), sempre com fonte oficial
 - [ ] Publicação sem backend, para os colegas do fundador usarem
 - [x] Quem executa cada tarefa (por papel), implementado em 19/11/2026
-- [ ] Backend com conta e acesso compartilhado da família (depois do MVP; desenho em [docs/acesso-compartilhado.md](docs/acesso-compartilhado.md))
+- [x] Backend local documentado em 19/11/2026 ([docs/backend-local.md](docs/backend-local.md))
+- [ ] Backend local implementado (6 passos), para o teste com a família na rede de casa
+- [ ] Backend publicado com conta e acesso compartilhado (exige HTTPS e os itens obrigatórios antes de publicar)
 
 ## Onde paramos (17/11/2026)
 
@@ -285,6 +288,7 @@ O app já funciona de ponta a ponta no navegador do celular, **sem backend**: av
 5. **Mais:** baixar a jornada e importar em outro navegador.
 
 ### Próximos passos
+0. **Backend local para o teste com a família** (decisão de 19/11/2026, [docs/backend-local.md](docs/backend-local.md)): 6 passos (banco e e-mail de teste, API vazia, contas e login, convites, jornada no servidor, permissões). Começa pela instalação do WSL 2 e do Docker Desktop.
 1. **Corrigir em lote** o que o fundador encontrar no teste.
 2. **Publicar sem backend** para os colegas do fundador (decisão de 17/11/2026: seguir só com o navegador, sem login nem banco, por ser o mais seguro). Documentar antes de implementar: hospedagem gratuita que permita esse uso (conferir os termos), cabeçalhos de segurança completos (CSP), página de privacidade explicando que nada sai do aparelho, verificações automáticas no GitHub (Dependabot, Gitleaks), aviso de que o conteúdo ainda é pouco.
 3. **Conteúdo real da jornada** (Fase 0 em diante), sempre a partir de fonte oficial, e as taxas oficiais do orçamento.
@@ -294,7 +298,7 @@ O app já funciona de ponta a ponta no navegador do celular, **sem backend**: av
 ### Histórico das decisões e etapas
 - **16/11/2026:** questionário aprovado e traduzido; primeiro teste do fundador e ajustes; questionário como norte de tudo; sexo M/F como no passaporte.
 - **17/11/2026:** Marco 3 em 5 passos aprovados e implementados (modelo, formato do conteúdo, regras, prazos, perfil e caminhos); premissas reforçadas (só fonte oficial; positivo, mas baseado em fatos; fácil de usar; 3 idiomas sempre); registro nas tarefas; asilo e refúgio fora do app; telas aprovadas (funcionalidade primeiro, perfumaria depois; recompensa só na tarefa completa); Marco 5 implementado em 6 partes; 20 caminhos de visto do USCIS; nascimento com mês e ano; aba Mais com baixar e importar.
-- **19/11/2026:** ajustes do teste do fundador (representação legal e curatela, com fontes do Brasil e dos EUA); decisão do acesso compartilhado da família (papéis por tipo de pessoa e de acesso, convite por e-mail, só com o backend); **quem executa** implementado (progresso versão 3).
+- **19/11/2026:** ajustes do teste do fundador (representação legal e curatela, com fontes do Brasil e dos EUA); decisão do acesso compartilhado da família (papéis por tipo de pessoa e de acesso, convite por e-mail, só com o backend); **quem executa** implementado (progresso versão 3); backend local documentado (tudo no PC, rede de casa, só HTTP nesta fase, Better Auth com Argon2id, Mailpit nos testes e Gmail com senha de app para a família).
 
 ## Como trabalhamos
 

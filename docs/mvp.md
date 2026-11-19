@@ -26,6 +26,8 @@ Por ser um dos cenários mais complexos, ele testa bem o motor da jornada. Os de
 
 ## Decisão técnica: MVP sem backend, preparado para o backend
 
+> **Atualização de 19/11/2026:** para testar o acesso compartilhado com a família, o backend começa **localmente** (no PC do fundador, só na rede de casa), sem publicar. O modo sem conta continua. Ver [backend-local.md](backend-local.md).
+
 **Decidido:** como no MVP não há conta nem pagamento, **tudo roda no navegador**:
 - Só o frontend (Next.js). Os dados ficam no **IndexedDB** e podem ser levados a outro aparelho com **baixar/importar**.
 - O conteúdo da jornada fica em arquivos no repositório, versionados no Git (ver [conteudo.md](conteudo.md)).

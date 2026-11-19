@@ -2,4 +2,4 @@
 
 Backend (NestJS) do GoToUSA. **Ainda não implementado.**
 
-No MVP tudo roda no navegador (ver [docs/mvp.md](../../docs/mvp.md)). Esta pasta existe para reservar o lugar da API, que entra depois do MVP com contas, pagamento e PostgreSQL, reaproveitando os tipos, validações e o motor da jornada de `packages/shared`.
+Plano da fase de testes com a família (tudo no PC do fundador, rede de casa, só HTTP): [docs/backend-local.md](../../docs/backend-local.md). Reaproveita os tipos, validações e o motor da jornada de `packages/shared`.

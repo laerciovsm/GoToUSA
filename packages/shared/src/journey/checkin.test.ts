@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { recordCheckin, resumeJourney, setTaskStatus } from "./progress";
-import { createProgress, parseProgress } from "./schema";
-import { completedPhases, pendingCheckin } from "./today";
-import type { Journey, JourneyTask } from "./types";
+import { recordCheckin, resumeJourney, setTaskStatus } from "./progress.ts";
+import { createProgress, parseProgress } from "./schema.ts";
+import { completedPhases, pendingCheckin } from "./today.ts";
+import type { Journey, JourneyTask } from "./types.ts";
 
 const NOW = new Date(2026, 10, 17, 10, 0, 0);
 

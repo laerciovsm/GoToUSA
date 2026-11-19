@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { BLOCKS, getBlock } from "./definition";
-import * as eng from "./engine";
+import { BLOCKS, getBlock } from "./definition.ts";
+import * as eng from "./engine.ts";
 import {
   ageAt,
   blockApplies,
@@ -12,9 +12,9 @@ import {
   uuid,
   visibleOptions,
   visibleSteps,
-} from "./engine";
-import { parseQuestionnaire } from "./schema";
-import type { Question } from "./types";
+} from "./engine.ts";
+import { parseQuestionnaire } from "./schema.ts";
+import type { Question } from "./types.ts";
 
 const NOW = new Date("2026-11-16T12:00:00Z");
 const household = getBlock("household")!;

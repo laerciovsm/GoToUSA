@@ -3,10 +3,10 @@
  * true (vale), false (não vale) e undefined ("não sei": depende de uma resposta que ainda não existe).
  * Tarefas essenciais entram quando o resultado não é false; as "conforme o caso", só quando é true.
  */
-import { ageAtDeparture, getAnswer, isAnswered, personAge, personSex } from "../questionnaire/engine";
-import type { AnswerValue, Person, QuestionnaireData } from "../questionnaire/types";
-import { FACTS, type FactValue } from "./facts";
-import type { Condition, NumberCompare, OfficialList } from "./types";
+import { ageAtDeparture, getAnswer, isAnswered, personAge, personSex } from "../questionnaire/engine.ts";
+import type { AnswerValue, Person, QuestionnaireData } from "../questionnaire/types.ts";
+import { FACTS, type FactValue } from "./facts.ts";
+import type { Condition, NumberCompare, OfficialList } from "./types.ts";
 
 export type Tri = boolean | undefined;
 

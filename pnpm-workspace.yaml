@@ -7,3 +7,6 @@ allowBuilds:
   unrs-resolver: false
   "@parcel/watcher": false
   "@swc/core": false
+  # Prisma (oficial): confere o ambiente e baixa o motor de migrações do banco
+  prisma: true
+  "@prisma/engines": true

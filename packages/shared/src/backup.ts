@@ -4,10 +4,10 @@
  * Ao importar, tudo passa pela validação (Zod) e pelas migrações de formato, como os dados salvos.
  */
 import { z } from "zod";
-import { parseProgress } from "./journey/schema";
-import type { JourneyProgress } from "./journey/types";
-import { parseQuestionnaire } from "./questionnaire/schema";
-import type { QuestionnaireData } from "./questionnaire/types";
+import { parseProgress } from "./journey/schema.ts";
+import type { JourneyProgress } from "./journey/types.ts";
+import { parseQuestionnaire } from "./questionnaire/schema.ts";
+import type { QuestionnaireData } from "./questionnaire/types.ts";
 
 export const BACKUP_FORMAT = 1;
 /** Tamanho máximo aceito na importação (bem acima de uma jornada real). */

@@ -1,0 +1,13 @@
+// Banco de dados do GoToUSA (ver docs/backend-local.md).
+// Ainda sem tabelas: as do Better Auth e as do GoToUSA chegam no passo 3.
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}

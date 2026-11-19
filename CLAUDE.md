@@ -187,6 +187,9 @@ Na raiz do repositório:
 | `pnpm db:up` | Sobe o PostgreSQL e o Mailpit (Docker, só em `127.0.0.1`); precisa do `.env` (copiar de `.env.example`) e do Docker Desktop aberto |
 | `pnpm db:down` | Desliga o PostgreSQL e o Mailpit (os dados do banco ficam guardados) |
 | `pnpm db:logs` | Mostra as mensagens do banco e do Mailpit |
+| `pnpm api:dev` | API (NestJS) em modo de desenvolvimento, em `127.0.0.1:4000` (precisa do banco ligado e do `DATABASE_URL` no `.env`) |
+| `pnpm api:build` | Gera o cliente do banco (Prisma) e a versão de produção da API |
+| `pnpm api:start` | Roda a versão de produção da API (depois do `api:build`) |
 
 ### Convenções do código
 - **Next.js 16** (App Router): o antigo `middleware.ts` agora se chama `proxy.ts`. Antes de escrever código Next.js, consultar os guias em `apps/web/node_modules/next/dist/docs/` (ver `apps/web/AGENTS.md`), porque a versão tem mudanças em relação ao que é comum na internet.
@@ -194,6 +197,8 @@ Na raiz do repositório:
 - **Cores:** usar os tokens da paleta (`bg-surface`, `text-ink`, `bg-primary`, `bg-action`, `text-done` etc.), definidos em `apps/web/src/app/globals.css`. Nunca cores soltas.
 - **Direção do texto:** usar propriedades lógicas (`ms-`, `me-`, `ps-`, `pe-`, `start`, `end`) para funcionar em idiomas da direita para a esquerda.
 - **Regras compartilhadas** (tipos, validações, motor da jornada) ficam em `packages/shared`, nunca presas ao frontend.
+  - O Node.js 26 roda o `shared` direto (a API usa assim). Por isso **todo import relativo no `shared` leva a extensão `.ts`** (`from "./i18n.ts"`) e o `shared` só usa TypeScript que o Node consegue apagar: **nada de `enum`, `namespace` ou propriedades no construtor**.
+- **API** (`apps/api`, NestJS 12 em ESM, Prisma 7.10.1): build com SWC, tipos com `tsc --noEmit`, imports relativos terminando em `.js`. Escuta só em `127.0.0.1:4000`; o app repassa o `/api/*` (*rewrite* em `apps/web/next.config.ts`). Lê o `.env` da raiz e valida com Zod. Cliente do Prisma gerado em `apps/api/src/generated/` (fora do Git). Ver [apps/api/README.md](apps/api/README.md).
 - **Questionário:** perguntas, opções e condições em `packages/shared/src/questionnaire/definition.ts` (IDs estáveis, nunca renomear). Textos em `apps/web/messages/questionnaire/<idioma>.json`, na chave igual ao ID. Ao criar uma pergunta, adicione os textos nos 3 idiomas; o teste `messages.test.ts` falha se faltar algum.
   - `when`: condição para a pergunta aparecer. `optionWhen`: condição para cada opção aparecer (aplicada por `visibleOptions`).
   - Bloco sem nenhuma pergunta visível não aparece na lista (`blockApplies`).
@@ -218,7 +223,7 @@ Na raiz do repositório:
 - Node.js 26 LTS e pnpm 12. Se `node`/`pnpm` não forem reconhecidos num terminal aberto antes da instalação, reinicie o terminal.
 - Por enquanto, apenas servidor local (nada publicado na web). O backend da fase de testes também roda só no PC, acessado pela rede de casa e **só com HTTP** (decisão de 19/11/2026; HTTPS é obrigatório antes de publicar). **WSL 2** (WSL 3.0.5, sem distribuição Linux, porque o Docker Desktop não precisa) e **Docker Desktop 4.99** instalados em 19/11/2026. O Docker Desktop precisa estar aberto para o `pnpm db:up` funcionar. Se `docker` não for reconhecido num terminal antigo, reinicie o terminal (o programa fica em `C:\Program Files\Docker\Docker\resources\bin`).
 - Instalações que exigem administrador: o Claude Code dispara com `Start-Process ... -Verb RunAs` e o fundador clica em **Sim** na janela do Windows. Reiniciar o PC e aceitar termos de licença (ex.: Docker Desktop) são sempre do fundador.
-- Depois de reiniciar o PC, o servidor de teste do app precisa ser iniciado de novo (`pnpm --filter @gotousa/web start -H 0.0.0.0 -p 3000`, depois de `pnpm build`).
+- Depois de reiniciar o PC, o servidor de teste do app precisa ser iniciado de novo (`pnpm --filter @gotousa/web start -H 0.0.0.0 -p 3000`, depois de `pnpm build`). Para o backend: abrir o Docker Desktop, `pnpm db:up` e `pnpm api:start` (depois de `pnpm api:build`).
 - Git instalado em `C:\Program Files\Git\cmd\git.exe`. Se `git` não for reconhecido no terminal, use o caminho completo.
 - GitHub CLI instalado em `C:\Program Files\GitHub CLI\gh.exe` (sem login no ambiente do Claude Code). O push funciona pela credencial salva no Windows.
 
@@ -249,7 +254,7 @@ Na raiz do repositório:
 - [ ] Publicação sem backend, para os colegas do fundador usarem
 - [x] Quem executa cada tarefa (por papel), implementado em 19/11/2026
 - [x] Backend local documentado em 19/11/2026 ([docs/backend-local.md](docs/backend-local.md))
-- [ ] Backend local implementado (6 passos), para o teste com a família na rede de casa: **passo 1 concluído** (banco e e-mail de teste no Docker); próximo: passo 2 (API vazia)
+- [ ] Backend local implementado (6 passos), para o teste com a família na rede de casa: **passos 1 e 2 concluídos** (banco e e-mail de teste no Docker; API vazia com `/api/health`); próximo: passo 3 (contas e login)
 - [ ] Backend publicado com conta e acesso compartilhado (exige HTTPS e os itens obrigatórios antes de publicar)
 
 ## Onde paramos (17/11/2026)
@@ -293,7 +298,8 @@ O app já funciona de ponta a ponta no navegador do celular, **sem backend**: av
 5. **Mais:** baixar a jornada e importar em outro navegador.
 
 ### Próximos passos
-0. **Backend local para o teste com a família** (decisão de 19/11/2026, [docs/backend-local.md](docs/backend-local.md)): 6 passos (banco e e-mail de teste, API vazia, contas e login, convites, jornada no servidor, permissões). **Onde paramos (19/11/2026):** **passo 1 concluído** (PostgreSQL 18 e Mailpit no Docker, só em `127.0.0.1`, testados). **Passo 2 (API vazia) documentado** em [docs/backend-local.md](docs/backend-local.md#passo-2-em-detalhe-api-vazia), **aguardando a aprovação do fundador** para implementar (NestJS 12 em ESM, Prisma 7.10.1 estável, `/api/health`, *rewrite* do app, API só em `127.0.0.1:4000`).
+0. **Backend local para o teste com a família** (decisão de 19/11/2026, [docs/backend-local.md](docs/backend-local.md)): 6 passos (banco e e-mail de teste, API vazia, contas e login, convites, jornada no servidor, permissões). **Onde paramos (19/11/2026):** **passo 1 concluído** (PostgreSQL 18 e Mailpit no Docker, só em `127.0.0.1`, testados). **Passo 2 concluído** (API NestJS 12 com Prisma 7.10.1, `/api/health`, *rewrite* do app, API só em `127.0.0.1:4000`; detalhes e resultados em [docs/backend-local.md](docs/backend-local.md#o-que-a-implementação-decidiu)); falta o fundador abrir `http://192.168.0.6:3000/api/health` no celular. Próximo: **passo 3, contas e login** (documentar os detalhes antes). Pendência que o passo 3 precisa resolver: o *rewrite* do Next.js 16 não repassa o IP do celular (`X-Forwarded-For`), então o limite de tentativas não pode depender só do IP.
+   - Para o teste com a família, três coisas ligadas: Docker Desktop + `pnpm db:up`; `pnpm api:build` + `pnpm api:start`; `pnpm build` + `pnpm --filter @gotousa/web start -H 0.0.0.0 -p 3000`.
    - O fundador cria, até o passo 4, um **Gmail só para o GoToUSA** com verificação em 2 etapas e senha de app.
 1. **Corrigir em lote** o que o fundador encontrar no teste.
 2. **Publicar sem backend** para os colegas do fundador (decisão de 17/11/2026: seguir só com o navegador, sem login nem banco, por ser o mais seguro). Documentar antes de implementar: hospedagem gratuita que permita esse uso (conferir os termos), cabeçalhos de segurança completos (CSP), página de privacidade explicando que nada sai do aparelho, verificações automáticas no GitHub (Dependabot, Gitleaks), aviso de que o conteúdo ainda é pouco.
@@ -304,7 +310,7 @@ O app já funciona de ponta a ponta no navegador do celular, **sem backend**: av
 ### Histórico das decisões e etapas
 - **16/11/2026:** questionário aprovado e traduzido; primeiro teste do fundador e ajustes; questionário como norte de tudo; sexo M/F como no passaporte.
 - **17/11/2026:** Marco 3 em 5 passos aprovados e implementados (modelo, formato do conteúdo, regras, prazos, perfil e caminhos); premissas reforçadas (só fonte oficial; positivo, mas baseado em fatos; fácil de usar; 3 idiomas sempre); registro nas tarefas; asilo e refúgio fora do app; telas aprovadas (funcionalidade primeiro, perfumaria depois; recompensa só na tarefa completa); Marco 5 implementado em 6 partes; 20 caminhos de visto do USCIS; nascimento com mês e ano; aba Mais com baixar e importar.
-- **19/11/2026:** ajustes do teste do fundador (representação legal e curatela, com fontes do Brasil e dos EUA); decisão do acesso compartilhado da família (papéis por tipo de pessoa e de acesso, convite por e-mail, só com o backend); **quem executa** implementado (progresso versão 3); backend local documentado (tudo no PC, rede de casa, só HTTP nesta fase, Better Auth com Argon2id, Mailpit nos testes e Gmail com senha de app para a família); serviço web futuro: VPS com acesso root (de preferência KVM) ou plataforma de contêineres com PostgreSQL gerenciado, nunca hospedagem compartilhada (cPanel); WSL 2 e Docker Desktop instalados; **passo 1 do backend concluído** (`docker-compose.yml` com PostgreSQL 18 e Mailpit, `pnpm db:up`).
+- **19/11/2026:** ajustes do teste do fundador (representação legal e curatela, com fontes do Brasil e dos EUA); decisão do acesso compartilhado da família (papéis por tipo de pessoa e de acesso, convite por e-mail, só com o backend); **quem executa** implementado (progresso versão 3); backend local documentado (tudo no PC, rede de casa, só HTTP nesta fase, Better Auth com Argon2id, Mailpit nos testes e Gmail com senha de app para a família); serviço web futuro: VPS com acesso root (de preferência KVM) ou plataforma de contêineres com PostgreSQL gerenciado, nunca hospedagem compartilhada (cPanel); WSL 2 e Docker Desktop instalados; **passo 1 do backend concluído** (`docker-compose.yml` com PostgreSQL 18 e Mailpit, `pnpm db:up`); **passo 2 concluído** (API NestJS 12 + Prisma 7.10.1 estável, `/api/health`, *rewrite*; imports do `shared` com extensão `.ts` para o Node rodar direto; Prisma liberado no `allowBuilds`).
 
 ## Como trabalhamos
 

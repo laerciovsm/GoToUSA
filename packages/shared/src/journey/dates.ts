@@ -3,7 +3,7 @@
  * Três datas de referência: início da jornada (Fase 0), data de ida (Fases 1 a 3, para trás)
  * e data de chegada (Fases 4 a 6, para frente). Tudo em dias do calendário, sem horário.
  */
-import type { Deadline, DueRelative, PhaseId } from "./types";
+import type { Deadline, DueRelative, PhaseId } from "./types.ts";
 
 export type DateRefs = {
   start: Date;

@@ -3,9 +3,9 @@
  * Sempre por papel (você, cônjuge, filho, dependente, família), nunca por nome.
  * Hoje o responsável pela jornada é "você" no questionário; com as contas, será o dono da jornada.
  */
-import { getAnswer, personAge } from "../questionnaire/engine";
-import type { Person, QuestionnaireData } from "../questionnaire/types";
-import type { Executor, JourneyProgress } from "./types";
+import { getAnswer, personAge } from "../questionnaire/engine.ts";
+import type { Person, QuestionnaireData } from "../questionnaire/types.ts";
+import type { Executor, JourneyProgress } from "./types.ts";
 
 export const FAMILY_EXECUTOR = "family";
 

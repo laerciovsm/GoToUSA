@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { addOwnTask, emptyRecord, removeOwnTask, setOwnTaskStatus, setTaskStatus, splitTaskKey, taskProgress, toggleSubtask, updateOwnTask, updateTask } from "./progress";
-import { createProgress, parseProgress } from "./schema";
+import { addOwnTask, emptyRecord, removeOwnTask, setOwnTaskStatus, setTaskStatus, splitTaskKey, taskProgress, toggleSubtask, updateOwnTask, updateTask } from "./progress.ts";
+import { createProgress, parseProgress } from "./schema.ts";
 
 const NOW = new Date(2026, 10, 17, 10, 0, 0);
 

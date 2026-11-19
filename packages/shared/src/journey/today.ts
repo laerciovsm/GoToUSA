@@ -1,9 +1,9 @@
 /**
  * Cálculos da tela "Hoje" (docs/telas.md, seção 1). Funções puras e testadas.
  */
-import type { QuestionnaireData } from "../questionnaire/types";
-import { parseIsoDate, WEEKLY_HOURS } from "./dates";
-import { PHASE_IDS, type Journey, type JourneyProgress, type JourneyTask, type PhaseId } from "./types";
+import type { QuestionnaireData } from "../questionnaire/types.ts";
+import { parseIsoDate, WEEKLY_HOURS } from "./dates.ts";
+import { PHASE_IDS, type Journey, type JourneyProgress, type JourneyTask, type PhaseId } from "./types.ts";
 
 const PHASE_ORDER = new Map(PHASE_IDS.map((id, i) => [id, i]));
 /** Sem tempo semanal informado, considera de 1 a 3 horas (a opção mais comum). */

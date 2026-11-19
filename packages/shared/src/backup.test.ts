@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { backupFileName, createBackup, parseBackup } from "./backup";
-import { setTaskStatus } from "./journey/progress";
-import { createProgress } from "./journey/schema";
-import { createQuestionnaire, setAnswer } from "./questionnaire/engine";
+import { backupFileName, createBackup, parseBackup } from "./backup.ts";
+import { setTaskStatus } from "./journey/progress.ts";
+import { createProgress } from "./journey/schema.ts";
+import { createQuestionnaire, setAnswer } from "./questionnaire/engine.ts";
 
 const NOW = new Date(2026, 10, 17, 10, 0, 0);
 

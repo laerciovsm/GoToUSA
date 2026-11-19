@@ -14,8 +14,8 @@ import {
   personAge,
   personSex,
   workStatusOf,
-} from "./engine";
-import type { Block, BlockItem, Question, QuestionContext } from "./types";
+} from "./engine.ts";
+import type { Block, BlockItem, Question, QuestionContext } from "./types.ts";
 
 const ENGLISH_LEVELS = ["none", "basic", "intermediate", "advanced", "fluent"] as const;
 const HIGHER_EDUCATION = new Set(["technical", "bachelor", "postgrad", "master", "doctorate"]);

@@ -3,9 +3,9 @@
  * Calculado na hora a partir das respostas. Guarda só IDs e códigos: a tela traduz.
  * Sem detalhes sensíveis: "medicação contínua" e "precisa de apoio", nunca nomes de remédios ou diagnósticos.
  */
-import { ageAtDeparture, autonomyAskedInHousehold, getAnswer, isAnswered, peopleOf, personSex } from "../questionnaire/engine";
-import type { PersonKind, QuestionnaireData } from "../questionnaire/types";
-import type { Journey, VisiblePath } from "./types";
+import { ageAtDeparture, autonomyAskedInHousehold, getAnswer, isAnswered, peopleOf, personSex } from "../questionnaire/engine.ts";
+import type { PersonKind, QuestionnaireData } from "../questionnaire/types.ts";
+import type { Journey, VisiblePath } from "./types.ts";
 
 export type ProfilePerson = {
   personId: string;

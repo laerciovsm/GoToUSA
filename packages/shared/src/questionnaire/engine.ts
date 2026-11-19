@@ -7,7 +7,7 @@ import type {
   QuestionContext,
   QuestionnaireData,
   Step,
-} from "./types";
+} from "./types.ts";
 
 /**
  * Gera um UUID v4. Usa crypto.getRandomValues, que funciona também fora de HTTPS

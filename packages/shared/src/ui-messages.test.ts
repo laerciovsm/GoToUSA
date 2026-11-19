@@ -5,7 +5,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { LOCALES } from "./i18n";
+import { LOCALES } from "./i18n.ts";
 
 type Tree = { [key: string]: string | Tree };
 

@@ -6,9 +6,9 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { LOCALES } from "../i18n";
-import { BLOCKS } from "./definition";
-import type { Question } from "./types";
+import { LOCALES } from "../i18n.ts";
+import { BLOCKS } from "./definition.ts";
+import type { Question } from "./types.ts";
 
 type Tree = { [key: string]: string | Tree };
 

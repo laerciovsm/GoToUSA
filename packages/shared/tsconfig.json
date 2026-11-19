@@ -6,6 +6,7 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "isolatedModules": true,
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "noEmit": true
   },

@@ -34,3 +34,6 @@ Thumbs.db
 
 # Certificados locais (mkcert)
 *.pem
+
+# Cliente do banco gerado pelo Prisma (refeito no build)
+apps/api/src/generated/

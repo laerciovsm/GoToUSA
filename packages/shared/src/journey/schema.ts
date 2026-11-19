@@ -1,7 +1,7 @@
 /** Validação (Zod) do conteúdo da jornada e do progresso salvo. */
 import { z } from "zod";
-import { PHASE_IDS, THEME_IDS, WEIGHTS } from "./types";
-import type { Condition, JourneyProgress, PathDef, Structure, TaskDef } from "./types";
+import { PHASE_IDS, THEME_IDS, WEIGHTS } from "./types.ts";
+import type { Condition, JourneyProgress, PathDef, Structure, TaskDef } from "./types.ts";
 
 const id = z.string().regex(/^[a-z0-9][a-z0-9.-]*$/, "ID: só letras minúsculas, números, ponto e hífen");
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);

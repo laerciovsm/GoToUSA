@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { MED_UNITS } from "./data";
-import type { Medication, QuestionnaireData } from "./types";
+import { MED_UNITS } from "./data.ts";
+import type { Medication, QuestionnaireData } from "./types.ts";
 
 const money = z.object({ amount: z.number(), currency: z.string().length(3) });
 

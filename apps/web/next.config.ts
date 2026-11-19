@@ -11,6 +11,12 @@ const securityHeaders = [
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
 ];
 
+/**
+ * Para onde o app repassa o /api/* (a API escuta só neste PC). Lido no build.
+ * Ver docs/backend-local.md.
+ */
+const apiInternalUrl = (process.env.API_INTERNAL_URL ?? "http://127.0.0.1:4000").replace(/\/+$/, "");
+
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
@@ -26,6 +32,10 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
+  },
+  async rewrites() {
+    // O celular só fala com a porta 3000: sem CORS e com a API fechada para a rede.
+    return [{ source: "/api/:path*", destination: `${apiInternalUrl}/api/:path*` }];
   },
 };
 

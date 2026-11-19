@@ -4,9 +4,9 @@
  */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { parseFrontmatter } from "./frontmatter";
-import { officialListSchema, pathDefSchema, structureSchema, taskDefSchema } from "./schema";
-import type { Catalog, CatalogTexts, OfficialList, PathDef, TaskDef } from "./types";
+import { parseFrontmatter } from "./frontmatter.ts";
+import { officialListSchema, pathDefSchema, structureSchema, taskDefSchema } from "./schema.ts";
+import type { Catalog, CatalogTexts, OfficialList, PathDef, TaskDef } from "./types.ts";
 
 const readJson = (file: string): unknown => JSON.parse(readFileSync(file, "utf8"));
 const dirs = (dir: string) =>

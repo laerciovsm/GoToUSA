@@ -11,8 +11,8 @@ import {
   hasCareer,
   isAnswered,
   partnerIsGoing,
-} from "../questionnaire/engine";
-import type { QuestionnaireData } from "../questionnaire/types";
+} from "../questionnaire/engine.ts";
+import type { QuestionnaireData } from "../questionnaire/types.ts";
 
 export type FactContext = { data: QuestionnaireData; now: Date };
 export type FactValue = number | boolean | string | undefined;

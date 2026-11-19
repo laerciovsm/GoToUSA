@@ -1,19 +1,19 @@
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { createQuestionnaire, setAnswer } from "../questionnaire/engine";
-import type { QuestionnaireData } from "../questionnaire/types";
-import { evaluate } from "./conditions";
-import { canExecute, executorOptions, setTaskExecutor } from "./executor";
-import { addMonths, computeDue } from "./dates";
-import { FACTS } from "./facts";
-import { parseFrontmatter } from "./frontmatter";
-import { generateJourney } from "./generate";
-import { loadCatalog } from "./load-node";
-import { buildFamilyProfile } from "./profile";
-import { computeReadiness } from "./readiness";
-import { monthsUntil, weekSteps } from "./today";
-import { createProgress, parseProgress, toIsoDate } from "./schema";
-import type { Catalog, JourneyProgress, PathDef, TaskDef } from "./types";
+import { createQuestionnaire, setAnswer } from "../questionnaire/engine.ts";
+import type { QuestionnaireData } from "../questionnaire/types.ts";
+import { evaluate } from "./conditions.ts";
+import { canExecute, executorOptions, setTaskExecutor } from "./executor.ts";
+import { addMonths, computeDue } from "./dates.ts";
+import { FACTS } from "./facts.ts";
+import { parseFrontmatter } from "./frontmatter.ts";
+import { generateJourney } from "./generate.ts";
+import { loadCatalog } from "./load-node.ts";
+import { buildFamilyProfile } from "./profile.ts";
+import { computeReadiness } from "./readiness.ts";
+import { monthsUntil, weekSteps } from "./today.ts";
+import { createProgress, parseProgress, toIsoDate } from "./schema.ts";
+import type { Catalog, JourneyProgress, PathDef, TaskDef } from "./types.ts";
 
 const NOW = new Date(2026, 10, 17); // 17/11/2026
 const CONTENT_DIR = fileURLToPath(new URL("../../../../content", import.meta.url));

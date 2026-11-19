@@ -5,7 +5,7 @@
  * e na etapa e no tema escolhidos (decisão de 17/11/2026).
  * Nunca é apresentada como chance de visto.
  */
-import { WEIGHT_POINTS, type Catalog, type Journey, type JourneyProgress } from "./types";
+import { WEIGHT_POINTS, type Catalog, type Journey, type JourneyProgress } from "./types.ts";
 
 export type Score = { done: number; total: number; ratio: number };
 export type Readiness = {

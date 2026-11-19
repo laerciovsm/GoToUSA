@@ -4,7 +4,7 @@
  * e progresso (o que a pessoa fez, salvo no navegador).
  * IDs de fases, etapas, tarefas, subtarefas e caminhos são ESTÁVEIS: nunca mude um ID existente.
  */
-import type { PersonKind } from "../questionnaire/types";
+import type { PersonKind } from "../questionnaire/types.ts";
 
 export const PHASE_IDS = ["discovery", "planning", "preparation", "move", "arrival", "settling", "future"] as const;
 export type PhaseId = (typeof PHASE_IDS)[number];

@@ -4,14 +4,14 @@
  */
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { LOCALES } from "../i18n";
-import { BLOCKS } from "../questionnaire/definition";
-import type { Question } from "../questionnaire/types";
-import { walkConditions } from "./conditions";
-import { FACTS } from "./facts";
-import { sourceRefs } from "./frontmatter";
-import { loadCatalog, loadTexts } from "./load-node";
-import type { Condition } from "./types";
+import { LOCALES } from "../i18n.ts";
+import { BLOCKS } from "../questionnaire/definition.ts";
+import type { Question } from "../questionnaire/types.ts";
+import { walkConditions } from "./conditions.ts";
+import { FACTS } from "./facts.ts";
+import { sourceRefs } from "./frontmatter.ts";
+import { loadCatalog, loadTexts } from "./load-node.ts";
+import type { Condition } from "./types.ts";
 
 const CONTENT_DIR = fileURLToPath(new URL("../../../../content", import.meta.url));
 const catalog = loadCatalog(CONTENT_DIR);

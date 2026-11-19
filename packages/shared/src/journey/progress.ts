@@ -3,7 +3,7 @@
  * sem mudar o anterior, para a tela salvar e recalcular a jornada.
  * Nada é apagado no recálculo: o progresso de uma tarefa que deixou de se aplicar continua guardado.
  */
-import type { CheckinAnswer, JourneyProgress, OwnTask, PhaseId, RecordSpec, TaskProgress, TaskRecord, TaskStatus } from "./types";
+import type { CheckinAnswer, JourneyProgress, OwnTask, PhaseId, RecordSpec, TaskProgress, TaskRecord, TaskStatus } from "./types.ts";
 
 export function emptyTaskProgress(): TaskProgress {
   return { status: "todo", subtasks: [], doneAt: null, plan: "", note: "", record: null };

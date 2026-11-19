@@ -3,13 +3,13 @@
  * na jornada da família (Marco 3, passos 3 e 4, aprovados em 17/11/2026).
  * Função pura: as mesmas entradas geram sempre a mesma jornada.
  */
-import { BLOCKS } from "../questionnaire/definition";
-import { ageAtDeparture, departureDate } from "../questionnaire/engine";
-import type { Person, QuestionnaireData } from "../questionnaire/types";
-import { evaluate, type ConditionContext, type Tri } from "./conditions";
-import { computeDue, daysBetween, parseIsoDate, WEEKLY_HOURS, type DateRefs } from "./dates";
-import { toIsoDate } from "./schema";
-import { defaultExecutor, resolveExecutor } from "./executor";
+import { BLOCKS } from "../questionnaire/definition.ts";
+import { ageAtDeparture, departureDate } from "../questionnaire/engine.ts";
+import type { Person, QuestionnaireData } from "../questionnaire/types.ts";
+import { evaluate, type ConditionContext, type Tri } from "./conditions.ts";
+import { computeDue, daysBetween, parseIsoDate, WEEKLY_HOURS, type DateRefs } from "./dates.ts";
+import { toIsoDate } from "./schema.ts";
+import { defaultExecutor, resolveExecutor } from "./executor.ts";
 import {
   PHASE_IDS,
   type Catalog,
@@ -21,7 +21,7 @@ import {
   type TaskDef,
   type VisiblePath,
   type Weight,
-} from "./types";
+} from "./types.ts";
 
 const PHASE_ORDER = new Map(PHASE_IDS.map((id, i) => [id, i]));
 const WEIGHT_ORDER: Record<Weight, number> = { high: 0, medium: 1, low: 2 };

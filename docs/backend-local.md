@@ -147,7 +147,7 @@ O mesmo projeto em contêineres roda na web com o **Docker Engine** (Linux, grat
 Cada passo é testado, documentado e enviado ao GitHub antes do próximo.
 
 1. **Banco e e-mail de teste:** WSL 2 e Docker instalados; `docker-compose.yml` com PostgreSQL e Mailpit (só em `127.0.0.1`); `.env.example` atualizado. *Pronto quando:* `pnpm db:up` sobe tudo e a tela do Mailpit abre. **Concluído em 19/11/2026:** PostgreSQL 18.7 e Mailpit 1.27 sobem saudáveis; banco responde; Mailpit recebeu um e-mail de teste; as portas 5432, 1025 e 8025 não respondem pela rede (só no PC). Senha do banco só no `.env`; o volume `postgres-data` guarda os dados entre reinícios.
-2. **API vazia:** NestJS em `apps/api` com Prisma, rota de saúde (`/api/health`) e o *rewrite* do app. *Pronto quando:* o celular abre `http://<IP>:3000/api/health`.
+2. **API vazia:** NestJS em `apps/api` com Prisma, rota de saúde (`/api/health`) e o *rewrite* do app. *Pronto quando:* o celular abre `http://<IP>:3000/api/health`. **Concluído em 19/11/2026** (ver [Passo 2 em detalhe](#passo-2-em-detalhe-api-vazia)); falta só o fundador abrir no celular.
 3. **Contas e login:** Better Auth com Argon2id, cadastro só para e-mails autorizados, confirmação de e-mail (Mailpit), login, sair, recuperar senha. Telas de entrar e criar conta nos 3 idiomas. *Pronto quando:* o fundador cria a conta e entra pelo celular.
 4. **Convites:** jornada como organização, convite com escolha da pessoa e do papel, e-mail com link, "Copiar link", aceitar o convite. Gmail configurado. *Pronto quando:* o cônjuge recebe o convite no e-mail e entra.
 5. **Jornada no servidor:** levar a jornada do navegador para a conta; carregar e salvar pela API (o repositório de armazenamento troca o IndexedDB pela API quando há sessão); versão contra salvamentos simultâneos; histórico. *Pronto quando:* o que um conclui aparece no celular do outro.
@@ -156,6 +156,8 @@ Cada passo é testado, documentado e enviado ao GitHub antes do próximo.
 ## Passo 2 em detalhe: API vazia
 
 > Documentado em 19/11/2026, antes de implementar. Versões conferidas no npm e nas documentações oficiais (guia de migração do NestJS 12, guia de atualização do Prisma 7 e guia de *rewrites* do Next.js 16 em `apps/web/node_modules/next/dist/docs/`) nessa data.
+>
+> **Implementado e testado em 19/11/2026.** O que mudou em relação ao plano está em [O que a implementação decidiu](#o-que-a-implementação-decidiu).
 
 **Objetivo:** ter o servidor do backend funcionando e ligado ao banco, **sem nenhuma regra de negócio ainda**. É a base sobre a qual entram as contas (passo 3). O app continua funcionando igual, com ou sem a API ligada.
 
@@ -247,7 +249,7 @@ Para saber se o banco responde, a API faz uma consulta mínima (`SELECT 1`), com
 | `pnpm api:build` | Gera o cliente do banco e a versão de produção da API |
 | `pnpm api:start` | Roda a versão de produção da API (depois do `api:build`) |
 
-O `pnpm test`, o `pnpm typecheck` e o `pnpm lint` passam a incluir a API.
+O `pnpm test` e o `pnpm typecheck` passam a incluir a API (o `pnpm lint` ainda não; ver abaixo).
 
 **Para o teste com a família, a ordem fica:**
 1. abrir o Docker Desktop e rodar `pnpm db:up`;
@@ -262,6 +264,24 @@ Depois, se ficar cansativo, um comando só para ligar tudo.
 - Conferir se o Next.js 16 repassa o `X-Forwarded-For` no *rewrite*.
 - Decidir entre a proposta e a alternativa de uso do `shared` (acima).
 
+### O que a implementação decidiu
+
+- **`packages/shared`: ficou a alternativa.** Os imports internos do `shared` agora têm a extensão **`.ts`** (ex.: `from "./i18n.ts"`), com `allowImportingTsExtensions` nos `tsconfig` do `shared`, do app e da API. Assim o **Node.js 26 roda o `shared` direto**, sem compilar, e a API não precisa embutir nada (sem Rspack). O app e os testes continuam iguais. **Regra nova:** todo import relativo dentro do `shared` leva a extensão `.ts`, e o `shared` só usa TypeScript que o Node consegue apagar (nada de `enum`, `namespace` ou propriedades no construtor).
+- **Build da API:** a CLI do NestJS compila com o **SWC**, arquivo por arquivo (`.swcrc`, saída ESM em `apps/api/dist`, sem os arquivos de teste). Os tipos são conferidos à parte com `tsc --noEmit`.
+- **Scripts de instalação:** o `@swc/core` funciona bloqueado. O **Prisma** precisou ser liberado no `pnpm-workspace.yaml` (`prisma` e `@prisma/engines`). São pacotes oficiais do Prisma: um confere o ambiente e o outro baixa o motor de migrações do banco, necessário a partir do passo 3.
+- **Aviso do Prisma sobre o Node.js:** o Prisma 7.10.1 diz suportar o Node.js 20.19+, 22.12+ e 24+. O projeto usa o **Node.js 26**, e tudo funcionou (gerar o cliente, conectar, consultar). Fica de olho: se algo estranho aparecer no Prisma, essa é a primeira suspeita.
+- **`X-Forwarded-For`: o Next.js 16 NÃO repassa no *rewrite*** (conferido com um servidor de eco: só chega o `X-Forwarded-Host`). Para a API, toda requisição parece vir do próprio PC. Não afeta o passo 2, mas o **limite de tentativas do passo 3 não pode depender do IP** como está. Ver as pendências.
+- **Lint:** como o `packages/shared`, a API ainda não tem ESLint próprio. O `pnpm lint` continua conferindo só o app; a API é conferida pelo `typecheck` e pelos testes.
+- **Testes da API** (Vitest, 8 testes): leitura do `.env` (padrões, variável faltando sem mostrar valores, recusa de escutar na rede) e a rota de saúde de verdade numa porta livre, com banco de mentira (200, 503 sem detalhes internos, Helmet ligado, sem `X-Powered-By`, sem CORS).
+- **A API recusa ligar** se `API_HOST` não for do próprio PC (`127.0.0.1`, `::1` ou `localhost`).
+
+**Resultado dos testes de 19/11/2026:**
+1. `http://192.168.0.6:3000/api/health` pela rede: `200 {"status":"ok","database":"ok"}`.
+2. Com o banco desligado: `503 {"status":"error","database":"unavailable"}` em cerca de 0,1 s, e as páginas do app continuam abrindo. Ao religar o banco, volta para `ok` sem reiniciar a API.
+3. Porta 4000 pela rede: não responde.
+4. A API importa `LOCALES` do `shared` (aparece no log ao ligar).
+5. `pnpm typecheck`, `pnpm test` (117 + 8) e `pnpm lint` passam.
+
 ### Pronto quando
 
 1. O celular abre **`http://192.168.0.6:3000/api/health`** e vê `{"status":"ok","database":"ok"}`.
@@ -271,6 +291,8 @@ Depois, se ficar cansativo, um comando só para ligar tudo.
 5. `pnpm test`, `pnpm typecheck` e `pnpm lint` passam.
 
 ## Pendências desta fase
+
+- **IP real do celular (passo 3):** o *rewrite* do Next.js 16 não repassa o `X-Forwarded-For`. Antes de ligar o limite de tentativas, escolher entre: limitar por **e-mail/conta** além do IP; passar o `/api` pelo `proxy.ts` do app, que acrescentaria o cabeçalho (conferir no guia do Next.js 16 se o IP de quem acessa está disponível ali); ou outra forma documentada.
 
 - Definir no passo 3 se o NestJS usa o manipulador oficial do Better Auth (proposta) ou o pacote da comunidade.
 - Definir no passo 4 como o link do convite também confirma o e-mail.

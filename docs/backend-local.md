@@ -64,7 +64,7 @@ Celulares da família (mesmo Wi-Fi)
   - não aparece em contas de trabalho ou escola, com Proteção Avançada ou com 2 etapas só por chave de segurança;
   - **trocar a senha da conta Google revoga todas as senhas de app**;
   - o próprio Google diz que senha de app "não é recomendada". Serve para o teste local; para publicar, usar um serviço de e-mail próprio.
-- **Recomendação:** criar um **Gmail novo só para o GoToUSA**, em vez de usar o pessoal.
+- **Recomendação:** criar um **Gmail novo só para o GoToUSA**, em vez de usar o pessoal (motivos em [O Gmail só do GoToUSA](#o-gmail-só-do-gotousa)).
 - A senha de app fica **só no `.env`**, que nunca vai para o Git.
 - **Alternativa sem e-mail:** a tela de convite terá o botão **"Copiar link do convite"**, para mandar pelo WhatsApp se o e-mail cair no spam.
 
@@ -103,7 +103,7 @@ As permissões de [acesso-compartilhado.md](acesso-compartilhado.md#papéis-de-a
 
 **3. Aceitar o convite**
 - A pessoa abre o link, cria a **própria senha**, aceita o **aviso legal** e o uso dos dados dela, e entra na jornada.
-- O Better Auth exige uma sessão com o mesmo e-mail do convite para aceitar. A confirmação do e-mail pelo próprio link do convite será definida no passo 4.
+- O Better Auth exige uma sessão com o mesmo e-mail do convite, já confirmado, para aceitar (detalhes em [Aceitar o convite](#aceitar-o-convite)).
 
 **4. Usar no dia a dia**
 - Cada pessoa vê a jornada conforme o papel. O filtro por pessoa já abre nas tarefas dela.
@@ -149,7 +149,7 @@ Cada passo é testado, documentado e enviado ao GitHub antes do próximo.
 1. **Banco e e-mail de teste:** WSL 2 e Docker instalados; `docker-compose.yml` com PostgreSQL e Mailpit (só em `127.0.0.1`); `.env.example` atualizado. *Pronto quando:* `pnpm db:up` sobe tudo e a tela do Mailpit abre. **Concluído em 19/11/2026:** PostgreSQL 18.7 e Mailpit 1.27 sobem saudáveis; banco responde; Mailpit recebeu um e-mail de teste; as portas 5432, 1025 e 8025 não respondem pela rede (só no PC). Senha do banco só no `.env`; o volume `postgres-data` guarda os dados entre reinícios.
 2. **API vazia:** NestJS em `apps/api` com Prisma, rota de saúde (`/api/health`) e o *rewrite* do app. *Pronto quando:* o celular abre `http://<IP>:3000/api/health`. **Concluído em 19/11/2026** (ver [Passo 2 em detalhe](#passo-2-em-detalhe-api-vazia)); falta só o fundador abrir no celular.
 3. **Contas e login:** Better Auth com Argon2id, cadastro só para e-mails autorizados, confirmação de e-mail (Mailpit), login, sair, recuperar senha. Telas de entrar e criar conta nos 3 idiomas. *Pronto quando:* o fundador cria a conta e entra pelo celular. **Implementado e testado em 19/11/2026** (ver [Resultado do passo 3](#resultado-do-passo-3)). **O fundador testou no celular em 19/11/2026: funcionou.**
-4. **Convites:** jornada como organização, convite com escolha da pessoa e do papel, e-mail com link, "Copiar link", aceitar o convite. Gmail configurado. *Pronto quando:* o cônjuge recebe o convite no e-mail e entra.
+4. **Convites:** jornada como organização, convite com escolha da pessoa e do papel, e-mail com link, "Copiar link", aceitar o convite. Gmail configurado. *Pronto quando:* o cônjuge recebe o convite no e-mail e entra. **Documentado em 19/11/2026** (ver [Passo 4 em detalhe](#passo-4-em-detalhe-convites)).
 5. **Jornada no servidor:** levar a jornada do navegador para a conta; carregar e salvar pela API (o repositório de armazenamento troca o IndexedDB pela API quando há sessão); versão contra salvamentos simultâneos; histórico. *Pronto quando:* o que um conclui aparece no celular do outro.
 6. **Permissões:** participante sem saúde e dinheiro dos outros, alterando só as tarefas que executa; testes automáticos de cada regra. *Pronto quando:* os testes de permissão passam e o fundador confere com a família.
 
@@ -471,10 +471,150 @@ Como hoje, a API confere tudo com Zod ao ligar e recusa ligar se faltar algo, di
 | Apagar a conta (senha errada / certa) | `400 INVALID_PASSWORD` / conta apagada, sessão cai |
 | App gerado com `ACCOUNTS_ENABLED=false` | `/account` dá 404; seção Conta fora do código do navegador |
 
+## Passo 4 em detalhe: convites
+
+> Documentado em 19/11/2026, antes de implementar. Fontes conferidas nessa data: o código do Better Auth 1.7.25 instalado no projeto (plugins de organização e de 2FA: opções e padrões) e as páginas de ajuda do Google "Fazer login com senhas de app", "Ativar a verificação em 2 etapas", "Limites de envio do Gmail" e "Enviar e-mails de uma impressora, scanner ou app".
+
+**Objetivo:** o fundador cria a **jornada da família** na conta, convida o cônjuge (e outros adultos que podem executar tarefas) pelo e-mail de verdade, e a pessoa entra no próprio celular, sem passar pelo PC do fundador. **Os dados da jornada (questionário e progresso) ainda não vão para o servidor**: isso é o passo 5. Neste passo a pessoa entra na jornada, mas a tela ainda diz "em breve a jornada aparece aqui".
+
+### O Gmail só do GoToUSA
+
+- É **uma conta Google nova**, criada só para ser o **remetente** dos e-mails do app (convites, confirmação, nova senha). O nome do endereço é escolha do fundador. Ninguém usa essa caixa no dia a dia.
+- **Por que não usar o Gmail pessoal:**
+  - a senha de app dá acesso à conta inteira por SMTP. Se um dia ela vazar do PC, o estrago fica numa caixa vazia, e não na caixa pessoal, com e-mails de banco e documentos;
+  - os e-mails chegam para a família com o remetente "GoToUSA", e não com o nome do fundador;
+  - se o Google limitar ou bloquear a conta por causa dos envios, o e-mail pessoal não é afetado.
+- **Regras do Google** (conferidas em 19/11/2026):
+  - senha de app **só existe com a verificação em 2 etapas ligada**; cria-se em `myaccount.google.com/apppasswords`;
+  - **trocar a senha da conta Google cancela todas as senhas de app** (aí é preciso criar outra e trocar no `.env`);
+  - o próprio Google diz que senha de app "não é recomendada". Serve para o teste em casa; antes de publicar, troca por um serviço de e-mail com domínio próprio (já está na lista do que é obrigatório antes de publicar);
+  - limite do Gmail: **500 e-mails por dia** (sobra para a família).
+- **Servidor:** `smtp.gmail.com`, porta **465** (conexão criptografada desde o início). Usuário: o endereço completo do Gmail do GoToUSA. Senha: a senha de app (16 letras).
+- **O remetente é o próprio Gmail do GoToUSA** (`MAIL_FROM=GoToUSA <endereço-do-gmail>`).
+
+**Tarefa do fundador (antes do teste do passo 4):**
+1. Criar a conta Google nova.
+2. Ligar a **verificação em 2 etapas** nela (ver [2FA: duas coisas diferentes](#2fa-duas-coisas-diferentes)).
+3. Criar a **senha de app** (nome sugerido: "GoToUSA PC").
+4. Colar o endereço e a senha de app **direto no `.env`** (`SMTP_USER` e `SMTP_PASS`). **Nunca colar a senha de app na conversa com o Claude Code.** O Claude Code testa sem ver o valor.
+
+**O Mailpit continua.** Ele segue sendo usado no desenvolvimento e nos testes do Claude Code. Trocar entre Mailpit e Gmail é só mudar as variáveis `SMTP_*` e `MAIL_FROM` no `.env` e reiniciar a API.
+
+### 2FA: duas coisas diferentes
+
+**1. Verificação em 2 etapas da conta Google do GoToUSA (obrigatória, agora).** É a do Google, exigida para criar a senha de app. Só o fundador usa, ao entrar nessa conta Google. Opções do Google:
+- **aviso do Google no celular** (tocar "Sim, sou eu"), que o próprio Google recomenda;
+- ou **app autenticador** (ex.: Google Authenticator), que gera um código de 6 dígitos;
+- SMS também existe, mas o Google avisa que é mais vulnerável;
+- **guardar os códigos de reserva** (8 dígitos) que o Google oferece, para não perder o acesso se perder o celular.
+
+**2. 2FA das contas do GoToUSA (as da família).** É a camada a mais no login do próprio app. Já está decidido que é **obrigatória antes de publicar**. Proposta: **opcional para cada pessoa**. O Better Auth já tem isso pronto (plugin `twoFactor`, padrões conferidos no código 1.7.25):
+- **app autenticador** (TOTP): qualquer app de códigos, como Google Authenticator ou Microsoft Authenticator. É o método proposto;
+- **10 códigos de reserva**, para quem perder o celular;
+- **"confiar neste aparelho"** por 30 dias, para não pedir código a todo login no celular de sempre;
+- **bloqueio** depois de 10 códigos errados, por 15 minutos.
+- **Código por e-mail** também existe, mas **não é proposto**: quem tiver acesso ao e-mail da pessoa já consegue trocar a senha, então o e-mail não serve de segunda prova.
+
+**Como a pessoa usaria:**
+- *Ligar:* em **Mais → Conta → Verificação em 2 etapas**, digita a senha. O app mostra um QR code e a chave para copiar (no celular, onde não dá para escanear a própria tela, a pessoa copia a chave para o app autenticador). Depois digita o código de 6 dígitos do app autenticador e guarda os códigos de reserva.
+- *Entrar:* e-mail e senha, depois o código de 6 dígitos do app autenticador (ou um código de reserva).
+
+**Quando entra:** **fora do passo 4**, para o passo continuar pequeno. Proposta: um **passo 7 (opcional)** depois das permissões, ainda nesta fase em casa, para a família já testar. O risco "sem 2FA por enquanto" continua aceito até lá.
+
+### Jornada = organização do Better Auth
+
+- Liga o **plugin de organização** do Better Auth. Cada **jornada é uma organização**. Papéis: **owner = dono**, **admin = admin**, **member = participante**.
+- **Quem cria jornada:** só quem está na lista `AUTH_SIGNUP_ALLOWLIST` (`allowUserToCreateOrganization`), **uma jornada por pessoa** (`organizationLimit`). Quem entra por convite não cria jornada.
+- **Criar:** em **Mais → Conta**, logado, aparece **"Criar a jornada da família"**. O nome vem pronto ("Jornada de {nome}") e pode ser mudado. Quem cria vira o **dono**.
+- **Limites:** até **10 pessoas** por jornada (`membershipLimit`; o padrão é 100) e até **20 convites** por jornada (`invitationLimit`; o padrão é 100).
+- **Tabelas novas** (geradas pela CLI do Better Auth, nova migração): `organization`, `member`, `invitation` e o campo `activeOrganizationId` na sessão.
+
+### Ligar a conta à pessoa da família
+
+- Cada convite e cada membro guardam a **pessoa do questionário** (campo nosso `personId`, ex.: o ID do cônjuge ou de "Filho 1"), além do papel. É isso que, no passo 5, vai fazer cada um ver as suas tarefas.
+- **Como o servidor ainda não tem o questionário** (ele chega no passo 5), quem convida escolhe a pessoa **no próprio navegador**, onde o questionário está. A lista mostra **só quem pode executar tarefas**, com a regra que já existe (`canExecute` do `packages/shared`): o cônjuge e filhos ou dependentes adultos independentes. Crianças e adultos que não podem executar nunca aparecem.
+- O servidor confere o **formato** do `personId` (Zod) e que **a mesma pessoa não tem duas contas na mesma jornada** (nem dois convites pendentes). No passo 5, com o questionário no servidor, ele passa a conferir também se a pessoa existe e pode executar.
+- Isso **substitui a tabela `member_person`** prevista no começo deste documento: o campo fica direto no membro, que é mais simples.
+
+### Convidar
+
+- **Onde:** **Mais → Conta → Pessoas da jornada** (só dono e admin veem os botões).
+- **O que se informa:** a pessoa da família, o **nome** (vem do apelido do questionário, se houver), o **e-mail**, o **papel** (admin ou participante) e o **idioma do e-mail** (padrão: o idioma do app de quem convida).
+- **O e-mail do convite** sai no idioma escolhido: "{quem convidou} convidou você para a jornada {nome} no GoToUSA", o link escrito por extenso, a validade (**7 dias**) e "se você não esperava este convite, ignore". Mesmo cuidado dos outros e-mails: texto simples e HTML mínimo, sem imagens, textos nos 3 idiomas em `apps/api/src/email/messages/`.
+- **Copiar link do convite:** a tela mostra o link para mandar pelo WhatsApp, caso o e-mail caia no spam.
+- **Convites pendentes:** reenviar (novo prazo; o anterior é cancelado, `cancelPendingInvitationsOnReInvite`), cancelar e copiar o link.
+- **Limite de tentativas:** **5 convites por minuto** por aparelho, além do limite de 20 por jornada.
+
+### Aceitar o convite
+
+O link abre **`/<idioma>/account/invite?id=<código do convite>`**. O código é aleatório e longo, gerado pelo Better Auth.
+
+1. A tela mostra **quem convidou, o nome da jornada e o e-mail convidado**. O Better Auth só mostra o convite para quem já está logado com aquele e-mail; por isso a API ganha uma rota pequena, **`GET /api/invitations/:id`**, que devolve **só** esses dados (nunca o ID da jornada nem a lista de membros). Convite inexistente, vencido, cancelado ou já usado mostra a mesma mensagem: "Este convite não vale mais; peça um novo a quem convidou".
+2. **Quem ainda não tem conta:** cria a conta ali mesmo, com o **e-mail do convite já preenchido e travado**, o nome e a **própria senha**. Antes de criar, marca que leu o **aviso legal** e que concorda com o **uso dos dados dela** (o consentimento é da pessoa, não de quem convidou).
+   - O cadastro passa a aceitar **quem está na lista OU tem um convite pendente e válido para aquele e-mail** (o mesmo gancho do passo 3).
+3. **Confirmação do e-mail:** chega o e-mail de confirmação de sempre (agora pelo Gmail). O link confirma a conta, já entra e **volta para a tela do convite**, que aceita o convite sozinha.
+4. **Quem já tem conta:** entra com a senha e toca em **"Aceitar convite"** (ou recusa).
+5. Pronto: a pessoa vê "Você faz parte da jornada {nome} como {papel}". Os dados da jornada aparecem no passo 5.
+
+**Decisão da pendência "como o link do convite também confirma o e-mail": não confirma.** A pessoa recebe **dois e-mails** (o convite e a confirmação). Motivos:
+- o link do convite pode ser **copiado e mandado pelo WhatsApp**, então ele não prova que a pessoa é dona do e-mail;
+- confirmar o e-mail pelo convite exigiria **escrever código de autenticação nosso**, contra a premissa de usar só a biblioteca testada;
+- o Better Auth recomenda exigir o e-mail confirmado para aceitar quando o link pode circular fora da caixa de e-mail. Ligamos isso (`requireEmailVerificationOnInvitation: true`): **sem confirmar o e-mail, ninguém aceita convite**;
+- o custo é um clique a mais para a pessoa convidada, uma vez só.
+
+### Pessoas da jornada
+
+| Ação | Quem pode |
+|---|---|
+| Ver quem está na jornada (nome, papel, pessoa da família) | Todos os membros |
+| Ver, convidar, reenviar e cancelar convites | Dono e admin |
+| Mudar o papel (admin ↔ participante) | Dono e admin |
+| Remover alguém | Dono e admin (o dono nunca pode ser removido) |
+| Sair da jornada | Admin e participante |
+| Apagar a jornada | Só o dono (pede a senha; os dados no navegador continuam) |
+
+- **Transferir a jornada** para outro admin fica para o passo 6 (permissões).
+- **Apagar a conta** (do passo 3) com jornada: o dono precisa apagar a jornada antes; os outros saem da jornada automaticamente.
+
+### Variáveis no `.env`
+
+| Variável | Valor para a família | Mailpit |
+|---|---|---|
+| `SMTP_HOST` | `smtp.gmail.com` | `127.0.0.1` |
+| `SMTP_PORT` | `465` (a API liga a criptografia automaticamente) | `1025` |
+| `SMTP_USER` | endereço do Gmail do GoToUSA | vazio |
+| `SMTP_PASS` | senha de app (16 letras), **digitada pelo fundador só no `.env`** | vazio |
+| `MAIL_FROM` | `GoToUSA <endereço do Gmail do GoToUSA>` | `GoToUSA <nao-responda@gotousa.local>` |
+
+A API confere com Zod: com `smtp.gmail.com`, `SMTP_USER` e `SMTP_PASS` passam a ser obrigatórios e o `MAIL_FROM` precisa usar o mesmo endereço do `SMTP_USER`. Ao ligar, a API testa a conexão com o servidor de e-mail e, se falhar, escreve no log só "não consegui conectar ao servidor de e-mail" (nunca a senha).
+
+### Testes automáticos
+
+- Textos do e-mail de convite completos nos 3 idiomas e protegidos contra HTML malicioso (o nome da jornada e o de quem convidou são digitados por pessoas).
+- Gancho de cadastro: aceita quem está na lista ou tem convite pendente e válido; recusa convite vencido, cancelado ou de outro e-mail.
+- Formato do `personId` e a regra "uma conta por pessoa da família na jornada".
+- `GET /api/invitations/:id`: devolve só os campos permitidos; convite inexistente e vencido dão a mesma resposta.
+- Leitura do `.env` com as regras novas do Gmail.
+- Textos das telas nos 3 idiomas (`ui-messages.test.ts`).
+- Os fluxos completos com banco (convidar, aceitar, remover) são testados à mão pelo Claude Code com o Mailpit, como no passo 3; testes automáticos com banco de teste entram no passo 6.
+
+### Pronto quando (teste do fundador)
+
+1. Com o Gmail do GoToUSA no `.env`, um "esqueci a senha" da conta do fundador **chega no Gmail pessoal dele** (caixa de entrada ou spam).
+2. Em **Mais → Conta**, o fundador cria a **jornada da família**.
+3. Convida o **cônjuge** como admin. O convite **chega no e-mail do cônjuge**, no idioma escolhido.
+4. No **celular do cônjuge**, o link abre o convite. O cônjuge cria a conta, confirma o e-mail pelo próprio celular e entra na jornada, **sem usar o PC do fundador**.
+5. Em **Pessoas da jornada**, os dois aparecem com os papéis certos.
+6. **Copiar link**, **reenviar** e **cancelar** funcionam; um convite cancelado mostra a mensagem amigável.
+7. Um e-mail **sem convite e fora da lista** continua sem conseguir criar conta.
+8. Crianças e adultos que não executam tarefas **não aparecem** na lista de quem pode ser convidado.
+9. `pnpm test`, `pnpm typecheck` e `pnpm lint` passam.
+
 ## Pendências desta fase
 
 - ~~IP real do celular (passo 3)~~: **resolvido** com o servidor próprio do app (`server.mjs`), testado em 19/11/2026.
 - ~~Definir no passo 3 se o NestJS usa o manipulador oficial do Better Auth ou o pacote da comunidade~~: **manipulador oficial** (ver o passo 3).
 
-- Definir no passo 4 como o link do convite também confirma o e-mail.
+- ~~Definir no passo 4 como o link do convite também confirma o e-mail~~: **não confirma** (dois e-mails; ver [Aceitar o convite](#aceitar-o-convite)).
+- Passo 7 (opcional, proposta): 2FA com app autenticador nas contas do GoToUSA (ver [2FA: duas coisas diferentes](#2fa-duas-coisas-diferentes)).
 - Script de backup do banco e como restaurar.

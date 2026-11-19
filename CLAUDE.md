@@ -213,7 +213,9 @@ Na raiz do repositório:
 
 - Sistema: Windows 11 com PowerShell.
 - Node.js 26 LTS e pnpm 12. Se `node`/`pnpm` não forem reconhecidos num terminal aberto antes da instalação, reinicie o terminal.
-- Por enquanto, apenas servidor local (nada publicado na web). O backend da fase de testes também roda só no PC, acessado pela rede de casa e **só com HTTP** (decisão de 19/11/2026; HTTPS é obrigatório antes de publicar). Docker e WSL 2 ainda não instalados.
+- Por enquanto, apenas servidor local (nada publicado na web). O backend da fase de testes também roda só no PC, acessado pela rede de casa e **só com HTTP** (decisão de 19/11/2026; HTTPS é obrigatório antes de publicar). **WSL 2 instalado em 19/11/2026** (WSL 3.0.5, sem distribuição Linux, porque o Docker Desktop não precisa), **aguardando reiniciar o PC** para ativar a "Plataforma da Máquina Virtual" (a virtualização do firmware já está ligada). **Docker Desktop ainda não instalado.**
+- Instalações que exigem administrador: o Claude Code dispara com `Start-Process ... -Verb RunAs` e o fundador clica em **Sim** na janela do Windows. Reiniciar o PC e aceitar termos de licença (ex.: Docker Desktop) são sempre do fundador.
+- Depois de reiniciar o PC, o servidor de teste do app precisa ser iniciado de novo (`pnpm --filter @gotousa/web start -H 0.0.0.0 -p 3000`, depois de `pnpm build`).
 - Git instalado em `C:\Program Files\Git\cmd\git.exe`. Se `git` não for reconhecido no terminal, use o caminho completo.
 - GitHub CLI instalado em `C:\Program Files\GitHub CLI\gh.exe` (sem login no ambiente do Claude Code). O push funciona pela credencial salva no Windows.
 
@@ -244,7 +246,7 @@ Na raiz do repositório:
 - [ ] Publicação sem backend, para os colegas do fundador usarem
 - [x] Quem executa cada tarefa (por papel), implementado em 19/11/2026
 - [x] Backend local documentado em 19/11/2026 ([docs/backend-local.md](docs/backend-local.md))
-- [ ] Backend local implementado (6 passos), para o teste com a família na rede de casa
+- [ ] Backend local implementado (6 passos), para o teste com a família na rede de casa: **passo 1 em andamento** (WSL 2 instalado, falta reiniciar o PC e instalar o Docker Desktop)
 - [ ] Backend publicado com conta e acesso compartilhado (exige HTTPS e os itens obrigatórios antes de publicar)
 
 ## Onde paramos (17/11/2026)
@@ -288,7 +290,12 @@ O app já funciona de ponta a ponta no navegador do celular, **sem backend**: av
 5. **Mais:** baixar a jornada e importar em outro navegador.
 
 ### Próximos passos
-0. **Backend local para o teste com a família** (decisão de 19/11/2026, [docs/backend-local.md](docs/backend-local.md)): 6 passos (banco e e-mail de teste, API vazia, contas e login, convites, jornada no servidor, permissões). Começa pela instalação do WSL 2 e do Docker Desktop.
+0. **Backend local para o teste com a família** (decisão de 19/11/2026, [docs/backend-local.md](docs/backend-local.md)): 6 passos (banco e e-mail de teste, API vazia, contas e login, convites, jornada no servidor, permissões). **Onde paramos (19/11/2026):** WSL 2 instalado; o fundador vai **reiniciar o PC**. Ao voltar ("reiniciei"):
+   1. conferir `wsl --status` (sem o aviso de virtualização);
+   2. instalar o Docker Desktop com `winget` (janela de administrador: o fundador clica em Sim) e o fundador aceita os termos na primeira abertura (login no Docker é opcional);
+   3. criar o `docker-compose.yml` (PostgreSQL e Mailpit só em `127.0.0.1`), o `.env.example` e o comando `pnpm db:up`;
+   4. subir de novo o servidor de teste do app.
+   - O fundador cria, até o passo 4, um **Gmail só para o GoToUSA** com verificação em 2 etapas e senha de app.
 1. **Corrigir em lote** o que o fundador encontrar no teste.
 2. **Publicar sem backend** para os colegas do fundador (decisão de 17/11/2026: seguir só com o navegador, sem login nem banco, por ser o mais seguro). Documentar antes de implementar: hospedagem gratuita que permita esse uso (conferir os termos), cabeçalhos de segurança completos (CSP), página de privacidade explicando que nada sai do aparelho, verificações automáticas no GitHub (Dependabot, Gitleaks), aviso de que o conteúdo ainda é pouco.
 3. **Conteúdo real da jornada** (Fase 0 em diante), sempre a partir de fonte oficial, e as taxas oficiais do orçamento.
@@ -298,7 +305,7 @@ O app já funciona de ponta a ponta no navegador do celular, **sem backend**: av
 ### Histórico das decisões e etapas
 - **16/11/2026:** questionário aprovado e traduzido; primeiro teste do fundador e ajustes; questionário como norte de tudo; sexo M/F como no passaporte.
 - **17/11/2026:** Marco 3 em 5 passos aprovados e implementados (modelo, formato do conteúdo, regras, prazos, perfil e caminhos); premissas reforçadas (só fonte oficial; positivo, mas baseado em fatos; fácil de usar; 3 idiomas sempre); registro nas tarefas; asilo e refúgio fora do app; telas aprovadas (funcionalidade primeiro, perfumaria depois; recompensa só na tarefa completa); Marco 5 implementado em 6 partes; 20 caminhos de visto do USCIS; nascimento com mês e ano; aba Mais com baixar e importar.
-- **19/11/2026:** ajustes do teste do fundador (representação legal e curatela, com fontes do Brasil e dos EUA); decisão do acesso compartilhado da família (papéis por tipo de pessoa e de acesso, convite por e-mail, só com o backend); **quem executa** implementado (progresso versão 3); backend local documentado (tudo no PC, rede de casa, só HTTP nesta fase, Better Auth com Argon2id, Mailpit nos testes e Gmail com senha de app para a família).
+- **19/11/2026:** ajustes do teste do fundador (representação legal e curatela, com fontes do Brasil e dos EUA); decisão do acesso compartilhado da família (papéis por tipo de pessoa e de acesso, convite por e-mail, só com o backend); **quem executa** implementado (progresso versão 3); backend local documentado (tudo no PC, rede de casa, só HTTP nesta fase, Better Auth com Argon2id, Mailpit nos testes e Gmail com senha de app para a família); serviço web futuro: VPS com acesso root (de preferência KVM) ou plataforma de contêineres com PostgreSQL gerenciado, nunca hospedagem compartilhada (cPanel); WSL 2 instalado.
 
 ## Como trabalhamos
 

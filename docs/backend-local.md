@@ -134,6 +134,14 @@ As permissões de [acesso-compartilhado.md](acesso-compartilhado.md#papéis-de-a
 - **Alternativa sem Docker:** instalar o PostgreSQL direto no Windows e o Mailpit como programa. Funciona, mas a configuração fica fora do repositório e é mais difícil de repetir.
 - **Recomendação:** Docker Desktop. É o que a stack já previa, e subir e desligar tudo fica num só comando.
 
+## Hospedagem na web, depois
+
+O mesmo projeto em contêineres roda na web com o **Docker Engine** (Linux, gratuito); o Docker Desktop é só a ferramenta do Windows. Serviços que funcionam:
+- **VPS** (servidor virtual) com **acesso root por SSH**, de preferência com virtualização **KVM** (OpenVZ ou LXC às vezes não rodam Docker);
+- **plataforma de contêineres** que publica a partir de um `Dockerfile`, de preferência com **PostgreSQL gerenciado** (backup automático).
+
+**Não serve:** hospedagem de sites compartilhada (cPanel, WordPress). Antes de contratar: procurar "Docker", "Dockerfile" ou "container" na documentação, perguntar ao suporte, conferir os termos e onde ficam os dados (LGPD). A comparação será feita nas fontes oficiais de cada serviço e documentada antes da contratação.
+
 ## Implementação em passos
 
 Cada passo é testado, documentado e enviado ao GitHub antes do próximo.

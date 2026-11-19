@@ -290,10 +290,156 @@ Depois, se ficar cansativo, um comando só para ligar tudo.
 4. A API usa algo do `packages/shared` sem erro.
 5. `pnpm test`, `pnpm typecheck` e `pnpm lint` passam.
 
+## Passo 3 em detalhe: contas e login
+
+> Documentado em 19/11/2026, antes de implementar. Fontes conferidas nessa data: documentação oficial do Better Auth (integração com Express, e-mail e senha, e-mail, adaptador do Prisma, limite de requisições, ganchos e segurança), o npm, o guia de *custom server* do Next.js 16 (em `apps/web/node_modules/next/dist/docs/`) e o *Password Storage Cheat Sheet* da OWASP.
+
+**Objetivo:** o fundador cria a conta, confirma o e-mail, entra e sai pelo celular, e recupera a senha se esquecer. **A jornada ainda não vai para a conta** (isso é o passo 5), e ainda não há convites (passo 4). O modo sem conta continua igual.
+
+### Versões e pacotes
+
+| Pacote | Versão | Licença | Para quê |
+|---|---|---|---|
+| `better-auth` | 1.7.26 (estável; existe uma 1.8 beta, que não usaremos) | MIT | Contas, sessões, confirmação de e-mail, recuperação de senha, limite de tentativas |
+| `@better-auth/prisma-adapter` | 1.7.26 | MIT | Liga o Better Auth ao Prisma (aceita o Prisma 7) |
+| `auth` (CLI oficial do Better Auth, mesmo repositório) | 1.7.26 | MIT | Gera as tabelas do Better Auth no `schema.prisma` |
+| `@node-rs/argon2` | 2.2.2 | MIT | **Argon2id** (é o que o próprio Better Auth usa no exemplo). Vem pronto para Windows, **sem script de instalação** |
+| `nodemailer` | 10.6.0 | MIT-0 | Envio dos e-mails por SMTP (Mailpit agora, Gmail no passo 4) |
+
+### Como o Better Auth entra no NestJS (decisão da pendência)
+
+- **Usamos o manipulador oficial** do Better Auth para Node (`toNodeHandler`), montado no Express que o NestJS usa por baixo, na rota **`/api/auth/*splat`** (formato do Express 5). **Não usamos o pacote da comunidade.**
+- O guia oficial manda montar o Better Auth **antes** do leitor de JSON. Por isso a API desliga o leitor automático do NestJS (`bodyParser: false`) e liga o leitor de JSON **depois** do Better Auth.
+- O Better Auth exige ESM; a API já é ESM.
+- Um **guarda** pequeno do NestJS pergunta ao Better Auth quem é a sessão (`auth.api.getSession`). Ele protege as rotas da API a partir de agora. Para testar o guarda, entra a rota **`GET /api/me`** (nome, e-mail e idioma de quem está logado). Ela vai servir de base para os passos 4 a 6.
+
+### Senha com Argon2id
+
+- O Better Auth usa scrypt por padrão. Trocamos pelo **Argon2id** com as opções `password.hash` e `password.verify`.
+- Parâmetros: **64 MiB de memória, 3 passagens, paralelismo 1**. Ficam acima do mínimo da OWASP (19 MiB, 2 passagens, paralelismo 1). O tempo será medido no PC: a meta é ficar abaixo de 1 segundo por login.
+- Senha de **8 a 128 caracteres** (padrão do Better Auth). A tela mostra a regra antes de a pessoa digitar.
+
+### Tabelas novas no banco (primeira migração)
+
+- Geradas pela CLI do Better Auth no `schema.prisma` e aplicadas com `prisma migrate`. **As migrações ficam versionadas no Git** (`apps/api/prisma/migrations/`).
+- `user`: nome, e-mail, e-mail confirmado, **idioma** (campo nosso, para os e-mails irem no idioma da pessoa) e datas.
+- `account`: o **hash Argon2id** da senha (nunca a senha).
+- `session`: sessões. O Better Auth guarda junto o **IP e o navegador** de cada sessão. Isso serve para o limite de tentativas e, no futuro, para "onde estou conectado". Fica registrado na página de privacidade quando ela existir.
+- `verification`: códigos de confirmação de e-mail e de troca de senha.
+- `rateLimit`: contadores do limite de tentativas. Ficam no banco para não zerar quando a API reinicia.
+- As tabelas de jornada (`organization`, `member`, `invitation`) **não** entram agora; chegam no passo 4.
+
+### Quem pode criar conta
+
+- **Só os e-mails da lista `AUTH_SIGNUP_ALLOWLIST`** do `.env` (no começo, só o e-mail do fundador). Isso é feito por um **gancho** (*hook*) do Better Auth na rota de cadastro, como mostra a documentação oficial.
+- E-mail fora da lista: a tela mostra "Nesta fase de testes, o cadastro é só por convite". As outras pessoas entram pelo convite do passo 4.
+
+### Fluxos e telas
+
+As telas ficam no app, nos **3 idiomas**, seguindo as regras de sempre (celular primeiro, botões grandes, linguagem simples, nada de vermelho de erro).
+
+| Fluxo | Como funciona |
+|---|---|
+| **Criar conta** | Nome (como quer ser chamado), e-mail e senha. Ao enviar, aparece sempre a mesma mensagem: "Se este e-mail puder ser usado, enviamos um link de confirmação". **Não revela se o e-mail já tem conta**: com a confirmação de e-mail ligada, o Better Auth responde igual nos dois casos e simula o cálculo da senha, para que nem o tempo da resposta denuncie |
+| **Confirmar o e-mail** | O e-mail traz um link. Ao abrir, a conta é confirmada e a pessoa já entra (`autoSignInAfterVerification`). **Sem confirmar, não entra** (`requireEmailVerification`); se tentar, o app reenvia o link |
+| **Entrar** | E-mail e senha. Senha errada mostra "E-mail ou senha não conferem", sem dizer qual dos dois |
+| **Esqueci a senha** | A pessoa informa o e-mail e a mensagem é sempre a mesma. O link do e-mail abre a tela "Criar nova senha". Ao trocar a senha, **todas as outras sessões caem** (`revokeSessionsOnPasswordReset`) |
+| **Sair** | Encerra a sessão neste aparelho |
+| **Apagar minha conta** | Pede a senha de novo e apaga a conta e as sessões (privacidade: LGPD e GDPR). A jornada salva no navegador continua lá |
+
+- **Onde ficam:** na aba **Mais**, uma seção **"Conta"** (Entrar / Criar conta; logado: nome, e-mail, Sair, Apagar conta). Rotas em `apps/web/src/app/[locale]/account/`: entrar, criar conta, "confira seu e-mail", esqueci a senha e nova senha.
+- **A seção só aparece quando o backend existe.** O app sem backend, que será publicado para os colegas, não pode mostrar "Entrar". Para isso há uma chave no `.env` (`ACCOUNTS_ENABLED=true`), lida no `pnpm build`.
+- **No app**, o cliente oficial do Better Auth para React (`better-auth/react`) fala com `/api/auth` no mesmo endereço. Ele só é carregado nas telas de conta, para não pesar no resto.
+- **Aviso legal no cadastro:** a tela de criar conta lembra o aviso legal (que a pessoa já aceitou ao abrir o app) e diz, em linguagem simples, o que a conta guarda: nome, e-mail, idioma, a senha protegida e os dados de acesso.
+- **Erros** do Better Auth (senha curta, muitas tentativas, e-mail não confirmado) viram textos amigáveis traduzidos, nunca o código técnico.
+
+### E-mails
+
+- Enviados pelo **Nodemailer**. Neste passo vão **só para o Mailpit** (`127.0.0.1:1025`): ninguém recebe nada de verdade, e você vê tudo em `http://localhost:8025`. O Gmail entra no passo 4.
+- **Dois e-mails:** confirmar o e-mail e criar nova senha. Saem no **idioma da pessoa** (campo `locale` da conta, conferido com a lista de idiomas do `packages/shared`).
+- **Textos fora do código**, em arquivos de tradução da API (`apps/api/src/email/messages/<idioma>.json`), com teste automático que falha se um idioma tiver chaves diferentes do pt-BR, como já acontece no app.
+- Texto simples e HTML mínimo, sem imagens, com o link escrito por extenso.
+- Seguindo a documentação, a API **não espera o envio terminar** antes de responder (evita que o tempo de resposta revele se o e-mail existe). Se o envio falhar, o erro vai para o log, sem o conteúdo do e-mail.
+- **Validade dos links:** os padrões do Better Auth serão conferidos no código na implementação e anotados aqui.
+
+### Limite de tentativas e o IP do celular (resolve a pendência do passo 2)
+
+**O problema:** o *rewrite* do Next.js 16 não repassa o IP do celular. Para a API, todo mundo parece ser o próprio PC. Pela documentação do Better Auth, sem IP todos os acessos dividem um contador só. Bastaria alguém errar a senha várias vezes para bloquear a família inteira por alguns minutos.
+
+**Proposta: um servidor próprio do app** (*custom server*, recurso oficial do Next.js descrito no guia da versão 16):
+- um arquivo pequeno, `apps/web/server.mjs`, que liga o Next.js e, **antes de cada requisição**, apaga qualquer cabeçalho `x-gotousa-client-ip` que venha de fora e grava nele o **IP real da conexão**;
+- o *rewrite* repassa esse cabeçalho para a API (o teste do passo 2 mostrou que os cabeçalhos da requisição chegam na API);
+- o Better Auth lê o IP **só desse cabeçalho** (`advanced.ipAddress.ipAddressHeaders`). Ninguém consegue falsificá-lo: o servidor do app sempre sobrescreve, e a API só aceita conexões do próprio PC;
+- o `pnpm --filter @gotousa/web start` passa a rodar esse servidor, na porta 3000 e na rede de casa, como hoje. O `pnpm dev` continua igual.
+
+O guia do Next.js recomenda servidor próprio só quando o roteador do Next não resolve, e este é o caso. **Alternativa**, se der problema: ficar com o contador único e limites mais folgados (risco aceitável numa rede só com a família), anotando isso aqui.
+
+**Limites** (ligados também fora do modo produção, porque o padrão do Better Auth é desligado em desenvolvimento):
+
+| Rota | Limite por IP |
+|---|---|
+| Entrar | 5 tentativas por minuto |
+| Criar conta | 3 por minuto |
+| Esqueci a senha e reenviar confirmação | 3 por minuto |
+| Demais rotas de conta | padrão do Better Auth (100 a cada 10 segundos) |
+
+Passou do limite: a tela diz "Muitas tentativas. Espere um minuto e tente de novo".
+
+### Sessão e cookies (só HTTP nesta fase)
+
+- Cookie de sessão **HttpOnly** e **SameSite=Lax** (padrões do Better Auth). **Sem a marca `Secure`**: o Better Auth só a liga quando o endereço é `https`. É o risco aceito desta fase.
+- Sessão de **7 dias**, renovada a cada dia de uso (padrões do Better Auth).
+- **Proteção contra CSRF:** o Better Auth confere a origem de cada requisição. Origens aceitas: o endereço do app na rede (`BETTER_AUTH_URL`, ex.: `http://192.168.0.6:3000`) e `http://localhost:3000` (para testar no PC).
+- **O IP do PC precisa ser fixo**, porque os links dos e-mails usam o `BETTER_AUTH_URL`. **Tarefa do fundador:** reservar o IP `192.168.0.6` para o PC no roteador (chamado "reserva de DHCP" ou "IP fixo"). Se o IP mudar, basta atualizar o `.env`.
+
+### Variáveis novas no `.env`
+
+| Variável | Exemplo | Para quê |
+|---|---|---|
+| `BETTER_AUTH_SECRET` | 32+ caracteres aleatórios (o Claude Code gera) | Assina e protege sessões e códigos |
+| `BETTER_AUTH_URL` | `http://192.168.0.6:3000` | Endereço do app na rede (links dos e-mails e origem aceita) |
+| `AUTH_SIGNUP_ALLOWLIST` | o e-mail do fundador | Quem pode criar conta sem convite (separados por vírgula) |
+| `SMTP_HOST` / `SMTP_PORT` | `127.0.0.1` / `1025` | Servidor de e-mail (Mailpit agora) |
+| `SMTP_USER` / `SMTP_PASS` | vazios agora | Usados no passo 4 (Gmail) |
+| `MAIL_FROM` | `GoToUSA <nao-responda@gotousa.local>` | Remetente dos e-mails |
+| `ACCOUNTS_ENABLED` | `true` | Mostra a seção Conta no app (lido no `pnpm build`) |
+
+Como hoje, a API confere tudo com Zod ao ligar e recusa ligar se faltar algo, dizendo **qual** variável, sem mostrar o valor. O `next.config.ts` passa a ler o `.env` da raiz (com o recurso do próprio Node.js) para o `ACCOUNTS_ENABLED` e o `API_INTERNAL_URL`.
+
+### Comandos novos
+
+| Comando | O que faz |
+|---|---|
+| `pnpm db:migrate` | Aplica as migrações do banco (rodar depois de atualizar o código) |
+| `pnpm db:migrate:new <nome>` | Cria uma migração nova a partir do `schema.prisma` (uso no desenvolvimento) |
+
+### Testes automáticos
+
+- Hash e conferência da senha (formato Argon2id, senha errada recusada).
+- Gancho da lista de e-mails (dentro aceita, fora recusa, sem diferenciar maiúsculas).
+- Textos dos e-mails completos nos 3 idiomas, e-mail no idioma da conta.
+- Leitura do `.env` com as variáveis novas.
+- Guarda de sessão: `/api/me` sem sessão responde `401`.
+- Servidor do app: o cabeçalho de IP vindo de fora é sempre trocado pelo IP real.
+- Textos das telas nos 3 idiomas (o teste `ui-messages.test.ts` que já existe).
+- Os testes que precisam do banco de verdade (cadastro completo, limite de tentativas) são feitos **à mão** neste passo (lista abaixo). Testes automáticos com um banco de teste separado entram no passo 6, junto com as permissões.
+
+### Pronto quando (teste do fundador)
+
+1. Na aba **Mais → Conta**, pelo celular, o fundador cria a conta com o e-mail da lista.
+2. O e-mail de confirmação aparece no Mailpit (`http://localhost:8025`, no PC), no idioma do app. O link confirma a conta e já entra.
+3. **Sair** e **entrar** de novo pelo celular. `http://192.168.0.6:3000/api/me` mostra o nome e o e-mail.
+4. Um e-mail **fora da lista** não consegue criar conta, com mensagem amigável.
+5. Errar a senha 6 vezes seguidas mostra "Muitas tentativas"; **outro aparelho continua conseguindo entrar** (prova de que o limite é por IP).
+6. **Esqueci a senha:** chega o e-mail, a senha é trocada e a sessão antiga cai.
+7. **Apagar a conta** funciona, e a jornada no navegador continua lá.
+8. O app **sem** `ACCOUNTS_ENABLED` não mostra a seção Conta.
+9. `pnpm test`, `pnpm typecheck` e `pnpm lint` passam.
+
 ## Pendências desta fase
 
-- **IP real do celular (passo 3):** o *rewrite* do Next.js 16 não repassa o `X-Forwarded-For`. Antes de ligar o limite de tentativas, escolher entre: limitar por **e-mail/conta** além do IP; passar o `/api` pelo `proxy.ts` do app, que acrescentaria o cabeçalho (conferir no guia do Next.js 16 se o IP de quem acessa está disponível ali); ou outra forma documentada.
+- **IP real do celular (passo 3):** o *rewrite* do Next.js 16 não repassa o `X-Forwarded-For`, e o guia do `proxy.ts` não oferece o IP de quem acessa. **Proposta documentada no passo 3:** servidor próprio do app (`server.mjs`) que grava o IP real num cabeçalho só nosso.
+- ~~Definir no passo 3 se o NestJS usa o manipulador oficial do Better Auth ou o pacote da comunidade~~: **manipulador oficial** (ver o passo 3).
 
-- Definir no passo 3 se o NestJS usa o manipulador oficial do Better Auth (proposta) ou o pacote da comunidade.
 - Definir no passo 4 como o link do convite também confirma o e-mail.
 - Script de backup do banco e como restaurar.

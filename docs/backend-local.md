@@ -130,7 +130,7 @@ As permissões de [acesso-compartilhado.md](acesso-compartilhado.md#papéis-de-a
 
 ## O que precisa ser instalado no PC
 
-- **Docker** para rodar o PostgreSQL e o Mailpit, com um `docker-compose.yml` no repositório. Opções: **Docker Desktop** (gratuito para uso pessoal e empresas pequenas) ou **Rancher Desktop** (totalmente gratuito). Os dois precisam do **WSL 2** do Windows, que **ainda não está instalado** (a virtualização do PC já está ligada).
+- **Docker** para rodar o PostgreSQL e o Mailpit, com um `docker-compose.yml` no repositório. Opções: **Docker Desktop** (gratuito para uso pessoal e empresas pequenas) ou **Rancher Desktop** (totalmente gratuito). Os dois precisam do **WSL 2** do Windows. **Instalados em 19/11/2026:** WSL 2 e Docker Desktop 4.99.
 - **Alternativa sem Docker:** instalar o PostgreSQL direto no Windows e o Mailpit como programa. Funciona, mas a configuração fica fora do repositório e é mais difícil de repetir.
 - **Recomendação:** Docker Desktop. É o que a stack já previa, e subir e desligar tudo fica num só comando.
 
@@ -146,7 +146,7 @@ O mesmo projeto em contêineres roda na web com o **Docker Engine** (Linux, grat
 
 Cada passo é testado, documentado e enviado ao GitHub antes do próximo.
 
-1. **Banco e e-mail de teste:** WSL 2 e Docker instalados; `docker-compose.yml` com PostgreSQL e Mailpit (só em `127.0.0.1`); `.env.example` atualizado. *Pronto quando:* `pnpm db:up` sobe tudo e a tela do Mailpit abre.
+1. **Banco e e-mail de teste:** WSL 2 e Docker instalados; `docker-compose.yml` com PostgreSQL e Mailpit (só em `127.0.0.1`); `.env.example` atualizado. *Pronto quando:* `pnpm db:up` sobe tudo e a tela do Mailpit abre. **Concluído em 19/11/2026:** PostgreSQL 18.7 e Mailpit 1.27 sobem saudáveis; banco responde; Mailpit recebeu um e-mail de teste; as portas 5432, 1025 e 8025 não respondem pela rede (só no PC). Senha do banco só no `.env`; o volume `postgres-data` guarda os dados entre reinícios.
 2. **API vazia:** NestJS em `apps/api` com Prisma, rota de saúde (`/api/health`) e o *rewrite* do app. *Pronto quando:* o celular abre `http://<IP>:3000/api/health`.
 3. **Contas e login:** Better Auth com Argon2id, cadastro só para e-mails autorizados, confirmação de e-mail (Mailpit), login, sair, recuperar senha. Telas de entrar e criar conta nos 3 idiomas. *Pronto quando:* o fundador cria a conta e entra pelo celular.
 4. **Convites:** jornada como organização, convite com escolha da pessoa e do papel, e-mail com link, "Copiar link", aceitar o convite. Gmail configurado. *Pronto quando:* o cônjuge recebe o convite no e-mail e entra.

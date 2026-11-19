@@ -1,0 +1,41 @@
+# Serviços locais do GoToUSA (fase de testes com a família).
+# Ver docs/backend-local.md.
+#
+# Tudo escuta SÓ em 127.0.0.1 (o próprio PC), nunca na rede de casa.
+# Segredos vêm do arquivo ".env" (copie de ".env.example"); ele nunca vai para o Git.
+#
+# Comandos: pnpm db:up (subir) · pnpm db:down (desligar) · pnpm db:logs (ver mensagens)
+
+name: gotousa
+
+services:
+  # Banco de dados
+  postgres:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-gotousa}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD no arquivo .env}
+      POSTGRES_DB: ${POSTGRES_DB:-gotousa}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      # A partir do PostgreSQL 18, o volume fica em /var/lib/postgresql
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # E-mail de teste: captura os e-mails sem enviar.
+  # Tela: http://localhost:8025 · SMTP para a API: 127.0.0.1:1025
+  mailpit:
+    image: axllent/mailpit:v1.27
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
+
+volumes:
+  postgres-data:

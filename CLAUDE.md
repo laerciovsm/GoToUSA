@@ -62,6 +62,7 @@ O GoToUSA ajuda a pessoa a **criar a própria jornada** e a evoluir nela, com tu
 - Orçamento da mudança (custos até a mudança, custo mensal nos EUA com impostos e taxas do estado, renda × despesas): [docs/orcamento.md](docs/orcamento.md).
 - Identidade visual, paleta e lúdico (trilha da família, mala da prontidão, carimbos): [docs/design.md](docs/design.md).
 - Telas da jornada (Marco 5): [docs/telas.md](docs/telas.md).
+- Acesso compartilhado (quem executa, papéis dono/admin/participante, convite por e-mail): [docs/acesso-compartilhado.md](docs/acesso-compartilhado.md).
 - Checklist para quando for comercializar (custos, simulação de custo da IA, empresa, jurídico): [docs/comercializacao.md](docs/comercializacao.md).
 
 ### Funcionalidades decididas
@@ -201,7 +202,8 @@ Na raiz do repositório:
 - **UUID:** usar `uuid()` de `@gotousa/shared`, que funciona também sem HTTPS (teste no celular pela rede local).
 - **Jornada:** motor em `packages/shared/src/journey/`; conteúdo em `content/journey/` (uma pasta por tarefa: `task.json` + `pt-BR.md`, `en-US.md`, `es.md`). Ao criar uma tarefa, escreva os 3 idiomas e rode `pnpm test`: o teste `content.test.ts` bloqueia conteúdo com problema. Fato legal, prazo oficial ou taxa só com fonte oficial em `sources` e citado no texto com `[[fonte:id]]`.
 - **Telas:** `apps/web/src/app/[locale]/{today,journey,family,more}/page.tsx` (rotas) e `apps/web/src/components/{today,journey,family,more}/`. As telas da jornada usam `JourneyGate` (carrega respostas e progresso, mostra carregando/erro/convite ao questionário) e guardam o estado na URL (`?task=`, `?phase=`, `?view=theme`, `?person=`, `?new=1`, `?own=`, `?path=`), para o "voltar" do celular funcionar. Fontes oficiais sempre pelo componente fixo `official-sources.tsx`; Markdown do conteúdo só por `simple-markdown.tsx` (seguro, sem HTML).
-- **Progresso salvo na versão 2** (`checkins`, `pausedAt`, `endedAt`), com migração da versão 1 em `parseProgress`. Ao mudar o formato, nova versão com migração, como no questionário.
+- **Progresso salvo na versão 3** (v2: `checkins`, `pausedAt`, `endedAt`; v3: `executors`), com migração das versões 1 e 2 em `parseProgress`. Ao mudar o formato, nova versão com migração, como no questionário.
+- **Quem executa:** todo `task.json` tem `executor` (`person`, `owner` ou `family`), por papel, nunca por nome. Regras em `packages/shared/src/journey/executor.ts` (`canExecute`, `defaultExecutor`, `executorOptions`, `setTaskExecutor`). Ver [docs/acesso-compartilhado.md](docs/acesso-compartilhado.md).
 - **Baixar e importar:** formato em `packages/shared/src/backup.ts` (`createBackup`, `parseBackup`): só respostas e progresso, validados por Zod e pelas migrações, limite de 2 MB. Ao criar um dado novo salvo no navegador, incluí-lo no arquivo.
 - **Condições do conteúdo:** além de `q` (família) e `p` (pessoa da vez), `w` lê a resposta de carreira do adulto da vez (`you.<w>` para você, `career.<w>` para os outros); em respostas de várias escolhas, `gte`/`lte` contam os itens marcados.
 - **Telas da jornada:** `apps/web/src/components/journey/`. O conteúdo chega pelo servidor no build (`apps/web/src/lib/journey/content.ts`, que importa `@gotousa/shared/node`; nunca importar isso em componente do navegador). Mudanças no progresso só pelas funções de `packages/shared/src/journey/progress.ts`. Textos da interface em `apps/web/messages/<idioma>.json`; o teste `ui-messages.test.ts` falha se um idioma tiver chaves diferentes do pt-BR.
@@ -239,7 +241,8 @@ Na raiz do repositório:
 - [ ] **Teste acumulado do fundador no celular** (em andamento, 17/11/2026)
 - [ ] Conteúdo real da jornada além das tarefas de exemplo (Fase 0 em diante), sempre com fonte oficial
 - [ ] Publicação sem backend, para os colegas do fundador usarem
-- [ ] Backend com conta (depois do MVP)
+- [x] Quem executa cada tarefa (por papel), implementado em 19/11/2026
+- [ ] Backend com conta e acesso compartilhado da família (depois do MVP; desenho em [docs/acesso-compartilhado.md](docs/acesso-compartilhado.md))
 
 ## Onde paramos (17/11/2026)
 
@@ -286,11 +289,12 @@ O app já funciona de ponta a ponta no navegador do celular, **sem backend**: av
 2. **Publicar sem backend** para os colegas do fundador (decisão de 17/11/2026: seguir só com o navegador, sem login nem banco, por ser o mais seguro). Documentar antes de implementar: hospedagem gratuita que permita esse uso (conferir os termos), cabeçalhos de segurança completos (CSP), página de privacidade explicando que nada sai do aparelho, verificações automáticas no GitHub (Dependabot, Gitleaks), aviso de que o conteúdo ainda é pouco.
 3. **Conteúdo real da jornada** (Fase 0 em diante), sempre a partir de fonte oficial, e as taxas oficiais do orçamento.
 4. Pendências menores: cartão "Novidades" (precisa guardar o que a pessoa já viu); capital de cada estado com fonte .gov; profissão e cargo como lista padronizada (avaliar O\*NET); lista de países com tratado e instruções da loteria por uma fonte oficial legível (ex.: Federal Register, 9 FAM).
-5. **Depois do MVP:** backend com conta (login seguro, Argon2id, 2FA, banco criptografado, transferência da jornada do navegador para a conta), PWA, custos personalizados da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
+5. **Depois do MVP:** backend com conta (login seguro, Argon2id, 2FA, banco criptografado, transferência da jornada do navegador para a conta) e **acesso compartilhado da família** (dono, admins e participantes, convite por e-mail; [docs/acesso-compartilhado.md](docs/acesso-compartilhado.md)), PWA, custos personalizados da família ([docs/orcamento.md](docs/orcamento.md#custos-personalizados)).
 
 ### Histórico das decisões e etapas
 - **16/11/2026:** questionário aprovado e traduzido; primeiro teste do fundador e ajustes; questionário como norte de tudo; sexo M/F como no passaporte.
 - **17/11/2026:** Marco 3 em 5 passos aprovados e implementados (modelo, formato do conteúdo, regras, prazos, perfil e caminhos); premissas reforçadas (só fonte oficial; positivo, mas baseado em fatos; fácil de usar; 3 idiomas sempre); registro nas tarefas; asilo e refúgio fora do app; telas aprovadas (funcionalidade primeiro, perfumaria depois; recompensa só na tarefa completa); Marco 5 implementado em 6 partes; 20 caminhos de visto do USCIS; nascimento com mês e ano; aba Mais com baixar e importar.
+- **19/11/2026:** ajustes do teste do fundador (representação legal e curatela, com fontes do Brasil e dos EUA); decisão do acesso compartilhado da família (papéis por tipo de pessoa e de acesso, convite por e-mail, só com o backend); **quem executa** implementado (progresso versão 3).
 
 ## Como trabalhamos
 

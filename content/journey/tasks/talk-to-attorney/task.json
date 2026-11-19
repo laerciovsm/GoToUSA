@@ -11,6 +11,7 @@
   "who": {
     "scope": "family"
   },
+  "executor": "owner",
   "appliesWhen": null,
   "highlightWhen": null,
   "deadline": null,

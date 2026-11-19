@@ -9,6 +9,7 @@ import type { Person, QuestionnaireData } from "../questionnaire/types";
 import { evaluate, type ConditionContext, type Tri } from "./conditions";
 import { computeDue, daysBetween, parseIsoDate, WEEKLY_HOURS, type DateRefs } from "./dates";
 import { toIsoDate } from "./schema";
+import { defaultExecutor, resolveExecutor } from "./executor";
 import {
   PHASE_IDS,
   type Catalog,
@@ -163,6 +164,7 @@ export function generateJourney(
       const saved = progress.tasks[key];
       const { due, relative } = computeDue(def.deadline, def.phase, refs);
       const status = saved?.status ?? "todo";
+      const executorDefault = defaultExecutor(def.executor, data, person, now);
       tasks.push({
         key,
         taskId: def.id,
@@ -182,6 +184,8 @@ export function generateJourney(
         status,
         priority: !!due && due < today && status !== "done" && status !== "na",
         hours: (def.time.minHours + def.time.maxHours) / 2,
+        executor: resolveExecutor(progress, key, executorDefault, data, now),
+        executorDefault,
       });
     }
   }

@@ -11,6 +11,7 @@
   "who": {
     "scope": "each"
   },
+  "executor": "person",
   "appliesWhen": {
     "not": {
       "p": "docs.passport",

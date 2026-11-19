@@ -4,6 +4,8 @@ import { useId, useState } from "react";
 import { useFormatter, useTranslations } from "next-intl";
 import {
   completedPhases,
+  executorOptions,
+  setTaskExecutor,
   emptyRecord,
   setTaskStatus,
   taskProgress,
@@ -40,8 +42,9 @@ export function TaskDetail({ content, state, task, update, onOpenTask, onBack }:
   const t = useTranslations("Journey");
   const tq = useTranslations("Q");
   const format = useFormatter();
-  const { taskTitle, dueText, hoursText, personName } = useJourneyText(content, state.data);
+  const { taskTitle, dueText, hoursText, personName, executorName } = useJourneyText(content, state.data);
   const planId = useId();
+  const executorId = useId();
   const noteId = useId();
   const [celebration, setCelebration] = useState<string | null>(null);
 
@@ -126,6 +129,30 @@ export function TaskDetail({ content, state, task, update, onOpenTask, onBack }:
         </div>
         {task.priority && task.status !== "done" && task.status !== "na" && <p className="text-sm text-ink2">{t("priorityHint")}</p>}
       </header>
+
+      {/* Quem executa (por papel; dá para trocar e voltar ao padrão) */}
+      {state.data.people.length > 1 && (
+        <section className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-4">
+          <label htmlFor={executorId} className="font-semibold">👤 {t("executorLabel")}</label>
+          <select
+            id={executorId}
+            value={task.executor}
+            onChange={(e) => update((p) => setTaskExecutor(p, task.key, e.target.value, task.executorDefault))}
+            className="w-full max-w-72 rounded-xl border-2 border-line bg-surface px-3 py-2.5 text-ink focus:border-primary focus:outline-none"
+          >
+            {executorOptions(state.data, new Date()).map((id) => (
+              <option key={id} value={id}>
+                {executorName(id)}
+                {id === task.executorDefault ? ` ${t("executorDefault")}` : ""}
+              </option>
+            ))}
+          </select>
+          {task.personId && task.executorDefault !== task.personId && task.executor !== task.personId && (
+            <p className="text-sm text-ink2">{t("executorDependentHint", { person: person ?? "" })}</p>
+          )}
+          <p className="text-sm text-ink2">{t("executorHint")}</p>
+        </section>
+      )}
 
       {waiting && (
         <section className="flex flex-col items-start gap-2 rounded-2xl border border-line bg-surface p-4">

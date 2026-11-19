@@ -11,6 +11,7 @@
   "who": {
     "scope": "family"
   },
+  "executor": "owner",
   "appliesWhen": {
     "not": {
       "fact": "departureKnown"

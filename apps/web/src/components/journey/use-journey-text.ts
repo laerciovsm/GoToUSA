@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { useFormatter, useTranslations } from "next-intl";
-import { parseIsoDate, splitTaskKey, type JourneyTask, type QuestionnaireData } from "@gotousa/shared";
+import { FAMILY_EXECUTOR, parseIsoDate, splitTaskKey, type JourneyTask, type QuestionnaireData } from "@gotousa/shared";
 import type { JourneyContent } from "@/lib/journey/content";
 import { usePersonLabel } from "@/components/questionnaire/use-person-label";
 
@@ -19,6 +19,12 @@ export function useJourneyText(content: JourneyContent, data: QuestionnaireData)
       return person ? personLabel(person) : null;
     },
     [data, personLabel],
+  );
+
+  /** Quem executa: o nome da pessoa ou "a família toda". */
+  const executorName = useCallback(
+    (executor: string) => (executor === FAMILY_EXECUTOR ? t("executorFamily") : personName(executor) ?? t("executorFamily")),
+    [t, personName],
   );
 
   /** "Conferir o passaporte · Pedro" (a pessoa só aparece nas tarefas por pessoa). */
@@ -52,5 +58,5 @@ export function useJourneyText(content: JourneyContent, data: QuestionnaireData)
     [content, t],
   );
 
-  return { personName, taskTitle, dueText, hoursText };
+  return { personName, executorName, taskTitle, dueText, hoursText };
 }

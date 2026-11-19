@@ -11,6 +11,7 @@
   "who": {
     "scope": "family"
   },
+  "executor": "family",
   "appliesWhen": null,
   "highlightWhen": {
     "q": "moment.partnerSupport",

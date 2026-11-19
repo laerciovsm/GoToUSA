@@ -61,6 +61,7 @@ export const taskDefSchema: z.ZodType<TaskDef> = z.strictObject({
     z.strictObject({ scope: z.literal("family") }),
     z.strictObject({ scope: z.literal("each"), where: conditionSchema.optional() }),
   ]),
+  executor: z.enum(["person", "owner", "family"]),
   appliesWhen: conditionSchema.nullable(),
   highlightWhen: conditionSchema.nullable(),
   deadline: deadlineSchema.nullable(),
@@ -167,28 +168,39 @@ const progressV1Shape = {
 const checkinSchema = z.strictObject({ answer: z.enum(["continue", "pause", "adjust", "end"]), at: z.iso.datetime() });
 
 /** Versão 2 (17/11/2026): check-in de fase, pausa e encerramento. */
-export const progressSchema = z.strictObject({
+const progressV2Shape = {
   ...progressV1Shape,
-  schemaVersion: z.literal(2),
   checkins: z.partialRecord(phase, checkinSchema),
   pausedAt: z.iso.datetime().nullable(),
   endedAt: z.iso.datetime().nullable(),
+};
+/** Versão 3 (19/11/2026): quem executa cada tarefa. */
+export const progressSchema = z.strictObject({
+  ...progressV2Shape,
+  schemaVersion: z.literal(3),
+  executors: z.record(z.string().max(200), z.union([z.uuid(), z.literal("family")])),
 });
+const progressV2Schema = z.strictObject({ ...progressV2Shape, schemaVersion: z.literal(2) });
 const progressV1Schema = z.strictObject({ ...progressV1Shape, schemaVersion: z.literal(1) });
 
-/** Valida o progresso salvo (migrando a versão 1). Retorna undefined se não for válido. */
+type ProgressV2 = Omit<JourneyProgress, "schemaVersion" | "executors">;
+
+/** Valida o progresso salvo (migrando as versões 1 e 2). Retorna undefined se não for válido. */
 export function parseProgress(value: unknown): JourneyProgress | undefined {
   const result = progressSchema.safeParse(value);
   if (result.success) return result.data as JourneyProgress;
+  const v2 = progressV2Schema.safeParse(value);
+  if (v2.success) return { ...(v2.data as ProgressV2), schemaVersion: 3, executors: {} };
   const v1 = progressV1Schema.safeParse(value);
   if (!v1.success) return undefined;
-  return { ...(v1.data as Omit<JourneyProgress, "schemaVersion" | "checkins" | "pausedAt" | "endedAt">), schemaVersion: 2, checkins: {}, pausedAt: null, endedAt: null };
+  const base = v1.data as Omit<ProgressV2, "checkins" | "pausedAt" | "endedAt">;
+  return { ...base, schemaVersion: 3, checkins: {}, pausedAt: null, endedAt: null, executors: {} };
 }
 
 /** Progresso novo: a jornada começa hoje. */
 export function createProgress(now: Date = new Date()): JourneyProgress {
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     startedAt: toIsoDate(now),
     discoveryDue: null,
     arrivalDate: null,
@@ -197,6 +209,7 @@ export function createProgress(now: Date = new Date()): JourneyProgress {
     checkins: {},
     pausedAt: null,
     endedAt: null,
+    executors: {},
   };
 }
 

@@ -68,6 +68,14 @@ export type Deadline =
 
 export type Who = { scope: "family" } | { scope: "each"; where?: Condition };
 
+/**
+ * Quem executa a tarefa (decisão de 19/11/2026), por papel, nunca por nome:
+ * - "person": a própria pessoa da tarefa, se for adulta e capaz; senão, o responsável pela jornada;
+ * - "owner": o responsável pela jornada (hoje, "você" no questionário);
+ * - "family": a família toda.
+ */
+export type Executor = "person" | "owner" | "family";
+
 /** Seção "Registro" da tarefa (decisão de 17/11/2026). Nunca recebe arquivos nem números de documentos. */
 export type RecordSpec = { type: "agreement" } | { type: "documents"; documents: string[] } | { type: "notes" };
 
@@ -100,6 +108,7 @@ export type TaskDef = {
   /** Essencial: entra para todos, inclusive sem resposta; só sai se uma resposta mostrar que não se aplica. */
   essential: boolean;
   who: Who;
+  executor: Executor;
   appliesWhen: Condition | null;
   highlightWhen: Condition | null;
   deadline: Deadline | null;
@@ -225,7 +234,7 @@ export type CheckinAnswer = "continue" | "pause" | "adjust" | "end";
 export type Checkin = { answer: CheckinAnswer; /** ISO */ at: string };
 
 export type JourneyProgress = {
-  schemaVersion: 2;
+  schemaVersion: 3;
   /** Início da jornada (AAAA-MM-DD): base da Fase 0. */
   startedAt: string;
   /** Prazo da Fase 0 escolhido pela pessoa (AAAA-MM-DD), ou null para o padrão de 1 mês. */
@@ -241,6 +250,8 @@ export type JourneyProgress = {
   pausedAt: string | null;
   /** Jornada encerrada por decisão consciente (ISO), ou null. Pode ser retomada. */
   endedAt: string | null;
+  /** Quem executa, escolhido pela pessoa (chave da tarefa → ID da pessoa ou "family"). Sem entrada, vale o padrão do conteúdo. */
+  executors: Record<string, string>;
 };
 
 // ---------------------------------------------------------------------------
@@ -277,6 +288,10 @@ export type JourneyTask = {
   priority: boolean;
   /** Média do tempo estimado, em horas. */
   hours: number;
+  /** Quem executa: ID da pessoa ou "family". */
+  executor: string;
+  /** Executor padrão pelo conteúdo (para "voltar ao padrão"). */
+  executorDefault: string;
 };
 
 export type VisiblePath = {

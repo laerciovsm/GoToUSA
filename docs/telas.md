@@ -199,6 +199,13 @@ Cada parte é testada no celular pelo fundador antes da próxima.
 - **Tela Jornada** (`/journey`): trilha simples com as fases (ícone, ✓ nas concluídas, "você está aqui"), etapas que abrem e fecham com "x de y", cartões com prazo, selos **Prioridade**, **Destaque** e **Aguardando**.
 - **Tela Tarefa** (`/journey?task=chave`): fase e etapa, para quem, peso, tempo e prazo; por que importa; subtarefas; passo a passo (leitor de Markdown seguro em `simple-markdown.tsx`, sem HTML); fontes oficiais com o aviso padrão (quando houver); "Quando e onde?"; **Registro** (combinado, documentos ou anotações); anotação pessoal; botões Comecei, Concluí e Não se aplica, todos com desfazer; tarefa aguardando mostra o que vem antes; comemoração só ao concluir a tarefa inteira, com a recompensa escolhida pela pessoa e o próximo passo.
 - **Barra inferior** por enquanto com **Jornada** e **Questionário**; Hoje, Família e Mais entram nas próximas partes. O questionário mostra "Ver a minha jornada" depois que a parte essencial é concluída.
+### Quem executa (19/11/2026)
+
+- **Cartão da tarefa:** "👤 Quem faz: …" (quando a família tem mais de uma pessoa).
+- **Tela da tarefa:** seção "Quem faz" com a lista dos adultos que podem executar e "A família toda"; o padrão vem marcado. Quando a tarefa é para uma criança ou um adulto que depende de ajuda, um aviso explica que quem faz é um adulto responsável.
+- **Filtro por pessoa:** mostra as tarefas para a pessoa, as que ela executa e as da família toda.
+- Regras e o desenho do acesso compartilhado (contas, convites, papéis): [acesso-compartilhado.md](acesso-compartilhado.md).
+
 ### Parte 4 implementada (17/11/2026, antes da parte 3, a pedido do fundador)
 
 - **Tela Família** (`/family`): quem vai (idades na meta), perfil profissional, cuidados (sem detalhes sensíveis), dinheiro (com a dica positiva de "renda única"), preferências, pontos de atenção e **caminhos de visto para conhecer**, agrupados em permanentes e temporários e por grupo, sem ranking, com "aparece por" em cada um. Cada seção tem **"Mudar resposta"**, que abre o bloco direto no questionário (`/questionnaire?block=<id>`). Blocos que podem trazer outros caminhos aparecem como convite.

@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { createQuestionnaire, setAnswer } from "../questionnaire/engine";
 import type { QuestionnaireData } from "../questionnaire/types";
 import { evaluate } from "./conditions";
+import { canExecute, executorOptions, setTaskExecutor } from "./executor";
 import { addMonths, computeDue } from "./dates";
 import { FACTS } from "./facts";
 import { parseFrontmatter } from "./frontmatter";
@@ -51,6 +52,7 @@ const task = (over: Partial<TaskDef> & { id: string }): TaskDef => ({
   type: "action",
   essential: false,
   who: { scope: "family" },
+  executor: "owner",
   appliesWhen: null,
   highlightWhen: null,
   deadline: null,
@@ -322,7 +324,7 @@ describe("progresso salvo e textos", () => {
   it("valida o progresso (ida e volta) e recusa formato desconhecido", () => {
     const p = progressAt();
     expect(parseProgress(JSON.parse(JSON.stringify(p)))).toEqual(p);
-    expect(parseProgress({ ...p, schemaVersion: 3 })).toBeUndefined();
+    expect(parseProgress({ ...p, schemaVersion: 4 })).toBeUndefined();
   });
   it("lê o cabeçalho dos textos", () => {
     const { data, body } = parseFrontmatter("---\ntitle: Olá: mundo\nsubtasks:\n  a-1: Primeira\n---\n\nTexto");
@@ -398,6 +400,56 @@ describe("cenário inicial com o conteúdo real", () => {
     const keys = generateJourney(catalog, data, progressAt(), NOW).tasks.map((t) => t.key);
     expect(keys).toContain(`request-guardianship@${elder.id}`);
     expect(keys).toContain(`legal-representation@${elder.id}`);
+  });
+});
+
+describe("quem executa", () => {
+  const catalog = loadCatalog(CONTENT_DIR);
+  const family = () => founderFamily();
+  const ids = (data: QuestionnaireData) => ({
+    self: data.people.find((p) => p.kind === "self")!.id,
+    partner: data.people.find((p) => p.kind === "partner")!.id,
+    child: data.people.find((p) => p.kind === "child")!.id,
+  });
+  const find = (data: QuestionnaireData, key: string, progress = progressAt()) =>
+    generateJourney(catalog, data, progress, NOW).tasks.find((t) => t.key === key)!;
+
+  it("segue o papel do conteúdo: família, responsável ou a própria pessoa", () => {
+    const data = family();
+    const { self, partner } = ids(data);
+    expect(find(data, "family-talk").executor).toBe("family");
+    expect(find(data, "moving-budget").executor).toBe(self);
+    expect(find(data, `passport-check@${partner}`).executor).toBe(partner);
+  });
+
+  it("filho adulto que depende de ajuda: quem executa é o responsável", () => {
+    let data = family();
+    const { self, child } = ids(data);
+    const childPerson = data.people.find((p) => p.id === child)!;
+    data = setAnswer(data, "health.autonomy", "full", childPerson, NOW);
+    expect(canExecute(data, childPerson, NOW)).toBe(false);
+    expect(find(data, `passport-check@${child}`).executor).toBe(self);
+    expect(executorOptions(data, NOW)).not.toContain(child);
+
+    data = setAnswer(data, "health.autonomy", "independent", childPerson, NOW);
+    expect(find(data, `passport-check@${child}`).executor).toBe(child);
+  });
+
+  it("a escolha da pessoa vale e pode voltar ao padrão", () => {
+    const data = family();
+    const { self, partner } = ids(data);
+    let progress = setTaskExecutor(progressAt(), "moving-budget", partner, self);
+    expect(find(data, "moving-budget", progress)).toMatchObject({ executor: partner, executorDefault: self });
+    progress = setTaskExecutor(progress, "moving-budget", self, self);
+    expect(progress.executors).toEqual({});
+    // Escolha que deixou de valer (pessoa não pode mais executar) volta ao padrão.
+    let data2 = data;
+    const child = data2.people.find((p) => p.kind === "child")!;
+    data2 = setAnswer(data2, "health.autonomy", "independent", child, NOW);
+    progress = setTaskExecutor(progressAt(), "moving-budget", child.id, self);
+    expect(find(data2, "moving-budget", progress).executor).toBe(child.id);
+    data2 = setAnswer(data2, "health.autonomy", "full", child, NOW);
+    expect(find(data2, "moving-budget", progress).executor).toBe(self);
   });
 });
 

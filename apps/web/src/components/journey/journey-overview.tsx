@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormatter, useTranslations } from "next-intl";
-import { completedPhases, parseIsoDate, setOwnTaskStatus, THEME_IDS, type JourneyTask, type OwnTask, type PhaseId } from "@gotousa/shared";
+import { FAMILY_EXECUTOR, completedPhases, parseIsoDate, setOwnTaskStatus, THEME_IDS, type JourneyTask, type OwnTask, type PhaseId } from "@gotousa/shared";
 import { Link } from "@/i18n/navigation";
 import type { JourneyContent } from "@/lib/journey/content";
 import type { JourneyUpdate } from "./journey-gate";
@@ -55,11 +55,14 @@ export function JourneyOverview(props: Props) {
   const { personName } = useJourneyText(content, state.data);
   const { journey } = state;
 
-  // Filtro por pessoa: só as tarefas daquela pessoa (e as próprias marcadas para ela).
-  const tasks = person ? journey.tasks.filter((x) => x.personId === person) : journey.tasks;
+  // Filtro por pessoa: as tarefas para ela, as que ela executa e as da família toda (e as próprias marcadas para ela).
+  const tasks = person
+    ? journey.tasks.filter((x) => x.personId === person || x.executor === person || x.executor === FAMILY_EXECUTOR)
+    : journey.tasks;
   const own = person ? state.progress.ownTasks.filter((o) => o.people.includes(person)) : state.progress.ownTasks;
   const peopleWithTasks = state.data.people.filter(
-    (p) => journey.tasks.some((x) => x.personId === p.id) || state.progress.ownTasks.some((o) => o.people.includes(p.id)),
+    (p) =>
+      journey.tasks.some((x) => x.personId === p.id || x.executor === p.id) || state.progress.ownTasks.some((o) => o.people.includes(p.id)),
   );
 
   return (
@@ -349,7 +352,8 @@ function OwnTaskCard({ content, state, task, update, onEdit }: { content: Journe
 
 function TaskCard({ content, state, task, onOpen }: { content: JourneyContent; state: Ready; task: JourneyTask; onOpen: () => void }) {
   const t = useTranslations("Journey");
-  const { taskTitle, dueText } = useJourneyText(content, state.data);
+  const { taskTitle, dueText, executorName } = useJourneyText(content, state.data);
+  const showExecutor = state.data.people.length > 1;
   const waiting = task.state === "waiting" && !finished(task);
   const icon = task.status === "done" ? "✓" : task.status === "na" ? "–" : task.status === "doing" ? "◐" : waiting ? "⏳" : "○";
   const statusText = waiting ? t("status.waiting") : t(`status.${task.status}`);
@@ -374,6 +378,7 @@ function TaskCard({ content, state, task, onOpen }: { content: JourneyContent; s
         <span className="sr-only">{statusText}</span>
         <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink2">
           {due && <span>{due}</span>}
+          {showExecutor && <span>👤 {t("executorShort", { name: executorName(task.executor) })}</span>}
           {task.priority && !finished(task) && (
             <span className="rounded-full bg-celebrate-soft px-2 py-0.5 font-bold text-ink">★ {t("badge.priority")}</span>
           )}
